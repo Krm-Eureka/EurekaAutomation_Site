@@ -1,139 +1,113 @@
 "use client";
 
-import Link from "next/link";
+import { Link, usePathname } from '@/i18n/routing';
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useTranslations } from 'next-intl';
 
 type HeaderProps = {
   lang: string;
-  dict: {
-    nav: {
-      home: string;
-      about: string;
-      services: string;
-      products: string;
-      solutions: string;
-      blog: string;
-      contact: string;
-      careers: string;
-    };
-  };
 };
 
-export function Header({ lang, dict }: HeaderProps) {
+export function Header({ lang }: HeaderProps) {
+  const Translation = useTranslations('nav');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navigation = [
-    { name: dict.nav.home, href: `/${lang}` },
-    { name: dict.nav.about, href: `/${lang}/about` },
-    { name: dict.nav.services, href: `/${lang}/services` },
-    { name: dict.nav.products, href: `/${lang}/products` },
-    { name: dict.nav.solutions, href: `/${lang}/solutions` },
-    { name: dict.nav.blog, href: `/${lang}/blog` },
-    { name: dict.nav.contact, href: `/${lang}/contact` },
+    { name: Translation('about'), href: '/#about' },
+    { name: Translation('products'), href: '/#products' },
+    { name: Translation('services'), href: '/#services' },
+    { name: Translation('careers'), href: '/careers' },
   ];
 
+  // Dynamic Styles
+  const headerBg = scrolled ? 'bg-white/90 backdrop-blur-md border-b border-zinc-100 py-2 shadow-sm' : 'bg-transparent py-4';
+  const textColor = scrolled ? 'text-zinc-600 hover:text-zinc-900' : 'text-white/80 hover:text-white';
+  const logoFilter = scrolled ? '' : 'brightness-0 invert opacity-90'; // Make logo white when transparent
+  const buttonStyle = scrolled ? 'bg-zinc-900 text-white hover:bg-zinc-800' : 'bg-white text-zinc-900 hover:bg-zinc-100';
+
   return (
-    <header className="bg-slate-900 text-white sticky top-0 z-50 border-b border-slate-800 shadow-lg">
-      <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="Top">
-        <div className="flex h-16 items-center justify-between">
-          <div className="flex items-center">
-            <Link href={`/${lang}`} className="flex items-center group">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
-                whileHover={{ scale: 1.05 }}
-                className="relative h-10 w-48"
-              >
-                <Image
-                  src="/eureka-logo.png"
-                  alt="Eureka Automation"
-                  fill
-                  className="object-contain"
-                  unoptimized
-                  priority
-                />
-              </motion.div>
-            </Link>
+    <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${headerBg}`}>
+      <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+        {/* Logo */}
+        <Link href="/#" className="flex items-center group">
+          <div className={`relative h-15 w-50 transition-all duration-300 ${logoFilter}`}>
+            <Image src="/eureka-logo.png" alt="Logo" fill className="object-contain object-left" />
           </div>
+        </Link>
 
-          {/* Desktop navigation */}
-          <div className="hidden md:flex md:gap-x-8">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="text-sm font-medium hover:text-emerald-400 transition-colors"
-              >
-                {item.name}
-              </Link>
-            ))}
-          </div>
-
-          {/* Language switcher */}
-          <div className="hidden md:flex items-center gap-2">
+        {/* Desktop Nav */}
+        <div className="hidden md:flex items-center gap-8">
+          {navigation.map((item) => (
             <Link
-              href={`/en`}
-              className={`px-3 py-1 rounded transition-all ${
-                lang === "en" ? "bg-emerald-600 hover:bg-emerald-700" : "bg-slate-700 hover:bg-slate-600"
-              }`}
+              key={item.name}
+              href={item.href}
+              className={`text-sm font-medium transition-colors ${textColor}`}
             >
-              EN
+              {item.name}
             </Link>
-            <Link
-              href={`/th`}
-              className={`px-3 py-1 rounded transition-all ${
-                lang === "th" ? "bg-emerald-600 hover:bg-emerald-700" : "bg-slate-700 hover:bg-slate-600"
-              }`}
-            >
-              TH
-            </Link>
-          </div>
+          ))}
 
-          {/* Mobile menu button */}
-          <div className="md:hidden">
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 hover:bg-slate-800 rounded-lg transition-colors"
-            >
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+          <Link
+            href="/#contact"
+            className={`px-5 py-2.5 text-sm font-medium rounded-full transition-colors ${buttonStyle}`}
+          >
+            {Translation('contact')}
+          </Link>
+
+          {/* Language Switcher */}
+          <div className={`flex gap-2 text-xs font-semibold ml-4 border-l pl-4 ${scrolled ? 'border-zinc-200' : 'border-white/20'}`}>
+            <Link href={pathname} locale="en" scroll={false} className={`${lang === 'en' ? (scrolled ? 'text-zinc-900' : 'text-white') : (scrolled ? 'text-zinc-400 hover:text-zinc-600' : 'text-white/50 hover:text-white')}`}>EN</Link>
+            <Link href={pathname} locale="th" scroll={false} className={`${lang === 'th' ? (scrolled ? 'text-zinc-900' : 'text-white') : (scrolled ? 'text-zinc-400 hover:text-zinc-600' : 'text-white/50 hover:text-white')}`}>TH</Link>
           </div>
         </div>
 
-        {/* Mobile menu */}
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="md:hidden py-4 space-y-2"
-          >
+        {/* Mobile Menu Btn */}
+        <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className={`md:hidden p-2 ${scrolled ? 'text-zinc-900' : 'text-white'}`}>
+          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </nav>
+
+      {/* Mobile Menu Dropdown */}
+      {mobileMenuOpen && (
+        <motion.div
+          className="absolute top-full left-0 right-0 bg-white border-b border-zinc-100 shadow-xl overflow-hidden"
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: 'auto' }}
+        >
+          <div className="flex flex-col p-4 gap-4">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="block px-3 py-2 rounded-md hover:bg-slate-800 transition-colors"
+                className="block px-4 py-2 text-base font-medium text-zinc-900 hover:bg-zinc-50 rounded-lg"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {item.name}
               </Link>
             ))}
-            <div className="flex gap-2 px-3 pt-2">
-              <Link href={`/en`} className="px-3 py-1 rounded bg-slate-700 hover:bg-slate-600 transition-colors">
-                EN
-              </Link>
-              <Link href={`/th`} className="px-3 py-1 rounded bg-slate-700 hover:bg-slate-600 transition-colors">
-                TH
-              </Link>
-            </div>
-          </motion.div>
-        )}
-      </nav>
+            <Link
+              href="/#contact"
+              className="block px-4 py-2 text-base font-medium text-white bg-zinc-900 rounded-lg text-center"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              {Translation('contact')}
+            </Link>
+          </div>
+        </motion.div>
+      )}
     </header>
   );
 }

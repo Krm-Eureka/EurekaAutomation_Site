@@ -4,9 +4,9 @@ import { Factory, Sparkles } from "lucide-react";
 export default async function ProductsPage({
   params,
 }: {
-  params: Promise<{ lang: "en" | "th" }>;
+  params: Promise<{ locale: "en" | "th" }>;
 }) {
-  const { lang } = await params;
+  const { locale: lang } = await params;
 
   const categories = [
     {
@@ -34,7 +34,7 @@ export default async function ProductsPage({
   return (
     <>
       {/* Hero */}
-      <section className="bg-gradient-to-br from-slate-900 to-slate-800 text-white py-20">
+      <section className="bg-gradient-to-br from-slate-900 to-slate-800 text-white py-25">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h1 className="text-5xl font-bold mb-6">
             {lang === "en" ? "Our Products" : "ผลิตภัณฑ์ของเรา"}

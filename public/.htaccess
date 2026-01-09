@@ -1,0 +1,38 @@
+RewriteEngine On
+
+# Enable following symbolic links
+Options +FollowSymLinks
+
+# Custom Error Pages
+ErrorDocument 404 /404.html
+
+# --- Language Redirect (Root Only) ---
+# If language is Thai, redirect to /th/
+RewriteCond %{REQUEST_URI} ^/$
+RewriteCond %{HTTP:Accept-Language} ^th [NC]
+RewriteRule ^$ /th/ [L,R=302]
+
+# If language is Chinese, redirect to /cn/
+RewriteCond %{REQUEST_URI} ^/$
+RewriteCond %{HTTP:Accept-Language} ^(zh|cn) [NC]
+RewriteRule ^$ /cn/ [L,R=302]
+
+# If language is Japanese, redirect to /jp/
+RewriteCond %{REQUEST_URI} ^/$
+RewriteCond %{HTTP:Accept-Language} ^ja [NC]
+RewriteRule ^$ /jp/ [L,R=302]
+
+# If language is Spanish, redirect to /es/
+RewriteCond %{REQUEST_URI} ^/$
+RewriteCond %{HTTP:Accept-Language} ^es [NC]
+RewriteRule ^$ /es/ [L,R=302]
+
+# Default fallback to /en/
+RewriteCond %{REQUEST_URI} ^/$
+RewriteRule ^$ /en/ [L,R=302]
+
+# --- End Language Redirect ---
+
+# Optional: Force HTTPS
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]

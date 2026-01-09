@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 
 type HeroSectionProps = {
@@ -9,97 +9,73 @@ type HeroSectionProps = {
   title: string;
   subtitle: string;
   cta: string;
+  contactText: string;
 };
 
-export function HeroSection({ lang, title, subtitle, cta }: HeroSectionProps) {
+export function HeroSection({ lang, title, subtitle, cta, contactText }: HeroSectionProps) {
+  const formatTitle = (text: string) => {
+    if (text === "Eureka Automation 4.0") {
+      return (
+        <>
+          Eureka <span className="text-red-500">A</span>utomat<span className="text-red-500">i</span>on 4.0
+        </>
+      );
+    }
+    return text;
+  };
+
   return (
-    <section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-900 text-white py-32 overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0" style={{
-          backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.4\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
-        }} />
+    <section className="relative bg-zinc-950 text-white pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+      {/* Background Gradients/Effects */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-blue-900/20 blur-[100px]" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-indigo-900/20 blur-[100px]" />
       </div>
 
-      {/* Floating AI Icon */}
-      <motion.div
-        className="absolute top-20 right-20 opacity-20"
-        animate={{
-          y: [0, -20, 0],
-          rotate: [0, 5, 0],
-        }}
-        transition={{
-          duration: 5,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      >
-        <Sparkles size={120} className="text-emerald-400" />
-      </motion.div>
-
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center z-10">
         <motion.div
-          className="text-center"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
         >
           <motion.h1
-            className="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-emerald-300"
+            className="font-sans text-5xl md:text-8xl font-black mb-8 tracking-tight text-white leading-[1.1]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ delay: 0.2, duration: 0.8 }}
           >
-            {title}
+            {formatTitle(title)}
           </motion.h1>
+
           <motion.p
-            className="text-xl md:text-2xl text-slate-300 mb-8 max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            className="text-xl md:text-2xl text-zinc-400 mb-12 max-w-2xl mx-auto leading-relaxed font-medium"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4, duration: 0.8 }}
           >
             {subtitle}
           </motion.p>
+
           <motion.div
+            className="flex flex-col sm:flex-row items-center justify-center gap-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            transition={{ delay: 0.6, duration: 0.8 }}
           >
             <Link
-              href={`/${lang}/contact`}
-              className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all hover:scale-105 shadow-lg hover:shadow-emerald-500/50"
+              href={`/#solutions`}
+              className="px-10 py-4 bg-white text-zinc-950 rounded-full font-bold hover:bg-zinc-200 transition-all flex items-center gap-3 shadow-xl shadow-white/5 active:scale-95"
             >
-              {cta}
-              <ArrowRight size={20} />
+              {cta} <ArrowRight size={20} />
+            </Link>
+
+            <Link
+              href={`/#contact`}
+              className="px-10 py-4 bg-transparent text-white border border-white/20 rounded-full font-bold hover:bg-white/10 hover:border-white/40 transition-all active:scale-95"
+            >
+              {contactText}
             </Link>
           </motion.div>
-        </motion.div>
-
-        {/* Stats */}
-        <motion.div
-          className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 text-center"
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-        >
-          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-emerald-500/20">
-            <div className="text-4xl font-bold text-emerald-400">10+</div>
-            <div className="text-slate-300 mt-2">
-              {lang === "en" ? "Years Experience" : "ปีประสบการณ์"}
-            </div>
-          </div>
-          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-emerald-500/20">
-            <div className="text-4xl font-bold text-emerald-400">100+</div>
-            <div className="text-slate-300 mt-2">
-              {lang === "en" ? "Projects Completed" : "โครงการสำเร็จ"}
-            </div>
-          </div>
-          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-emerald-500/20">
-            <div className="text-4xl font-bold text-emerald-400">50+</div>
-            <div className="text-slate-300 mt-2">
-              {lang === "en" ? "Happy Clients" : "ลูกค้าพึงพอใจ"}
-            </div>
-          </div>
         </motion.div>
       </div>
     </section>

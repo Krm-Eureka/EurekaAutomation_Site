@@ -1,9 +1,9 @@
 export default async function BlogPage({
   params,
 }: {
-  params: Promise<{ lang: "en" | "th" }>;
+  params: Promise<{ locale: "en" | "th" }>;
 }) {
-  const { lang } = await params;
+  const { locale: lang } = await params;
 
   // In a real implementation, this would fetch from a CMS or markdown files
   const posts = [
@@ -35,7 +35,7 @@ export default async function BlogPage({
   return (
     <>
       {/* Hero */}
-      <section className="bg-gradient-to-br from-slate-900 to-slate-800 text-white py-20">
+      <section className="bg-gradient-to-br from-slate-900 to-slate-800 text-white py-25">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h1 className="text-5xl font-bold mb-6">
             {lang === "en" ? "Blog & Insights" : "บทความและข้อมูลเชิงลึก"}

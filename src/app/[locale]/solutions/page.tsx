@@ -4,9 +4,9 @@ import { Truck, Database, Network } from "lucide-react";
 export default async function SolutionsPage({
   params,
 }: {
-  params: Promise<{ lang: "en" | "th" }>;
+  params: Promise<{ locale: "en" | "th" }>;
 }) {
-  const { lang } = await params;
+  const { locale: lang } = await params;
 
   const solutions = [
     {
@@ -56,7 +56,7 @@ export default async function SolutionsPage({
   return (
     <>
       {/* Hero */}
-      <section className="bg-gradient-to-br from-slate-900 to-slate-800 text-white py-20">
+      <section className="bg-gradient-to-br from-slate-900 to-slate-800 text-white py-25">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h1 className="text-5xl font-bold mb-6">
             {lang === "en" ? "Logistics Automation Solutions" : "โซลูชันระบบอัตโนมัติด้านโลจิสติกส์"}
@@ -79,9 +79,8 @@ export default async function SolutionsPage({
               return (
                 <div
                   key={solution.slug}
-                  className={`grid md:grid-cols-2 gap-12 items-center ${
-                    !isEven ? "md:grid-flow-dense" : ""
-                  }`}
+                  className={`grid md:grid-cols-2 gap-12 items-center ${!isEven ? "md:grid-flow-dense" : ""
+                    }`}
                 >
                   <div className={!isEven ? "md:col-start-2" : ""}>
                     <div className="inline-block p-4 bg-emerald-100 rounded-lg mb-4">

@@ -2,12 +2,16 @@
 
 import { useState } from "react";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { use } from "react";
 
 export default function ContactPage({
   params,
 }: {
-  params: Promise<{ lang: "en" | "th" }>;
+  params: Promise<{ locale: string }>;
 }) {
+  const { locale } = use(params);
+  const lang = locale as "en" | "th";
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -25,7 +29,7 @@ export default function ContactPage({
   return (
     <>
       {/* Hero */}
-      <section className="bg-gradient-to-br from-slate-900 to-slate-800 text-white py-20">
+      <section className="bg-gradient-to-br from-slate-900 to-slate-800 text-white py-25">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h1 className="text-5xl font-bold mb-6">Contact Us</h1>
           <p className="text-xl text-slate-300 max-w-3xl">

@@ -1,0 +1,174 @@
+{
+    "nav": {
+        "home": "Home",
+        "about": "About Us",
+        "services": "Services",
+        "products": "Products",
+        "solutions": "Solutions",
+        "blog": "Blog",
+        "contact": "Contact",
+        "careers": "Careers"
+    },
+    "hero": {
+        "title": "Eureka Automation 4.0",
+        "subtitle": "Elevate production lines with precision and international standard ISO 9001:2015",
+        "cta": "Explore Solutions",
+        "contact": "Contact Us",
+        "certified": "ISO 9001:2015 Certified"
+    },
+    "footer": {
+        "rights": "All rights reserved.",
+        "description": "AI-Powered Industrial Automation Solutions",
+        "quick_links": "Quick Links",
+        "services": "Services",
+        "contact": "Contact",
+        "service_list": {
+            "cnc": "CNC Machining",
+            "plc": "PLC Programming",
+            "custom": "Custom Machines",
+            "amr": "AMR/AGV Systems"
+        }
+    },
+    "about": {
+        "tag": "Our Story",
+        "title": "Engineering Precision Since 2010",
+        "description": "Eureka Automation specializes in designing and building custom industrial machines for Automotive, Electronics, and other manufacturing industries.",
+        "values": {
+            "innovation": {
+                "title": "Innovation",
+                "desc": "Advanced solutions"
+            },
+            "quality": {
+                "title": "Quality",
+                "desc": "Excellence in projects"
+            },
+            "partnership": {
+                "title": "Partnership",
+                "desc": "Long-term relations"
+            }
+        },
+        "placeholder": "Manufacturing Excellence"
+    },
+    "home": {
+        "capabilities": "Our Capabilities",
+        "capabilities_tag": "Capabilities",
+        "transform_desc": "Transform your manufacturing process with our state-of-the-art solutions.",
+        "learn_more": "Learn more",
+        "trusted_by": "Trusted by Global Leaders",
+        "services": {
+            "ai_ml": {
+                "title": "AI & Machine Learning",
+                "desc": "Predictive maintenance and QC systems powered by neural networks."
+            },
+            "automation": {
+                "title": "Automation",
+                "desc": "End-to-end automated production lines."
+            },
+            "custom_machines": {
+                "title": "Custom Machines",
+                "desc": "Tailored mechanics for specific needs."
+            },
+            "smart_logistics": {
+                "title": "Smart Logistics",
+                "desc": "AMR/AGV & WMS integration."
+            },
+            "plc": {
+                "title": "PLC Programming",
+                "desc": "Advanced control logic."
+            },
+            "cnc": {
+                "title": "CNC Precision",
+                "desc": "High-tolerance parts."
+            }
+        },
+        "industries": {
+            "automotive": "Automotive",
+            "electronics": "Electronics",
+            "fb": "F&B",
+            "pharma": "Pharma"
+        }
+    },
+    "products": {
+        "tag": "Our Solutions",
+        "title": "Crafting the Future of Machines",
+        "view_catalogue": "View Catalogue",
+        "custom": {
+            "tag": "Custom Built",
+            "title": "Custom Industrial Machines"
+        },
+        "standard": {
+            "tag": "Standardized",
+            "title": "Standard Automation Units"
+        }
+    },
+    "contact": {
+        "tag": "Get in Touch",
+        "title": "Let's Build Something Great",
+        "description": "Ready to optimize your production? Our expert team is here to help you design and implement the perfect automation solution.",
+        "call_us": "Call Us",
+        "email_us": "Email Us",
+        "visit_us": "Visit Us",
+        "form": {
+            "name": "Name",
+            "email": "Email",
+            "subject": "Subject",
+            "message": "Message",
+            "submit": "Send Message",
+            "options": {
+                "custom": "Custom Automation",
+                "cnc": "CNC Machining",
+                "wms": "WMS & Logistics",
+                "general": "General Inquiry"
+            }
+        }
+    },
+    "careers": {
+        "title": "Join Our Team",
+        "subtitle": "Build the future of automation with us. We are looking for talented individuals to join our growing family.",
+        "benefits": "Why Join Us?",
+        "benefits_list": [
+            "Competitive Salary & Bonuses",
+            "Health & Dental Insurance",
+            "Continuous Training & Development",
+            "Dynamic & Innovation-driven Environment"
+        ],
+        "open_positions": "Open Positions",
+        "apply_now": "Apply Now",
+        "apply_today": "Apply Today",
+        "apply_desc": "Submit your details and we'll get back to you soon.",
+        "positions": [
+            {
+                "id": "plc-eng",
+                "title": "PLC Programmer",
+                "dept": "Engineering",
+                "location": "Bangkok / Samut Prakan",
+                "type": "Full-time",
+                "desc": "Design, program, and commission PLC systems for industrial automation projects."
+            },
+            {
+                "id": "mech-des",
+                "title": "Mechanical Design Engineer",
+                "dept": "R&D",
+                "location": "Bangkok",
+                "type": "Full-time",
+                "desc": "Create detailed 3D designs and engineering drawings for custom-built industrial machines."
+            },
+            {
+                "id": "full-stack",
+                "title": "Full-Stack Developer",
+                "dept": "Software",
+                "location": "Remote / Bangkok",
+                "type": "Full-time",
+                "desc": "Develop internal tools and client-facing dashboards for IIoT and smart factory solutions."
+            }
+        ],
+        "form": {
+            "name": "Full Name",
+            "email": "Email",
+            "position": "Position",
+            "resume": "Resume URL (Google Drive/Dropbox)",
+            "message": "Message",
+            "submit": "Send Application"
+        }
+    }
+}

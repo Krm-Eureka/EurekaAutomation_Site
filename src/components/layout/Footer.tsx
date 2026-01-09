@@ -1,26 +1,24 @@
-import Link from "next/link";
+import { Link } from '@/i18n/routing';
 import Image from "next/image";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Facebook, Linkedin, Github } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 type FooterProps = {
   lang: string;
-  dict: {
-    footer: {
-      rights: string;
-    };
-  };
 };
 
-export function Footer({ lang, dict }: FooterProps) {
+export function Footer({ lang }: FooterProps) {
   const currentYear = new Date().getFullYear();
+  const t = useTranslations('footer');
+  const tNav = useTranslations('nav');
 
   return (
-    <footer className="bg-slate-900 text-white mt-auto">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer className="bg-zinc-950 text-zinc-400 border-t border-zinc-900">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Company Info */}
-          <div>
-            <div className="relative h-12 w-48 mb-4">
+          <div className="space-y-6">
+            <div className={`relative h-12 w-48 brightness-0 invert opacity-90`}>
               <Image
                 src="/eureka-logo.png"
                 alt="Eureka Automation"
@@ -29,37 +27,43 @@ export function Footer({ lang, dict }: FooterProps) {
                 unoptimized
               />
             </div>
-            <p className="text-sm text-slate-400">
-              {lang === "en"
-                ? "AI-Powered Industrial Automation Solutions"
-                : "โซลูชันระบบอัตโนมัติอุตสาหกรรมด้วย AI"}
+            <p className="text-sm leading-relaxed max-w-xs">
+              {t('description')}
             </p>
+            <div className="flex gap-4">
+              <a href="#" className="p-2 bg-zinc-900 rounded-full hover:text-white transition-colors">
+                <Linkedin size={18} />
+              </a>
+              <a href="#" className="p-2 bg-zinc-900 rounded-full hover:text-white transition-colors">
+                <Facebook size={18} />
+              </a>
+            </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-semibold mb-4">
-              {lang === "en" ? "Quick Links" : "ลิงก์ด่วน"}
+            <h4 className="font-semibold text-white mb-6 uppercase tracking-wider text-xs">
+              {t('quick_links')}
             </h4>
-            <ul className="space-y-2 text-sm text-slate-400">
+            <ul className="space-y-4 text-sm">
               <li>
-                <Link href={`/${lang}/about`} className="hover:text-emerald-400">
-                  {lang === "en" ? "About Us" : "เกี่ยวกับเรา"}
+                <Link href="/#about" className="hover:text-white transition-colors">
+                  {tNav('about')}
                 </Link>
               </li>
               <li>
-                <Link href={`/${lang}/services`} className="hover:text-emerald-400">
-                  {lang === "en" ? "Services" : "บริการ"}
+                <Link href="/#services" className="hover:text-white transition-colors">
+                  {tNav('services')}
                 </Link>
               </li>
               <li>
-                <Link href={`/${lang}/products`} className="hover:text-emerald-400">
-                  {lang === "en" ? "Products" : "สินค้า"}
+                <Link href="/#products" className="hover:text-white transition-colors">
+                  {tNav('products')}
                 </Link>
               </li>
               <li>
-                <Link href={`/${lang}/contact`} className="hover:text-emerald-400">
-                  {lang === "en" ? "Contact" : "ติดต่อเรา"}
+                <Link href="/#contact" className="hover:text-white transition-colors">
+                  {tNav('contact')}
                 </Link>
               </li>
             </ul>
@@ -67,42 +71,51 @@ export function Footer({ lang, dict }: FooterProps) {
 
           {/* Services */}
           <div>
-            <h4 className="font-semibold mb-4">
-              {lang === "en" ? "Services" : "บริการ"}
+            <h4 className="font-semibold text-white mb-6 uppercase tracking-wider text-xs">
+              {t('services')}
             </h4>
-            <ul className="space-y-2 text-sm text-slate-400">
-              <li>{lang === "en" ? "CNC Machining" : "งาน CNC"}</li>
-              <li>{lang === "en" ? "PLC Programming" : "โปรแกรม PLC"}</li>
-              <li>{lang === "en" ? "Custom Machines" : "เครื่องจักรตามสั่ง"}</li>
-              <li>{lang === "en" ? "AMR/AGV Systems" : "ระบบ AMR/AGV"}</li>
+            <ul className="space-y-4 text-sm">
+              <li className="hover:text-white cursor-pointer transition-colors">{t('service_list.cnc')}</li>
+              <li className="hover:text-white cursor-pointer transition-colors">{t('service_list.plc')}</li>
+              <li className="hover:text-white cursor-pointer transition-colors">{t('service_list.custom')}</li>
+              <li className="hover:text-white cursor-pointer transition-colors">{t('service_list.amr')}</li>
             </ul>
           </div>
 
           {/* Contact */}
           <div>
-            <h4 className="font-semibold mb-4">
-              {lang === "en" ? "Contact" : "ติดต่อ"}
+            <h4 className="font-semibold text-white mb-6 uppercase tracking-wider text-xs">
+              {t('contact')}
             </h4>
-            <ul className="space-y-2 text-sm text-slate-400">
-              <li className="flex items-center gap-2">
-                <Phone size={16} />
+            <ul className="space-y-4 text-sm">
+              <li className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-zinc-900 rounded-lg flex items-center justify-center shrink-0">
+                  <Phone size={14} className="text-zinc-300" />
+                </div>
                 <span>+66 XX XXX XXXX</span>
               </li>
-              <li className="flex items-center gap-2">
-                <Mail size={16} />
+              <li className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-zinc-900 rounded-lg flex items-center justify-center shrink-0">
+                  <Mail size={14} className="text-zinc-300" />
+                </div>
                 <span>info@eureka-automation.com</span>
               </li>
-              <li className="flex items-start gap-2">
-                <MapPin size={16} className="mt-1" />
-                <span>Bangkok, Thailand</span>
+              <li className="flex items-start gap-3">
+                <div className="w-8 h-8 bg-zinc-900 rounded-lg flex items-center justify-center shrink-0 mt-1">
+                  <MapPin size={14} className="text-zinc-300" />
+                </div>
+                <span>Bangkok, <br />Thailand</span>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-slate-800 text-center text-sm text-slate-400">
+        <div className="mt-16 pt-8 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium uppercase tracking-widest">
           <p>
-            © {currentYear} Eureka Automation. {dict.footer.rights}
+            © {currentYear} Eureka Automation.
+          </p>
+          <p className="text-zinc-500">
+            {t('rights')}
           </p>
         </div>
       </div>
