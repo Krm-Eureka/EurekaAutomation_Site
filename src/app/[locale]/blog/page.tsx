@@ -1,90 +1,89 @@
+import { setRequestLocale, getTranslations } from "next-intl/server";
+import { Newspaper, ChevronRight } from "lucide-react";
+import Link from "next/link";
+
 export default async function BlogPage({
   params,
 }: {
-  params: Promise<{ locale: "en" | "th" }>;
+  params: Promise<{ locale: string }>;
 }) {
-  const { locale: lang } = await params;
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations('blog');
 
   // In a real implementation, this would fetch from a CMS or markdown files
   const posts = [
     {
       slug: "what-is-industry-4-0",
-      title: lang === "en" ? "What is Industry 4.0?" : "Industry 4.0 คืออะไร?",
+      title: locale === "en" ? "What is Industry 4.0?" : "Industry 4.0 คืออะไร?",
       excerpt:
-        lang === "en"
+        locale === "en"
           ? "Understanding the fourth industrial revolution and its impact on manufacturing"
           : "ทำความเข้าใจการปฏิวัติอุตสาหกรรมครั้งที่สี่และผลกระทบต่อการผลิต",
       date: "2025-01-15",
       category: "Technology",
     },
-    {
-      slug: "benefits-custom-vs-standard-machines",
-      title:
-        lang === "en"
-          ? "Benefits of Custom vs Standard Machines"
-          : "ข้อดีของเครื่องจักรแบบกำหนดเองเทียบกับมาตรฐาน",
-      excerpt:
-        lang === "en"
-          ? "When to choose custom machines over standard solutions"
-          : "เมื่อไหร่ควรเลือกเครื่องจักรแบบกำหนดเองแทนโซลูชันมาตรฐาน",
-      date: "2025-01-10",
-      category: "Insights",
-    },
   ];
 
   return (
-    <>
+    <div className="bg-white">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-slate-900 to-slate-800 text-white py-25">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h1 className="text-5xl font-bold mb-6">
-            {lang === "en" ? "Blog & Insights" : "บทความและข้อมูลเชิงลึก"}
+      <section className="bg-zinc-950 pt-48 pb-24 text-white overflow-hidden relative">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-1/4 left-0 w-96 h-96 bg-red-500/10 rounded-full blur-3xl"></div>
+        </div>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-xs font-bold uppercase tracking-widest text-zinc-400 mb-8">
+            <Newspaper size={14} className="text-zinc-400" /> BLOG
+          </div>
+          <h1 className="text-5xl md:text-7xl font-black mb-8 tracking-tight">
+            {locale === 'en' ? 'Blog & Insights' : 'บทความและข้อมูลเชิงลึก'}
           </h1>
-          <p className="text-xl text-slate-300 max-w-3xl">
-            {lang === "en"
-              ? "Latest news and insights from the world of industrial automation"
-              : "ข่าวสารและข้อมูลเชิงลึกจากโลกของระบบอัตโนมัติอุตสาหกรรม"}
+          <p className="text-xl md:text-2xl text-zinc-400 max-w-3xl leading-relaxed">
+            {locale === 'en'
+              ? 'Stay updated with the latest trends in industrial automation'
+              : 'เกาะติดเทรนด์ล่าสุดในระบบอัตโนมัติอุตสาหกรรม'}
           </p>
         </div>
       </section>
 
       {/* Blog Posts */}
-      <section className="py-20 bg-white">
+      <section className="py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {posts.map((post) => (
               <article
                 key={post.slug}
-                className="bg-white rounded-lg border border-slate-200 hover:shadow-xl transition-shadow overflow-hidden"
+                className="group bg-white rounded-3xl border border-zinc-100 overflow-hidden hover:shadow-2xl transition-all"
               >
-                <div className="bg-slate-100 h-48 flex items-center justify-center">
-                  <p className="text-slate-400">
-                    {lang === "en" ? "[Post Image]" : "[รูปบทความ]"}
-                  </p>
+                <div className="bg-zinc-100 aspect-video flex items-center justify-center group-hover:bg-zinc-200 transition-colors">
+                  <p className="text-zinc-400 font-bold italic tracking-tighter opacity-20 text-4xl select-none">EUREKA</p>
                 </div>
-                <div className="p-6">
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="text-sm text-emerald-600 font-semibold">
+                <div className="p-8">
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="px-3 py-1 bg-zinc-100 rounded-full text-[10px] font-bold uppercase tracking-wider text-zinc-500">
                       {post.category}
                     </span>
-                    <span className="text-sm text-slate-400">{post.date}</span>
+                    <span className="text-xs text-zinc-400 font-medium">{post.date}</span>
                   </div>
-                  <h2 className="text-xl font-bold text-slate-900 mb-3">
+                  <h2 className="text-2xl font-bold text-zinc-900 mb-4 group-hover:text-emerald-600 transition-colors">
                     {post.title}
                   </h2>
-                  <p className="text-slate-600 mb-4">{post.excerpt}</p>
-                  <a
-                    href={`/${lang}/blog/${post.slug}`}
-                    className="text-emerald-600 font-semibold hover:underline"
+                  <p className="text-zinc-500 leading-relaxed mb-8 line-clamp-2">
+                    {post.excerpt}
+                  </p>
+                  <Link
+                    href={`/${locale}/blog/${post.slug}`}
+                    className="flex items-center gap-2 font-bold text-zinc-900 group-hover:gap-3 transition-all"
                   >
-                    {lang === "en" ? "Read more →" : "อ่านเพิ่มเติม →"}
-                  </a>
+                    Read more <ChevronRight size={18} />
+                  </Link>
                 </div>
               </article>
             ))}
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

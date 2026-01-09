@@ -1,136 +1,74 @@
 import Link from "next/link";
-import { Wrench, Zap, Settings, Code, Radio, Package } from "lucide-react";
+import { Wrench, Zap, Settings, Code, Radio, Package, ArrowRight, Sparkles } from "lucide-react";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 
 export default async function ServicesPage({
   params,
 }: {
-  params: Promise<{ locale: "en" | "th" }>;
+  params: Promise<{ locale: string }>;
 }) {
-  const { locale: lang } = await params;
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations('home');
+  const tNav = await getTranslations('nav');
+  const tServices = await getTranslations('home.services');
 
-  const services = [
-    {
-      icon: Wrench,
-      slug: "mechanical-design",
-      title: lang === "en" ? "Mechanical Design" : "ออกแบบเครื่องกล",
-      description:
-        lang === "en"
-          ? "Custom machine design tailored to your production requirements"
-          : "ออกแบบเครื่องจักรตามความต้องการการผลิตของคุณ",
-    },
-    {
-      icon: Zap,
-      slug: "electrical-design",
-      title: lang === "en" ? "Electrical Design" : "ออกแบบระบบไฟฟ้า",
-      description:
-        lang === "en"
-          ? "Complete electrical system design and integration"
-          : "ออกแบบและบูรณาการระบบไฟฟ้าครบวงจร",
-    },
-    {
-      icon: Settings,
-      slug: "cnc-machining",
-      title: lang === "en" ? "CNC Machining" : "งาน CNC",
-      description:
-        lang === "en"
-          ? "Precision CNC machining for custom parts"
-          : "งาน CNC ความเที่ยงตรงสูงสำหรับชิ้นส่วนพิเศษ",
-    },
-    {
-      icon: Code,
-      slug: "plc-programming",
-      title: lang === "en" ? "PLC Programming" : "โปรแกรม PLC",
-      description:
-        lang === "en"
-          ? "Advanced automation control programming"
-          : "การเขียนโปรแกรมควบคุมอัตโนมัติขั้นสูง",
-    },
-    {
-      icon: Radio,
-      slug: "traceability-systems",
-      title: lang === "en" ? "Traceability Systems" : "ระบบ Traceability",
-      description:
-        lang === "en"
-          ? "Complete product tracking and quality control systems"
-          : "ระบบติดตามสินค้าและควบคุมคุณภาพครบวงจร",
-    },
-    {
-      icon: Package,
-      slug: "machine-assembly",
-      title: lang === "en" ? "Machine Assembly & Installation" : "ประกอบและติดตั้งเครื่องจักร",
-      description:
-        lang === "en"
-          ? "Professional assembly, installation, and maintenance"
-          : "การประกอบ ติดตั้ง และบำรุงรักษาแบบมืออาชีพ",
-    },
-  ];
+  const serviceKeys = ['ai_ml', 'automation', 'custom_machines', 'smart_logistics', 'plc', 'cnc'] as const;
+  const serviceIcons = {
+    ai_ml: Zap,
+    automation: Settings,
+    custom_machines: Wrench,
+    smart_logistics: Package,
+    plc: Code,
+    cnc: Radio
+  };
 
   return (
-    <>
+    <div className="bg-white">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-slate-900 to-slate-800 text-white py-25">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h1 className="text-5xl font-bold mb-6">
-            {lang === "en" ? "Our Services" : "บริการของเรา"}
+      <section className="bg-zinc-950 pt-48 pb-24 text-white overflow-hidden relative">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-1/4 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"></div>
+        </div>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-xs font-bold uppercase tracking-widest text-zinc-400 mb-8">
+            <Sparkles size={14} className="text-emerald-400" /> {tNav('services')}
+          </div>
+          <h1 className="text-5xl md:text-7xl font-black mb-8 tracking-tight">
+            {t('capabilities')}
           </h1>
-          <p className="text-xl text-slate-300 max-w-3xl">
-            {lang === "en"
-              ? "Comprehensive industrial automation services from design to maintenance"
-              : "บริการระบบอัตโนมัติอุตสาหกรรมครบวงจรตั้งแต่ออกแบบจนถึงบำรุงรักษา"}
+          <p className="text-xl md:text-2xl text-zinc-400 max-w-3xl leading-relaxed">
+            {t('transform_desc')}
           </p>
         </div>
       </section>
 
       {/* Services Grid */}
-      <section className="py-20 bg-white">
+      <section className="py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service) => {
-              const Icon = service.icon;
+            {serviceKeys.map((key) => {
+              const Icon = serviceIcons[key];
               return (
-                <Link
-                  key={service.slug}
-                  href={`/${lang}/services/${service.slug}`}
-                  className="group p-8 bg-white rounded-lg border border-slate-200 hover:border-emerald-300 hover:shadow-xl transition-all"
-                >
-                  <div className="mb-4 p-4 bg-emerald-100 rounded-lg inline-block group-hover:bg-emerald-200 transition-colors">
-                    <Icon className="text-emerald-600" size={40} />
+                <div key={key} className="group p-10 bg-white rounded-3xl border border-zinc-100 hover:border-emerald-500/20 hover:shadow-2xl hover:shadow-emerald-500/5 transition-all">
+                  <div className="mb-8 w-16 h-16 bg-zinc-50 rounded-2xl flex items-center justify-center text-zinc-900 group-hover:bg-emerald-600 group-hover:text-white transition-all">
+                    <Icon size={32} />
                   </div>
-                  <h3 className="text-2xl font-semibold text-slate-900 mb-3">
-                    {service.title}
+                  <h3 className="text-2xl font-bold text-zinc-900 mb-4 tracking-tight">
+                    {tServices(`${key}.title`)}
                   </h3>
-                  <p className="text-slate-600 mb-4">{service.description}</p>
-                  <span className="text-emerald-600 font-semibold group-hover:underline">
-                    {lang === "en" ? "Learn more →" : "เรียนรู้เพิ่มเติม →"}
-                  </span>
-                </Link>
+                  <p className="text-zinc-500 leading-relaxed mb-8">
+                    {tServices(`${key}.desc`)}
+                  </p>
+                  <Link href={`/${locale}/#services`} className="inline-flex items-center font-bold text-zinc-900 hover:text-emerald-600 transition-colors">
+                    {t('learn_more')} <ArrowRight size={20} className="ml-2" />
+                  </Link>
+                </div>
               );
             })}
           </div>
         </div>
       </section>
-
-      {/* CTA */}
-      <section className="py-16 bg-emerald-600 text-white">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            {lang === "en"
-              ? "Need a Custom Solution?"
-              : "ต้องการโซลูชันที่ออกแบบเฉพาะ?"}
-          </h2>
-          <p className="text-xl mb-6 text-emerald-100">
-            {lang === "en"
-              ? "Contact us to discuss your requirements"
-              : "ติดต่อเราเพื่อปรึกษาความต้องการของคุณ"}
-          </p>
-          <Link
-            href={`/${lang}/contact`}
-            className="inline-block bg-white text-emerald-600 px-8 py-3 rounded-lg font-semibold hover:bg-slate-100 transition-colors"
-          >
-            {lang === "en" ? "Contact Us" : "ติดต่อเรา"}
-          </Link>
-        </div>
-      </section>
-    </>
+    </div>
   );
 }

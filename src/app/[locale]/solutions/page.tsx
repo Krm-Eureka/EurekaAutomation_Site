@@ -1,145 +1,88 @@
 import Link from "next/link";
-import { Truck, Database, Network } from "lucide-react";
+import { Truck, Database, Network, ChevronRight, Activity, ArrowRight } from "lucide-react";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 
 export default async function SolutionsPage({
   params,
 }: {
-  params: Promise<{ locale: "en" | "th" }>;
+  params: Promise<{ locale: string }>;
 }) {
-  const { locale: lang } = await params;
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations('solutions');
+  const tNav = await getTranslations('nav');
 
   const solutions = [
     {
       icon: Truck,
       slug: "amr-agv",
-      title: lang === "en" ? "AMR/AGV Systems" : "ระบบ AMR/AGV",
-      description:
-        lang === "en"
-          ? "Automated material transport with Geek+ and custom solutions for point-to-point delivery"
-          : "ระบบขนส่งวัสดุอัตโนมัติด้วย Geek+ และโซลูชันแบบกำหนดเองสำหรับการส่งมอบแบบจุดต่อจุด",
-      features: [
-        lang === "en" ? "Geek+ Integration" : "บูรณาการ Geek+",
-        lang === "en" ? "Custom AGV Solutions" : "โซลูชัน AGV แบบกำหนดเอง",
-        lang === "en" ? "Fleet Management" : "การจัดการ Fleet",
-      ],
+      title: t('amr_agv.title'),
+      description: t('amr_agv.tag'),
+      features: ["Geek+ Integration", "Custom AGV Solutions", "Fleet Management"],
     },
     {
       icon: Database,
       slug: "wms",
-      title: lang === "en" ? "Warehouse Management System (WMS)" : "ระบบจัดการคลังสินค้า (WMS)",
-      description:
-        lang === "en"
-          ? "Customizable WMS integrated with your production processes"
-          : "ระบบ WMS ที่ปรับแต่งได้บูรณาการกับกระบวนการผลิตของคุณ",
-      features: [
-        lang === "en" ? "Inventory Tracking" : "ติดตามสต็อก",
-        lang === "en" ? "Order Management" : "จัดการคำสั่งซื้อ",
-        lang === "en" ? "Real-time Analytics" : "การวิเคราะห์แบบเรียลไทม์",
-      ],
-    },
-    {
-      icon: Network,
-      slug: "production-integration",
-      title: lang === "en" ? "Production Integration" : "บูรณาการการผลิต",
-      description:
-        lang === "en"
-          ? "Seamless integration with MES/ERP systems and production lines"
-          : "บูรณาการที่ราบรื่นกับระบบ MES/ERP และสายการผลิต",
-      features: [
-        lang === "en" ? "MES/ERP Integration" : "บูรณาการ MES/ERP",
-        lang === "en" ? "Production Line Sync" : "ซิงค์สายการผลิต",
-        lang === "en" ? "Data Exchange" : "แลกเปลี่ยนข้อมูล",
-      ],
+      title: t('wms.title'),
+      description: t('wms.tag'),
+      features: ["Inventory Tracking", "Order Management", "Real-time Analytics"],
     },
   ];
 
   return (
-    <>
+    <div className="bg-white">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-slate-900 to-slate-800 text-white py-25">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h1 className="text-5xl font-bold mb-6">
-            {lang === "en" ? "Logistics Automation Solutions" : "โซลูชันระบบอัตโนมัติด้านโลจิสติกส์"}
+      <section className="bg-zinc-950 pt-48 pb-24 text-white overflow-hidden relative">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"></div>
+        </div>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-xs font-bold uppercase tracking-widest text-zinc-400 mb-8">
+            <Activity size={14} className="text-emerald-400" /> {tNav('solutions')}
+          </div>
+          <h1 className="text-5xl md:text-7xl font-black mb-8 tracking-tight">
+            {t('title')}
           </h1>
-          <p className="text-xl text-slate-300 max-w-3xl">
-            {lang === "en"
-              ? "Smart warehouse and material handling solutions for modern manufacturing"
-              : "โซลูชันคลังสินค้าอัจฉริยะและจัดการวัสดุสำหรับการผลิตสมัยใหม่"}
+          <p className="text-xl md:text-2xl text-zinc-400 max-w-3xl leading-relaxed">
+            {t('tag')}
           </p>
         </div>
       </section>
 
-      {/* Solutions */}
-      <section className="py-20 bg-white">
+      {/* Solutions Grid */}
+      <section className="py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="space-y-16">
-            {solutions.map((solution, index) => {
+          <div className="grid lg:grid-cols-2 gap-12">
+            {solutions.map((solution) => {
               const Icon = solution.icon;
-              const isEven = index % 2 === 0;
               return (
-                <div
-                  key={solution.slug}
-                  className={`grid md:grid-cols-2 gap-12 items-center ${!isEven ? "md:grid-flow-dense" : ""
-                    }`}
-                >
-                  <div className={!isEven ? "md:col-start-2" : ""}>
-                    <div className="inline-block p-4 bg-emerald-100 rounded-lg mb-4">
-                      <Icon className="text-emerald-600" size={48} />
-                    </div>
-                    <h2 className="text-3xl font-bold text-slate-900 mb-4">
-                      {solution.title}
-                    </h2>
-                    <p className="text-lg text-slate-600 mb-6">
-                      {solution.description}
-                    </p>
-                    <ul className="space-y-2 mb-6">
-                      {solution.features.map((feature) => (
-                        <li key={feature} className="flex items-center gap-2">
-                          <span className="w-2 h-2 bg-emerald-600 rounded-full"></span>
-                          <span className="text-slate-700">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <Link
-                      href={`/${lang}/solutions/${solution.slug}`}
-                      className="inline-block bg-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-emerald-700 transition-colors"
-                    >
-                      {lang === "en" ? "Learn More" : "เรียนรู้เพิ่มเติม"}
-                    </Link>
+                <div key={solution.slug} className="group p-10 bg-zinc-50 rounded-3xl border border-zinc-100 hover:border-emerald-500/20 hover:bg-white hover:shadow-2xl transition-all">
+                  <div className="mb-8 w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-zinc-900 shadow-sm group-hover:bg-emerald-600 group-hover:text-white transition-all">
+                    <Icon size={32} />
                   </div>
-                  <div className="bg-slate-100 h-96 rounded-lg flex items-center justify-center">
-                    <p className="text-slate-400">
-                      {lang === "en" ? "[Solution Image]" : "[รูปโซลูชัน]"}
-                    </p>
-                  </div>
+                  <h2 className="text-3xl font-bold text-zinc-900 mb-4 tracking-tight">
+                    {solution.title}
+                  </h2>
+                  <p className="text-zinc-600 leading-relaxed mb-8">
+                    {solution.description}
+                  </p>
+                  <ul className="space-y-4 mb-10">
+                    {solution.features.map((feature, i) => (
+                      <li key={i} className="flex items-center gap-3 text-zinc-500 font-medium">
+                        <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></div>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                  <Link href={`/${locale}/#contact`} className="inline-flex items-center gap-2 font-bold text-zinc-900 group-hover:text-emerald-600 transition-colors">
+                    Get Started <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
+                  </Link>
                 </div>
               );
             })}
           </div>
         </div>
       </section>
-
-      {/* CTA */}
-      <section className="py-16 bg-emerald-600 text-white">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            {lang === "en"
-              ? "Transform Your Logistics Operations"
-              : "เปลี่ยนแปลงการดำเนินงานโลจิสติกส์ของคุณ"}
-          </h2>
-          <p className="text-xl mb-6 text-emerald-100">
-            {lang === "en"
-              ? "Get a free consultation on automation solutions"
-              : "รับคำปรึกษาฟรีเกี่ยวกับโซลูชันระบบอัตโนมัติ"}
-          </p>
-          <Link
-            href={`/${lang}/contact`}
-            className="inline-block bg-white text-emerald-600 px-8 py-3 rounded-lg font-semibold hover:bg-slate-100 transition-colors"
-          >
-            {lang === "en" ? "Get Started" : "เริ่มต้น"}
-          </Link>
-        </div>
-      </section>
-    </>
+    </div>
   );
 }
