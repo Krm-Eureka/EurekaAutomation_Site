@@ -105,6 +105,29 @@ export function Header({ lang }: HeaderProps) {
             >
               {Translation('contact')}
             </Link>
+
+            {/* Mobile Language Switcher */}
+            <div className="flex items-center justify-center gap-4 pt-4 border-t border-zinc-100">
+              <span className="text-xs text-zinc-400 uppercase tracking-wider">Language:</span>
+              <Link
+                href={pathname}
+                locale="en"
+                scroll={false}
+                className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${lang === 'en' ? 'bg-emerald-600 text-white' : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'}`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                EN
+              </Link>
+              <Link
+                href={pathname}
+                locale="th"
+                scroll={false}
+                className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${lang === 'th' ? 'bg-emerald-600 text-white' : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'}`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                TH
+              </Link>
+            </div>
           </div>
         </motion.div>
       )}
