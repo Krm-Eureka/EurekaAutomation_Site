@@ -5,9 +5,8 @@ const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
   output: 'export',
-  // GitHub Pages - ถ้า repo อยู่ที่ root domain ไม่ต้องใส่ basePath
-  // basePath: '/repo-name',
-  // assetPrefix: '/repo-name/',
+  basePath: '/EurekaAutomation_Site',
+  assetPrefix: '/EurekaAutomation_Site/',
   images: {
     unoptimized: true,
   },
