@@ -32,8 +32,7 @@ jobs:
       - name: Build (next build + next export)
         run: |
           # build then export static site to ./out
-          npx next build
-          npx next export -o out
+          run: npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
