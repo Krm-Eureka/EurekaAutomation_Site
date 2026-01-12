@@ -170,5 +170,21 @@
             "message": "Message",
             "submit": "Send Application"
         }
+    },
+    "blog": {
+        "title": "Blog & Insights",
+        "tag": "Stay updated with the latest trends in industrial automation"
+    },
+    "solutions": {
+        "title": "Logistics & Smart Factory",
+        "tag": "Advanced solutions for digital transformation.",
+        "amr_agv": {
+            "title": "AMR & AGV Systems",
+            "tag": "Automated material handling solutions."
+        },
+        "wms": {
+            "title": "Warehouse Management",
+            "tag": "Optimize your inventory with intelligent software."
+        }
     }
 }
