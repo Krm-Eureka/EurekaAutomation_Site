@@ -29,7 +29,7 @@ export function Header({ lang }: HeaderProps) {
     { name: Translation('about'), href: '/#about' },
     { name: Translation('products'), href: '/#products' },
     { name: Translation('services'), href: '/#services' },
-    { name: Translation('careers'), href: '/careers' },
+    // { name: Translation('careers'), href: '/careers' },
   ];
 
   // Dynamic Styles

@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: process.env.SITE_URL || 'https://eureka-automation.com',
+  siteUrl: process.env.SITE_URL || 'https://krm-eureka.github.io/EurekaAutomation_Site',
   generateRobotsTxt: true,
   generateIndexSitemap: false,
   outDir: './out',
