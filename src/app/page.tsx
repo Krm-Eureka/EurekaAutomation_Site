@@ -2,7 +2,8 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { withBasePath } from '@/lib/utils';
 import Image from 'next/image';
 
 export default function RootPage() {
@@ -13,7 +14,7 @@ export default function RootPage() {
 
     const timer = setTimeout(() => {
       router.replace('/en');
-    }, 2800);
+    }, 1200);
 
     return () => clearTimeout(timer);
   }, [router]);
@@ -21,7 +22,7 @@ export default function RootPage() {
   return (
     <html lang="en">
       <head>
-        <meta httpEquiv="refresh" content="4;url=./en/" />
+        <meta httpEquiv="refresh" content="1.5;url=./en/" />
         <title>Eureka Automation | Systems Active</title>
       </head>
       <body className="bg-white flex flex-col items-center justify-center min-h-screen overflow-hidden font-sans">
@@ -55,7 +56,7 @@ export default function RootPage() {
 
             <div className="relative w-64 h-24">
               <Image
-                src="/eureka-logo.png"
+                src={withBasePath("/eureka-logo.png")}
                 alt="Eureka Automation"
                 fill
                 className="object-contain"
@@ -99,7 +100,7 @@ export default function RootPage() {
               <motion.div
                 initial={{ width: "0%" }}
                 animate={{ width: "100%" }}
-                transition={{ duration: 2.5, ease: "easeInOut" }}
+                transition={{ duration: 1.1, ease: "easeInOut" }}
                 className="h-full bg-gradient-to-r from-zinc-900 via-emerald-600 to-red-600 rounded-full"
               />
             </div>

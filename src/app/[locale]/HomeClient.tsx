@@ -8,15 +8,16 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { withBasePath } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 
 // Client logos data
 const clientLogos = [
-    { name: "Alpha Tech", logo: "/images/logos/client-1.png", href: "https://www.google.com" },
-    { name: "Sigma Automation", logo: "/images/logos/client-2.png", href: "https://www.google.com" },
-    { name: "Omega Systems", logo: "/images/logos/client-3.png", href: "https://www.google.com" },
-    { name: "Delta Robotics", logo: "/images/logos/client-4.png", href: "https://www.google.com" },
+    { name: "Alpha Tech", logo: withBasePath("/images/logos/client-1.png"), href: "https://www.google.com" },
+    { name: "Sigma Automation", logo: withBasePath("/images/logos/client-2.png"), href: "https://www.google.com" },
+    { name: "Omega Systems", logo: withBasePath("/images/logos/client-3.png"), href: "https://www.google.com" },
+    { name: "Delta Robotics", logo: withBasePath("/images/logos/client-4.png"), href: "https://www.google.com" },
 ];
 
 export default function HomeClient({ locale }: { locale: string }) {

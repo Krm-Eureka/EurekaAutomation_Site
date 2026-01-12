@@ -11,9 +11,9 @@
     },
     "hero": {
         "title": "Eureka Automation 4.0",
-        "subtitle": "Elevate production lines with precision and international standard ISO 9001:2015",
-        "cta": "Explore Solutions",
-        "contact": "Contact Us",
+        "subtitle": "Pioneering the Future of Production with Engineering Excellence and ISO 9001:2015 Precision",
+        "cta": "Explore Our Solutions",
+        "contact": "Consult Our Engineers",
         "certified": "ISO 9001:2015 Certified"
     },
     "footer": {
@@ -30,9 +30,9 @@
         }
     },
     "about": {
-        "tag": "Our Story",
-        "title": "Engineering Precision Since 2010",
-        "description": "Eureka Automation specializes in designing and building custom industrial machines for Automotive, Electronics, and other manufacturing industries.",
+        "tag": "Our Legacy",
+        "title": "A Decade of Engineering Precision",
+        "description": "Since 2010, Eureka Automation has been a trusted partner in designing and manufacturing innovative industrial solutions for global leaders in the Automotive and Electronics sectors.",
         "values": {
             "innovation": {
                 "title": "Innovation",
@@ -50,10 +50,10 @@
         "placeholder": "Manufacturing Excellence"
     },
     "home": {
-        "capabilities": "Our Capabilities",
-        "capabilities_tag": "Capabilities",
-        "transform_desc": "Transform your manufacturing process with our state-of-the-art solutions.",
-        "learn_more": "Learn more",
+        "capabilities": "Core Engineering Strengths",
+        "capabilities_tag": "Our Capabilities",
+        "transform_desc": "Empower your manufacturing ecosystem with smart, data-driven automation frameworks designed for longevity.",
+        "learn_more": "Discover More",
         "trusted_by": "Trusted by Global Leaders",
         "services": {
             "ai_ml": {
@@ -102,9 +102,9 @@
         }
     },
     "contact": {
-        "tag": "Get in Touch",
-        "title": "Let's Build Something Great",
-        "description": "Ready to optimize your production? Our expert team is here to help you design and implement the perfect automation solution.",
+        "tag": "Connect With Us",
+        "title": "Partnering for Your Success",
+        "description": "Ready to redefine your production efficiency? Our expert engineering team is prepared to architect the perfect automation strategy for your facility.",
         "call_us": "Call Us",
         "email_us": "Email Us",
         "visit_us": "Visit Us",
@@ -123,8 +123,8 @@
         }
     },
     "careers": {
-        "title": "Join Our Team",
-        "subtitle": "Build the future of automation with us. We are looking for talented individuals to join our growing family.",
+        "title": "Forge Your Future With Us",
+        "subtitle": "Join a team of visionaries shaping the future of industrial intelligence. We are seeking passionate innovators to lead the next generation of automation.",
         "benefits": "Why Join Us?",
         "benefits_list": [
             "Competitive Salary & Bonuses",

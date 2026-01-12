@@ -2,6 +2,7 @@
 
 import { Link, usePathname } from '@/i18n/routing';
 import Image from "next/image";
+import { withBasePath } from '@/lib/utils';
 import { Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
@@ -44,7 +45,7 @@ export function Header({ lang }: HeaderProps) {
         {/* Logo */}
         <Link href="/#" className="flex items-center group">
           <div className={`relative h-15 w-50 transition-all duration-300 ${logoFilter}`}>
-            <Image src="/eureka-logo.png" alt="Logo" fill className="object-contain object-left" />
+            <Image src={withBasePath("/eureka-logo.png")} alt="Logo" fill className="object-contain object-left" />
           </div>
         </Link>
 

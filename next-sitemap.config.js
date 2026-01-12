@@ -16,7 +16,7 @@ module.exports = {
   },
   transform: async (config, path) => {
     // Define all supported locales
-    const locales = ['en', 'th', 'cn', 'jp', 'es'];
+    const locales = ['en', 'th'];
     
     // Check if path is valid
     if (!path) return null;

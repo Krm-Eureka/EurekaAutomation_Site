@@ -1,6 +1,7 @@
 import { Link } from '@/i18n/routing';
 import Image from "next/image";
-import { Mail, Phone, MapPin, Facebook, Linkedin, Github } from "lucide-react";
+import { withBasePath } from '@/lib/utils';
+import { Mail, Phone, MapPin, Facebook, Linkedin } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 type FooterProps = {
@@ -20,7 +21,7 @@ export function Footer({ lang }: FooterProps) {
           <div className="space-y-6">
             <div className={`relative h-12 w-48 brightness-0 invert opacity-90`}>
               <Image
-                src="/eureka-logo.png"
+                src={withBasePath("/eureka-logo.png")}
                 alt="Eureka Automation"
                 fill
                 className="object-contain object-left"

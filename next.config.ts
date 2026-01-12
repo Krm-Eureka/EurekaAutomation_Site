@@ -5,12 +5,15 @@ const withNextIntl = createNextIntlPlugin();
 
 const isProd = process.env.NODE_ENV === 'production';
 const isGithubActions = process.env.GITHUB_ACTIONS === 'true';
+const BASE_PATH = (isProd || isGithubActions) ? '/EurekaAutomation_Site' : '';
 
 const nextConfig: NextConfig = {
   output: 'export',
   // Only use basePath in production (GitHub Pages)
-  basePath: (isProd || isGithubActions) ? '/EurekaAutomation_Site' : '',
-  assetPrefix: (isProd || isGithubActions) ? '/EurekaAutomation_Site/' : '',
+  basePath: BASE_PATH,
+  env: {
+    NEXT_PUBLIC_BASE_PATH: BASE_PATH,
+  },
   images: {
     unoptimized: true,
   },
