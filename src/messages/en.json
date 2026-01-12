@@ -173,18 +173,36 @@
     },
     "blog": {
         "title": "Blog & Insights",
-        "tag": "Stay updated with the latest trends in industrial automation"
+        "tag": "Stay updated with the latest trends in industrial automation",
+        "read_more": "Read more",
+        "posts": {
+            "industry40": {
+                "title": "What is Industry 4.0?",
+                "excerpt": "Understanding the fourth industrial revolution and its impact on manufacturing",
+                "category": "Technology"
+            }
+        }
     },
     "solutions": {
         "title": "Logistics & Smart Factory",
         "tag": "Advanced solutions for digital transformation.",
         "amr_agv": {
             "title": "AMR & AGV Systems",
-            "tag": "Automated material handling solutions."
+            "tag": "Automated material handling solutions.",
+            "features": [
+                "Geek+ Integration",
+                "Custom AGV Solutions",
+                "Fleet Management"
+            ]
         },
         "wms": {
             "title": "Warehouse Management",
-            "tag": "Optimize your inventory with intelligent software."
+            "tag": "Optimize your inventory with intelligent software.",
+            "features": [
+                "Inventory Tracking",
+                "Order Management",
+                "Real-time Analytics"
+            ]
         }
     }
 }

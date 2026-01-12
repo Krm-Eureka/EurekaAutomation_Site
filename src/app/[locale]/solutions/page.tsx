@@ -18,14 +18,14 @@ export default async function SolutionsPage({
       slug: "amr-agv",
       title: t('amr_agv.title'),
       description: t('amr_agv.tag'),
-      features: ["Geek+ Integration", "Custom AGV Solutions", "Fleet Management"],
+      features: t.raw('amr_agv.features') as string[],
     },
     {
       icon: Database,
       slug: "wms",
       title: t('wms.title'),
       description: t('wms.tag'),
-      features: ["Inventory Tracking", "Order Management", "Real-time Analytics"],
+      features: t.raw('wms.features') as string[],
     },
   ];
 
@@ -75,7 +75,7 @@ export default async function SolutionsPage({
                     ))}
                   </ul>
                   <Link href={`/${locale}/#contact`} className="inline-flex items-center gap-2 font-bold text-zinc-900 group-hover:text-emerald-600 transition-colors">
-                    Get Started <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
+                    {locale === 'th' ? 'เริ่มต้นใช้งาน' : 'Get Started'} <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
                   </Link>
                 </div>
               );

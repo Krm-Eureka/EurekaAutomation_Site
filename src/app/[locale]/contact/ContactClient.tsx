@@ -3,7 +3,12 @@
 import { useState } from "react";
 import { Mail, Phone, MapPin, Send, Sparkles, ChevronRight } from "lucide-react";
 
+import { useTranslations } from "next-intl";
+
 export default function ContactClient({ locale }: { locale: string }) {
+    const t = useTranslations('contact');
+    const tNav = useTranslations('nav');
+
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -14,10 +19,8 @@ export default function ContactClient({ locale }: { locale: string }) {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        alert("Thank you! Your message has been sent (Demo).");
+        alert(t('form.submit') + " (Demo)");
     };
-
-    const isEn = locale === 'en';
 
     return (
         <div className="bg-white">
@@ -28,15 +31,13 @@ export default function ContactClient({ locale }: { locale: string }) {
                 </div>
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-sm font-bold text-white/70 mb-8">
-                        <Sparkles size={16} className="text-emerald-400" /> {isEn ? 'CONTACT' : 'ติดต่อเรา'}
+                        <Sparkles size={16} className="text-emerald-400" /> {tNav('contact').toUpperCase()}
                     </div>
                     <h1 className="text-5xl md:text-7xl font-black mb-8 tracking-tight">
-                        {isEn ? 'Start Your Project' : 'เริ่มต้นโครงการของคุณ'}
+                        {t('title')}
                     </h1>
                     <p className="text-xl md:text-2xl text-zinc-400 max-w-3xl leading-relaxed">
-                        {isEn
-                            ? 'Connect with our engineering team to discuss custom automation solutions.'
-                            : 'ติดต่อทีมวิศวกรของเราเพื่อปรึกษาเกี่ยวกับโซลูชันระบบอัตโนมัติ'}
+                        {t('description')}
                     </p>
                 </div>
             </section>
@@ -48,12 +49,12 @@ export default function ContactClient({ locale }: { locale: string }) {
                         {/* Contact Form */}
                         <div className="bg-zinc-50 p-8 md:p-12 rounded-3xl border border-zinc-100 shadow-sm">
                             <h2 className="text-3xl font-bold text-zinc-900 mb-8 tracking-tight">
-                                {isEn ? 'Send Message' : 'ส่งข้อความ'}
+                                {t('form.submit')}
                             </h2>
                             <form onSubmit={handleSubmit} className="space-y-6">
                                 <div className="grid sm:grid-cols-2 gap-6">
                                     <div className="space-y-2">
-                                        <label className="text-xs font-bold uppercase tracking-widest text-zinc-400 ml-1">{isEn ? 'Name' : 'ชื่อ'}</label>
+                                        <label className="text-xs font-bold uppercase tracking-widest text-zinc-400 ml-1">{t('form.name')}</label>
                                         <input
                                             type="text"
                                             required
@@ -63,7 +64,7 @@ export default function ContactClient({ locale }: { locale: string }) {
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <label className="text-xs font-bold uppercase tracking-widest text-zinc-400 ml-1">{isEn ? 'Email' : 'อีเมล'}</label>
+                                        <label className="text-xs font-bold uppercase tracking-widest text-zinc-400 ml-1">{t('form.email')}</label>
                                         <input
                                             type="email"
                                             required
@@ -74,7 +75,7 @@ export default function ContactClient({ locale }: { locale: string }) {
                                     </div>
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold uppercase tracking-widest text-zinc-400 ml-1">{isEn ? 'Company' : 'บริษัท'}</label>
+                                    <label className="text-xs font-bold uppercase tracking-widest text-zinc-400 ml-1">{locale === 'th' ? 'บริษัท' : 'Company'}</label>
                                     <input
                                         type="text"
                                         value={formData.company}
@@ -83,7 +84,7 @@ export default function ContactClient({ locale }: { locale: string }) {
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold uppercase tracking-widest text-zinc-400 ml-1">{isEn ? 'Message' : 'ข้อความ'}</label>
+                                    <label className="text-xs font-bold uppercase tracking-widest text-zinc-400 ml-1">{t('form.message')}</label>
                                     <textarea
                                         required
                                         rows={4}
@@ -96,7 +97,7 @@ export default function ContactClient({ locale }: { locale: string }) {
                                     type="submit"
                                     className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-5 rounded-xl shadow-lg hover:shadow-emerald-500/30 transition-all flex items-center justify-center gap-3 group"
                                 >
-                                    <Send size={20} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /> {isEn ? 'Submit' : 'ส่งข้อมูล'}
+                                    <Send size={20} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /> {t('form.submit')}
                                 </button>
                             </form>
                         </div>
@@ -104,9 +105,9 @@ export default function ContactClient({ locale }: { locale: string }) {
                         {/* Information */}
                         <div className="space-y-12 py-8">
                             <div className="space-y-4">
-                                <h3 className="text-3xl font-bold text-zinc-900 tracking-tight">{isEn ? 'Get in touch' : 'ข้อมูลติดต่อ'}</h3>
+                                <h3 className="text-3xl font-bold text-zinc-900 tracking-tight">{t('tag')}</h3>
                                 <p className="text-lg text-zinc-500 leading-relaxed">
-                                    {isEn ? 'Our support team is available Monday to Friday, 9:00 AM – 6:00 PM.' : 'ทีมสนับสนุนของเราพร้อมให้บริการวันจันทร์ถึงศุกร์ 9:00 น. – 18:00 น.'}
+                                    {locale === 'th' ? 'ทีมสนับสนุนของเราพร้อมให้บริการวันจันทร์ถึงศุกร์ 9:00 น. – 18:00 น.' : 'Our support team is available Monday to Friday, 9:00 AM – 6:00 PM.'}
                                 </p>
                             </div>
 
@@ -116,7 +117,7 @@ export default function ContactClient({ locale }: { locale: string }) {
                                         <Phone size={24} />
                                     </div>
                                     <div>
-                                        <p className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-1">{isEn ? 'Call Us' : 'โทรหาเรา'}</p>
+                                        <p className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-1">{t('call_us')}</p>
                                         <p className="font-bold text-zinc-900 text-lg">+66 XX XXX XXXX</p>
                                     </div>
                                 </div>
@@ -125,7 +126,7 @@ export default function ContactClient({ locale }: { locale: string }) {
                                         <Mail size={24} />
                                     </div>
                                     <div>
-                                        <p className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-1">{isEn ? 'Email Us' : 'อีเมล'}</p>
+                                        <p className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-1">{t('email_us')}</p>
                                         <p className="font-bold text-zinc-900 text-lg">info@eureka-automation.com</p>
                                     </div>
                                 </div>
@@ -134,7 +135,7 @@ export default function ContactClient({ locale }: { locale: string }) {
                                         <MapPin size={24} />
                                     </div>
                                     <div>
-                                        <p className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-1">{isEn ? 'Visit Us' : 'ที่อยู่'}</p>
+                                        <p className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-1">{t('visit_us')}</p>
                                         <p className="font-bold text-zinc-900 text-lg">Bangkok, Thailand</p>
                                     </div>
                                 </div>

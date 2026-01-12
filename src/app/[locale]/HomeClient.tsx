@@ -418,21 +418,21 @@ export default function HomeClient({ locale }: { locale: string }) {
                             >
                                 <form className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                     <div className="space-y-2">
-                                        <label className="text-xs font-bold uppercase tracking-widest text-white/50 ml-1">Name</label>
+                                        <label className="text-xs font-bold uppercase tracking-widest text-white/50 ml-1">{tContact('form.name')}</label>
                                         <input type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 outline-none focus:border-emerald-500/50 focus:bg-white/10 transition-all text-white placeholder:text-white/30" />
                                     </div>
                                     <div className="space-y-2">
-                                        <label className="text-xs font-bold uppercase tracking-widest text-white/50 ml-1">Email</label>
+                                        <label className="text-xs font-bold uppercase tracking-widest text-white/50 ml-1">{tContact('form.email')}</label>
                                         <input type="email" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 outline-none focus:border-emerald-500/50 focus:bg-white/10 transition-all text-white placeholder:text-white/30" />
                                     </div>
                                     <div className="sm:col-span-2 space-y-2">
-                                        <label className="text-xs font-bold uppercase tracking-widest text-white/50 ml-1">Subject</label>
+                                        <label className="text-xs font-bold uppercase tracking-widest text-white/50 ml-1">{tContact('form.subject')}</label>
                                         <div className="relative">
                                             <select className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 outline-none focus:border-emerald-500/50 transition-all appearance-none text-white">
-                                                <option className="bg-zinc-900">Custom Automation</option>
-                                                <option className="bg-zinc-900">CNC Machining</option>
-                                                <option className="bg-zinc-900">WMS Solutions</option>
-                                                <option className="bg-zinc-900">General Inquiry</option>
+                                                <option className="bg-zinc-900">{tContact('form.options.custom')}</option>
+                                                <option className="bg-zinc-900">{tContact('form.options.cnc')}</option>
+                                                <option className="bg-zinc-900">{tContact('form.options.wms')}</option>
+                                                <option className="bg-zinc-900">{tContact('form.options.general')}</option>
                                             </select>
                                             <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-white/50">
                                                 <ChevronRight size={16} className="rotate-90" />
@@ -440,11 +440,11 @@ export default function HomeClient({ locale }: { locale: string }) {
                                         </div>
                                     </div>
                                     <div className="sm:col-span-2 space-y-2">
-                                        <label className="text-xs font-bold uppercase tracking-widest text-white/50 ml-1">Message</label>
+                                        <label className="text-xs font-bold uppercase tracking-widest text-white/50 ml-1">{tContact('form.message')}</label>
                                         <textarea rows={4} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 outline-none focus:border-emerald-500/50 focus:bg-white/10 transition-all resize-none text-white placeholder:text-white/30"></textarea>
                                     </div>
                                     <button type="submit" className="sm:col-span-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-5 rounded-xl shadow-lg hover:shadow-emerald-500/30 transition-all flex items-center justify-center gap-3 group active:scale-[0.98]">
-                                        <Send size={20} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /> Submit
+                                        <Send size={20} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /> {tContact('form.submit')}
                                     </button>
                                 </form>
                             </motion.div>

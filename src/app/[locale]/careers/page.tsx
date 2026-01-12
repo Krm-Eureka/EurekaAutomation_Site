@@ -34,7 +34,7 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
                 <div className="absolute top-0 right-0 w-1/2 h-full bg-zinc-900/50 skew-x-12 translate-x-32 pointer-events-none"></div>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                     <div className="inline-block px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-xs font-bold uppercase tracking-widest text-zinc-400 mb-8">
-                        // Join Eureka Automation
+                        {locale === 'th' ? '// มาร่วมเป็นส่วนหนึ่งกับเรา' : '// Join Eureka Automation'}
                     </div>
                     <h1 className="text-5xl md:text-7xl font-black mb-8 tracking-tight leading-tight">
                         {t('title')}
@@ -118,7 +118,7 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
                                                 href="#apply"
                                                 className="px-8 py-3 bg-zinc-900 text-white rounded-full font-bold hover:bg-zinc-800 transition-all flex items-center gap-2 group/btn"
                                             >
-                                                Apply Now <ChevronRight size={18} className="group-hover/btn:translate-x-1 transition-transform" />
+                                                {t('apply_now')} <ChevronRight size={18} className="group-hover/btn:translate-x-1 transition-transform" />
                                             </a>
                                         </div>
                                     </div>
@@ -133,8 +133,8 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
             <section id="apply" className="py-24 bg-white">
                 <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16 space-y-4">
-                        <h2 className="text-3xl md:text-5xl font-bold text-zinc-900 tracking-tight">Apply Today</h2>
-                        <p className="text-lg text-zinc-500">Submit your details and we'll get back to you soon.</p>
+                        <h2 className="text-3xl md:text-5xl font-bold text-zinc-900 tracking-tight">{t('apply_today')}</h2>
+                        <p className="text-lg text-zinc-500">{t('apply_desc')}</p>
                     </div>
                     <CareersForm />
                 </div>

@@ -15,13 +15,10 @@ export default async function BlogPage({
   const posts = [
     {
       slug: "what-is-industry-4-0",
-      title: locale === "en" ? "What is Industry 4.0?" : "Industry 4.0 คืออะไร?",
-      excerpt:
-        locale === "en"
-          ? "Understanding the fourth industrial revolution and its impact on manufacturing"
-          : "ทำความเข้าใจการปฏิวัติอุตสาหกรรมครั้งที่สี่และผลกระทบต่อการผลิต",
+      title: t('posts.industry40.title'),
+      excerpt: t('posts.industry40.excerpt'),
       date: "2025-01-15",
-      category: "Technology",
+      category: t('posts.industry40.category'),
     },
   ];
 
@@ -34,15 +31,13 @@ export default async function BlogPage({
         </div>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-xs font-bold uppercase tracking-widest text-zinc-400 mb-8">
-            <Newspaper size={14} className="text-zinc-400" /> BLOG
+            <Newspaper size={14} className="text-zinc-400" /> {locale === 'th' ? 'บทความ' : 'BLOG'}
           </div>
           <h1 className="text-5xl md:text-7xl font-black mb-8 tracking-tight">
-            {locale === 'en' ? 'Blog & Insights' : 'บทความและข้อมูลเชิงลึก'}
+            {t('title')}
           </h1>
           <p className="text-xl md:text-2xl text-zinc-400 max-w-3xl leading-relaxed">
-            {locale === 'en'
-              ? 'Stay updated with the latest trends in industrial automation'
-              : 'เกาะติดเทรนด์ล่าสุดในระบบอัตโนมัติอุตสาหกรรม'}
+            {t('tag')}
           </p>
         </div>
       </section>
@@ -76,7 +71,7 @@ export default async function BlogPage({
                     href={`/${locale}/blog/${post.slug}`}
                     className="flex items-center gap-2 font-bold text-zinc-900 group-hover:gap-3 transition-all"
                   >
-                    Read more <ChevronRight size={18} />
+                    {t('read_more')} <ChevronRight size={18} />
                   </Link>
                 </div>
               </article>
