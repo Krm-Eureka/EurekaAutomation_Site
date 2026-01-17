@@ -12,22 +12,25 @@ export function Footer({ lang }: FooterProps) {
   const currentYear = new Date().getFullYear();
   const t = useTranslations('footer');
   const tNav = useTranslations('nav');
+  const tHome = useTranslations('home');
 
   return (
     <footer className="bg-zinc-950 text-zinc-400 border-t border-zinc-900">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Company Info */}
           <div className="space-y-6">
-            <div className={`relative h-12 w-48 brightness-0 invert opacity-90`}>
-              <Image
-                src={withBasePath("/eureka-logo.png")}
-                alt="Eureka Automation"
-                fill
-                className="object-contain object-left"
-                unoptimized
-              />
-            </div>
+            <Link href="/" className="block">
+              <div className={`relative h-12 w-48 brightness-0 invert opacity-90 hover:opacity-100 transition-opacity cursor-pointer`}>
+                <Image
+                  src={withBasePath("/eureka-logo.png")}
+                  alt="Eureka Automation"
+                  fill
+                  className="object-contain object-left"
+                  unoptimized
+                />
+              </div>
+            </Link>
             <p className="text-sm leading-relaxed max-w-xs">
               {t('description')}
             </p>
@@ -48,22 +51,17 @@ export function Footer({ lang }: FooterProps) {
             </h4>
             <ul className="space-y-4 text-sm">
               <li>
-                <Link href="/#about" className="hover:text-white transition-colors">
+                <Link href="#about" className="hover:text-white transition-colors">
                   {tNav('about')}
                 </Link>
               </li>
               <li>
-                <Link href="/#services" className="hover:text-white transition-colors">
-                  {tNav('services')}
+                <Link href="#productsandservices" className="hover:text-white transition-colors">
+                  {tNav('products & Services')}
                 </Link>
               </li>
               <li>
-                <Link href="/#products" className="hover:text-white transition-colors">
-                  {tNav('products')}
-                </Link>
-              </li>
-              <li>
-                <Link href="/#contact" className="hover:text-white transition-colors">
+                <Link href="#contact" className="hover:text-white transition-colors">
                   {tNav('contact')}
                 </Link>
               </li>
@@ -76,10 +74,26 @@ export function Footer({ lang }: FooterProps) {
               {t('services')}
             </h4>
             <ul className="space-y-4 text-sm">
-              <li className="hover:text-white cursor-pointer transition-colors">{t('service_list.cnc')}</li>
-              <li className="hover:text-white cursor-pointer transition-colors">{t('service_list.plc')}</li>
-              <li className="hover:text-white cursor-pointer transition-colors">{t('service_list.custom')}</li>
-              <li className="hover:text-white cursor-pointer transition-colors">{t('service_list.amr')}</li>
+              <li>
+                <Link href="custom-machines" className="hover:text-white transition-colors">
+                  {tHome('services.custom_machines.title')}
+                </Link>
+              </li>
+              <li>
+                <Link href="ai-solutions" className="hover:text-white transition-colors">
+                  {tHome('services.ai_ml.title')}
+                </Link>
+              </li>
+              <li>
+                <Link href="robotics" className="hover:text-white transition-colors">
+                  {tHome('services.automation.title')}
+                </Link>
+              </li>
+              <li>
+                <Link href="logistics" className="hover:text-white transition-colors">
+                  {tHome('services.smart_logistics.title')}
+                </Link>
+              </li>
             </ul>
           </div>
 

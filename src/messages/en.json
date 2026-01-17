@@ -2,6 +2,7 @@
     "nav": {
         "home": "Home",
         "about": "About Us",
+        "products & Services": "Products & Service",
         "services": "Services",
         "products": "Products",
         "solutions": "Solutions",
@@ -49,12 +50,55 @@
         },
         "placeholder": "Manufacturing Excellence"
     },
+    "industrialTrust": {
+        "title": "INDUSTRIAL TRUST",
+        "description": "Eureka Automation is a premier System Integrator (SI) specializing in smart manufacturing design. Founded in 2014 as a dedicated automation entity (rooted since 2002), we bridge the gap between mechanical engineering and digital intelligence.",
+        "headquarters": {
+            "label": "Headquarters",
+            "value": "Pathum Thani, Thailand"
+        },
+        "globalReach": {
+            "label": "Global Reach",
+            "value": "Facilities in Thailand & India."
+        },
+        "exporting": {
+            "label": "Exporting to",
+            "value": "USA, Japan, Mexico, and Europe."
+        },
+        "coreFocus": {
+            "label": "Core Focus",
+            "value": "Automation, Robotics, AI, and Logistics."
+        }
+    },
     "home": {
         "capabilities": "Core Engineering Strengths",
         "capabilities_tag": "Our Capabilities",
         "transform_desc": "Empower your manufacturing ecosystem with smart, data-driven automation frameworks designed for longevity.",
         "learn_more": "Discover More",
         "trusted_by": "Trusted by Global Leaders",
+        "timeline": {
+            "tag": "MILESTONES",
+            "title": "Strategic Evolution",
+            "quote": "From a local machine builder to a global automation partner trusted by world-class manufacturers worldwide.",
+            "milestones": {
+                "2002": {
+                    "title": "Founded as Eureka Design",
+                    "desc": "Began our journey in mechanical engineering and precision machine building"
+                },
+                "2014": {
+                    "title": "Global Expansion",
+                    "desc": "Established Eureka Design India to strengthen international presence"
+                },
+                "2015": {
+                    "title": "Established Eureka Automation",
+                    "desc": "Transformed into a full-service System Integrator with advanced automation solutions"
+                },
+                "2019": {
+                    "title": "Smart Automation Era",
+                    "desc": "Launched AI & Industry 4.0 Business Unit for next-generation manufacturing"
+                }
+            }
+        },
         "services": {
             "ai_ml": {
                 "title": "AI & Machine Learning",

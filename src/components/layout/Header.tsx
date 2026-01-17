@@ -28,13 +28,13 @@ export function Header({ lang }: HeaderProps) {
 
   const navigation = [
     { name: Translation('about'), href: '/#about' },
-    { name: Translation('products'), href: '/#products' },
-    { name: Translation('services'), href: '/#services' },
-    // { name: Translation('careers'), href: '/careers' },
+    { name: Translation('products & Services'), href: '/#productsandservices' },
+    { name: lang === 'th' ? 'ผลงาน' : 'Showcase', href: '/#showcase' },
+    { name: lang === 'th' ? 'ร่วมงานกับเรา' : 'Careers', href: '/careers' },
   ];
 
   // Dynamic Styles
-  const headerBg = scrolled ? 'bg-white/90 backdrop-blur-md border-b border-zinc-100 py-2 shadow-sm' : 'bg-transparent py-4';
+  const headerBg = scrolled ? 'bg-white/90 backdrop-blur-md border-b border-zinc-100 py-2 shadow-sm' : 'bg-transparent py-2';
   const textColor = scrolled ? 'text-zinc-600 hover:text-zinc-900' : 'text-white/80 hover:text-white';
   const logoFilter = scrolled ? '' : 'brightness-0 invert opacity-90'; // Make logo white when transparent
   const buttonStyle = scrolled ? 'bg-zinc-900 text-white hover:bg-zinc-800' : 'bg-white text-zinc-900 hover:bg-zinc-100';
@@ -43,7 +43,7 @@ export function Header({ lang }: HeaderProps) {
     <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${headerBg}`}>
       <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/#" className="flex items-center group">
+        <Link href="/" className="flex items-center group">
           <div className={`relative h-15 w-50 transition-all duration-300 ${logoFilter}`}>
             <Image src={withBasePath("/eureka-logo.png")} alt="Logo" fill className="object-contain object-left" />
           </div>
@@ -62,7 +62,7 @@ export function Header({ lang }: HeaderProps) {
           ))}
 
           <Link
-            href="/#contact"
+            href="#contact"
             className={`px-5 py-2.5 text-sm font-medium rounded-full transition-colors ${buttonStyle}`}
           >
             {Translation('contact')}
@@ -100,7 +100,7 @@ export function Header({ lang }: HeaderProps) {
               </Link>
             ))}
             <Link
-              href="/#contact"
+              href="#contact"
               className="block px-4 py-2 text-base font-medium text-white bg-zinc-900 rounded-lg text-center"
               onClick={() => setMobileMenuOpen(false)}
             >

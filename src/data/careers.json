@@ -1,0 +1,113 @@
+{
+    "_comment": "จัดการตำแหน่งงานที่นี่ | status: 'open' เปิดแสดงผล, 'close' ปิดแสดงผล | experience: ประสบการณ์ | education: จบจาก/วุฒิการศึกษา | salary: เงินเดือน",
+    "positions": [
+        {
+            "id": "plc-eng",
+            "status": "open",
+            "dept": {
+                "th": "วิศวกรรม",
+                "en": "Engineering"
+            },
+            "title": {
+                "th": "วิศวกรเขียนโปรแกรม PLC",
+                "en": "PLC Programmer"
+            },
+            "experience": {
+                "th": "1-3 ปี",
+                "en": "1-3 years"
+            },
+            "education": {
+                "th": "ปริญญาตรี วิศวกรรมไฟฟ้า หรือที่เกี่ยวข้อง",
+                "en": "Bachelor's degree in Electrical Engineering or related field"
+            },
+            "salary": {
+                "th": "25,000 - 45,000 บาท",
+                "en": "25,000 - 45,000 THB"
+            },
+            "location": {
+                "th": "กรุงเทพฯ / สมุทรปราการ",
+                "en": "Bangkok / Samut Prakan"
+            },
+            "type": {
+                "th": "งานประจำ",
+                "en": "Full-time"
+            },
+            "desc": {
+                "th": "ออกแบบ เขียนโปรแกรม และทดสอบระบบควบคุม PLC สำหรับโครงการระบบอัตโนมัติอุตสาหกรรม",
+                "en": "Design, program, and commission PLC systems for industrial automation projects."
+            }
+        },
+        {
+            "id": "mech-des",
+            "status": "open",
+            "dept": {
+                "th": "วิจัยและพัฒนา",
+                "en": "R&D"
+            },
+            "title": {
+                "th": "วิศวกรออกแบบเครื่องจักร",
+                "en": "Mechanical Design Engineer"
+            },
+            "experience": {
+                "th": "2 ปีขึ้นไป",
+                "en": "2+ years"
+            },
+            "education": {
+                "th": "ปริญญาตรี วิศวกรรมเครื่องกล",
+                "en": "Bachelor's degree in Mechanical Engineering"
+            },
+            "salary": {
+                "th": "30,000 - 55,000 บาท",
+                "en": "30,000 - 55,000 THB"
+            },
+            "location": {
+                "th": "กรุงเทพฯ",
+                "en": "Bangkok"
+            },
+            "type": {
+                "th": "งานประจำ",
+                "en": "Full-time"
+            },
+            "desc": {
+                "th": "ออกแบบโครงสร้าง 3D และจัดเตรียมแบบสั่งผลิตสำหรับเครื่องจักรอุตสาหกรรมตามความต้องการลูกค้า",
+                "en": "Create detailed 3D designs and engineering drawings for custom-built industrial machines."
+            }
+        },
+        {
+            "id": "full-stack",
+            "status": "close",
+            "dept": {
+                "th": "ซอฟต์แวร์",
+                "en": "Software"
+            },
+            "title": {
+                "th": "นักพัฒนา Full-Stack",
+                "en": "Full-Stack Developer"
+            },
+            "experience": {
+                "th": "0-2 ปี",
+                "en": "0-2 years"
+            },
+            "education": {
+                "th": "ปริญญาตรี วิศวกรรมคอมพิวเตอร์ หรือวิทยาการคอมพิวเตอร์",
+                "en": "Bachelor's degree in Computer Engineering or Computer Science"
+            },
+            "salary": {
+                "th": "ตามประสบการณ์",
+                "en": "Based on Experience"
+            },
+            "location": {
+                "th": "Remote / กรุงเทพฯ",
+                "en": "Remote / Bangkok"
+            },
+            "type": {
+                "th": "งานประจำ",
+                "en": "Full-time"
+            },
+            "desc": {
+                "th": "พัฒนาเครื่องมือภายในและหน้าจอแสดงผล (Dashboard) สำหรับโซลูชัน IIoT และโรงงานอัจฉริยะ",
+                "en": "Develop internal tools and client-facing dashboards for IIoT and smart factory solutions."
+            }
+        }
+    ]
+}
