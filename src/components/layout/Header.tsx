@@ -29,8 +29,8 @@ export function Header({ lang }: HeaderProps) {
   const navigation = [
     { name: Translation('about'), href: '/#about' },
     { name: Translation('products & Services'), href: '/#productsandservices' },
-    { name: lang === 'th' ? 'ผลงาน' : 'Showcase', href: '/#showcase' },
-    { name: lang === 'th' ? 'ร่วมงานกับเรา' : 'Careers', href: '/careers' },
+    { name: Translation('showcase'), href: '/#showcase' },
+    { name: Translation('careers'), href: '/careers' },
   ];
 
   // Dynamic Styles

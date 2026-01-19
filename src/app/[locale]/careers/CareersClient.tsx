@@ -4,11 +4,23 @@ import { useState } from 'react';
 import { CareersForm } from "@/components/sections/CareersForm";
 import { MapPin, Clock, ChevronRight, CheckCircle2, List, Grid3x3, Briefcase, GraduationCap, Coins } from "lucide-react";
 
+interface CareerPosition {
+    id: string;
+    dept: string;
+    title: string;
+    location: string;
+    type: string;
+    desc: string;
+    experience: string;
+    education: string;
+    salary: string;
+}
+
 interface CareersClientProps {
     locale: string;
     positionKeys: string[];
     benefits: string[];
-    positions: any[];
+    positions: CareerPosition[];
     translations: {
         title: string;
         subtitle: string;
@@ -17,6 +29,14 @@ interface CareersClientProps {
         apply_now: string;
         apply_today: string;
         apply_desc: string;
+        join_tag: string;
+        view_all: string;
+        view_category: string;
+        labels: {
+            experience: string;
+            education: string;
+            salary: string;
+        };
     };
 }
 
@@ -34,7 +54,7 @@ export default function CareersClient({ locale, positionKeys, benefits, position
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="text-center mb-12">
                         <div className="inline-block px-4 py-1.5 bg-emerald-500/20 border border-emerald-500/50 rounded-full text-xs font-bold uppercase tracking-widest text-emerald-300 mb-6">
-                            {locale === 'th' ? '// มาร่วมเป็นส่วนหนึ่งกับเรา' : '// Join Eureka Automation'}
+                            {translations.join_tag}
                         </div>
                         <h1 className="text-4xl md:text-5xl font-black mb-6 tracking-tight leading-tight">
                             {translations.title}
@@ -54,7 +74,7 @@ export default function CareersClient({ locale, positionKeys, benefits, position
                                 }`}
                         >
                             <List size={18} />
-                            {locale === 'th' ? 'รวมทั้งหมด' : 'All Positions'}
+                            {translations.view_all}
                         </button>
                         <button
                             onClick={() => setViewMode('category')}
@@ -64,7 +84,7 @@ export default function CareersClient({ locale, positionKeys, benefits, position
                                 }`}
                         >
                             <Grid3x3 size={18} />
-                            {locale === 'th' ? 'แยกหมวดหมู่' : 'By Category'}
+                            {translations.view_category}
                         </button>
                     </div>
                 </div>
@@ -134,15 +154,15 @@ export default function CareersClient({ locale, positionKeys, benefits, position
                                                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-2">
                                                     <div className="flex items-center gap-2 text-zinc-700 text-sm">
                                                         <Briefcase size={16} className="text-emerald-600" />
-                                                        <span className="font-bold">{locale === 'th' ? 'ประสบการณ์:' : 'Experience:'}</span> {pos.experience}
+                                                        <span className="font-bold">{translations.labels.experience}</span> {pos.experience}
                                                     </div>
                                                     <div className="flex items-center gap-2 text-zinc-700 text-sm">
                                                         <GraduationCap size={16} className="text-emerald-600" />
-                                                        <span className="font-bold">{locale === 'th' ? 'จบจาก:' : 'Education:'}</span> {pos.education}
+                                                        <span className="font-bold">{translations.labels.education}</span> {pos.education}
                                                     </div>
                                                     <div className="flex items-center gap-2 text-zinc-800 text-sm">
                                                         <Coins size={16} className="text-emerald-600" />
-                                                        <span className="font-bold">{locale === 'th' ? 'เงินเดือน:' : 'Salary:'}</span> {pos.salary}
+                                                        <span className="font-bold">{translations.labels.salary}</span> {pos.salary}
                                                     </div>
                                                 </div>
                                                 <p className="text-zinc-700 max-w-2xl leading-relaxed mt-4">

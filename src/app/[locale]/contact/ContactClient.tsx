@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, Phone, MapPin, Send, Sparkles, ChevronRight } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Sparkles } from "lucide-react";
 
 import { useTranslations } from "next-intl";
 
@@ -75,7 +75,7 @@ export default function ContactClient({ locale }: { locale: string }) {
                                     </div>
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold uppercase tracking-widest text-zinc-400 ml-1">{locale === 'th' ? 'บริษัท' : 'Company'}</label>
+                                    <label className="text-xs font-bold uppercase tracking-widest text-zinc-400 ml-1">{t('form.company')}</label>
                                     <input
                                         type="text"
                                         value={formData.company}
@@ -107,7 +107,7 @@ export default function ContactClient({ locale }: { locale: string }) {
                             <div className="space-y-4">
                                 <h3 className="text-3xl font-bold text-zinc-900 tracking-tight">{t('tag')}</h3>
                                 <p className="text-lg text-zinc-500 leading-relaxed">
-                                    {locale === 'th' ? 'ทีมสนับสนุนของเราพร้อมให้บริการวันจันทร์ถึงศุกร์ 9:00 น. – 18:00 น.' : 'Our support team is available Monday to Friday, 9:00 AM – 6:00 PM.'}
+                                    {t('support_hours')}
                                 </p>
                             </div>
 

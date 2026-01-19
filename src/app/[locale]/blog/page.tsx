@@ -2,6 +2,23 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Newspaper, ChevronRight } from "lucide-react";
 import Link from "next/link";
 
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'blog' });
+
+  return {
+    title: t('title'),
+    description: t('tag'),
+    alternates: {
+      canonical: `/${locale}/blog`,
+      languages: {
+        'en': '/en/blog',
+        'th': '/th/blog',
+      },
+    },
+  };
+}
+
 export default async function BlogPage({
   params,
 }: {
@@ -10,6 +27,7 @@ export default async function BlogPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations('blog');
+  const tNav = await getTranslations('nav');
 
   // In a real implementation, this would fetch from a CMS or markdown files
   const posts = [
@@ -31,7 +49,7 @@ export default async function BlogPage({
         </div>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-xs font-bold uppercase tracking-widest text-zinc-400 mb-8">
-            <Newspaper size={14} className="text-zinc-400" /> {locale === 'th' ? 'บทความ' : 'BLOG'}
+            <Newspaper size={14} className="text-zinc-400" /> {tNav('blog')}
           </div>
           <h1 className="text-5xl md:text-7xl font-black mb-8 tracking-tight">
             {t('title')}

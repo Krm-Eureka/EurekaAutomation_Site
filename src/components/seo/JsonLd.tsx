@@ -94,8 +94,7 @@ export function generateOrganizationSchema(lang: string): OrganizationSchema {
 
 export function generateServiceSchema(
   name: string,
-  description: string,
-  lang: string
+  description: string
 ): ServiceSchema {
   return {
     "@context": "https://schema.org",

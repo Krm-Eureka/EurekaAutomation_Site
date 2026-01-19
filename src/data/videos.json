@@ -1,87 +1,90 @@
-[
-    {
-        "id": "1",
-        "title": {
-            "th": "ระบบ AMR ในอุตสาหกรรมการผลิต",
-            "en": "AMR System in Manufacturing"
-        },
-        "thumbnail": "",
-        "youtubeUrl": "https://www.youtube.com/watch?v=eJ46cwHkbFg&t=162s",
-        "category": {
-            "th": "หุ่นยนต์",
-            "en": "Robotics"
-        },
-        "description": {
-            "th": "การใช้งานหุ่นยนต์เคลื่อนที่อัตโนมัติในการขนย้ายชิ้นงาน",
-            "en": "Implementation of Autonomous Mobile Robots for material handling."
+{
+    "ROBOTICS": [
+        {
+            "title": {
+                "th": "ระบบ AMR ในอุตสาหกรรมการผลิต",
+                "en": "AMR System in Manufacturing"
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://www.youtube.com/watch?v=eJ46cwHkbFg&t=162s",
+            "category": {
+                "th": "หุ่นยนต์",
+                "en": "Robotics"
+            },
+            "description": {
+                "th": "การใช้งานหุ่นยนต์เคลื่อนที่อัตโนมัติในการขนย้ายชิ้นงาน",
+                "en": "Implementation of Autonomous Mobile Robots for material handling."
+            }
         }
-    },
-    {
-        "id": "2",
-        "title": {
-            "th": "โซลูชัน AI สำหรับการตรวจสอบคุณภาพ",
-            "en": "AI Solutions for Quality Inspection"
+    ],
+    "AI": [
+        {
+            "title": {
+                "th": "โซลูชัน AI สำหรับการตรวจสอบคุณภาพ",
+                "en": "AI Solutions for Quality Inspection"
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://www.youtube.com/watch?v=eJ46cwHkbFg&t=162s",
+            "category": {
+                "th": "ปัญญาประดิษฐ์",
+                "en": "AI"
+            },
+            "description": {
+                "th": "การใช้ Computer Vision ในการตรวจสอบตำหนิชิ้นงานอัตโนมัติ",
+                "en": "Using Computer Vision for automated defect detection."
+            }
         },
-        "thumbnail": "",
-        "youtubeUrl": "https://www.youtube.com/watch?v=eJ46cwHkbFg&t=162s",
-        "category": {
-            "th": "ปัญญาประดิษฐ์",
-            "en": "AI"
-        },
-        "description": {
-            "th": "การใช้ Computer Vision ในการตรวจสอบตำหนิชิ้นงานอัตโนมัติ",
-            "en": "Using Computer Vision for automated defect detection."
+        {
+            "title": {
+                "th": "การบำรุงรักษาเชิงคาดการณ์ด้วย AI",
+                "en": "Predictive Maintenance with AI"
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://www.youtube.com/watch?v=eJ46cwHkbFg&t=162s",
+            "category": {
+                "th": "ปัญญาประดิษฐ์",
+                "en": "AI"
+            },
+            "description": {
+                "th": "การใช้ข้อมูลเซนเซอร์เพื่อทำนายเวลาที่ต้องซ่อมบำรุง",
+                "en": "Using sensor data to predict maintenance needs."
+            }
         }
-    },
-    {
-        "id": "3",
-        "title": {
-            "th": "การทำงานของเครื่องจักรเฉพาะทาง",
-            "en": "Custom Machine Operation"
-        },
-        "thumbnail": "",
-        "youtubeUrl": "https://www.youtube.com/watch?v=eJ46cwHkbFg&t=162s",
-        "category": {
-            "th": "เครื่องจักร",
-            "en": "Machines"
-        },
-        "description": {
-            "th": "ตัวอย่างการทำงานของเครื่องจักรอัตโนมัติที่ออกแบบตามความต้องการลูกค้า",
-            "en": "Demonstration of a custom-built automation machine."
+    ],
+    "MACHINES": [
+        {
+            "title": {
+                "th": "การทำงานของเครื่องจักรเฉพาะทาง",
+                "en": "Custom Machine Operation"
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://www.youtube.com/watch?v=eJ46cwHkbFg&t=162s",
+            "category": {
+                "th": "เครื่องจักร",
+                "en": "Machines"
+            },
+            "description": {
+                "th": "ตัวอย่างการทำงานของเครื่องจักรอัตโนมัติที่ออกแบบตามความต้องการลูกค้า",
+                "en": "Demonstration of a custom-built automation machine."
+            }
         }
-    },
-    {
-        "id": "4",
-        "title": {
-            "th": "ระบบคลังสินค้าอัจฉริยะ",
-            "en": "Smart Warehouse System"
-        },
-        "thumbnail": "",
-        "youtubeUrl": "https://www.youtube.com/watch?v=eJ46cwHkbFg&t=162s",
-        "category": {
-            "th": "โลจิสติกส์",
-            "en": "Logistics"
-        },
-        "description": {
-            "th": "การจัดการคลังสินค้าด้วยระบบ AS/RS และ WMS",
-            "en": "Warehouse management with AS/RS and WMS systems."
+    ],
+    "LOGISTICS": [
+        {
+            "title": {
+                "th": "ระบบคลังสินค้าอัจฉริยะ",
+                "en": "Smart Warehouse System"
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://www.youtube.com/watch?v=eJ46cwHkbFg&t=162s",
+            "category": {
+                "th": "โลจิสติกส์",
+                "en": "Logistics"
+            },
+            "description": {
+                "th": "การจัดการคลังสินค้าด้วยระบบ AS/RS และ WMS",
+                "en": "Warehouse management with AS/RS and WMS systems."
+            }
         }
-    },
-    {
-        "id": "5",
-        "title": {
-            "th": "การบำรุงรักษาเชิงคาดการณ์ด้วย AI",
-            "en": "Predictive Maintenance with AI"
-        },
-        "thumbnail": "",
-        "youtubeUrl": "https://www.youtube.com/watch?v=eJ46cwHkbFg&t=162s",
-        "category": {
-            "th": "ปัญญาประดิษฐ์",
-            "en": "AI"
-        },
-        "description": {
-            "th": "การใช้ข้อมูลเซนเซอร์เพื่อทำนายเวลาที่ต้องซ่อมบำรุง",
-            "en": "Using sensor data to predict maintenance needs."
-        }
-    }
-]
+    ]
+}

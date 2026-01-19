@@ -9,7 +9,6 @@ const BASE_PATH = (isProd || isGithubActions) ? '/EurekaAutomation_Site' : '';
 
 const nextConfig: NextConfig = {
   output: 'export',
-  // Only use basePath in production (GitHub Pages)
   basePath: BASE_PATH,
   env: {
     NEXT_PUBLIC_BASE_PATH: BASE_PATH,

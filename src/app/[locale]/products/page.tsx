@@ -1,6 +1,23 @@
-import Link from "next/link";
+// import Link from "next/link";
 import { Factory, Sparkles, ChevronRight, Package, Cog, ShieldCheck, HeartHandshake } from "lucide-react";
 import { setRequestLocale, getTranslations } from "next-intl/server";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'products' });
+
+  return {
+    title: t('title'),
+    description: t('tag'),
+    alternates: {
+      canonical: `/${locale}/products`,
+      languages: {
+        'en': '/en/products',
+        'th': '/th/products',
+      },
+    },
+  };
+}
 
 export default async function ProductsPage({
   params,
@@ -88,22 +105,22 @@ export default async function ProductsPage({
               <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center text-emerald-600">
                 <ShieldCheck size={32} />
               </div>
-              <h3 className="text-xl font-bold text-zinc-900">{locale === 'en' ? 'Quality Assurance' : 'การรับประกันคุณภาพ'}</h3>
-              <p className="text-zinc-500 leading-relaxed text-sm">ISO-certified manufacturing processes ensuring peak performance.</p>
+              <h3 className="text-xl font-bold text-zinc-900">{t('trust.quality.title')}</h3>
+              <p className="text-zinc-500 leading-relaxed text-sm">{t('trust.quality.desc')}</p>
             </div>
             <div className="flex flex-col items-center text-center space-y-4">
               <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center text-red-600">
                 <Sparkles size={32} />
               </div>
-              <h3 className="text-xl font-bold text-zinc-900">{locale === 'en' ? 'Custom Engineering' : 'วิศวกรรมเฉพาะทาง'}</h3>
-              <p className="text-zinc-500 leading-relaxed text-sm">Tailored solutions for complex manufacturing challenges.</p>
+              <h3 className="text-xl font-bold text-zinc-900">{t('trust.custom.title')}</h3>
+              <p className="text-zinc-500 leading-relaxed text-sm">{t('trust.custom.desc')}</p>
             </div>
             <div className="flex flex-col items-center text-center space-y-4">
               <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center text-zinc-900">
                 <HeartHandshake size={32} />
               </div>
-              <h3 className="text-xl font-bold text-zinc-900">{locale === 'en' ? 'Expert Support' : 'การสนับสนุนจากผู้เชี่ยวชาญ'}</h3>
-              <p className="text-zinc-500 leading-relaxed text-sm">Full after-sales maintenance and operator training programs.</p>
+              <h3 className="text-xl font-bold text-zinc-900">{t('trust.support.title')}</h3>
+              <p className="text-zinc-500 leading-relaxed text-sm">{t('trust.support.desc')}</p>
             </div>
           </div>
         </div>

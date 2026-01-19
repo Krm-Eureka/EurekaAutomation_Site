@@ -1,6 +1,23 @@
 import { Target, Award, Users, Factory, Sparkles } from "lucide-react";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'about' });
+
+  return {
+    title: t('title'),
+    description: t('description'),
+    alternates: {
+      canonical: `/${locale}/about`,
+      languages: {
+        'en': '/en/about',
+        'th': '/th/about',
+      },
+    },
+  };
+}
+
 export default async function AboutPage({
   params,
 }: {
@@ -37,16 +54,14 @@ export default async function AboutPage({
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div className="space-y-6">
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
-                {locale === "en" ? "Who We Are" : "เราคือใคร"}
+                {t("who_we_are")}
               </h2>
               <p className="text-lg text-slate-600 leading-relaxed">
                 {t("description")}
               </p>
               <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100">
                 <p className="text-slate-600 italic">
-                  {locale === "en"
-                    ? "Our comprehensive services include requirement analysis, mechanical/electrical design, CNC machining, PLC programming, and complete machine assembly."
-                    : "บริการครบวงจรของเรารวมถึงการวิเคราะห์ความต้องการ การออกแบบเครื่องกลและไฟฟ้า งาน CNC โปรแกรม PLC และการประกอบเครื่องจักร"}
+                  {t("comprehensive_services")}
                 </p>
               </div>
             </div>

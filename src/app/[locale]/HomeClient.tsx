@@ -4,7 +4,7 @@ import { JsonLd, generateOrganizationSchema } from "@/components/seo/JsonLd";
 import {
     ArrowRight, Cpu, Cog, Database, Truck, Zap, Activity,
     Target, Award, Users, Factory, Sparkles, Package,
-    Phone, Mail, MapPin, Send, ChevronRight, Play
+    Phone, Mail, MapPin, ChevronRight, Play
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
@@ -12,14 +12,29 @@ import { withBasePath } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import VideoGallery from "@/components/sections/VideoGallery";
-import videoData from "@/data/videos.json";
+import videoDataRaw from "@/data/videos.json";
+
+// Flatten the grouped video data for the gallery component
+const videoData = Object.values(videoDataRaw).flat();
 
 // Client logos data
 const clientLogos = [
-    { name: "Alpha Tech", logo: withBasePath("/images/logos/client-1.png"), href: "https://www.google.com" },
-    { name: "Sigma Automation", logo: withBasePath("/images/logos/client-2.png"), href: "https://www.google.com" },
-    { name: "Omega Systems", logo: withBasePath("/images/logos/client-3.png"), href: "https://www.google.com" },
-    { name: "Delta Robotics", logo: withBasePath("/images/logos/client-4.png"), href: "https://www.google.com" },
+    { name: "Daikin", logo: withBasePath("/images/logos/Daikin-logo.svg"), href: "https://www.daikin.co.th/" },
+    { name: "Ford", logo: withBasePath("/images/logos/Ford-logo.svg"), href: "https://www.ford.co.th/" },
+    { name: "Honda", logo: withBasePath("/images/logos/Honda-logo.svg"), href: "https://www.honda.co.th/" },
+    { name: "Kawasaki", logo: withBasePath("/images/logos/Kawasaki-logo.jpg"), href: "https://www.kawasaki.co.th/th" },
+    { name: "Mahle", logo: withBasePath("/images/logos/Mahle-logo.svg"), href: "https://www.mahle.com/" },
+    { name: "Mitsubishi", logo: withBasePath("/images/logos/Mitsubishi-logo.svg"), href: "https://www.mitsubishi-motors.co.th/" },
+    { name: "OR", logo: withBasePath("/images/logos/OR-logo.svg"), href: "https://www.pttplc.com/th" },
+    { name: "Panasonic", logo: withBasePath("/images/logos/Panasonic-logo.svg"), href: "https://www.panasonic.com/" },
+    { name: "Schneider Electric", logo: withBasePath("/images/logos/Schneider-Electric-logo.svg"), href: "https://www.se.com/" },
+    { name: "Valeo", logo: withBasePath("/images/logos/Valeo-logo.png"), href: "https://www.valeo.com/en/" },
+    { name: "Lumentum", logo: withBasePath("/images/logos/Lumentum-logo.png"), href: "https://www.lumentum.com/en" },
+    { name: "Suzuki", logo: withBasePath("/images/logos/Suzuki-logo.png"), href: "https://www.marutisuzuki.com/" },
+    { name: "MEK", logo: withBasePath("/images/logos/Mek-logo.jpg"), href: "https://www.mektec.co.th/" },
+    { name: "Toshiba Carrier", logo: withBasePath("/images/logos/Toshiba-Carrier-logo.png"), href: "https://www.toshiba-carrier.co.th/" },
+    { name: "Yamada", logo: withBasePath("/images/logos/Yamada-logo.jpg"), href: "https://www.yscthai.com/" },
+    { name: "Visteon Thailand", logo: withBasePath("/images/logos/Visteon-logo.svg"), href: "https://www.visteon.com/overview/default.aspx" }
 ];
 
 export default function HomeClient({ locale }: { locale: string }) {
@@ -312,7 +327,7 @@ export default function HomeClient({ locale }: { locale: string }) {
                             transition={{ duration: 0.8, delay: 0.2 }}
                         >
                             <div className="bg-gradient-to-r from-emerald-600/20 to-emerald-600/5 border border-emerald-600/30 rounded-xl p-6 md:p-8 relative overflow-hidden">
-                                <div className="absolute left-3 top-2 text-emerald-600/10 text-4xl">"</div>
+                                <div className="absolute left-3 top-2 text-emerald-600/10 text-4xl">&quot;</div>
                                 <p className="text-base md:text-lg font-bold text-white text-center leading-relaxed relative z-10">
                                     {tHome('timeline.quote')}
                                 </p>
@@ -496,7 +511,7 @@ export default function HomeClient({ locale }: { locale: string }) {
                 to { transform: translateX(-25%); }
               }
               .animate-infinite-scroll {
-                animation: scroll-left 40s linear infinite;
+                animation: scroll-left 120s linear infinite;
               }
               .pause-animation {
                 animation-play-state: paused !important;
@@ -516,15 +531,13 @@ export default function HomeClient({ locale }: { locale: string }) {
                             transition={fadeIn.transition}
                         >
                             <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 rounded-full text-sm font-bold text-emerald-700 border border-emerald-200">
-                                <Play size={16} /> Showcase
+                                <Play size={16} /> {tHome('showcase.tag')}
                             </div>
                             <h2 className="text-3xl md:text-5xl font-bold text-zinc-900">
-                                {locale === 'th' ? 'ผลงานและกิจกรรมของเรา' : 'Our Showcase & Activities'}
+                                {tHome('showcase.title')}
                             </h2>
                             <p className="text-xl text-zinc-500 max-w-2xl mx-auto">
-                                {locale === 'th'
-                                    ? 'สัมผัสนวัตกรรมและโซลูชันของเราผ่านวิดีโอสาธิตการทำงานจริง'
-                                    : 'Experience our innovations and solutions through real-world demonstration videos.'}
+                                {tHome('showcase.description')}
                             </p>
                         </motion.div>
 
@@ -598,13 +611,13 @@ export default function HomeClient({ locale }: { locale: string }) {
                                     transition={{ delay: 0.3, duration: 0.5 }}
                                 >
                                     <p className="text-sm text-white/60 mb-4">
-                                        {locale === 'th' ? 'สนใจเข้าร่วมทีมของเรา?' : 'Interested in joining our team?'}
+                                        {tHome('careers_cta.title')}
                                     </p>
                                     <Link
                                         href="/careers"
                                         className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full font-bold transition-all group"
                                     >
-                                        {locale === 'th' ? 'ร่วมงานกับเรา' : 'Explore Careers'}
+                                        {tHome('careers_cta.button')}
                                         <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                     </Link>
                                 </motion.div>

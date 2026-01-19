@@ -1,6 +1,23 @@
 import Link from "next/link";
-import { Truck, Database, Network, ChevronRight, Activity, ArrowRight } from "lucide-react";
+import { Truck, Database, Activity, ArrowRight } from "lucide-react";
 import { setRequestLocale, getTranslations } from "next-intl/server";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'solutions' });
+
+  return {
+    title: t('title'),
+    description: t('tag'),
+    alternates: {
+      canonical: `/${locale}/solutions`,
+      languages: {
+        'en': '/en/solutions',
+        'th': '/th/solutions',
+      },
+    },
+  };
+}
 
 export default async function SolutionsPage({
   params,
@@ -11,6 +28,7 @@ export default async function SolutionsPage({
   setRequestLocale(locale);
   const t = await getTranslations('solutions');
   const tNav = await getTranslations('nav');
+  const tCommon = await getTranslations('common');
 
   const solutions = [
     {
@@ -75,7 +93,7 @@ export default async function SolutionsPage({
                     ))}
                   </ul>
                   <Link href={`/${locale}/#contact`} className="inline-flex items-center gap-2 font-bold text-zinc-900 group-hover:text-emerald-600 transition-colors">
-                    {locale === 'th' ? 'เริ่มต้นใช้งาน' : 'Get Started'} <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
+                    {tCommon('get_started')} <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
                   </Link>
                 </div>
               );

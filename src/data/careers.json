@@ -1,8 +1,7 @@
 {
-    "_comment": "จัดการตำแหน่งงานที่นี่ | status: 'open' เปิดแสดงผล, 'close' ปิดแสดงผล | experience: ประสบการณ์ | education: จบจาก/วุฒิการศึกษา | salary: เงินเดือน",
-    "positions": [
+    "_comment": "จัดการตำแหน่งงานที่นี่ | status: 'open' เปิดแสดงผล, 'close' ปิดแสดงผล",
+    "ENGINEERING": [
         {
-            "id": "plc-eng",
             "status": "open",
             "dept": {
                 "th": "วิศวกรรม",
@@ -36,9 +35,10 @@
                 "th": "ออกแบบ เขียนโปรแกรม และทดสอบระบบควบคุม PLC สำหรับโครงการระบบอัตโนมัติอุตสาหกรรม",
                 "en": "Design, program, and commission PLC systems for industrial automation projects."
             }
-        },
+        }
+    ],
+    "R_AND_D": [
         {
-            "id": "mech-des",
             "status": "open",
             "dept": {
                 "th": "วิจัยและพัฒนา",
@@ -72,9 +72,10 @@
                 "th": "ออกแบบโครงสร้าง 3D และจัดเตรียมแบบสั่งผลิตสำหรับเครื่องจักรอุตสาหกรรมตามความต้องการลูกค้า",
                 "en": "Create detailed 3D designs and engineering drawings for custom-built industrial machines."
             }
-        },
+        }
+    ],
+    "SOFTWARE": [
         {
-            "id": "full-stack",
             "status": "close",
             "dept": {
                 "th": "ซอฟต์แวร์",

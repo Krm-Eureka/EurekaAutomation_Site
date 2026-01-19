@@ -4,11 +4,7 @@ import { withBasePath } from '@/lib/utils';
 import { Mail, Phone, MapPin, Facebook, Linkedin } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-type FooterProps = {
-  lang: string;
-};
-
-export function Footer({ lang }: FooterProps) {
+export function Footer() {
   const currentYear = new Date().getFullYear();
   const t = useTranslations('footer');
   const tNav = useTranslations('nav');

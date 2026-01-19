@@ -1,4 +1,11 @@
 {
+    "common": {
+        "back": "Back",
+        "related_videos": "Related Videos",
+        "showcase": "Showcase",
+        "activities": "Activities",
+        "get_started": "Get Started"
+    },
     "nav": {
         "home": "Home",
         "about": "About Us",
@@ -8,7 +15,8 @@
         "solutions": "Solutions",
         "blog": "Blog",
         "contact": "Contact",
-        "careers": "Careers"
+        "careers": "Careers",
+        "showcase": "Showcase"
     },
     "hero": {
         "title": "Eureka Automation 4.0",
@@ -33,7 +41,9 @@
     "about": {
         "tag": "Our Legacy",
         "title": "A Decade of Engineering Precision",
+        "who_we_are": "Who We Are",
         "description": "Since 2010, Eureka Automation has been a trusted partner in designing and manufacturing innovative industrial solutions for global leaders in the Automotive and Electronics sectors.",
+        "comprehensive_services": "Our comprehensive services include requirement analysis, mechanical/electrical design, CNC machining, PLC programming, and complete machine assembly.",
         "values": {
             "innovation": {
                 "title": "Innovation",
@@ -71,6 +81,15 @@
         }
     },
     "home": {
+        "showcase": {
+            "tag": "Showcase",
+            "title": "Our Showcase & Activities",
+            "description": "Experience our innovations and solutions through real-world demonstration videos."
+        },
+        "careers_cta": {
+            "title": "Interested in joining our team?",
+            "button": "Explore Careers"
+        },
         "capabilities": "Core Engineering Strengths",
         "capabilities_tag": "Our Capabilities",
         "transform_desc": "Empower your manufacturing ecosystem with smart, data-driven automation frameworks designed for longevity.",
@@ -143,6 +162,20 @@
         "standard": {
             "tag": "Standardized",
             "title": "Standard Automation Units"
+        },
+        "trust": {
+            "quality": {
+                "title": "Quality Assurance",
+                "desc": "ISO-certified manufacturing processes ensuring peak performance."
+            },
+            "custom": {
+                "title": "Custom Engineering",
+                "desc": "Tailored solutions for complex manufacturing challenges."
+            },
+            "support": {
+                "title": "Expert Support",
+                "desc": "Full after-sales maintenance and operator training programs."
+            }
         }
     },
     "contact": {
@@ -152,9 +185,11 @@
         "call_us": "Call Us",
         "email_us": "Email Us",
         "visit_us": "Visit Us",
+        "support_hours": "Our support team is available Monday to Friday, 9:00 AM – 6:00 PM.",
         "form": {
             "name": "Name",
             "email": "Email",
+            "company": "Company",
             "subject": "Subject",
             "message": "Message",
             "submit": "Send Message",
@@ -169,6 +204,14 @@
     "careers": {
         "title": "Forge Your Future With Us",
         "subtitle": "Join a team of visionaries shaping the future of industrial intelligence. We are seeking passionate innovators to lead the next generation of automation.",
+        "join_tag": "// Join Eureka Automation",
+        "view_all": "All Positions",
+        "view_category": "By Category",
+        "labels": {
+            "experience": "Experience:",
+            "education": "Education:",
+            "salary": "Salary:"
+        },
         "benefits": "Why Join Us?",
         "benefits_list": [
             "Competitive Salary & Bonuses",

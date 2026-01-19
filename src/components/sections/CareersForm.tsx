@@ -35,8 +35,9 @@ export function CareersForm() {
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
-        const handleApply = (e: any) => {
-            setFormData(prev => ({ ...prev, position: e.detail }));
+        const handleApply = (e: Event) => {
+            const customEvent = e as CustomEvent;
+            setFormData(prev => ({ ...prev, position: customEvent.detail }));
         };
         window.addEventListener('apply-position', handleApply);
         return () => window.removeEventListener('apply-position', handleApply);
@@ -129,10 +130,11 @@ export function CareersForm() {
             setFile(null);
             setPdpaConsent(false);
 
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error("❌ Submission Failed:", error);
             setStatus('error');
-            setErrorMessage('เกิดข้อผิดพลาดในการเชื่อมต่อ: ' + error.message);
+            const msg = error instanceof Error ? error.message : 'Unknown error';
+            setErrorMessage('เกิดข้อผิดพลาดในการเชื่อมต่อ: ' + msg);
         } finally {
             console.groupEnd();
             setIsSubmitting(false);

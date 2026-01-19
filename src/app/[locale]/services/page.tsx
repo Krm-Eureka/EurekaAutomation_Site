@@ -2,6 +2,23 @@ import Link from "next/link";
 import { Wrench, Zap, Settings, Code, Radio, Package, ArrowRight, Sparkles } from "lucide-react";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'home' });
+
+  return {
+    title: t('capabilities'),
+    description: t('transform_desc'),
+    alternates: {
+      canonical: `/${locale}/services`,
+      languages: {
+        'en': '/en/services',
+        'th': '/th/services',
+      },
+    },
+  };
+}
+
 export default async function ServicesPage({
   params,
 }: {
