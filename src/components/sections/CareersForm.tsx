@@ -24,7 +24,8 @@ export function CareersForm() {
     const [pdpaConsent, setPdpaConsent] = useState(false);
 
     const [formData, setFormData] = useState({
-        name: '',
+        firstName: '',
+        lastName: '',
         email: '',
         phone: '',
         position: '',
@@ -97,7 +98,13 @@ export function CareersForm() {
             console.log("✅ PDF Converted successfully (Length:", base64File.length, ")");
 
             const payload = {
-                ...formData,
+                firstName: formData.firstName,
+                lastName: formData.lastName,
+                name: `${formData.firstName} ${formData.lastName}`,
+                email: formData.email,
+                phone: formData.phone,
+                position: formData.position,
+                message: formData.message,
                 pdfData: base64File,
                 pdfName: file.name,
                 pdpaAccepted: true
@@ -126,7 +133,7 @@ export function CareersForm() {
             setStatus('success');
             console.info("🎉 Application sent successfully! Check Google Sheet/Drive.");
 
-            setFormData({ name: '', email: '', phone: '', position: '', message: '' });
+            setFormData({ firstName: '', lastName: '', email: '', phone: '', position: '', message: '' });
             setFile(null);
             setPdpaConsent(false);
 
@@ -182,17 +189,32 @@ export function CareersForm() {
             <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                        <label className="text-sm font-bold text-zinc-800">{t('name')} <span className="text-red-500">*</span></label>
+                        <label className="text-sm font-bold text-zinc-800">ชื่อ / First Name <span className="text-red-500">*</span></label>
                         <input
                             type="text"
-                            name="name"
+                            name="firstName"
                             required
-                            placeholder="Full Name"
-                            value={formData.name}
+                            placeholder="First Name"
+                            value={formData.firstName}
                             onChange={handleChange}
                             className="w-full bg-zinc-50 border border-zinc-200 rounded-xl p-3.5 text-zinc-900 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all placeholder:text-zinc-400"
                         />
                     </div>
+                    <div className="space-y-2">
+                        <label className="text-sm font-bold text-zinc-800">นามสกุล / Last Name <span className="text-red-500">*</span></label>
+                        <input
+                            type="text"
+                            name="lastName"
+                            required
+                            placeholder="Last Name"
+                            value={formData.lastName}
+                            onChange={handleChange}
+                            className="w-full bg-zinc-50 border border-zinc-200 rounded-xl p-3.5 text-zinc-900 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all placeholder:text-zinc-400"
+                        />
+                    </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                         <label className="text-sm font-bold text-zinc-800">{t('email')} <span className="text-red-500">*</span></label>
                         <input
@@ -205,9 +227,6 @@ export function CareersForm() {
                             className="w-full bg-zinc-50 border border-zinc-200 rounded-xl p-3.5 text-zinc-900 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all placeholder:text-zinc-400"
                         />
                     </div>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                         <label className="text-sm font-bold text-zinc-800">เบอร์โทรศัพท์ / Phone <span className="text-red-500">*</span></label>
                         <input
@@ -220,6 +239,9 @@ export function CareersForm() {
                             className="w-full bg-zinc-50 border border-zinc-200 rounded-xl p-3.5 text-zinc-900 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all placeholder:text-zinc-400"
                         />
                     </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                         <label className="text-sm font-bold text-zinc-800">{t('position')} <span className="text-red-500">*</span></label>
                         <input
@@ -308,8 +330,8 @@ export function CareersForm() {
 
                 <button
                     type="submit"
-                    disabled={isSubmitting}
-                    className="w-full h-14 bg-zinc-900 text-white font-black rounded-xl hover:bg-emerald-600 transition-all shadow-lg hover:shadow-emerald-500/25 flex items-center justify-center gap-3 disabled:opacity-50 group"
+                    disabled={isSubmitting || !pdpaConsent}
+                    className="w-full h-14 bg-zinc-900 text-white font-black rounded-xl hover:bg-emerald-600 transition-all shadow-lg hover:shadow-emerald-500/25 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed group"
                 >
                     {t('submit')}
                     <Send size={20} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />

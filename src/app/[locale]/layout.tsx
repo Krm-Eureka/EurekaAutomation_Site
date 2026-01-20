@@ -4,19 +4,22 @@ import { routing } from '@/i18n/routing';
 import "../globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
 
   const titles: Record<string, string> = {
-    en: "Eureka Automation | Industrial Automation Solutions Thailand",
-    th: "Eureka Automation | โซลูชันระบบอัตโนมัติอุตสาหกรรมในประเทศไทย"
+    en: "Eureka Automation | Advanced Industrial Solutions Thailand",
+    th: "Eureka Automation | โซลูชันระบบอัตโนมัติและนวัตกรรมอุตสาหกรรม"
   };
 
   const descriptions: Record<string, string> = {
-    en: "Leading provider of custom machine design, CNC machining, PLC programming, and AMR/AGV integration services in Thailand. ISO 9001:2015 Certified.",
-    th: "ผู้นำด้านการออกแบบเครื่องจักรตามสั่ง, งาน CNC, โปรแกรม PLC และการรวมระบบ AMR/AGV ในประเทศไทย มาตรฐาน ISO 9001:2015"
+    en: "Leading provider of custom machine design, AI solutions, and industrial automation in Thailand. Precision engineering for the future. ISO 9001:2015 Certified.",
+    th: "ผู้เชี่ยวชาญด้านการออกแบบเครื่องจักร, โซลูชัน AI และระบบอัตโนมัติอุตสาหกรรมในประเทศไทย เพิ่มประสิทธิภาพการผลิตด้วยเทคโนโลยีระดับโลก"
   };
+
+  const gaId = process.env.NEXT_PUBLIC_GA_ID || "";
 
   return {
     metadataBase: new URL('https://eureka-automation.com'),
@@ -37,8 +40,22 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       description: descriptions[locale] || descriptions.en,
       url: `https://eureka-automation.com/${locale}`,
       siteName: 'Eureka Automation',
+      images: [
+        {
+          url: '/images/eureka-og.png',
+          width: 1200,
+          height: 630,
+          alt: 'Eureka Automation - Industrial Innovation',
+        },
+      ],
       locale: locale === 'th' ? 'th_TH' : 'en_US',
       type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: titles[locale],
+      description: descriptions[locale],
+      images: ['/images/eureka-og.png'],
     },
     robots: {
       index: true,
@@ -50,6 +67,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
         'max-image-preview': 'large',
         'max-snippet': -1,
       },
+    },
+    icons: {
+      icon: '/favicon.ico',
+      shortcut: '/favicon.ico',
+      apple: '/favicon.ico',
     },
   };
 }
@@ -66,6 +88,7 @@ export default async function RootLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  const gaId = process.env.NEXT_PUBLIC_GA_ID || "";
 
   // Enable static rendering
   setRequestLocale(locale);
@@ -74,6 +97,7 @@ export default async function RootLayout({
 
   return (
     <NextIntlClientProvider messages={messages}>
+      {gaId && <GoogleAnalytics GA_MEASUREMENT_ID={gaId} />}
       <Header lang={locale} />
       <main className="flex-grow">{children}</main>
       <Footer />

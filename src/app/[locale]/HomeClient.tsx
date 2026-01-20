@@ -87,43 +87,56 @@ export default function HomeClient({ locale }: { locale: string }) {
             <div className="bg-white min-h-screen selection:bg-emerald-600 selection:text-white">
                 {/* Hero Section */}
                 <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-zinc-950">
+                    {/* Background Image / Motion Background */}
+                    <div className="absolute inset-0 z-0">
+                        <Image
+                            src={withBasePath("/images/hero-automation.png")}
+                            alt="Industrial Automation AMR and Conveyor"
+                            fill
+                            className="object-cover opacity-60 scale-110"
+                            priority
+                            unoptimized
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent"></div>
+                        <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/60 via-transparent to-transparent"></div>
+                    </div>
+
                     {/* Animated Background Elements */}
-                    <div className="absolute inset-0 overflow-hidden">
-                        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald-500/15 rounded-full blur-3xl animate-pulse"></div>
-                        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-red-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-emerald-500/5 to-red-500/5 rounded-full blur-3xl"></div>
+                    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald-500/20 rounded-full blur-3xl animate-pulse"></div>
+                        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-red-500/15 rounded-full blur-3xl animate-pulse delay-1000"></div>
                     </div>
 
                     {/* Grid Pattern */}
-                    <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.2) 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
+                    <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.2) 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
 
                     <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 1, ease: customEase }}
+                            initial={{ opacity: 0, y: 50 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 1.2, ease: customEase }}
                         >
                             <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-sm text-white/80 mb-4">
                                 <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
                                 {tHero('certified')}
                             </div>
-                            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white mb-8 tracking-tight leading-[1.1]">
+                            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white mb-8 tracking-tight leading-[1.1] drop-shadow-2xl">
                                 {tHero('title')}
                             </h1>
-                            <p className="text-xl md:text-2xl text-white/70 max-w-3xl mx-auto mb-12 leading-relaxed">
+                            <p className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto mb-12 leading-relaxed drop-shadow-lg">
                                 {tHero('subtitle')}
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4 justify-center">
                                 <Link
                                     href="#productsandservices"
-                                    className="group px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full font-bold text-lg shadow-lg hover:shadow-emerald-500/30 transition-all duration-300 flex items-center justify-center gap-2"
+                                    className="group px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full font-bold text-lg shadow-2xl hover:shadow-emerald-500/50 transition-all duration-300 flex items-center justify-center gap-2"
                                 >
                                     {tHero('cta')}
                                     <ChevronRight className="group-hover:translate-x-1 transition-transform" size={20} />
                                 </Link>
                                 <Link
                                     href="#contact"
-                                    className="px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full font-bold text-lg hover:bg-white hover:text-zinc-900 transition-all"
+                                    className="px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full font-bold text-lg hover:bg-white hover:text-zinc-900 transition-all shadow-xl"
                                 >
                                     {tHero('contact')}
                                 </Link>
@@ -132,9 +145,13 @@ export default function HomeClient({ locale }: { locale: string }) {
                     </div>
 
                     {/* Scroll Indicator */}
-                    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+                    <div className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer opacity-70 hover:opacity-100 transition-opacity">
                         <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center pt-2">
-                            <div className="w-1 h-3 bg-emerald-400 rounded-full animate-pulse"></div>
+                            <motion.div
+                                className="w-1 h-3 bg-emerald-400 rounded-full"
+                                animate={{ y: [0, 8, 0] }}
+                                transition={{ repeat: Infinity, duration: 1.5 }}
+                            />
                         </div>
                     </div>
                 </section>
@@ -464,6 +481,30 @@ export default function HomeClient({ locale }: { locale: string }) {
                     </div>
                 </section>
 
+                {/* Showcase & Activities Section */}
+                <section id="showcase" className="py-24 bg-white overflow-hidden">
+                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                        <motion.div
+                            className="text-center mb-16 space-y-4"
+                            initial={fadeIn.initial}
+                            whileInView={fadeIn.whileInView}
+                            viewport={fadeIn.viewport}
+                            transition={fadeIn.transition}
+                        >
+                            <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 rounded-full text-sm font-bold text-emerald-700 border border-emerald-200">
+                                <Play size={16} /> {tHome('showcase.tag')}
+                            </div>
+                            <h2 className="text-3xl md:text-5xl font-bold text-zinc-900">
+                                {tHome('showcase.title')}
+                            </h2>
+                            <p className="text-xl text-zinc-500 max-w-2xl mx-auto">
+                                {tHome('showcase.description')}
+                            </p>
+                        </motion.div>
+
+                        <VideoGallery videos={videoData} locale={locale} />
+                    </div>
+                </section>
                 {/* Customer Logo Slider Section */}
                 <section className="py-10 border-y border-zinc-100 overflow-hidden bg-white">
                     <motion.div
@@ -519,32 +560,6 @@ export default function HomeClient({ locale }: { locale: string }) {
             `}} />
                     </div>
                 </section>
-
-                {/* Showcase & Activities Section */}
-                <section id="showcase" className="py-24 bg-white overflow-hidden">
-                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                        <motion.div
-                            className="text-center mb-16 space-y-4"
-                            initial={fadeIn.initial}
-                            whileInView={fadeIn.whileInView}
-                            viewport={fadeIn.viewport}
-                            transition={fadeIn.transition}
-                        >
-                            <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 rounded-full text-sm font-bold text-emerald-700 border border-emerald-200">
-                                <Play size={16} /> {tHome('showcase.tag')}
-                            </div>
-                            <h2 className="text-3xl md:text-5xl font-bold text-zinc-900">
-                                {tHome('showcase.title')}
-                            </h2>
-                            <p className="text-xl text-zinc-500 max-w-2xl mx-auto">
-                                {tHome('showcase.description')}
-                            </p>
-                        </motion.div>
-
-                        <VideoGallery videos={videoData} locale={locale} />
-                    </div>
-                </section>
-
                 {/* Contact Section */}
                 <section id="contact" className="py-16 bg-zinc-950 text-white overflow-hidden relative">
                     {/* Background Effects */}

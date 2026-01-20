@@ -33,6 +33,9 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# Google Apps Script (contains sensitive folder IDs and deployment URLs)
+public/google.script.js
+
 # vercel
 .vercel
 
