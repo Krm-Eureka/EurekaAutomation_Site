@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next';
+export const dynamic = 'force-static';
 
 const locales = ['en', 'th'];
 const pages = [
