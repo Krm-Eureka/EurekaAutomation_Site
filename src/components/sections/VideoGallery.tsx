@@ -10,7 +10,7 @@ interface Video {
     thumbnail: string;
     youtubeUrl: string;
     category: { th: string; en: string };
-    description: { th: string; en: string };
+    description: { th: string; en: string } | { th: string; en: string }[];
 }
 
 interface VideoGalleryProps {
@@ -93,15 +93,15 @@ export default function VideoGallery({ videos, locale, hideFilter = false }: Vid
             <div className="relative group/gallery">
                 {/* Navigation Buttons */}
                 <button
-                    onClick={() => scroll('left')}
-                    className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 p-3 bg-white rounded-full shadow-xl border border-zinc-100 text-zinc-400 hover:text-emerald-600 hover:scale-110 transition-all opacity-0 group-hover/gallery:opacity-100 hidden md:block"
+                    onClick={(e) => { e.stopPropagation(); scroll('left'); }}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 z-40 p-3 bg-white/90 backdrop-blur-sm rounded-full shadow-xl border border-zinc-100 text-zinc-600 hover:text-emerald-600 hover:scale-110 transition-all opacity-0 group-hover/gallery:opacity-100 hidden md:block"
                 >
                     <ChevronLeft size={24} />
                 </button>
 
                 <button
-                    onClick={() => scroll('right')}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 p-3 bg-white rounded-full shadow-xl border border-zinc-100 text-zinc-400 hover:text-emerald-600 hover:scale-110 transition-all opacity-0 group-hover/gallery:opacity-100 hidden md:block"
+                    onClick={(e) => { e.stopPropagation(); scroll('right'); }}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 z-40 p-3 bg-white/90 backdrop-blur-sm rounded-full shadow-xl border border-zinc-100 text-zinc-600 hover:text-emerald-600 hover:scale-110 transition-all opacity-0 group-hover/gallery:opacity-100 hidden md:block"
                 >
                     <ChevronRight size={24} />
                 </button>
@@ -166,9 +166,20 @@ export default function VideoGallery({ videos, locale, hideFilter = false }: Vid
                                     </span>
                                 </div>
                                 <h2 className="text-3xl md:text-4xl font-black mb-6 tracking-tight">{selectedVideo.title[locale as "th" | "en"]}</h2>
-                                <div className="text-zinc-400 text-lg md:text-xl leading-relaxed whitespace-pre-wrap max-w-4xl">
-                                    {selectedVideo.description[locale as "th" | "en"]}
-                                </div>
+                                {Array.isArray(selectedVideo.description) ? (
+                                    <div className="space-y-3">
+                                        {selectedVideo.description.map((item, idx) => (
+                                            <div key={idx} className="flex items-start gap-3">
+                                                <span className="text-emerald-500 font-bold text-xl mt-[-2px]">›</span>
+                                                <span className="text-zinc-300">{item[locale as "th" | "en"]}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <div className="text-zinc-400 text-lg md:text-xl leading-relaxed whitespace-pre-wrap max-w-4xl">
+                                        {selectedVideo.description[locale as "th" | "en"]}
+                                    </div>
+                                )}
                             </div>
                         </motion.div>
                     </motion.div>
@@ -201,7 +212,7 @@ function VideoCard({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.3 }}
-            className="flex-none w-[300px] md:w-[400px] group cursor-pointer snap-start"
+            className="flex-none w-[250px] md:w-[350px] group cursor-pointer snap-start"
             onClick={onClick}
         >
             <div className="relative aspect-video rounded-2xl overflow-hidden shadow-lg border border-zinc-100 mb-4 bg-zinc-200">
@@ -234,7 +245,9 @@ function VideoCard({
                 {video.title[locale as "th" | "en"]}
             </h3>
             <p className="text-sm text-zinc-500 line-clamp-2">
-                {video.description[locale as "th" | "en"]}
+                {Array.isArray(video.description)
+                    ? video.description.map(d => d[locale as "th" | "en"]).join(" ")
+                    : video.description[locale as "th" | "en"]}
             </p>
         </motion.div>
     );

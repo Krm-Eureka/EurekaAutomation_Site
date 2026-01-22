@@ -54,18 +54,92 @@
     "MACHINES": [
         {
             "title": {
-                "th": "การทำงานของเครื่องจักรเฉพาะทาง",
-                "en": "Custom Machine Operation"
+                "th": "EV Pouch Cell Assembly",
+                "en": "EV Pouch Cell Assembly"
             },
             "thumbnail": "",
-            "youtubeUrl": "https://www.youtube.com/watch?v=eJ46cwHkbFg&t=162s",
+            "youtubeUrl": "https://www.youtube.com/watch?v=cOih_PCE5UA",
+            "category": {
+                "th": "เครื่องจักร",
+                "en": "Machines"
+            },
+            "description": [
+                {
+                    "th": "Fully automatic De-Gassing solution",
+                    "en": "Fully automatic De-Gassing solution"
+                },
+                {
+                    "th": "Weighting & Cutting identification",
+                    "en": "Weighting & Cutting identification"
+                },
+                {
+                    "th": "High-speed pick & place",
+                    "en": "High-speed pick & place"
+                }
+            ]
+        },
+        {
+            "title": {
+                "th": "Roof module assembly ",
+                "en": "Roof module assembly "
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://youtu.be/sTahE2omumM",
+            "category": {
+                "th": "เครื่องจักร",
+                "en": "Machines"
+            },
+            "description": [
+                {
+                    "th": "Pallet conveyor system",
+                    "en": "Pallet conveyor system"
+                },
+                {
+                    "th": "Automatic test with LabView control",
+                    "en": "Automatic test with LabView control"
+                },
+                {
+                    "th": "Automatic Acoustic test",
+                    "en": "Automatic Acoustic test"
+                }
+            ]
+        },
+        {
+            "title": {
+                "th": "Fully automatic De Gassing solution",
+                "en": "Fully automatic De Gassing solution"
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://youtu.be/Ltk-0lGRL6Q",
+            "category": {
+                "th": "เครื่องจักร",
+                "en": "Machines"
+            },
+            "description": [
+                {
+                    "th": "การประกอบ EV Pouch Cell",
+                    "en": "EV Pouch Cell Assembly"
+                },
+                {
+                    "th": "ตัวอย่างการทำงานของเครื่องจักรอัตโนมัติที่ออกแบบตามความต้องการลูกค้า",
+                    "en": "Eureka Fully automatic De Gassing solution"
+                }
+            ]
+        },
+        {
+            "title": {
+                "th": "Fully automatic De Gassing solution",
+                "en": "Fully automatic De Gassing solution"
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://youtu.be/sTahE2omumM",
             "category": {
                 "th": "เครื่องจักร",
                 "en": "Machines"
             },
             "description": {
                 "th": "ตัวอย่างการทำงานของเครื่องจักรอัตโนมัติที่ออกแบบตามความต้องการลูกค้า",
-                "en": "Demonstration of a custom-built automation machine."
+                "en": "Eureka Fully automatic De Gassing solution"
             }
         }
     ],
