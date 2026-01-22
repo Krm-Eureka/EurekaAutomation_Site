@@ -14,7 +14,7 @@ import { Send, CheckCircle2, AlertCircle, Loader2, Upload, FileText } from 'luci
  */
 
 // ใส่ URL จากการ Deploy Google Apps Script (Web App)
-const GAS_WEB_APP_URL = "https://script.google.com/a/macros/eurekaautomation.co.th/s/AKfycby9s2vmMcvoBVb6_IHqSByjL05aR9PZE60Ic9OS0vcOqf7SIKedThlqZIUgeCkMgbX8VQ/exec";
+const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyacQT8w5mTqw6fmd9pgu6zioG635zMRUgYskjgQH11T05n9G0ra77too5hyJFBZ0nS/exec";
 
 export function CareersForm() {
     const t = useTranslations('careers.form');
@@ -114,24 +114,39 @@ export function CareersForm() {
             console.log("3. Sending request to GAS URL:", GAS_WEB_APP_URL);
 
             /**
-             * ใช้ mode: 'no-cors' เมื่อติดต่อกับ GAS โดยตรงจาก Browser
-             * หมายเหตุ: no-cors จะไม่คืนค่า Response Body มาให้เราดูได้ 
-             * แต่ถ้า Exception ไม่เกิด แสดงว่า Request ถูกส่งออกไปถึง Server แล้ว
+             * [CRITICAL FIX] Removed 'no-cors' mode.
+             * GAS Web Apps support CORS if deployed as "Anyone".
+             * Using 'cors' allows us to catch 401, 404, 500 errors properly.
+             * If access is restricted (e.g. Workspace only), it will return 401.
              */
             const response = await fetch(GAS_WEB_APP_URL, {
                 method: 'POST',
-                mode: 'no-cors',
+                mode: 'cors', // changed from 'no-cors'
                 headers: {
                     'Content-Type': 'text/plain;charset=utf-8',
                 },
                 body: JSON.stringify(payload)
             });
 
-            console.log("4. Response received (mode: no-cors)", response);
+            console.log("4. Response status:", response.status, response.statusText);
 
-            // ในโหมด no-cors เราจะถือว่า "ส่งผ่าน" ถ้าไม่มี Exception
+            if (!response.ok) {
+                if (response.status === 401) {
+                    throw new Error("401 Unauthorized: โปรดตรวจสอบว่าที่อยู่ URL ถูกต้องและ Deploy เป็น 'Anyone' (ทุกคน) ไม่ใช่เฉพาะคนในองค์กร");
+                }
+                throw new Error(`Server returned ${response.status}: ${response.statusText}`);
+            }
+
+            // ในโหมด cors เราสามารถอ่าน text ได้ถ้า GAS คืนค่ามา
+            const resultText = await response.text();
+            console.log("5. Server response text:", resultText);
+
+            if (resultText.toLowerCase().includes("error")) {
+                throw new Error(resultText);
+            }
+
             setStatus('success');
-            console.info("🎉 Application sent successfully! Check Google Sheet/Drive.");
+            console.info("🎉 Application sent successfully!");
 
             setFormData({ firstName: '', lastName: '', email: '', phone: '', position: '', message: '' });
             setFile(null);
@@ -140,8 +155,16 @@ export function CareersForm() {
         } catch (error: unknown) {
             console.error("❌ Submission Failed:", error);
             setStatus('error');
-            const msg = error instanceof Error ? error.message : 'Unknown error';
-            setErrorMessage('เกิดข้อผิดพลาดในการเชื่อมต่อ: ' + msg);
+            let msg = 'Unknown error';
+
+            if (error instanceof Error) {
+                msg = error.message;
+                // ตรวจสอบว่าเป็นเรื่อง CORS หรือเปล่า
+                if (msg.toLowerCase().includes("failed to fetch")) {
+                    msg = "ไม่สามารถเชื่อมต่อกับ Server ได้ (อาจเกิดจากปัญหา CORS หรือ URL ไม่ถูกต้อง) โปรดตรวจสอบการตั้งค่า Deploy ใน Apps Script ให้เป็น 'Anyone'";
+                }
+            }
+            setErrorMessage('เกิดข้อผิดพลาด: ' + msg);
         } finally {
             console.groupEnd();
             setIsSubmitting(false);

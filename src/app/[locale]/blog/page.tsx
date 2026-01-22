@@ -32,7 +32,7 @@ export default async function BlogPage({
   // In a real implementation, this would fetch from a CMS or markdown files
   const posts = [
     {
-      slug: "what-is-industry-4-0",
+      slug: "what-is-industrial-automation",
       title: t('posts.industry40.title'),
       excerpt: t('posts.industry40.excerpt'),
       date: "2025-01-15",
