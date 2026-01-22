@@ -19,7 +19,7 @@
         "showcase": "Showcase"
     },
     "hero": {
-        "title": "Eureka Automation 4.0",
+        "title": "Eureka Automation",
         "subtitle": "Pioneering the Future of Production with Engineering Excellence and ISO 9001:2015 Precision",
         "cta": "Explore Our Solutions",
         "contact": "Consult Our Engineers",
@@ -114,7 +114,7 @@
                 },
                 "2019": {
                     "title": "Smart Automation Era",
-                    "desc": "Launched AI & Industry 4.0 Business Unit for next-generation manufacturing"
+                    "desc": "Launched AI & Industry Business Unit for next-generation manufacturing"
                 }
             }
         },
@@ -264,7 +264,7 @@
         "read_more": "Read more",
         "posts": {
             "industry40": {
-                "title": "What is Industry 4.0?",
+                "title": "What is Industry?",
                 "excerpt": "Understanding the fourth industrial revolution and its impact on manufacturing",
                 "category": "Technology"
             }
