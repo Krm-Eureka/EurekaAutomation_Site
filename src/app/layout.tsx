@@ -14,7 +14,7 @@ export default function RootLayout({
 }) {
     return (
         <html className="scroll-smooth">
-            <body className={`${prompt.variable} font-sans antialiased text-zinc-900 bg-white`}>
+            <body className={`${prompt.variable} font-sans antialiased text-zinc-900 bg-white flex flex-col min-h-screen`}>
                 {children}
             </body>
         </html>

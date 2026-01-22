@@ -25,7 +25,7 @@ export default function ContactClient({ locale }: { locale: string }) {
     return (
         <div className="bg-white">
             {/* Hero */}
-            <section className="bg-zinc-950 pt-48 pb-24 text-white overflow-hidden relative">
+            <section className="bg-zinc-950 pt-32 sm:pt-40 md:pt-48 pb-16 sm:pb-20 lg:pb-24 text-white overflow-hidden relative">
                 <div className="absolute inset-0 overflow-hidden">
                     <div className="absolute bottom-0 left-0 w-96 h-96 bg-red-500/10 rounded-full blur-3xl"></div>
                 </div>
@@ -43,7 +43,7 @@ export default function ContactClient({ locale }: { locale: string }) {
             </section>
 
             {/* Contact Form & Info */}
-            <section className="py-24">
+            <section className="py-16 sm:py-20 lg:py-24">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="grid md:grid-cols-2 gap-20">
                         {/* Contact Form */}

@@ -33,7 +33,7 @@ export default function CustomMachinesClient() {
     return (
         <div className="min-h-screen bg-white">
             {/* Header */}
-            <div className="pt-32 pb-16 bg-gradient-to-br from-zinc-900 to-zinc-950 text-white">
+            <div className="pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 bg-gradient-to-br from-zinc-900 to-zinc-950 text-white">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <button onClick={() => router.back()} className="inline-flex items-center gap-2 text-zinc-300 hover:text-white mb-6 transition-colors">
                         <ChevronLeft size={20} /> Back
@@ -54,7 +54,7 @@ export default function CustomMachinesClient() {
             </div>
 
             {/* Content */}
-            <div className="py-24">
+            <div className="py-16 sm:py-20 lg:py-24">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <motion.div
                         className="space-y-12"

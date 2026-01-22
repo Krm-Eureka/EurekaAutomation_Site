@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { Play, X, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react"; // เพิ่ม ArrowRight
 import Image from "next/image";
 
 interface Video {
@@ -106,9 +106,10 @@ export default function VideoGallery({ videos, locale, hideFilter = false }: Vid
                     <ChevronRight size={24} />
                 </button>
 
+                {/* เพิ่ม items-stretch เพื่อให้การ์ดสูงเท่ากัน */}
                 <div
                     ref={scrollContainerRef}
-                    className="flex overflow-x-auto gap-6 pb-8 scrollbar-hide scroll-smooth snap-x snap-mandatory px-4"
+                    className="flex overflow-x-auto gap-6 pb-8 scrollbar-hide scroll-smooth snap-x snap-mandatory px-4 items-stretch"
                     style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                 >
                     <AnimatePresence mode="popLayout">
@@ -189,7 +190,7 @@ export default function VideoGallery({ videos, locale, hideFilter = false }: Vid
     );
 }
 
-// Sub-component to handle individual video card state (image fallback)
+// Sub-component to handle individual video card state
 function VideoCard({
     video,
     locale,
@@ -201,8 +202,6 @@ function VideoCard({
     onClick: () => void,
     getYouTubeThumbnail: (url: string, quality?: 'max' | 'hq') => string
 }) {
-    // We can effectively remove the complex fallback logic since we are now defaulting to 'hq'
-    // which is much more reliable than 'max'. Kept simple state just in case, or could be removed.
     const [isLoaded, setIsLoaded] = useState(false);
 
     return (
@@ -212,11 +211,12 @@ function VideoCard({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.3 }}
-            className="flex-none w-[250px] md:w-[350px] group cursor-pointer snap-start"
+            // ปรับแก้ CSS เป็น Card เต็มรูปแบบ: flex-col, h-full, bg-white, border
+            className="flex-none w-[250px] md:w-[350px] group cursor-pointer snap-start flex flex-col h-full bg-white rounded-2xl overflow-hidden border border-zinc-100 shadow-sm hover:shadow-xl transition-all duration-300"
             onClick={onClick}
         >
-            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-lg border border-zinc-100 mb-4 bg-zinc-200">
-                {/* Skeleton Loader showing underneath */}
+            {/* Image Container - ตัด margin-bottom และ border-radius ออกเพราะ Parent จัดการแล้ว */}
+            <div className="relative aspect-video bg-zinc-200">
                 <div className={`absolute inset-0 bg-zinc-300 animate-pulse ${isLoaded ? 'hidden' : 'block'}`} />
 
                 <Image
@@ -241,14 +241,26 @@ function VideoCard({
                     </span>
                 </div>
             </div>
-            <h3 className="text-lg font-bold text-zinc-900 group-hover:text-emerald-600 transition-colors mb-2 line-clamp-1">
-                {video.title[locale as "th" | "en"]}
-            </h3>
-            <p className="text-sm text-zinc-500 line-clamp-2">
-                {Array.isArray(video.description)
-                    ? video.description.map(d => d[locale as "th" | "en"]).join(" ")
-                    : video.description[locale as "th" | "en"]}
-            </p>
+
+            {/* Content Container - ใช้ flex-1 เพื่อยืดเนื้อหา */}
+            <div className="flex flex-col flex-1 p-5">
+                <h3 className="text-lg font-bold text-zinc-900 group-hover:text-emerald-600 transition-colors mb-2 line-clamp-1">
+                    {video.title[locale as "th" | "en"]}
+                </h3>
+
+                <div className="text-sm text-zinc-500 line-clamp-2 mb-4 flex-1">
+                    {Array.isArray(video.description)
+                        ? video.description.map(d => d[locale as "th" | "en"]).join(" ")
+                        : video.description[locale as "th" | "en"]}
+                </div>
+
+                {/* Footer Section - ใช้ mt-auto เพื่อดันลงล่างสุด */}
+                <div className="mt-auto pt-3 border-t border-zinc-100 flex items-center justify-between">
+                    <span className="text-sm font-bold text-emerald-600 flex items-center gap-2 group-hover:gap-3 transition-all">
+                        Discover more <ArrowRight size={16} />
+                    </span>
+                </div>
+            </div>
         </motion.div>
     );
 }

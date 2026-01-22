@@ -3,21 +3,19 @@
 import { JsonLd, generateOrganizationSchema } from "@/components/seo/JsonLd";
 import {
     ArrowRight, Cpu, Cog, Database, Truck, Zap, Activity,
-    Target, Award, Users, Factory, Sparkles, Package,
-    Phone, Mail, MapPin, ChevronRight, Play
+    Target, Award, Users, Factory, Sparkles,
+    Phone, Mail, MapPin
 } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { withBasePath } from "@/lib/utils";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from '@/i18n/routing';
 import VideoGallery from "@/components/sections/VideoGallery";
 import videoDataRaw from "@/data/videos.json";
 
-// Flatten the grouped video data for the gallery component
 const videoData = Object.values(videoDataRaw).flat();
 
-// Client logos data
 const clientLogos = [
     { name: "Daikin", logo: withBasePath("/images/logos/Daikin-logo.svg"), href: "https://www.daikin.co.th/" },
     { name: "Ford", logo: withBasePath("/images/logos/Ford-logo.svg"), href: "https://www.ford.co.th/" },
@@ -48,14 +46,29 @@ export default function HomeClient({ locale }: { locale: string }) {
     const serviceKeys = ['custom_machines', 'ai_ml', 'automation', 'smart_logistics'] as const;
     const orgSchema = generateOrganizationSchema(locale);
 
-    // Easing as specific tuple for Framer Motion
-    const customEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
+    const { scrollY } = useScroll();
+    const y1 = useTransform(scrollY, [0, 500], [0, 200]);
 
-    const fadeIn = {
-        initial: { opacity: 0, y: 30 },
-        whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true },
-        transition: { duration: 0.8, ease: customEase }
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        show: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.2
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 30 },
+        show: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                duration: 0.8,
+                ease: [0.22, 1, 0.36, 1] as const
+            }
+        }
     };
 
     const serviceIcons = {
@@ -67,437 +80,432 @@ export default function HomeClient({ locale }: { locale: string }) {
         cnc: Database
     };
 
-    // Brand color palette: Green, Red, Black, White
-    const serviceColors = [
-        { gradient: 'from-emerald-500 to-emerald-700', text: 'text-emerald-600', border: 'border-emerald-200' },
-        { gradient: 'from-red-500 to-red-700', text: 'text-red-600', border: 'border-red-200' },
-        { gradient: 'from-zinc-800 to-zinc-950', text: 'text-zinc-900', border: 'border-zinc-300' },
-        { gradient: 'from-emerald-500 to-emerald-700', text: 'text-emerald-600', border: 'border-emerald-200' },
-        { gradient: 'from-red-500 to-red-700', text: 'text-red-600', border: 'border-red-200' },
-        { gradient: 'from-zinc-800 to-zinc-950', text: 'text-zinc-900', border: 'border-zinc-300' },
-    ];
-
     const valueIcons = [Target, Award, Users];
-    const valueColors = ['bg-emerald-600', 'bg-red-600', 'bg-zinc-900'];
+    const valueColors = ['bg-emerald-600', 'bg-zinc-900', 'bg-zinc-700'];
     const valueKeys = ['innovation', 'quality', 'partnership'] as const;
 
     return (
         <>
             <JsonLd data={orgSchema} />
-            <div className="bg-white min-h-screen selection:bg-emerald-600 selection:text-white">
-                {/* Hero Section */}
-                <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-zinc-950">
-                    {/* Background Image / Motion Background */}
-                    <div className="absolute inset-0 z-0">
+            <div className="bg-white min-h-screen selection:bg-emerald-600 selection:text-white overflow-x-hidden">
+
+                {/* 1. HERO SECTION */}
+                <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-zinc-900">
+                    <motion.div style={{ y: y1 }} className="absolute inset-0 z-0">
                         <Image
-                            src={withBasePath("/images/hero-automation.png")}
-                            alt="Industrial Automation AMR and Conveyor"
+                            src={withBasePath("/images/eureka-og.png")}
+                            alt="Industrial Automation"
                             fill
-                            className="object-cover opacity-60 scale-110"
+                            className="object-cover opacity-90 scale-110"
                             priority
                             unoptimized
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent"></div>
-                        <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/60 via-transparent to-transparent"></div>
-                    </div>
+                        <div className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] bg-emerald-500/10 rounded-full blur-[120px] animate-pulse"></div>
+                        <div className="absolute bottom-[-20%] left-[-10%] w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[100px] animate-pulse delay-1000"></div>
 
-                    {/* Animated Background Elements */}
-                    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald-500/20 rounded-full blur-3xl animate-pulse"></div>
-                        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-red-500/15 rounded-full blur-3xl animate-pulse delay-1000"></div>
-                    </div>
+                        <div className="absolute inset-0 bg-gradient-to-r from-zinc-900 via-zinc-900/80 to-transparent"></div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent"></div>
+                    </motion.div>
 
-                    {/* Grid Pattern */}
-                    <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.2) 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
-
-                    <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+                    <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
                         <motion.div
-                            initial={{ opacity: 0, y: 50 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 1.2, ease: customEase }}
+                            variants={containerVariants}
+                            initial="hidden"
+                            animate="show"
+                            className="max-w-4xl"
                         >
-                            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-sm text-white/80 mb-4">
-                                <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
-                                {tHero('certified')}
-                            </div>
-                            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white mb-8 tracking-tight leading-[1.1] drop-shadow-2xl">
-                                {tHero('title')}
-                            </h1>
-                            <p className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto mb-12 leading-relaxed drop-shadow-lg">
+                            <motion.div variants={itemVariants} className="flex items-center gap-3 mb-6">
+                                <span className="h-[2px] w-8 md:w-12 bg-emerald-500"></span>
+                                <span className="text-emerald-400 font-mono text-xs md:text-sm tracking-[0.2em] uppercase font-semibold">
+                                    {tHero('certified')}
+                                </span>
+                            </motion.div>
+
+                            <motion.h1 variants={itemVariants} className="text-5xl md:text-7xl lg:text-8xl font-black text-white mb-6 tracking-tight leading-[1.1]">
+                                Eureka <br />
+                                <span className="text-transparent bg-clip-text bg-emerald-500 ">
+                                    <span className="text-red-500">A</span>utomat<span className="text-red-500">i</span>on.
+                                </span>
+                            </motion.h1>
+
+                            <motion.p variants={itemVariants} className="text-lg md:text-2xl text-zinc-300 max-w-2xl mb-10 leading-relaxed font-light">
                                 {tHero('subtitle')}
-                            </p>
-                            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                            </motion.p>
+
+                            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4">
                                 <Link
-                                    href="#productsandservices"
-                                    className="group px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full font-bold text-lg shadow-2xl hover:shadow-emerald-500/50 transition-all duration-300 flex items-center justify-center gap-2"
+                                    href="/#productsandservices"
+                                    className="group px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-full font-bold text-lg shadow-[0_0_30px_rgba(16,185,129,0.3)] hover:shadow-[0_0_40px_rgba(16,185,129,0.5)] transition-all duration-300 flex items-center justify-center gap-3 hover:-translate-y-1"
                                 >
                                     {tHero('cta')}
-                                    <ChevronRight className="group-hover:translate-x-1 transition-transform" size={20} />
+                                    <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
                                 </Link>
                                 <Link
-                                    href="#contact"
-                                    className="px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full font-bold text-lg hover:bg-white hover:text-zinc-900 transition-all shadow-xl"
+                                    href="/#contact"
+                                    className="px-8 py-4 bg-white/5 backdrop-blur-sm border border-white/10 text-white rounded-full font-bold text-lg hover:bg-white hover:text-zinc-900 transition-all text-center hover:-translate-y-1"
                                 >
                                     {tHero('contact')}
                                 </Link>
-                            </div>
+                            </motion.div>
                         </motion.div>
                     </div>
 
-                    {/* Scroll Indicator */}
-                    <div className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer opacity-70 hover:opacity-100 transition-opacity">
-                        <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center pt-2">
-                            <motion.div
-                                className="w-1 h-3 bg-emerald-400 rounded-full"
-                                animate={{ y: [0, 8, 0] }}
-                                transition={{ repeat: Infinity, duration: 1.5 }}
-                            />
-                        </div>
-                    </div>
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1, y: [0, 10, 0] }}
+                        transition={{ delay: 2, duration: 2, repeat: Infinity }}
+                        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+                    >
+                        <span className="text-[10px] uppercase tracking-widest text-zinc-500">Scroll</span>
+                        <div className="w-[1px] h-12 bg-gradient-to-b from-zinc-500 to-transparent"></div>
+                    </motion.div>
                 </section>
 
                 {/* Industrial Trust Section */}
-                <section className="py-5 bg-zinc-900 text-white">
+                <section className="py-16 sm:py-20 bg-zinc-900 text-white border-b border-zinc-800">
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <motion.div
-                            className="space-y-8"
-                            initial={fadeIn.initial}
-                            whileInView={fadeIn.whileInView}
-                            viewport={fadeIn.viewport}
-                            transition={fadeIn.transition}
+                            className="grid lg:grid-cols-2 gap-16 items-start"
+                            initial={{ opacity: 0, y: 50 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-100px" }}
+                            transition={{ duration: 0.8 }}
                         >
-                            <div>
-                                <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 tracking-tight">{useTranslations('industrialTrust')('title')}</h2>
-                                <p className="text-base md:text-lg text-white/70 leading-relaxed max-w-3xl">
+                            <div className="space-y-6">
+                                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white">{useTranslations('industrialTrust')('title')}</h2>
+                                <p className="text-lg text-zinc-400 leading-relaxed">
                                     {useTranslations('industrialTrust')('description')}
                                 </p>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
-                                <div className="flex items-start gap-4">
-                                    <div className="w-2 h-2 bg-emerald-500 rounded-full mt-2 flex-shrink-0"></div>
-                                    <div>
-                                        <p className="font-semibold text-white">{useTranslations('industrialTrust')('headquarters.label')}:</p>
-                                        <p className="text-white/70">{useTranslations('industrialTrust')('headquarters.value')}</p>
-                                    </div>
-                                </div>
-
-                                <div className="flex items-start gap-4">
-                                    <div className="w-2 h-2 bg-emerald-500 rounded-full mt-2 flex-shrink-0"></div>
-                                    <div>
-                                        <p className="font-semibold text-white">{useTranslations('industrialTrust')('globalReach.label')}:</p>
-                                        <p className="text-white/70">{useTranslations('industrialTrust')('globalReach.value')}</p>
-                                    </div>
-                                </div>
-
-                                <div className="flex items-start gap-4">
-                                    <div className="w-2 h-2 bg-emerald-500 rounded-full mt-2 flex-shrink-0"></div>
-                                    <div>
-                                        <p className="font-semibold text-white">{useTranslations('industrialTrust')('exporting.label')}:</p>
-                                        <p className="text-white/70">{useTranslations('industrialTrust')('exporting.value')}</p>
-                                    </div>
-                                </div>
-
-                                <div className="flex items-start gap-4">
-                                    <div className="w-2 h-2 bg-emerald-500 rounded-full mt-2 flex-shrink-0"></div>
-                                    <div>
-                                        <p className="font-semibold text-white">{useTranslations('industrialTrust')('coreFocus.label')}:</p>
-                                        <p className="text-white/70">{useTranslations('industrialTrust')('coreFocus.value')}</p>
-                                    </div>
-                                </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-10">
+                                {[
+                                    { k: 'headquarters', delay: 0 },
+                                    { k: 'globalReach', delay: 0.1 },
+                                    { k: 'exporting', delay: 0.2 },
+                                    { k: 'coreFocus', delay: 0.3 }
+                                ].map((item) => (
+                                    <motion.div
+                                        key={item.k}
+                                        initial={{ opacity: 0, x: 20 }}
+                                        whileInView={{ opacity: 1, x: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ delay: item.delay, duration: 0.5 }}
+                                        className="space-y-2"
+                                    >
+                                        <div className="w-8 h-1 bg-emerald-500 mb-3"></div>
+                                        <p className="font-semibold text-white uppercase text-xs tracking-wider opacity-70">{useTranslations('industrialTrust')(`${item.k}.label`)}</p>
+                                        <p className="text-xl text-white font-medium">{useTranslations('industrialTrust')(`${item.k}.value`)}</p>
+                                    </motion.div>
+                                ))}
                             </div>
                         </motion.div>
                     </div>
                 </section>
 
                 {/* About Section */}
-                <section id="about" className="py-24 overflow-hidden bg-white">
+                <section id="about" className="py-16 sm:py-20 lg:py-24 bg-zinc-200 overflow-hidden">
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                        <div className="flex flex-col lg:flex-row items-center gap-16">
+                        <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
                             <motion.div
                                 className="flex-1 space-y-8"
-                                initial={fadeIn.initial}
-                                whileInView={fadeIn.whileInView}
-                                viewport={fadeIn.viewport}
-                                transition={fadeIn.transition}
+                                initial={{ opacity: 0, x: -50 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.8 }}
                             >
-                                <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 rounded-full text-sm font-bold text-emerald-700 border border-emerald-200">
-                                    <Sparkles size={16} /> {tAbout('tag')}
-                                </div>
+                                <span className="text-emerald-600 font-bold tracking-wider uppercase text-sm border-b-2 border-emerald-100 pb-1 inline-block">
+                                    {tAbout('tag')}
+                                </span>
                                 <h2 className="text-4xl md:text-5xl font-bold text-zinc-900 tracking-tight leading-tight">
                                     {tAbout('title')}
                                 </h2>
-                                <p className="text-lg text-zinc-600 leading-relaxed">
+                                <p className="text-xl text-zinc-600 leading-relaxed font-light">
                                     {tAbout('description')}
                                 </p>
-                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-4">
+
+                                <div className="space-y-6 pt-6">
                                     {valueKeys.map((key, i) => {
                                         const Icon = valueIcons[i];
                                         return (
                                             <motion.div
                                                 key={key}
-                                                className="p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all border border-zinc-100 group"
-                                                whileHover={{ y: -5 }}
+                                                className="flex gap-6 items-start group"
+                                                whileHover={{ x: 10 }}
+                                                transition={{ type: "spring", stiffness: 300 }}
                                             >
-                                                <div className={`w-12 h-12 ${valueColors[i]} rounded-xl flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform`}>
-                                                    <Icon size={24} />
+                                                <div className={`w-12 h-12 ${valueColors[i]} rounded-xl flex items-center justify-center text-white shrink-0 shadow-lg group-hover:scale-110 transition-transform`}>
+                                                    <Icon size={20} />
                                                 </div>
-                                                <h3 className="font-bold text-zinc-900">{tAbout(`values.${key}.title`)}</h3>
-                                                <p className="text-sm text-zinc-500 mt-1">{tAbout(`values.${key}.desc`)}</p>
+                                                <div>
+                                                    <h3 className="font-bold text-lg text-zinc-900 mb-1">{tAbout(`values.${key}.title`)}</h3>
+                                                    <p className="text-zinc-500 text-sm leading-relaxed">{tAbout(`values.${key}.desc`)}</p>
+                                                </div>
                                             </motion.div>
                                         );
                                     })}
                                 </div>
                             </motion.div>
+
                             <motion.div
-                                className="flex-1 w-full aspect-square lg:aspect-[4/5] relative rounded-3xl overflow-hidden shadow-2xl"
-                                initial={{ opacity: 0, scale: 0.9 }}
+                                className="flex-1 relative"
+                                initial={{ opacity: 0, scale: 0.8 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
-                                transition={{ duration: 1, ease: customEase }}
+                                transition={{ duration: 0.8 }}
                             >
-                                <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 via-emerald-700 to-zinc-900">
-                                    <div className="absolute inset-0 opacity-30" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '32px 32px' }}></div>
-                                    <div className="absolute inset-0 flex items-center justify-center">
-                                        <div className="text-white/30 text-center">
-                                            <Factory size={120} strokeWidth={0.5} className="animate-pulse" />
-                                            <p className="mt-4 text-xs tracking-widest uppercase italic font-bold text-white/50">{tAbout('placeholder')}</p>
-                                        </div>
-                                    </div>
-                                </div>
+                                <motion.div
+                                    className="relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl bg-zinc-100"
+                                    animate={{ y: [0, -20, 0] }}
+                                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                                >
+                                    {/* รูป Eureka OG */}
+                                    <Image
+                                        src={withBasePath("/images/hero-automation.png")}
+                                        alt="Eureka Automation Facility"
+                                        fill
+                                        className="object-cover"
+                                        sizes="(max-width: 768px) 100vw, 50vw"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+                                </motion.div>
+
+                                <motion.div
+                                    className="absolute -bottom-10 -left-10 bg-white p-8 rounded-2xl shadow-xl max-w-xs hidden md:block border border-zinc-100"
+                                    initial={{ opacity: 0, y: 50 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: 0.5 }}
+                                    whileHover={{ scale: 1.05 }}
+                                >
+                                    <p className="text-4xl font-black text-emerald-600 mb-1">20+</p>
+                                    <p className="text-zinc-600 font-bold">Years of Excellence</p>
+                                    <p className="text-zinc-400 text-sm mt-2">Delivering world-class automation solutions.</p>
+                                </motion.div>
                             </motion.div>
                         </div>
                     </div>
                 </section>
 
-                {/* Strategic Evolution Timeline Section */}
-                <section className="py-16 bg-black text-white overflow-hidden relative">
-                    {/* Background Effects */}
-                    <div className="absolute inset-0 overflow-hidden">
-                        <div className="absolute top-1/4 right-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl"></div>
-                        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-red-500/5 rounded-full blur-3xl"></div>
-                    </div>
+                {/* Timeline Section */}
+                <section className="py-16 sm:py-20 lg:py-24 bg-zinc-950 text-white relative overflow-hidden">
+                    <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-zinc-800 to-transparent"></div>
 
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
                         <motion.div
-                            className="text-center mb-12"
-                            initial={fadeIn.initial}
-                            whileInView={fadeIn.whileInView}
-                            viewport={fadeIn.viewport}
-                            transition={fadeIn.transition}
+                            className="text-center mb-20"
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
                         >
-                            <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-600 rounded-full text-xs font-bold uppercase tracking-widest text-white mb-3">
-                                <Sparkles size={12} /> {tHome('timeline.tag')}
-                            </div>
-                            <h2 className="text-3xl md:text-4xl font-bold mb-3 tracking-tight">{tHome('timeline.title')}</h2>
-                            <div className="h-1 w-24 bg-gradient-to-r from-red-600 to-transparent mx-auto"></div>
+                            <span className="text-zinc-500 font-mono tracking-[0.2em] uppercase text-sm mb-4 block">
+                                {tHome('timeline.tag')}
+                            </span>
+                            <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-6">
+                                {tHome('timeline.title')}
+                            </h2>
                         </motion.div>
 
-                        {/* Timeline Container */}
                         <div className="relative">
-                            {/* Timeline Line */}
-                            <div className="hidden md:block absolute top-24 left-0 right-0 h-px bg-gradient-to-r from-transparent via-zinc-600 to-transparent"></div>
+                            <motion.div
+                                className="hidden md:block absolute top-8 left-10 right-10 h-[2px] bg-zinc-800"
+                                initial={{ scaleX: 0 }}
+                                whileInView={{ scaleX: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 1.5, ease: "easeInOut" }}
+                            ></motion.div>
 
-                            {/* Timeline Items */}
-                            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                            <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-6">
                                 {[
-                                    { year: '2002', circle: '02' },
-                                    { year: '2014', circle: '14' },
-                                    { year: '2015', circle: '15' },
-                                    { year: '2019', circle: '19' }
+                                    { year: '2002', circle: 'Start' },
+                                    { year: '2014', circle: 'Global' },
+                                    { year: '2015', circle: 'Auto' },
+                                    { year: '2019', circle: 'AI' }
                                 ].map((item, index) => (
                                     <motion.div
                                         key={index}
-                                        className="text-center"
-                                        initial={{ opacity: 0, y: 20 }}
+                                        className="relative flex flex-col items-center text-center group"
+                                        initial={{ opacity: 0, y: 30 }}
                                         whileInView={{ opacity: 1, y: 0 }}
                                         viewport={{ once: true }}
-                                        transition={{ delay: index * 0.1, duration: 0.6 }}
+                                        transition={{ delay: index * 0.2, duration: 0.5 }}
                                     >
-                                        {/* Timeline Dot */}
-                                        <div className="flex justify-center mb-5">
-                                            <div className="relative w-14 h-14 rounded-full border-2 border-red-600 flex items-center justify-center bg-black group hover:scale-110 transition-transform cursor-pointer">
-                                                <span className="text-lg font-bold text-red-600">{item.circle}</span>
-                                                <div className="absolute inset-0 rounded-full bg-red-600/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                            </div>
+                                        <div className="w-4 h-4 rounded-full bg-zinc-800 border-2 border-zinc-600 group-hover:bg-emerald-500 group-hover:border-emerald-400 transition-colors mb-6 z-10 relative">
+                                            <div className="absolute inset-0 bg-emerald-500/50 rounded-full animate-ping opacity-0 group-hover:opacity-100"></div>
                                         </div>
 
-                                        {/* Year */}
-                                        <h3 className="text-2xl font-bold text-white mb-2">{item.year}</h3>
+                                        <h3 className="text-3xl font-bold text-white mb-3 group-hover:text-emerald-400 transition-colors font-mono">{item.year}</h3>
 
-                                        {/* Content */}
-                                        <div className="space-y-1">
-                                            <p className="font-semibold text-white text-sm">{tHome(`timeline.milestones.${item.year}.title`)}</p>
-                                            <p className="text-zinc-400 text-xs leading-relaxed">{tHome(`timeline.milestones.${item.year}.desc`)}</p>
+                                        <div className="px-4">
+                                            <p className="font-bold text-white mb-2 text-lg">{tHome(`timeline.milestones.${item.year}.title`)}</p>
+                                            <p className="text-zinc-500 text-sm leading-relaxed">{tHome(`timeline.milestones.${item.year}.desc`)}</p>
                                         </div>
                                     </motion.div>
                                 ))}
                             </div>
                         </div>
-
-                        {/* Quote Section */}
-                        <motion.div
-                            className="mt-12 pt-8 border-t border-zinc-800"
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.8, delay: 0.2 }}
-                        >
-                            <div className="bg-gradient-to-r from-emerald-600/20 to-emerald-600/5 border border-emerald-600/30 rounded-xl p-6 md:p-8 relative overflow-hidden">
-                                <div className="absolute left-3 top-2 text-emerald-600/10 text-4xl">&quot;</div>
-                                <p className="text-base md:text-lg font-bold text-white text-center leading-relaxed relative z-10">
-                                    {tHome('timeline.quote')}
-                                </p>
-                            </div>
-                        </motion.div>
                     </div>
                 </section>
 
-                {/* Products & Services Section */}
-                <section id="productsandservices" className="py-24 bg-zinc-50">
+                {/* Services Section - ปรับปรุงใหม่ */}
+                <section id="productsandservices" className="py-16 sm:py-20 lg:py-24 bg-zinc-100">
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <motion.div
-                            className="text-center mb-16 space-y-4"
-                            initial={fadeIn.initial}
-                            whileInView={fadeIn.whileInView}
-                            viewport={fadeIn.viewport}
-                            transition={fadeIn.transition}
+                            className="text-center mb-16 max-w-3xl mx-auto"
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
                         >
-                            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full text-sm font-bold text-zinc-700 border border-zinc-200 shadow-sm">
-                                <Zap size={16} className="text-emerald-600" /> {tHome('capabilities_tag')}
-                            </div>
-                            <h2 className="text-3xl md:text-5xl font-bold text-zinc-900">{tHome('capabilities')}</h2>
-                            <p className="text-xl text-zinc-600 max-w-2xl mx-auto">{tHome('transform_desc')}</p>
+                            <span className="text-emerald-600 font-bold tracking-wider uppercase text-sm mb-3 block">
+                                {tHome('capabilities_tag')}
+                            </span>
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-zinc-900 mb-6">{tHome('capabilities')}</h2>
+                            <p className="text-lg sm:text-xl text-zinc-500">{tHome('transform_desc')}</p>
                         </motion.div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <motion.div
+                            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
+                            variants={containerVariants}
+                            initial="hidden"
+                            whileInView="show"
+                            viewport={{ once: true, margin: "-50px" }}
+                        >
                             {serviceKeys.map((key, index) => {
                                 const Icon = serviceIcons[key];
-                                const color = serviceColors[index];
                                 const routeMap: { [key: string]: string } = {
-                                    custom_machines: 'custom-machines',
-                                    ai_ml: 'ai-solutions',
-                                    automation: 'robotics',
-                                    smart_logistics: 'logistics'
+                                    custom_machines: '/custom-machines',
+                                    ai_ml: '/ai-solutions',
+                                    automation: '/robotics',
+                                    smart_logistics: '/logistics'
                                 };
                                 const route = routeMap[key];
                                 return (
-                                    <Link href={route} key={key}>
+                                    <Link href={route} key={key} className="h-full block">
                                         <motion.div
-                                            className={`group relative p-8 bg-white rounded-2xl border ${color.border} hover:shadow-xl transition-all overflow-hidden cursor-pointer h-full`}
-                                            initial={{ opacity: 0, y: 20 }}
-                                            whileInView={{ opacity: 1, y: 0 }}
-                                            viewport={{ once: true }}
-                                            transition={{ delay: index * 0.1, duration: 0.5 }}
-                                            whileHover={{ y: -5 }}
+                                            variants={itemVariants}
+                                            className="group relative h-full flex flex-row sm:flex-col items-center sm:items-start bg-white p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-zinc-100 shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden gap-5 sm:gap-0"
+                                            whileHover={{ y: -10 }}
                                         >
-                                            <div className={`w-14 h-14 bg-gradient-to-br ${color.gradient} rounded-xl flex items-center justify-center mb-6 text-white group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
-                                                <Icon size={28} />
+                                            <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-emerald-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                                            <div className="relative w-14 h-14 sm:w-16 sm:h-16 bg-zinc-50 rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0 mb-0 sm:mb-8 group-hover:bg-emerald-600 group-hover:rotate-6 transition-all duration-500">
+                                                <Icon size={32} className="text-zinc-700 w-7 h-7 sm:w-8 sm:h-8 group-hover:text-white transition-colors duration-300" />
                                             </div>
-                                            <h3 className="text-xl font-bold text-zinc-900 mb-3">{tServices(`${key}.title`)}</h3>
-                                            <p className="text-zinc-500 leading-relaxed mb-6 line-clamp-3">
-                                                {tServices(`${key}.desc`)}
-                                            </p>
-                                            <div className={`flex items-center text-sm font-bold ${color.text} group-hover:gap-3 transition-all`}>
-                                                {tHome('learn_more')} <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-2 transition-transform" />
+
+                                            <div className="flex-1 min-w-0 sm:w-full flex flex-col h-full">
+                                                <h3 className="relative text-lg sm:text-xl font-bold text-zinc-900 mb-1 sm:mb-4 group-hover:text-emerald-700 transition-colors line-clamp-1 sm:line-clamp-none">
+                                                    {tServices(`${key}.title`)}
+                                                </h3>
+
+                                                <div className="relative text-zinc-500 leading-relaxed sm:mb-8 text-sm line-clamp-2 sm:line-clamp-3">
+                                                    {tServices(`${key}.desc`)}
+                                                </div>
+
+                                                <div className="mt-auto pt-4 border-t border-zinc-100 relative z-10 items-center justify-between hidden sm:flex">
+                                                    <span className="text-sm font-bold text-zinc-400 group-hover:text-emerald-600 transition-colors flex items-center gap-2">
+                                                        {tHome('learn_more')}
+                                                        <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                                                    </span>
+                                                </div>
                                             </div>
                                         </motion.div>
                                     </Link>
                                 );
                             })}
-                        </div>
+                        </motion.div>
                     </div>
                 </section>
 
                 {/* Products Section */}
-                <section id="productsandservices" className="py-24 bg-white">
+                <section className="py-16 sm:py-20 lg:py-24 bg-white border-t border-zinc-100">
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <motion.div
-                            className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8"
-                            initial={fadeIn.initial}
-                            whileInView={fadeIn.whileInView}
-                            viewport={fadeIn.viewport}
-                            transition={fadeIn.transition}
+                            className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6"
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true }}
                         >
-                            <div className="max-w-2xl space-y-4">
-                                <div className="inline-flex items-center gap-2 px-4 py-2 bg-red-50 rounded-full text-sm font-bold text-red-700 border border-red-200">
-                                    <Package size={16} /> {tProducts('tag')}
-                                </div>
-                                <h2 className="text-3xl md:text-5xl font-bold text-zinc-900">
+                            <div>
+                                <span className="text-emerald-600 font-bold tracking-wider uppercase text-sm mb-2 block">{tProducts('tag')}</span>
+                                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-zinc-900">
                                     {tProducts('title')}
                                 </h2>
                             </div>
-                            <button className="px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full font-bold shadow-lg hover:shadow-emerald-500/25 transition-all shrink-0">
+                            <Link href="/#contact" className="px-8 py-3 bg-zinc-900 hover:bg-zinc-800 text-white rounded-full font-bold transition-all shrink-0">
                                 {tProducts('view_catalogue')}
-                            </button>
+                            </Link>
                         </motion.div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <motion.div
-                                className="group relative overflow-hidden rounded-3xl aspect-[16/10] cursor-pointer shadow-xl"
-                                initial={{ opacity: 0, x: -30 }}
+                                className="group relative overflow-hidden rounded-[2.5rem] aspect-[16/9] cursor-pointer"
+                                initial={{ opacity: 0, x: -50 }}
                                 whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.8 }}
                                 whileHover={{ scale: 1.02 }}
                             >
-                                <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 via-emerald-700 to-zinc-900"></div>
-                                <div className="absolute inset-0 opacity-50 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
-                                <div className="absolute bottom-8 left-8 right-8 z-20 space-y-2">
-                                    <div className="flex items-center gap-2 text-emerald-200 text-xs font-bold uppercase tracking-widest">
-                                        <Sparkles size={14} /> {tProducts('custom.tag')}
-                                    </div>
-                                    <h3 className="text-2xl font-bold text-white">
-                                        {tProducts('custom.title')}
-                                    </h3>
-                                </div>
-                                <div className="absolute inset-0 flex items-center justify-center opacity-20">
-                                    <Cog size={160} className="animate-[spin_20s_linear_infinite] text-white" />
-                                </div>
-                            </motion.div>
-                            <motion.div
-                                className="group relative overflow-hidden rounded-3xl aspect-[16/10] cursor-pointer shadow-xl"
-                                initial={{ opacity: 0, x: 30 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.8 }}
-                                whileHover={{ scale: 1.02 }}
-                            >
-                                <div className="absolute inset-0 bg-gradient-to-br from-red-600 via-red-700 to-zinc-900"></div>
-                                <div className="absolute inset-0 opacity-50 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
-                                <div className="absolute bottom-8 left-8 right-8 z-20 space-y-2">
-                                    <div className="flex items-center gap-2 text-red-200 text-xs font-bold uppercase tracking-widest">
+                                <div className="absolute inset-0 bg-zinc-900 group-hover:scale-110 transition-transform duration-700"></div>
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+
+                                <div className="absolute bottom-0 left-0 p-6 sm:p-8 md:p-10 z-10">
+                                    <div className="flex items-center gap-2 text-emerald-400 text-xs font-bold uppercase tracking-widest mb-3">
                                         <Factory size={14} /> {tProducts('standard.tag')}
                                     </div>
-                                    <h3 className="text-2xl font-bold text-white">
+                                    <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">
                                         {tProducts('standard.title')}
                                     </h3>
+                                    <p className="text-zinc-400 max-w-md">Ready-to-use automation units designed for efficiency.</p>
                                 </div>
-                                <div className="absolute inset-0 flex items-center justify-center opacity-20">
-                                    <Package size={160} className="text-white" />
+                                <div className="absolute top-8 right-8 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white border border-white/20 group-hover:bg-emerald-600 group-hover:border-emerald-500 transition-all">
+                                    <ArrowRight size={20} className="-rotate-45 group-hover:rotate-0 transition-transform" />
+                                </div>
+                            </motion.div>
+
+                            <motion.div
+                                className="group relative overflow-hidden rounded-[2.5rem] aspect-[16/9] cursor-pointer"
+                                initial={{ opacity: 0, x: 50 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.8 }}
+                                whileHover={{ scale: 1.02 }}
+                            >
+                                <div className="absolute inset-0 bg-emerald-900 group-hover:scale-110 transition-transform duration-700"></div>
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+
+                                <div className="absolute bottom-0 left-0 p-6 sm:p-8 md:p-10 z-10">
+                                    <div className="flex items-center gap-2 text-emerald-300 text-xs font-bold uppercase tracking-widest mb-3">
+                                        <Sparkles size={14} /> {tProducts('custom.tag')}
+                                    </div>
+                                    <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">
+                                        {tProducts('custom.title')}
+                                    </h3>
+                                    <p className="text-emerald-100/70 max-w-md">Tailor-made machines for complex manufacturing challenges.</p>
+                                </div>
+                                <div className="absolute top-8 right-8 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white border border-white/20 group-hover:bg-white group-hover:text-emerald-900 transition-all">
+                                    <ArrowRight size={20} className="-rotate-45 group-hover:rotate-0 transition-transform" />
                                 </div>
                             </motion.div>
                         </div>
                     </div>
                 </section>
 
-                {/* Showcase & Activities Section */}
-                <section id="showcase" className="py-24 bg-white overflow-hidden">
+                {/* Video Gallery Section */}
+                <section id="showcase" className="py-8 sm:py-16 lg:py-24 bg-zinc-100 overflow-hidden">
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <motion.div
-                            className="text-center mb-16 space-y-4"
-                            initial={fadeIn.initial}
-                            whileInView={fadeIn.whileInView}
-                            viewport={fadeIn.viewport}
-                            transition={fadeIn.transition}
+                            className="text-center mb-12 space-y-4"
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
                         >
-                            <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 rounded-full text-sm font-bold text-emerald-700 border border-emerald-200">
-                                <Play size={16} /> {tHome('showcase.tag')}
-                            </div>
-                            <h2 className="text-3xl md:text-5xl font-bold text-zinc-900">
+                            <span className="text-emerald-600 font-bold tracking-wider uppercase text-sm">
+                                {tHome('showcase.tag')}
+                            </span>
+                            <h2 className="text-3xl md:text-4xl font-bold text-zinc-900">
                                 {tHome('showcase.title')}
                             </h2>
-                            <p className="text-xl text-zinc-500 max-w-2xl mx-auto">
+                            <p className="text-lg text-zinc-500 max-w-2xl mx-auto font-light">
                                 {tHome('showcase.description')}
                             </p>
                         </motion.div>
@@ -505,24 +513,16 @@ export default function HomeClient({ locale }: { locale: string }) {
                         <VideoGallery videos={videoData} locale={locale} />
                     </div>
                 </section>
-                {/* Customer Logo Slider Section */}
-                <section className="py-10 border-y border-zinc-100 overflow-hidden bg-white">
-                    <motion.div
-                        className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-12"
-                        initial={fadeIn.initial}
-                        whileInView={fadeIn.whileInView}
-                        viewport={fadeIn.viewport}
-                        transition={fadeIn.transition}
-                    >
-                        <div className="text-center space-y-4">
-                            <h3 className="text-sm font-bold uppercase tracking-[0.3em] text-zinc-400">{tHome('trusted_by')}</h3>
-                            <div className="h-1 w-16 bg-gradient-to-r from-emerald-500 to-red-500 mx-auto rounded-full"></div>
-                        </div>
-                    </motion.div>
 
-                    <div className="relative group/slider overflow-hidden py-4">
-                        <div className="absolute left-0 top-0 bottom-0 w-40 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
-                        <div className="absolute right-0 top-0 bottom-0 w-40 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
+                {/* Client Logos Section */}
+                <section className="py-12 sm:py-16 border-y border-zinc-100 bg-white">
+                    <div className="text-center mb-10">
+                        <span className="text-xs font-bold uppercase tracking-[0.3em] text-zinc-400">{tHome('trusted_by')}</span>
+                    </div>
+
+                    <div className="relative group/slider overflow-hidden">
+                        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white to-transparent z-10"></div>
+                        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white to-transparent z-10"></div>
 
                         <div className="flex w-max animate-infinite-scroll group-hover/slider:pause-animation">
                             {[...clientLogos, ...clientLogos, ...clientLogos, ...clientLogos].map((client, i) => (
@@ -531,9 +531,9 @@ export default function HomeClient({ locale }: { locale: string }) {
                                     href={client.href}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex items-center justify-center min-w-[250px] px-12 group/logo transition-all duration-500"
+                                    className="flex items-center justify-center min-w-[200px] px-8 transition-opacity hover:opacity-100 opacity-40 grayscale hover:grayscale-0 duration-500"
                                 >
-                                    <div className="relative w-40 h-20 grayscale opacity-40 group-hover/logo:grayscale-0 group-hover/logo:opacity-100 group-hover/logo:scale-110 transition-all duration-500">
+                                    <div className="relative w-32 h-16">
                                         <Image
                                             src={client.logo}
                                             alt={client.name}
@@ -544,98 +544,90 @@ export default function HomeClient({ locale }: { locale: string }) {
                                 </Link>
                             ))}
                         </div>
+                    </div>
 
-                        <style dangerouslySetInnerHTML={{
-                            __html: `
-              @keyframes scroll-left {
-                from { transform: translateX(0); }
-                to { transform: translateX(-25%); }
-              }
-              .animate-infinite-scroll {
-                animation: scroll-left 120s linear infinite;
-              }
-              .pause-animation {
-                animation-play-state: paused !important;
-              }
-            `}} />
-                    </div>
+                    <style dangerouslySetInnerHTML={{
+                        __html: `
+                        @keyframes scroll-left {
+                            from { transform: translateX(0); }
+                            to { transform: translateX(-25%); }
+                        }
+                        .animate-infinite-scroll {
+                            animation: scroll-left 80s linear infinite;
+                        }
+                        .pause-animation {
+                            animation-play-state: paused !important;
+                        }
+                    `}} />
                 </section>
+
                 {/* Contact Section */}
-                <section id="contact" className="py-16 bg-zinc-950 text-white overflow-hidden relative">
-                    {/* Background Effects */}
-                    <div className="absolute inset-0 overflow-hidden">
-                        <div className="absolute top-1/4 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"></div>
-                        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-red-500/10 rounded-full blur-3xl"></div>
-                    </div>
+                <section id="contact" className="py-16 sm:py-20 lg:py-24 bg-zinc-950 text-white relative">
+                    <div className="absolute inset-0 opacity-20 bg-[url('/grid-pattern.svg')]"></div>
 
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
-                        <div className="grid lg:grid-cols-2 gap-20">
-                            {/* Left Column - Title & Description */}
+                        <div className="grid lg:grid-cols-2 gap-20 items-center">
                             <motion.div
-                                className="space-y-6 flex flex-col justify-center"
-                                initial={fadeIn.initial}
-                                whileInView={fadeIn.whileInView}
-                                viewport={fadeIn.viewport}
-                                transition={fadeIn.transition}
+                                className="space-y-8"
+                                initial={{ opacity: 0, x: -50 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.8 }}
                             >
-                                <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/10 rounded-full text-sm font-bold text-white/70 w-fit">
-                                    <Mail size={16} className="text-emerald-400" /> {tContact('tag')}
+                                <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-900/30 border border-emerald-800 rounded-full text-sm font-bold text-emerald-400">
+                                    <Mail size={16} /> {tContact('tag')}
                                 </div>
-                                <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight text-white">
+                                <h2 className="text-4xl md:text-6xl font-bold tracking-tight leading-[1.1]">
                                     {tContact('title')}
                                 </h2>
-                                <p className="text-lg text-white/60 leading-relaxed">
+                                <p className="text-xl text-zinc-400 font-light leading-relaxed max-w-lg">
                                     {tContact('description')}
                                 </p>
+
+                                <div className="space-y-4 pt-4">
+                                    {[
+                                        { icon: Phone, label: tContact('call_us'), val: "+66 2 123 4567" },
+                                        { icon: Mail, label: tContact('email_us'), val: "info@eureka-automation.com" },
+                                        { icon: MapPin, label: tContact('visit_us'), val: "Pathum Thani, Thailand" }
+                                    ].map((item, i) => (
+                                        <motion.div
+                                            key={i}
+                                            className="flex items-center gap-6 group p-4 rounded-2xl hover:bg-white/5 transition-colors cursor-pointer"
+                                            whileHover={{ x: 10 }}
+                                        >
+                                            <div className="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center text-white group-hover:bg-emerald-600 transition-colors">
+                                                <item.icon size={20} />
+                                            </div>
+                                            <div>
+                                                <p className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-1">{item.label}</p>
+                                                <p className="font-medium text-white text-lg">{item.val}</p>
+                                            </div>
+                                        </motion.div>
+                                    ))}
+                                </div>
                             </motion.div>
 
-                            {/* Right Column - Contact Items */}
                             <motion.div
-                                className="space-y-6"
-                                initial={fadeIn.initial}
-                                whileInView={fadeIn.whileInView}
-                                viewport={fadeIn.viewport}
-                                transition={fadeIn.transition}
+                                className="bg-zinc-900 p-8 md:p-12 rounded-[2.5rem] border border-zinc-800 shadow-2xl"
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 0.2, duration: 0.8 }}
+                                whileHover={{ y: -5 }}
                             >
-                                {[
-                                    { icon: Phone, label: tContact('call_us'), val: "+66 XX XXX XXXX", color: 'bg-emerald-600' },
-                                    { icon: Mail, label: tContact('email_us'), val: "info@eureka-automation.com", color: 'bg-red-600' },
-                                    { icon: MapPin, label: tContact('visit_us'), val: "Bangkok, Thailand", color: 'bg-zinc-700' }
-                                ].map((item, i) => (
-                                    <motion.div
-                                        key={i}
-                                        className="flex items-center gap-6 group cursor-pointer"
-                                        whileHover={{ x: 10 }}
-                                    >
-                                        <div className={`w-14 h-14 ${item.color} rounded-2xl flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform`}>
-                                            <item.icon size={24} />
-                                        </div>
-                                        <div>
-                                            <p className="text-xs font-bold text-white/40 uppercase tracking-widest mb-1">{item.label}</p>
-                                            <p className="font-medium text-white text-lg">{item.val}</p>
-                                        </div>
-                                    </motion.div>
-                                ))}
-
-                                {/* Careers CTA */}
-                                <motion.div
-                                    className="pt-6 border-t border-white/10"
-                                    initial={{ opacity: 0, y: 10 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: 0.3, duration: 0.5 }}
+                                <div className="mb-8">
+                                    <h3 className="text-2xl font-bold text-white mb-2">{tHome('careers_cta.title')}</h3>
+                                    <p className="text-zinc-400">We are always looking for talent.</p>
+                                </div>
+                                <Link
+                                    href="/careers"
+                                    className="flex items-center justify-between w-full p-6 bg-emerald-600 hover:bg-emerald-500 text-white rounded-2xl font-bold transition-all group"
                                 >
-                                    <p className="text-sm text-white/60 mb-4">
-                                        {tHome('careers_cta.title')}
-                                    </p>
-                                    <Link
-                                        href="/careers"
-                                        className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full font-bold transition-all group"
-                                    >
-                                        {tHome('careers_cta.button')}
-                                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                                    </Link>
-                                </motion.div>
+                                    <span>{tHome('careers_cta.button')}</span>
+                                    <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                                        <ArrowRight size={20} />
+                                    </div>
+                                </Link>
                             </motion.div>
                         </div>
                     </div>

@@ -1,10 +1,19 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
-import "../globals.css";
+import { notFound } from 'next/navigation';
+import "@/app/globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
+import { Prompt } from "next/font/google";
+
+// ตั้งค่า Font
+const prompt = Prompt({
+  subsets: ["latin", "thai"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  variable: '--font-prompt'
+});
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -19,10 +28,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     th: "ผู้เชี่ยวชาญด้านการออกแบบเครื่องจักร, โซลูชัน AI และระบบอัตโนมัติอุตสาหกรรมในประเทศไทย เพิ่มประสิทธิภาพการผลิตด้วยเทคโนโลยีระดับโลก"
   };
 
-  const gaId = process.env.NEXT_PUBLIC_GA_ID || "";
-
   return {
-    metadataBase: new URL('https://eureka-automation.com'),
+    metadataBase: new URL('https://th.eurekaautomation.co.th'),
     title: {
       default: titles[locale] || titles.en,
       template: "%s | Eureka Automation"
@@ -38,7 +45,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     openGraph: {
       title: 'Eureka Automation',
       description: descriptions[locale] || descriptions.en,
-      url: `https://eureka-automation.com/${locale}`,
+      url: `https://th.eurekaautomation.co.th/${locale}`,
       siteName: 'Eureka Automation',
       images: [
         {
@@ -88,19 +95,28 @@ export default async function RootLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+
+  if (!routing.locales.includes(locale as any)) {
+    notFound();
+  }
+
   const gaId = process.env.NEXT_PUBLIC_GA_ID || "";
 
-  // Enable static rendering
   setRequestLocale(locale);
-
   const messages = await getMessages();
 
   return (
-    <NextIntlClientProvider messages={messages}>
-      {gaId && <GoogleAnalytics GA_MEASUREMENT_ID={gaId} />}
-      <Header lang={locale} />
-      <main className="flex-grow">{children}</main>
-      <Footer />
-    </NextIntlClientProvider>
+    <>
+      <NextIntlClientProvider messages={messages}>
+        {gaId && <GoogleAnalytics GA_MEASUREMENT_ID={gaId} />}
+
+        <Header lang={locale} />
+        <main className="flex-grow">
+          {children}
+        </main>
+
+        <Footer />
+      </NextIntlClientProvider>
+    </>
   );
 }
