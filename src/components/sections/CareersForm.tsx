@@ -14,7 +14,7 @@ import { Send, CheckCircle2, AlertCircle, Loader2, Upload, FileText } from 'luci
  */
 
 // ใส่ URL จากการ Deploy Google Apps Script (Web App)
-const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyacQT8w5mTqw6fmd9pgu6zioG635zMRUgYskjgQH11T05n9G0ra77too5hyJFBZ0nS/exec";
+const GAS_WEB_APP_URL = "https://script.google.com/a/macros/eurekaautomation.co.th/s/AKfycby9s2vmMcvoBVb6_IHqSByjL05aR9PZE60Ic9OS0vcOqf7SIKedThlqZIUgeCkMgbX8VQ/exec";
 
 export function CareersForm() {
     const t = useTranslations('careers.form');
