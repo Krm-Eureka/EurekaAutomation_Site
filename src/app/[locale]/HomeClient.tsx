@@ -32,7 +32,8 @@ const clientLogos = [
     { name: "MEK", logo: withBasePath("/images/logos/Mek-logo.jpg"), href: "https://www.mektec.co.th/" },
     { name: "Toshiba Carrier", logo: withBasePath("/images/logos/Toshiba-Carrier-logo.png"), href: "https://www.toshiba-carrier.co.th/" },
     { name: "Yamada", logo: withBasePath("/images/logos/Yamada-logo.jpg"), href: "https://www.yscthai.com/" },
-    { name: "Visteon Thailand", logo: withBasePath("/images/logos/Visteon-logo.svg"), href: "https://www.visteon.com/overview/default.aspx" }
+    { name: "Visteon Thailand", logo: withBasePath("/images/logos/Visteon-logo.svg"), href: "https://www.visteon.com/overview/default.aspx" },
+    { name: "Sappe TH", logo: withBasePath("/images/logos/Sappe_logo.svg"), href: "https://www.daikin.co.th/" },
 ];
 
 export default function HomeClient({ locale }: { locale: string }) {
@@ -417,7 +418,7 @@ export default function HomeClient({ locale }: { locale: string }) {
                 </section>
 
                 {/* Products Section */}
-                <section className="py-16 sm:py-20 lg:py-24 bg-white border-t border-zinc-100">
+                <section className="py-8 sm:py-10 lg:py-12 bg-white border-t border-zinc-100">
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <motion.div
                             className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6"

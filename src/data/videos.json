@@ -58,30 +58,30 @@
                 "en": "EV Pouch Cell Assembly"
             },
             "thumbnail": "",
-            "youtubeUrl": "https://www.youtube.com/watch?v=cOih_PCE5UA",
+            "youtubeUrl": "https://youtu.be/cOih_PCE5UA",
             "category": {
                 "th": "เครื่องจักร",
                 "en": "Machines"
             },
             "description": [
                 {
-                    "th": "Fully automatic De-Gassing solution",
+                    "th": "โซลูชัน De-Gassing แบบ Fully Automatic",
                     "en": "Fully automatic De-Gassing solution"
                 },
                 {
-                    "th": "Weighting & Cutting identification",
-                    "en": "Weighting & Cutting identification"
+                    "th": "ระบุ Weighing & Cutting",
+                    "en": "Weighing & Cutting identification"
                 },
                 {
-                    "th": "High-speed pick & place",
+                    "th": "Pick & Place ความเร็วสูง",
                     "en": "High-speed pick & place"
                 }
             ]
         },
         {
             "title": {
-                "th": "Roof module assembly ",
-                "en": "Roof module assembly "
+                "th": "Roof module assembly",
+                "en": "Roof module assembly"
             },
             "thumbnail": "",
             "youtubeUrl": "https://youtu.be/sTahE2omumM",
@@ -91,23 +91,49 @@
             },
             "description": [
                 {
-                    "th": "Pallet conveyor system",
+                    "th": "ระบบ Pallet Conveyor",
                     "en": "Pallet conveyor system"
                 },
                 {
-                    "th": "Automatic test with LabView control",
+                    "th": "Test แบบ Automatic ควบคุมด้วย LabView",
                     "en": "Automatic test with LabView control"
                 },
                 {
-                    "th": "Automatic Acoustic test",
+                    "th": "Acoustic Test แบบ Automatic",
                     "en": "Automatic Acoustic test"
                 }
             ]
         },
         {
             "title": {
-                "th": "Fully automatic De Gassing solution",
-                "en": "Fully automatic De Gassing solution"
+                "th": "BMW Active Grill Assembly",
+                "en": "BMW Active Grill Assembly"
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://www.youtube.com/watch?v=TOIuJE4PRqM",
+            "category": {
+                "th": "เครื่องจักร",
+                "en": "Machines"
+            },
+            "description": [
+                {
+                    "th": "การเคลื่อนที่ของ Pallet บน Conveyor",
+                    "en": "Conveyor pallet movement"
+                },
+                {
+                    "th": "In-line Quality Inspection ด้วยกล้อง",
+                    "en": "In-line quality inspection by camera"
+                },
+                {
+                    "th": "ระบบ Traceability เต็มรูปแบบ",
+                    "en": "Full traceability system"
+                }
+            ]
+        },
+        {
+            "title": {
+                "th": "Subaru Active Grill Assembly",
+                "en": "Subaru Active Grill Assembly"
             },
             "thumbnail": "",
             "youtubeUrl": "https://youtu.be/Ltk-0lGRL6Q",
@@ -117,48 +143,414 @@
             },
             "description": [
                 {
-                    "th": "การประกอบ EV Pouch Cell",
-                    "en": "EV Pouch Cell Assembly"
+                    "th": "การเคลื่อนที่ของ Pallet บน Conveyor",
+                    "en": "Conveyor pallet movement"
                 },
                 {
-                    "th": "ตัวอย่างการทำงานของเครื่องจักรอัตโนมัติที่ออกแบบตามความต้องการลูกค้า",
-                    "en": "Eureka Fully automatic De Gassing solution"
+                    "th": "In-line Quality Inspection ด้วยกล้อง",
+                    "en": "In-line quality inspection by camera"
+                },
+                {
+                    "th": "Transfer Part ด้วย Robot Arm",
+                    "en": "Robot arm part transfer"
                 }
             ]
         },
         {
             "title": {
-                "th": "Fully automatic De Gassing solution",
-                "en": "Fully automatic De Gassing solution"
+                "th": "Radiator Core Assembly",
+                "en": "Radiator Core Assembly"
             },
             "thumbnail": "",
-            "youtubeUrl": "https://youtu.be/sTahE2omumM",
+            "youtubeUrl": "https://youtu.be/KvfMCktNkCs",
             "category": {
                 "th": "เครื่องจักร",
                 "en": "Machines"
             },
-            "description": {
-                "th": "ตัวอย่างการทำงานของเครื่องจักรอัตโนมัติที่ออกแบบตามความต้องการลูกค้า",
-                "en": "Eureka Fully automatic De Gassing solution"
-            }
+            "description": [
+                {
+                    "th": "Feeding Fin และ Tube แบบ Automatic",
+                    "en": "Automatic Fin and Tube feeding"
+                },
+                {
+                    "th": "Assembly แบบ Force Control",
+                    "en": "Force control assembly"
+                },
+                {
+                    "th": "การทำงานแบบ Semi-automatic",
+                    "en": "Semi-automatic operation"
+                }
+            ]
+        },
+        {
+            "title": {
+                "th": "Condenser Assembly",
+                "en": "Condenser Assembly"
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://youtu.be/56LXFkKDfLc",
+            "category": {
+                "th": "เครื่องจักร",
+                "en": "Machines"
+            },
+            "description": [
+                {
+                    "th": "Supply Fin ด้วย Conveyor",
+                    "en": "Conveyor fin supply"
+                },
+                {
+                    "th": "Assembly แบบ Multi-station",
+                    "en": "Multi-station assembly"
+                },
+                {
+                    "th": "ระบบ Semi-automatic",
+                    "en": "Semi-automatic"
+                }
+            ]
+        },
+        {
+            "title": {
+                "th": "Spot welding",
+                "en": "Spot welding"
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://youtu.be/AuhCkSSQmPc",
+            "category": {
+                "th": "เครื่องจักร",
+                "en": "Machines"
+            },
+            "description": [
+                {
+                    "th": "Rotary Table",
+                    "en": "Rotary table"
+                },
+                {
+                    "th": "Small Part สำหรับอุตสาหกรรม Electronics",
+                    "en": "Small part for electronics industry"
+                },
+                {
+                    "th": "ระบบ Semi-automatic",
+                    "en": "Semi-automatic"
+                }
+            ]
+        },
+        {
+            "title": {
+                "th": "Connector spot welding",
+                "en": "Connector spot welding"
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://youtu.be/VSatf7vPzdU",
+            "category": {
+                "th": "เครื่องจักร",
+                "en": "Machines"
+            },
+            "description": [
+                {
+                    "th": "Part Feeder แบบ Automatic",
+                    "en": "Automatic part feeder"
+                },
+                {
+                    "th": "In-line Quality Inspection ด้วยกล้อง",
+                    "en": "In-line quality inspection by camera"
+                },
+                {
+                    "th": "OEE มากกว่า 90% (CT 4 วินาที)",
+                    "en": "OEE more than 90% with 4 seconds CT"
+                }
+            ]
+        },
+        {
+            "title": {
+                "th": "Car USB assembly machine",
+                "en": "Car USB assembly machine"
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://youtu.be/1eWVO8DkY4c",
+            "category": {
+                "th": "เครื่องจักร",
+                "en": "Machines"
+            },
+            "description": [
+                {
+                    "th": "Rotary Table",
+                    "en": "Rotary table"
+                },
+                {
+                    "th": "Supply Part เข้า/ออกอัตโนมัติด้วย Tray",
+                    "en": "Automatic part supply in/out by tray"
+                },
+                {
+                    "th": "Handling Part ด้วย Robot Arm",
+                    "en": "Robot arm part handling"
+                }
+            ]
         }
     ],
     "LOGISTICS": [
         {
             "title": {
-                "th": "ระบบคลังสินค้าอัจฉริยะ",
-                "en": "Smart Warehouse System"
+                "th": "ระบบจัดเก็บสินค้าอัตโนมัติ (AS/RS)",
+                "en": "AS/RS System"
             },
             "thumbnail": "",
-            "youtubeUrl": "https://www.youtube.com/watch?v=eJ46cwHkbFg&t=162s",
+            "youtubeUrl": "https://youtu.be/_r0Wj8KAHFo",
             "category": {
                 "th": "โลจิสติกส์",
                 "en": "Logistics"
             },
-            "description": {
-                "th": "การจัดการคลังสินค้าด้วยระบบ AS/RS และ WMS",
-                "en": "Warehouse management with AS/RS and WMS systems."
-            }
+            "description": [
+                {
+                    "th": "ระบบ AS/RS แบบ Stacker Crane สำหรับ Pallet",
+                    "en": "Stacker Crane AS/RS for pallets"
+                },
+                {
+                    "th": "บริหารจัดการคลังสินค้าแนวสูง (High-bay Warehouse)",
+                    "en": "High-bay warehouse management"
+                }
+            ]
+        },
+        {
+            "title": {
+                "th": "คลังสินค้าอัตโนมัติความหนาแน่นสูง",
+                "en": "High-Density AS/RS"
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://youtu.be/VyeY8HySGs8",
+            "category": {
+                "th": "โลจิสติกส์",
+                "en": "Logistics"
+            },
+            "description": [
+                {
+                    "th": "การจัดเก็บแบบ Double-deep เพื่อประหยัดพื้นที่",
+                    "en": "Double-deep storage for space saving"
+                },
+                {
+                    "th": "ระบบจัดเก็บและเบิกจ่ายสินค้าความเร็วสูง",
+                    "en": "High-speed storage and retrieval system"
+                }
+            ]
+        },
+        {
+            "title": {
+                "th": "ระบบจัดเก็บแม่พิมพ์ (Die Storage)",
+                "en": "Die Storage System"
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://youtu.be/jdOJx7SENVs",
+            "category": {
+                "th": "โลจิสติกส์",
+                "en": "Logistics"
+            },
+            "description": [
+                {
+                    "th": "ออกแบบสำหรับจัดเก็บ Mold และ Die ขนาดใหญ่",
+                    "en": "Designed for large Mold and Die storage"
+                },
+                {
+                    "th": "โครงสร้าง Heavy Duty รองรับน้ำหนักมาก",
+                    "en": "Heavy Duty structure for high load capacity"
+                }
+            ]
+        },
+        {
+            "title": {
+                "th": "หุ่นยนต์คัดแยกสินค้า (Sorting AGV)",
+                "en": "Sorting AGV Solution"
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://youtu.be/_C0JDV_QwLw",
+            "category": {
+                "th": "โลจิสติกส์",
+                "en": "Logistics"
+            },
+            "description": [
+                {
+                    "th": "ระบบ Sorting อัจฉริยะด้วยหุ่นยนต์ Geek+",
+                    "en": "Smart sorting system with Geek+ robots"
+                },
+                {
+                    "th": "รองรับการคัดแยกพัสดุจำนวนมากได้อย่างรวดเร็ว",
+                    "en": "High-speed parcel sorting capability"
+                }
+            ]
+        },
+        {
+            "title": {
+                "th": "ระบบสายพานลำเลียง (Conveyor Automation)",
+                "en": "Conveyor Automation"
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://youtu.be/cCbV7dbxvq0",
+            "category": {
+                "th": "โลจิสติกส์",
+                "en": "Logistics"
+            },
+            "description": [
+                {
+                    "th": "ระบบลำเลียงกล่อง/ลัง (Tote/Bin Conveyor)",
+                    "en": "Tote/Bin conveyor system"
+                },
+                {
+                    "th": "เชื่อมต่อโซนต่างๆ ใน Warehouse อัตโนมัติ",
+                    "en": "Automatically connecting warehouse zones"
+                }
+            ]
+        },
+        {
+            "title": {
+                "th": "ระบบพันพาเลทอัตโนมัติ (Pallet Wrapping)",
+                "en": "Pallet Wrapping System"
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://youtu.be/iETQ4aifWvg",
+            "category": {
+                "th": "โลจิสติกส์",
+                "en": "Logistics"
+            },
+            "description": [
+                {
+                    "th": "เครื่องพันฟิล์มพาเลท (Stretch Wrapper) บนไลน์ Conveyor",
+                    "en": "In-line stretch wrapper on conveyor"
+                },
+                {
+                    "th": "เตรียมพร้อมสินค้าสำหรับขั้นตอน Shipping",
+                    "en": "Ready for shipping process"
+                }
+            ]
+        },
+        {
+            "title": {
+                "th": "หุ่นยนต์เคลื่อนย้ายสินค้า (Geek+ AMR)",
+                "en": "Geek+ AMR Solution"
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://youtu.be/YbShIilWdkM",
+            "category": {
+                "th": "โลจิสติกส์",
+                "en": "Logistics"
+            },
+            "description": [
+                {
+                    "th": "ระบบ Goods-to-Person ลดเวลาเดินหยิบของ",
+                    "en": "Goods-to-Person system reducing walking time"
+                },
+                {
+                    "th": "เพิ่มประสิทธิภาพการ Picking ในคลังสินค้า",
+                    "en": "Optimizing picking efficiency in warehouse"
+                }
+            ]
+        },
+        {
+            "title": {
+                "th": "ระบบคลังสินค้าอัจฉริยะ (Smart Warehouse)",
+                "en": "Smart Warehouse Picking"
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://youtu.be/K8H00hl05PI",
+            "category": {
+                "th": "โลจิสติกส์",
+                "en": "Logistics"
+            },
+            "description": [
+                {
+                    "th": "การจัดการ Inventory ด้วยหุ่นยนต์อัตโนมัติ",
+                    "en": "Inventory management with automated robots"
+                },
+                {
+                    "th": "ระบบนำทาง QR Code Navigation ความแม่นยำสูง",
+                    "en": "High-precision QR Code navigation"
+                }
+            ]
+        },
+        {
+            "title": {
+                "th": "หุ่นยนต์ยกชั้นวาง (Shelf Carrier AMR)",
+                "en": "Shelf Carrier AMR"
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://youtu.be/J53IYU6uhhc",
+            "category": {
+                "th": "โลจิสติกส์",
+                "en": "Logistics"
+            },
+            "description": [
+                {
+                    "th": "หุ่นยนต์ AMR สำหรับยกและเคลื่อนย้ายชั้นวาง",
+                    "en": "AMR for lifting and moving shelves"
+                },
+                {
+                    "th": "ปรับเปลี่ยน Layout คลังสินค้าได้ยืดหยุ่น",
+                    "en": "Flexible warehouse layout adjustment"
+                }
+            ]
+        },
+        {
+            "title": {
+                "th": "เครื่องป้อนพาเลท (Pallet Dispenser)",
+                "en": "Pallet Dispenser"
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://youtu.be/1PbsyIvKx_U",
+            "category": {
+                "th": "โลจิสติกส์",
+                "en": "Logistics"
+            },
+            "description": [
+                {
+                    "th": "จ่ายพาเลทเปล่าเข้าสู่ระบบแบบ Automatic",
+                    "en": "Automatic empty pallet feeding"
+                },
+                {
+                    "th": "ลดการใช้แรงงานและเพิ่มความปลอดภัย",
+                    "en": "Reduce labor and increase safety"
+                }
+            ]
+        },
+        {
+            "title": {
+                "th": "หุ่นยนต์จัดเรียงสินค้า (Robotic Palletizer)",
+                "en": "Robotic Palletizer"
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://youtu.be/VzWLzL_TbRY",
+            "category": {
+                "th": "โลจิสติกส์",
+                "en": "Logistics"
+            },
+            "description": [
+                {
+                    "th": "ใช้ Robot Arm ในการจัดเรียงสินค้าลงพาเลท",
+                    "en": "Robot arm for palletizing goods"
+                },
+                {
+                    "th": "รองรับสินค้าประเภทถุง/กระสอบ (Bag Handling)",
+                    "en": "Supports bag/sack handling"
+                }
+            ]
+        },
+        {
+            "title": {
+                "th": "เครื่องจัดเรียงแบบ Gantry (Gantry Palletizer)",
+                "en": "Gantry Palletizer"
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://youtu.be/Pl9zTqJ6eWY",
+            "category": {
+                "th": "โลจิสติกส์",
+                "en": "Logistics"
+            },
+            "description": [
+                {
+                    "th": "ระบบ Palletizing โครงสร้างแบบ Gantry",
+                    "en": "Gantry structure palletizing system"
+                },
+                {
+                    "th": "เหมาะสำหรับพื้นที่จำกัดและการทำงานต่อเนื่อง",
+                    "en": "Suitable for limited space and continuous operation"
+                }
+            ]
         }
     ]
 }
