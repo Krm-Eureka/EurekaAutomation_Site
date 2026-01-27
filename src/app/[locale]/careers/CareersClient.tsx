@@ -1,9 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { CareersForm } from "@/components/sections/CareersForm";
-import { MapPin, Clock, ChevronRight, CheckCircle2, List, Grid3x3, Briefcase, GraduationCap, Coins, Search } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion"; // เพิ่ม Framer Motion
+import { MapPin, Clock, ChevronRight, CheckCircle2, List, Grid3x3, Briefcase, GraduationCap, Coins, Search, ChevronDown, ChevronUp } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface CareerPosition {
     id: string;
@@ -11,7 +12,7 @@ interface CareerPosition {
     title: string;
     location: string;
     type: string;
-    desc: string;
+    desc: string | string[];
     experience: string;
     education: string;
     salary: string;
@@ -38,149 +39,302 @@ interface CareersClientProps {
             education: string;
             salary: string;
         };
+        benefits_title: string;
+        responsibilities_label: string;
     };
 }
 
+// Animation Variants
+const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.1
+        }
+    }
+};
+
+const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+};
+
+const JobCard = ({ pos, isExpanded, onToggle, translations }: {
+    pos: CareerPosition,
+    isExpanded: boolean,
+    onToggle: () => void,
+    translations: any
+}) => (
+    <motion.div
+        variants={itemVariants}
+        className={`group relative transition-all duration-700 rounded-[2rem] overflow-hidden ${isExpanded
+            ? 'bg-zinc-900 border-zinc-700 shadow-[0_0_50px_-12px_rgba(16,185,129,0.1)]'
+            : 'bg-zinc-950/40 border-white/[0.03] hover:border-emerald-500/30 hover:bg-zinc-900/60'
+            } border`}
+    >
+        {/* Technical Corner Accents */}
+        <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <div className="absolute top-4 right-6 font-mono text-[8px] text-zinc-700 uppercase tracking-widest pointer-events-none">
+            [ ID: {pos.id.slice(0, 8)} ]
+        </div>
+
+        <div
+            className="p-4 md:p-8 cursor-pointer select-none"
+            onClick={onToggle}
+        >
+            <div className="flex flex-col md:flex-row md:items-start justify-between gap-8">
+                <div className="space-y-4 flex-grow">
+                    <div className="flex flex-wrap items-center gap-4">
+                        <div className="flex items-center gap-2">
+                            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div>
+                            <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-emerald-400">
+                                {pos.dept}
+                            </span>
+                        </div>
+                        <div className="h-[10px] w-[1px] bg-zinc-800"></div>
+                        <div className="flex items-center gap-1.5 font-mono text-[10px] text-zinc-500 uppercase tracking-widest">
+                            <MapPin size={10} className="text-zinc-600" /> {pos.location}
+                        </div>
+                    </div>
+
+                    <h3 className="text-3xl md:text-4xl font-black text-white group-hover:text-emerald-400 transition-colors tracking-tighter uppercase italic leading-none">
+                        {pos.title}
+                    </h3>
+
+                    <div className="flex flex-wrap items-center gap-2 pt-2">
+                        {[
+                            { icon: Briefcase, text: pos.experience, color: 'emerald' },
+                            { icon: GraduationCap, text: pos.education, color: 'blue' },
+                            { icon: Clock, text: pos.type, color: 'zinc' },
+                            { icon: Coins, text: pos.salary, color: 'zinc' }
+                        ].map((stat, i) => (
+                            <div key={i} className="flex items-center gap-2 px-3 py-1.5 bg-zinc-400/30 rounded-lg border border-white/[0.05] group-hover:border-white/[0.1] transition-colors">
+                                <stat.icon size={16} className={`text-${stat.color}-500/70`} />
+                                <span className="font-mono text-[9px] text-zinc-300 font-bold uppercase tracking-wider">{stat.text}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="flex items-center self-end md:self-start">
+                    <div className={`w-12 h-12 rounded-xl border flex items-center justify-center transition-all duration-700 ${isExpanded
+                        ? 'bg-emerald-500 border-emerald-400 text-zinc-950 rotate-180 shadow-[0_0_20px_rgba(16,185,129,0.3)]'
+                        : 'bg-zinc-900 border-white/10 text-zinc-500 group-hover:border-emerald-500/50 group-hover:text-emerald-400'
+                        }`}>
+                        <ChevronDown size={20} />
+                    </div>
+                </div>
+            </div>
+
+            <AnimatePresence>
+                {isExpanded && (
+                    <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                        className="overflow-hidden"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <div className="pt-10 mt-10 border-t border-white/[0.05] space-y-12">
+                            <div className="space-y-3">
+                                <div className="flex items-center gap-3">
+                                    <span className="font-mono text-[9px] font-black uppercase tracking-[0.4em] text-emerald-500/60">
+                                        Core_Requirements
+                                    </span>
+                                    <div className="h-[1px] flex-grow bg-gradient-to-r from-emerald-500/20 to-transparent"></div>
+                                </div>
+
+                                <div className="grid gap-2">
+                                    {Array.isArray(pos.desc) ? (
+                                        pos.desc.map((line, idx) => (
+                                            <div key={idx} className="flex gap-2 p-1 md:p-2 rounded-2xl bg-zinc-950/50 border border-white/[0.03] hover:border-emerald-500/20 hover:bg-zinc-900/50 transition-all duration-300 group/item">
+                                                <div className="font-mono text-[10px] text-emerald-500/40 p-1 w-6 h-6 rounded bg-zinc-900 border border-white/5 flex items-center justify-center group-hover/item:border-emerald-500/30 group-hover/item:text-emerald-400 transition-colors">
+                                                    {(idx + 1).toString().padStart(2, '0')}
+                                                </div>
+                                                <p className="text-zinc-400 text-sm md:text-base leading-relaxed group-hover:text-zinc-200 transition-colors">{line}</p>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <p className="text-zinc-400 italic p-6">{pos.desc}</p>
+                                    )}
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-6 border-t border-white/[0.05]">
+                                <div className="font-mono text-[9px] text-zinc-600 uppercase tracking-[0.2em] hidden sm:block">
+                                    Status: Awaiting_Deployment
+                                </div>
+                                <button
+                                    onClick={() => {
+                                        window.dispatchEvent(new CustomEvent('apply-position', { detail: pos.title }));
+                                        document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                    }}
+                                    className="w-full sm:w-auto px-10 py-5 bg-emerald-500 text-zinc-950 rounded-xl font-bold text-[11px] uppercase tracking-[0.2em] hover:bg-white transition-all duration-500 flex items-center justify-center gap-3 shadow-[0_10px_30px_rgba(16,185,129,0.2)]"
+                                >
+                                    {translations.apply_now}
+                                    <ChevronRight size={16} />
+                                </button>
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </div>
+    </motion.div>
+);
+
 export default function CareersClient({ locale, positionKeys, benefits, positions, translations }: CareersClientProps) {
     const [viewMode, setViewMode] = useState<'all' | 'category'>('all');
+    const [expandedPositions, setExpandedPositions] = useState<string[]>([]);
 
-    // Animation Variants
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        show: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.1 // ให้ลูกๆ โผล่มาทีละนิด
-            }
-        }
-    };
-
-    const itemVariants = {
-        hidden: { opacity: 0, y: 20 },
-        show: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+    const togglePosition = (id: string) => {
+        setExpandedPositions(prev =>
+            prev.includes(id) ? prev.filter(p => p !== id) : [...prev, id]
+        );
     };
 
     return (
         <div className="bg-zinc-50 min-h-screen">
-            {/* 1. Hero Section - Animated */}
-            <section className="bg-zinc-950 pt-24 sm:pt-28 md:pt-32 pb-16 sm:pb-20 text-white overflow-hidden relative">
+            {/* 1. Hero Section - Refined Pro Tech */}
+            <section className="bg-zinc-950 pt-28 sm:pt-36 md:pt-48 pb-20 sm:pb-32 text-white overflow-hidden relative">
                 <div className="absolute inset-0">
-                    <div className="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-[100px] animate-pulse"></div>
-                    <div className="absolute bottom-[-20%] left-[-10%] w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[100px]"></div>
-                    {/* Grid Pattern */}
-                    <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-20"></div>
+                    <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+                    <div className="absolute bottom-[-10%] left-[-5%] w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+                    <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMCAwaDQwdjQwaC00MFoiLz48cGF0aCBkPSJNMCAwaDF2NDBIOFoiIGZpbGw9IndoaXRlIiBmaWxsLW9wYWNpdHk9Ii4wNSIvPjxwYXRoIGQ9Ik0wIDBoNDB2MUgwWiIgZmlsbD0id2hpdGUiIGZpbGwtb3BhY2l0eT0iLjA1Ii8+PC9nPjwvc3ZnPg==')] opacity-10 mix-blend-overlay"></div>
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-zinc-450 to-zinc-950"></div>
                 </div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div className="font-mono text-[8px] sm:text-[10px] text-zinc-700 absolute top-0 left-8 hidden lg:block tracking-[0.5em] [writing-mode:vertical-lr] uppercase h-full opacity-50">
+                        Eureka Automation || Your Automation Partner
+                    </div>
+
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                        className="text-center mb-12"
+                        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                        className="text-center"
                     >
                         <motion.div
-                            initial={{ scale: 0.8, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: 0.2, duration: 0.5 }}
-                            className="inline-block px-4 py-1.5 bg-emerald-500/10 border border-emerald-500/30 rounded-full text-xs font-bold uppercase tracking-widest text-emerald-400 mb-6 backdrop-blur-md"
+                            className="inline-flex items-center gap-4 px-4 py-2 bg-zinc-900/80 border border-white/5 rounded-full mb-8 backdrop-blur-2xl"
                         >
-                            {translations.join_tag}
+                            <span className="flex items-center gap-2">
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
+                                <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-emerald-400">{translations.join_tag}</span>
+                            </span>
+                            <div className="w-[1px] h-3 bg-white/10"></div>
+                            <span className="font-mono text-[9px] text-zinc-500 uppercase tracking-widest">System_Live</span>
                         </motion.div>
-                        <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight leading-tight">
-                            {translations.title}
+
+                        <h1 className="text-6xl md:text-9xl font-black mb-8 tracking-tighter leading-[0.85] uppercase italic">
+                            {translations.title.split(' ').map((word: string, i: number) => (
+                                <span key={i} className={i === 0 ? "text-white" : "text-zinc-800 block md:inline"}>
+                                    {word}{' '}
+                                </span>
+                            ))}
                         </h1>
-                        <p className="text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto font-light leading-relaxed">
+                        <p className="text-lg md:text-2xl text-zinc-400 max-w-2xl mx-auto font-light leading-relaxed mb-16 px-4">
                             {translations.subtitle}
                         </p>
-                    </motion.div>
 
-                    {/* View Toggle Buttons */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.4 }}
-                        className="flex gap-4 justify-center"
-                    >
-                        <button
-                            onClick={() => setViewMode('all')}
-                            className={`px-6 py-3 rounded-full font-bold flex items-center gap-2 transition-all duration-300 ${viewMode === 'all'
-                                ? 'bg-emerald-600 text-white shadow-[0_0_20px_rgba(16,185,129,0.4)] scale-105'
-                                : 'bg-white/5 border border-white/10 text-zinc-400 hover:bg-white/10 hover:text-white'
-                                }`}
-                        >
-                            <List size={18} />
-                            {translations.view_all}
-                        </button>
-                        <button
-                            onClick={() => setViewMode('category')}
-                            className={`px-6 py-3 rounded-full font-bold flex items-center gap-2 transition-all duration-300 ${viewMode === 'category'
-                                ? 'bg-emerald-600 text-white shadow-[0_0_20px_rgba(16,185,129,0.4)] scale-105'
-                                : 'bg-white/5 border border-white/10 text-zinc-400 hover:bg-white/10 hover:text-white'
-                                }`}
-                        >
-                            <Grid3x3 size={18} />
-                            {translations.view_category}
-                        </button>
+                        {/* View Toggle Buttons - Interface Style */}
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                            <div className="flex p-1.5 bg-zinc-900 border border-white/10 rounded-2xl backdrop-blur-xl">
+                                <button
+                                    onClick={() => setViewMode('all')}
+                                    className={`px-8 py-3.5 rounded-xl font-bold text-[10px] uppercase tracking-widest flex items-center gap-2.5 transition-all duration-500 ${viewMode === 'all'
+                                        ? 'bg-emerald-500 text-zinc-950 shadow-[0_10px_20px_rgba(16,185,129,0.2)]'
+                                        : 'text-zinc-500 hover:text-white'
+                                        }`}
+                                >
+                                    <List size={14} />
+                                    {translations.view_all}
+                                </button>
+                                <button
+                                    onClick={() => setViewMode('category')}
+                                    className={`px-8 py-3.5 rounded-xl font-bold text-[10px] uppercase tracking-widest flex items-center gap-2.5 transition-all duration-500 ${viewMode === 'category'
+                                        ? 'bg-emerald-500 text-zinc-950 shadow-[0_10px_20px_rgba(16,185,129,0.2)]'
+                                        : 'text-zinc-500 hover:text-white'
+                                        }`}
+                                >
+                                    <Grid3x3 size={14} />
+                                    {translations.view_category}
+                                </button>
+                            </div>
+                        </div>
                     </motion.div>
                 </div>
             </section>
 
-            {/* 2. Benefits Section - Staggered List */}
-            <section className="py-16 sm:py-20 bg-white relative overflow-hidden">
+            {/* 2. Benefits Section - Structured Tech */}
+            <section className="py-24 bg-zinc-50 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-1/2 h-full bg-white hidden lg:block"></div>
+
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    <div className="grid lg:grid-cols-2 gap-16 items-center">
+                    <div className="grid lg:grid-cols-2 gap-24 items-center">
                         <motion.div
-                            initial={{ opacity: 0, x: -50 }}
+                            initial={{ opacity: 0, x: -30 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8 }}
                         >
-                            <h2 className="text-3xl md:text-4xl font-bold text-zinc-900 mb-8 tracking-tight">
+                            <div className="flex items-center gap-3 mb-6">
+                                <div className="h-[1px] w-8 bg-emerald-600"></div>
+                                <span className="font-mono text-emerald-600 font-bold tracking-[0.4em] uppercase text-[10px]">EUREKA_CULTURE</span>
+                            </div>
+                            <h2 className="text-5xl md:text-7xl font-black text-zinc-900 mb-8 tracking-tighter leading-[0.9] uppercase italic">
                                 {translations.benefits}
                             </h2>
-                            <div className="space-y-6">
+                            <div className="grid gap-3">
                                 {benefits.map((benefit, i) => (
                                     <motion.div
                                         key={i}
-                                        initial={{ opacity: 0, x: -20 }}
-                                        whileInView={{ opacity: 1, x: 0 }}
+                                        initial={{ opacity: 0, y: 10 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
                                         viewport={{ once: true }}
-                                        transition={{ delay: i * 0.1, duration: 0.5 }}
-                                        className="flex items-center gap-5 p-4 rounded-2xl hover:bg-zinc-50 transition-colors group border border-transparent hover:border-zinc-100"
+                                        transition={{ delay: i * 0.1 }}
+                                        className="flex items-center gap-1.5 p-2 rounded-2xl bg-white border border-zinc-100 hover:border-emerald-500/30 hover:shadow-xl transition-all duration-500 group"
                                     >
-                                        <div className="w-12 h-12 bg-emerald-100/50 rounded-2xl flex items-center justify-center text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300 shadow-sm group-hover:shadow-emerald-200">
-                                            <CheckCircle2 size={24} />
+                                        <div className="w-12 h-12 bg-zinc-50 border border-zinc-100 rounded-xl flex items-center justify-center text-emerald-600 group-hover:bg-emerald-500 group-hover:text-zinc-950 transition-all duration-500 shadow-sm">
+                                            <CheckCircle2 size={20} />
                                         </div>
-                                        <span className="text-lg text-zinc-700 font-medium group-hover:text-zinc-900">{benefit}</span>
+                                        <div className="flex flex-col">
+                                            <span className="text-zinc-900 font-bold text-lg leading-tight">{benefit}</span>
+                                            <span className="text-zinc-400 font-mono text-[9px] uppercase tracking-widest mt-1">Confirmed_Standard</span>
+                                        </div>
                                     </motion.div>
                                 ))}
                             </div>
                         </motion.div>
 
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.9, rotate: 2 }}
-                            whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8 }}
                             className="relative"
                         >
-                            <div className="absolute inset-0 bg-emerald-600/20 blur-3xl rounded-full transform -translate-y-4 translate-x-4"></div>
-                            <div className="bg-zinc-900 rounded-[2.5rem] aspect-[4/3] relative overflow-hidden shadow-2xl flex items-center justify-center border border-zinc-800">
-                                <div className="absolute inset-0 opacity-30">
-                                    {/* Abstract shapes or pattern could go here */}
-                                    <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                                        <path d="M0 100 C 20 0 50 0 100 100 Z" fill="url(#grad)" />
-                                        <defs>
-                                            <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
-                                                <stop offset="0%" style={{ stopColor: 'rgb(16, 185, 129)', stopOpacity: 0.2 }} />
-                                                <stop offset="100%" style={{ stopColor: 'rgb(6, 78, 59)', stopOpacity: 0 }} />
-                                            </linearGradient>
-                                        </defs>
-                                    </svg>
+                            <div className="absolute inset-0 bg-emerald-500/5 blur-3xl rounded-full transform -translate-y-8"></div>
+                            <div className="relative aspect-square md:aspect-[4/3] overflow-hidden rounded-[2.5rem] border border-zinc-200 shadow-2xl bg-zinc-950 shadow-emerald-500/10">
+                                <Image
+                                    src="/images/careers-hologram.png"
+                                    alt="Careers at Eureka"
+                                    fill
+                                    className="object-cover opacity-80 mix-blend-screen group-hover:scale-110 transition-transform duration-1000"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent"></div>
+                                <div className="absolute top-8 right-8 flex items-center gap-2 px-3 py-1 bg-zinc-900/80 border border-white/10 rounded-full backdrop-blur-md">
+                                    <div className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse"></div>
+                                    <span className="font-mono text-[8px] text-zinc-400 uppercase tracking-widest">Feed: Internal_Operations</span>
                                 </div>
-                                <div className="text-center z-10 p-8">
-                                    <span className="block text-emerald-500 font-mono text-sm tracking-[0.3em] uppercase mb-2">Join the future</span>
-                                    <span className="text-white text-5xl md:text-7xl font-black tracking-tighter">EUREKA</span>
+                                <div className="absolute bottom-12 left-12 right-12">
+                                    <div className="font-mono text-emerald-500 font-bold tracking-[0.5em] uppercase text-[10px] mb-3">Enterprise Core</div>
+                                    <h3 className="text-white text-4xl font-black tracking-tight leading-none uppercase italic">The Robotics<br />Revolution</h3>
                                 </div>
                             </div>
                         </motion.div>
@@ -188,20 +342,26 @@ export default function CareersClient({ locale, positionKeys, benefits, position
                 </div>
             </section>
 
-            {/* 3. Open Positions Section - Layout Animation */}
-            <section className="py-16 sm:py-20 lg:py-24 bg-zinc-50 border-t border-zinc-200">
+            {/* 3. Open Positions Section */}
+            <section className="py-8 sm:py-16 bg-zinc-950 border-t border-white/5 overflow-hidden">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4"
+                        className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-8"
                     >
-                        <div>
-                            <span className="text-emerald-600 font-bold tracking-wider uppercase text-sm mb-2 block">We are hiring</span>
-                            <h2 className="text-3xl md:text-4xl font-bold text-zinc-900 tracking-tight">
+                        <div className="max-w-2xl">
+                            <div className="flex items-center gap-3 mb-6">
+                                <div className="h-[1px] w-8 bg-emerald-500"></div>
+                                <span className="font-mono text-emerald-500 font-black tracking-[0.4em] uppercase text-[10px]">DEPLOYMENT_UNIT</span>
+                            </div>
+                            <h2 className="text-5xl md:text-8xl font-black text-white tracking-tighter leading-none uppercase italic">
                                 {translations.open_positions}
                             </h2>
+                        </div>
+                        <div className="font-mono text-zinc-600 text-[10px] md:text-right border border-white/5 p-4 rounded-xl bg-white/[0.02] tracking-widest uppercase">
+                            Operational_Slots: {positionKeys.length} / Found
                         </div>
                     </motion.div>
 
@@ -213,92 +373,17 @@ export default function CareersClient({ locale, positionKeys, benefits, position
                                 initial="hidden"
                                 animate="show"
                                 exit={{ opacity: 0 }}
-                                className="grid gap-6"
+                                className="space-y-4"
                             >
-                                {positionKeys.map((key) => {
-                                    const pos = positions.find(p => p.id === key);
-                                    if (!pos) return null;
-
-                                    return (
-                                        <motion.div
-                                            key={key}
-                                            variants={itemVariants}
-                                            className="bg-white p-8 rounded-3xl border border-zinc-100 shadow-sm hover:shadow-xl transition-all duration-300 group relative overflow-hidden"
-                                            whileHover={{ y: -4 }}
-                                        >
-                                            <div className="absolute top-0 right-0 p-8 opacity-0 group-hover:opacity-10 transition-opacity">
-                                                <Briefcase size={120} className="text-emerald-500 transform rotate-12" />
-                                            </div>
-
-                                            <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 relative z-10">
-                                                <div className="space-y-5 flex-grow">
-                                                    <div className="flex flex-wrap items-center gap-3">
-                                                        <span className="px-3 py-1 bg-emerald-50 rounded-full text-[11px] font-bold uppercase tracking-wider text-emerald-700 border border-emerald-100">
-                                                            {pos.dept}
-                                                        </span>
-                                                        <div className="w-1 h-1 bg-zinc-300 rounded-full"></div>
-                                                        <div className="flex items-center gap-1.5 text-zinc-500 text-sm font-medium">
-                                                            <MapPin size={14} /> {pos.location}
-                                                        </div>
-                                                        <div className="w-1 h-1 bg-zinc-300 rounded-full"></div>
-                                                        <div className="flex items-center gap-1.5 text-zinc-500 text-sm font-medium">
-                                                            <Clock size={14} /> {pos.type}
-                                                        </div>
-                                                    </div>
-
-                                                    <h3 className="text-2xl font-bold text-zinc-900 group-hover:text-emerald-700 transition-colors">
-                                                        {pos.title}
-                                                    </h3>
-
-                                                    <div className="flex flex-wrap gap-4 md:gap-8">
-                                                        <div className="flex items-center gap-2 text-zinc-600 text-sm">
-                                                            <div className="w-8 h-8 rounded-full bg-zinc-50 flex items-center justify-center text-emerald-600 shrink-0">
-                                                                <Briefcase size={14} />
-                                                            </div>
-                                                            <div>
-                                                                <span className="block text-[10px] uppercase text-zinc-400 font-bold">{translations.labels.experience}</span>
-                                                                <span className="font-semibold">{pos.experience}</span>
-                                                            </div>
-                                                        </div>
-                                                        <div className="flex items-center gap-2 text-zinc-600 text-sm">
-                                                            <div className="w-8 h-8 rounded-full bg-zinc-50 flex items-center justify-center text-emerald-600 shrink-0">
-                                                                <GraduationCap size={14} />
-                                                            </div>
-                                                            <div>
-                                                                <span className="block text-[10px] uppercase text-zinc-400 font-bold">{translations.labels.education}</span>
-                                                                <span className="font-semibold">{pos.education}</span>
-                                                            </div>
-                                                        </div>
-                                                        <div className="flex items-center gap-2 text-zinc-600 text-sm">
-                                                            <div className="w-8 h-8 rounded-full bg-zinc-50 flex items-center justify-center text-emerald-600 shrink-0">
-                                                                <Coins size={14} />
-                                                            </div>
-                                                            <div>
-                                                                <span className="block text-[10px] uppercase text-zinc-400 font-bold">{translations.labels.salary}</span>
-                                                                <span className="font-semibold">{pos.salary}</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <p className="text-zinc-500 max-w-2xl leading-relaxed text-sm pt-2">
-                                                        {pos.desc}
-                                                    </p>
-                                                </div>
-
-                                                <button
-                                                    onClick={() => {
-                                                        window.dispatchEvent(new CustomEvent('apply-position', { detail: pos.title }));
-                                                        document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth' });
-                                                    }}
-                                                    className="px-8 py-3 bg-zinc-900 text-white rounded-full font-bold hover:bg-emerald-600 transition-all flex items-center justify-center gap-2 group/btn shadow-lg hover:shadow-emerald-500/30 shrink-0"
-                                                >
-                                                    {translations.apply_now}
-                                                    <ArrowIcon />
-                                                </button>
-                                            </div>
-                                        </motion.div>
-                                    );
-                                })}
+                                {positions.map((pos) => (
+                                    <JobCard
+                                        key={pos.id}
+                                        pos={pos}
+                                        isExpanded={expandedPositions.includes(pos.id)}
+                                        onToggle={() => togglePosition(pos.id)}
+                                        translations={translations}
+                                    />
+                                ))}
                             </motion.div>
                         ) : (
                             <motion.div
@@ -310,74 +395,33 @@ export default function CareersClient({ locale, positionKeys, benefits, position
                                 className="space-y-16"
                             >
                                 {(() => {
-                                    const departments = [...new Set(positions.map(p => p.dept))];
-                                    return departments.map((dept, deptIndex) => (
-                                        <motion.div key={dept} variants={itemVariants} custom={deptIndex}>
-                                            <div className="flex items-center gap-4 mb-8">
-                                                <h3 className="text-2xl font-bold text-zinc-900">
+                                    const departments = Array.from(new Set(positions.map(p => p.dept))).filter(Boolean);
+                                    return departments.map((dept) => (
+                                        <div key={dept} className="space-y-8">
+                                            <div className="flex items-center gap-6">
+                                                <h3 className="text-2xl md:text-3xl font-black text-white italic italic-none tracking-tighter uppercase">
                                                     {dept}
                                                 </h3>
-                                                <div className="h-[1px] flex-grow bg-zinc-200"></div>
+                                                <div className="h-[1px] flex-grow bg-white/5"></div>
+                                                <div className="text-zinc-600 text-[10px] font-black tracking-widest uppercase">
+                                                    {positions.filter(p => p.dept === dept).length} SLOT(S)
+                                                </div>
                                             </div>
 
-                                            <div className="grid md:grid-cols-2 gap-6">
-                                                {positionKeys.map((key) => {
-                                                    const pos = positions.find(p => p.id === key && p.dept === dept);
-                                                    if (!pos) return null;
-
-                                                    return (
-                                                        <motion.div
-                                                            key={key}
-                                                            className="bg-white p-6 rounded-3xl border border-zinc-100 shadow-sm hover:shadow-lg transition-all group h-full flex flex-col"
-                                                            whileHover={{ y: -5 }}
-                                                        >
-                                                            <div className="space-y-4 flex-grow">
-                                                                <div className="flex items-center justify-between">
-                                                                    <div className="flex items-center gap-2 text-zinc-500 text-xs font-medium">
-                                                                        <MapPin size={12} /> {pos.location}
-                                                                        <span className="text-zinc-300">|</span>
-                                                                        <Clock size={12} /> {pos.type}
-                                                                    </div>
-                                                                </div>
-
-                                                                <h4 className="text-xl font-bold text-zinc-900 group-hover:text-emerald-700 transition-colors">
-                                                                    {pos.title}
-                                                                </h4>
-
-                                                                <div className="space-y-2 py-2 border-y border-zinc-50 my-2">
-                                                                    <div className="flex items-center gap-2 text-zinc-600 text-xs">
-                                                                        <Briefcase size={14} className="text-emerald-500" />
-                                                                        <span className="font-semibold text-zinc-900">{translations.labels.experience}:</span> {pos.experience}
-                                                                    </div>
-                                                                    <div className="flex items-center gap-2 text-zinc-600 text-xs">
-                                                                        <GraduationCap size={14} className="text-emerald-500" />
-                                                                        <span className="font-semibold text-zinc-900">{translations.labels.education}:</span> <span className="truncate">{pos.education}</span>
-                                                                    </div>
-                                                                    <div className="flex items-center gap-2 text-zinc-600 text-xs">
-                                                                        <Coins size={14} className="text-emerald-500" />
-                                                                        <span className="font-semibold text-zinc-900">{translations.labels.salary}:</span> {pos.salary}
-                                                                    </div>
-                                                                </div>
-
-                                                                <p className="text-zinc-500 text-sm leading-relaxed line-clamp-2">
-                                                                    {pos.desc}
-                                                                </p>
-                                                            </div>
-
-                                                            <button
-                                                                onClick={() => {
-                                                                    window.dispatchEvent(new CustomEvent('apply-position', { detail: pos.title }));
-                                                                    document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth' });
-                                                                }}
-                                                                className="mt-6 w-full py-3 border border-zinc-200 rounded-xl text-zinc-600 font-bold hover:bg-zinc-900 hover:text-white hover:border-zinc-900 transition-all flex items-center justify-center gap-2 group/btn"
-                                                            >
-                                                                {translations.apply_now} <ChevronRight size={16} className="group-hover/btn:translate-x-1 transition-transform" />
-                                                            </button>
-                                                        </motion.div>
-                                                    );
-                                                })}
+                                            <div className="grid grid-cols-1 gap-4">
+                                                {positions
+                                                    .filter(p => p.dept === dept)
+                                                    .map((pos) => (
+                                                        <JobCard
+                                                            key={pos.id}
+                                                            pos={pos}
+                                                            isExpanded={expandedPositions.includes(pos.id)}
+                                                            onToggle={() => togglePosition(pos.id)}
+                                                            translations={translations}
+                                                        />
+                                                    ))}
                                             </div>
-                                        </motion.div>
+                                        </div>
                                     ));
                                 })()}
                             </motion.div>
@@ -387,16 +431,22 @@ export default function CareersClient({ locale, positionKeys, benefits, position
             </section>
 
             {/* 4. Application Form Section */}
-            <section id="apply" className="py-16 sm:py-20 lg:py-24 bg-white">
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <section id="apply" className="py-8 sm:py-16 bg-white relative overflow-hidden">
+                <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMCAwaDQwdjQwaC00MFoiLz48cGF0aCBkPSJNMCAwaDF2NDBIOFoiIGZpbGw9IndoaXRlIiBmaWxsLW9wYWNpdHk9Ii4wNSIvPjxwYXRoIGQ9Ik0wIDBoNDB2MUgwWiIgZmlsbD0id2hpdGUiIGZpbGwtb3BhY2l0eT0iLjA1Ii8+PC9nPjwvc3ZnPg==')] opacity-5 pointer-events-none"></div>
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-center mb-16 space-y-4"
+                        className="text-center mb-20 space-y-6"
                     >
-                        <h2 className="text-3xl md:text-5xl font-bold text-zinc-900 tracking-tight">{translations.apply_today}</h2>
-                        <p className="text-lg text-zinc-500 font-light max-w-2xl mx-auto">{translations.apply_desc}</p>
+                        <span className="text-emerald-600 font-black tracking-[0.4em] uppercase text-[10px] block">Ready to deploy?</span>
+                        <h2 className="text-4xl md:text-6xl font-black text-zinc-900 tracking-tighter leading-none uppercase italic">
+                            {translations.apply_today}
+                        </h2>
+                        <p className="text-lg text-zinc-500 font-light max-w-2xl mx-auto leading-relaxed">
+                            {translations.apply_desc}
+                        </p>
                     </motion.div>
 
                     <motion.div
@@ -404,9 +454,11 @@ export default function CareersClient({ locale, positionKeys, benefits, position
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.2 }}
-                        className="bg-white p-1 rounded-3xl shadow-2xl shadow-zinc-200/50 border border-zinc-100"
+                        className="bg-zinc-50 p-2 md:p-3 rounded-[3rem] shadow-2xl shadow-zinc-200/50 border border-zinc-100"
                     >
-                        <CareersForm />
+                        <div className="bg-white rounded-[2.5rem] overflow-hidden">
+                            <CareersForm />
+                        </div>
                     </motion.div>
                 </div>
             </section>

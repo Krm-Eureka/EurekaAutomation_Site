@@ -212,6 +212,7 @@
             "education": "Education:",
             "salary": "Salary:"
         },
+        "responsibilities_label": "Key Responsibilities",
         "benefits": "Why Join Us?",
         "benefits_list": [
             "Competitive Salary & Bonuses",

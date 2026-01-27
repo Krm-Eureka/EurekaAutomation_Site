@@ -32,8 +32,22 @@
                 "en": "Full-time"
             },
             "desc": {
-                "th": "ออกแบบ เขียนโปรแกรม และทดสอบระบบควบคุม PLC สำหรับโครงการระบบอัตโนมัติอุตสาหกรรม",
-                "en": "Design, program, and commission PLC systems for industrial automation projects."
+                "th": [
+                    "ออกแบบและเขียนโปรแกรมโครงสร้างระบบควบคุม PLC สำหรับเครื่องจักรและระบบอัตโนมัติ",
+                    "พัฒนาหน้าจอแสดงผล HMI และระบบ SCADA เพื่อการตรวจสอบและควบคุมกระบวนการผลิต",
+                    "ดำเนินการทดสอบระบบ (Commissioning) ณ หน้างานโครงการเพื่อให้ระบบทำงานได้อย่างถูกต้อง",
+                    "แก้ไขปัญหาเบื้องต้น (Troubleshooting) และปรับปรุงระบบการทำงานของเครื่องจักรเดิมให้มีประสิทธิภาพสูงขึ้น",
+                    "ประสานงานกับทีมวิศวกรออกแบบเครื่องกล เพื่อให้ระบบควบคุมทำงานสอดคล้องกับกลไกของเครื่องจักร",
+                    "จัดทำเอกสารคู่มือการใช้งานระบบควบคุมและรายงานการทดสอบระบบ"
+                ],
+                "en": [
+                    "Design and develop PLC control structures for custom machines and industrial automation systems.",
+                    "Develop HMI interfaces and SCADA systems for real-time monitoring and process control.",
+                    "Perform on-site commissioning to ensure automation systems operate according to technical specifications.",
+                    "Troubleshoot complex control issues and optimize existing machine sequences for better performance.",
+                    "Collaborate with mechanical design engineers to align control logic with machine kinematics.",
+                    "Prepare technical documentation, user manuals, and detailed commissioning reports."
+                ]
             }
         }
     ],
@@ -69,21 +83,33 @@
                 "en": "Full-time"
             },
             "desc": {
-                "th": "ออกแบบโครงสร้าง 3D และจัดเตรียมแบบสั่งผลิตสำหรับเครื่องจักรอุตสาหกรรมตามความต้องการลูกค้า",
-                "en": "Create detailed 3D designs and engineering drawings for custom-built industrial machines."
+                "th": [
+                    "วิเคราะห์ความต้องการของลูกค้าและเปลี่ยนเป็นคอนเซปต์การออกแบบเครื่องจักร",
+                    "ออกแบบโครงสร้าง 3D Model และจัดเตรียมแบบสั่งผลิต (2D Drawing) โดยละเอียด",
+                    "คัดเลือกอุปกรณ์มาตรฐานที่เกี่ยวข้อง เช่น Pneumatic, Motor, Sensor และอุปกรณ์ส่งกำลัง",
+                    "ควบคุมดูแลขั้นตอนการประกอบเครื่องจักรต้นแบบ และทดสอบการทำงานร่วมกับทีมผลิต",
+                    "วิเคราะห์ความแข็งแรงของโครงสร้าง (FEA) และคำนวณ Cycle Time ของกระบวนการทำงาน"
+                ],
+                "en": [
+                    "Analyze client requirements and translate them into practical machine design concepts.",
+                    "Develop detailed 3D models and precise 2D engineering drawings for manufacturing.",
+                    "Select standard components including pneumatics, motors, sensors, and power transmission parts.",
+                    "Supervise prototype assembly and conduct operational testing with the production team.",
+                    "Perform structural analysis (FEA) and calculate process cycle times for efficiency."
+                ]
             }
         }
     ],
     "SOFTWARE": [
         {
-            "status": "close",
+            "status": "open",
             "dept": {
                 "th": "ซอฟต์แวร์",
                 "en": "Software"
             },
             "title": {
-                "th": "นักพัฒนา Full-Stack",
-                "en": "Full-Stack Developer"
+                "th": "นักพัฒนา Full-Stack AI",
+                "en": "AI Full-Stack Developer"
             },
             "experience": {
                 "th": "0-2 ปี",
@@ -106,8 +132,20 @@
                 "en": "Full-time"
             },
             "desc": {
-                "th": "พัฒนาเครื่องมือภายในและหน้าจอแสดงผล (Dashboard) สำหรับโซลูชัน IIoT และโรงงานอัจฉริยะ",
-                "en": "Develop internal tools and client-facing dashboards for IIoT and smart factory solutions."
+                "th": [
+                    "พัฒนาแอปพลิเคชันเว็บและแพลตฟอร์ม Cloud สำหรับระบบวิเคราะห์ข้อมูลโรงงานอัจฉริยะ",
+                    "เชื่อมต่อระบบซอฟต์แวร์เข้ากับอุปกรณ์ IoT และฐานข้อมูลในระบบอุตสาหกรรม",
+                    "ออกแบบและติดตั้งระบบประมวลผล Computer Vision สำหรับการตรวจสอบคุณภาพ (Quality Inspection)",
+                    "พัฒนา Dashboard สำหรับแสดงผลกราฟข้อมูลแบบเรียลไทม์ และระบบแจ้งเตือนผ่านช่องทางต่างๆ",
+                    "ศึกษาวิจัยและนำอัลกอริทึม Machine Learning มาปรับใช้ เพื่อเพิ่มประสิทธิภาพการผลิต"
+                ],
+                "en": [
+                    "Develop web applications and cloud platforms for smart factory data analytics.",
+                    "Integrate software systems with IoT devices and industrial-grade databases.",
+                    "Design and implement Computer Vision systems for automated quality inspection.",
+                    "Create real-time data visualization dashboards and multi-channel notification systems.",
+                    "Research and deploy Machine Learning algorithms to optimize manufacturing throughput."
+                ]
             }
         }
     ]

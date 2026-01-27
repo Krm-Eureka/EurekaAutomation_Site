@@ -6,13 +6,19 @@ import "@/app/globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
-import { Prompt } from "next/font/google";
+import { Prompt, Outfit } from "next/font/google";
 
 // ตั้งค่า Font
 const prompt = Prompt({
   subsets: ["latin", "thai"],
   weight: ["300", "400", "500", "600", "700", "800", "900"],
   variable: '--font-prompt'
+});
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  variable: '--font-outfit'
 });
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
@@ -106,17 +112,19 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <>
-      <NextIntlClientProvider messages={messages}>
-        {gaId && <GoogleAnalytics GA_MEASUREMENT_ID={gaId} />}
+    <html lang={locale} className={`${outfit.variable} ${prompt.variable}`}>
+      <body className="font-sans antialiased min-h-screen flex flex-col bg-zinc-950">
+        <NextIntlClientProvider messages={messages}>
+          {gaId && <GoogleAnalytics GA_MEASUREMENT_ID={gaId} />}
 
-        <Header lang={locale} />
-        <main className="flex-grow">
-          {children}
-        </main>
+          <Header lang={locale} />
+          <main className="flex-grow">
+            {children}
+          </main>
 
-        <Footer />
-      </NextIntlClientProvider>
-    </>
+          <Footer />
+        </NextIntlClientProvider>
+      </body>
+    </html>
   );
 }

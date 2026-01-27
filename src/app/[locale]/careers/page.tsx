@@ -31,7 +31,7 @@ interface CareerPosition {
     title: { th: string; en: string };
     location: { th: string; en: string };
     type: { th: string; en: string };
-    desc: { th: string; en: string };
+    desc: { th: string | string[]; en: string | string[] };
     experience: { th: string; en: string };
     education: { th: string; en: string };
     salary: { th: string; en: string };
@@ -82,7 +82,9 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
             experience: t('labels.experience'),
             education: t('labels.education'),
             salary: t('labels.salary'),
-        }
+        },
+        benefits_title: t('benefits'),
+        responsibilities_label: t('responsibilities_label')
     };
 
     return (
