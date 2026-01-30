@@ -292,5 +292,27 @@
                 "Real-time Analytics"
             ]
         }
+    },
+    "subpages": {
+        "ai": {
+            "title": "AI & Machine Learning Solutions",
+            "content_title": "Intelligent Manufacturing with AI",
+            "content_desc": "Harness the power of artificial intelligence and machine learning for predictive maintenance, quality control optimization, and production forecasting. Our AI solutions transform raw data into actionable insights for smarter decision-making."
+        },
+        "robotics": {
+            "title": "Robotics & Automation",
+            "content_title": "End-to-End Automation Solutions",
+            "content_desc": "Transform your production lines with advanced robotics and automation technologies. We design and implement comprehensive automation systems that increase efficiency, improve quality consistency, and reduce labor costs while maintaining safety standards."
+        },
+        "machines": {
+            "title": "Custom Industrial Machines",
+            "content_title": "Tailored Solutions for Your Needs",
+            "content_desc": "Our custom industrial machines are engineered to meet your specific manufacturing requirements. We combine precision engineering with innovative design to deliver solutions that enhance productivity and reduce operational costs."
+        },
+        "logistics": {
+            "title": "Smart Logistics Solutions",
+            "content_title": "Intelligent Warehouse & Material Flow",
+            "content_desc": "Optimize your supply chain with our smart logistics solutions featuring autonomous mobile robots (AMR), automated guided vehicles (AGV), and warehouse management systems (WMS). Streamline material handling, reduce errors, and increase throughput across your operations."
+        }
     }
 }

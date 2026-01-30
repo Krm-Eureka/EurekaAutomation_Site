@@ -1,5 +1,23 @@
 {
     "_comment": "จัดการตำแหน่งงานที่นี่ | status: 'open' เปิดแสดงผล, 'close' ปิดแสดงผล",
+    "BENEFITS": {
+        "th": [
+            "ทำงานจันทร์ - ศุกร์",
+            "ค่าตำแหน่ง / ค่าอาหาร",
+            "ค่าทำงาน / ค่าครองชีพ / เบี้ยขยัน",
+            "ค่าคอมมิชชั่น",
+            "ประกันสังคม / กองทุน",
+            "อื่น ๆ"
+        ],
+        "en": [
+            "Monday to Friday work schedule",
+            "Position and meal allowance",
+            "Work allowance / cost of living / attendance bonus",
+            "Commission",
+            "Social security / fund",
+            "Others"
+        ]
+    },
     "ENGINEERING": [
         {
             "status": "open",
@@ -34,117 +52,188 @@
             "desc": {
                 "th": [
                     "ออกแบบและเขียนโปรแกรมโครงสร้างระบบควบคุม PLC สำหรับเครื่องจักรและระบบอัตโนมัติ",
-                    "พัฒนาหน้าจอแสดงผล HMI และระบบ SCADA เพื่อการตรวจสอบและควบคุมกระบวนการผลิต",
-                    "ดำเนินการทดสอบระบบ (Commissioning) ณ หน้างานโครงการเพื่อให้ระบบทำงานได้อย่างถูกต้อง",
-                    "แก้ไขปัญหาเบื้องต้น (Troubleshooting) และปรับปรุงระบบการทำงานของเครื่องจักรเดิมให้มีประสิทธิภาพสูงขึ้น",
-                    "ประสานงานกับทีมวิศวกรออกแบบเครื่องกล เพื่อให้ระบบควบคุมทำงานสอดคล้องกับกลไกของเครื่องจักร",
-                    "จัดทำเอกสารคู่มือการใช้งานระบบควบคุมและรายงานการทดสอบระบบ"
+                    "พัฒนาหน้าจอแสดงผล HMI และระบบ SCADA",
+                    "ทดสอบระบบ (Commissioning) ณ หน้างาน",
+                    "แก้ไขปัญหาและปรับปรุงระบบเดิม",
+                    "ประสานงานกับทีมเครื่องกล",
+                    "จัดทำเอกสารและรายงาน"
                 ],
                 "en": [
-                    "Design and develop PLC control structures for custom machines and industrial automation systems.",
-                    "Develop HMI interfaces and SCADA systems for real-time monitoring and process control.",
-                    "Perform on-site commissioning to ensure automation systems operate according to technical specifications.",
-                    "Troubleshoot complex control issues and optimize existing machine sequences for better performance.",
-                    "Collaborate with mechanical design engineers to align control logic with machine kinematics.",
-                    "Prepare technical documentation, user manuals, and detailed commissioning reports."
+                    "Design and program PLC control systems for machinery and automation systems.",
+                    "Develop HMI interfaces and SCADA systems.",
+                    "Perform on-site commissioning.",
+                    "Troubleshoot and improve existing systems.",
+                    "Coordinate with mechanical engineering teams.",
+                    "Prepare system documentation and reports."
                 ]
             }
         }
     ],
-    "R_AND_D": [
+    "SALES": [
         {
             "status": "open",
             "dept": {
-                "th": "วิจัยและพัฒนา",
-                "en": "R&D"
+                "th": "ฝ่ายขาย",
+                "en": "Sales"
             },
             "title": {
-                "th": "วิศวกรออกแบบเครื่องจักร",
-                "en": "Mechanical Design Engineer"
+                "th": "Sale Engineer",
+                "en": "Sales Engineer"
             },
             "experience": {
-                "th": "2 ปีขึ้นไป",
-                "en": "2+ years"
+                "th": null,
+                "en": null
             },
             "education": {
-                "th": "ปริญญาตรี วิศวกรรมเครื่องกล",
-                "en": "Bachelor's degree in Mechanical Engineering"
+                "th": "ปริญญาตรี ขึ้นไป",
+                "en": "Bachelor's degree or higher"
             },
             "salary": {
-                "th": "30,000 - 55,000 บาท",
-                "en": "30,000 - 55,000 THB"
+                "th": null,
+                "en": null
             },
             "location": {
-                "th": "กรุงเทพฯ",
-                "en": "Bangkok"
+                "th": null,
+                "en": null
             },
             "type": {
-                "th": "งานประจำ",
-                "en": "Full-time"
+                "th": null,
+                "en": null
             },
-            "desc": {
+            "qualification": {
                 "th": [
-                    "วิเคราะห์ความต้องการของลูกค้าและเปลี่ยนเป็นคอนเซปต์การออกแบบเครื่องจักร",
-                    "ออกแบบโครงสร้าง 3D Model และจัดเตรียมแบบสั่งผลิต (2D Drawing) โดยละเอียด",
-                    "คัดเลือกอุปกรณ์มาตรฐานที่เกี่ยวข้อง เช่น Pneumatic, Motor, Sensor และอุปกรณ์ส่งกำลัง",
-                    "ควบคุมดูแลขั้นตอนการประกอบเครื่องจักรต้นแบบ และทดสอบการทำงานร่วมกับทีมผลิต",
-                    "วิเคราะห์ความแข็งแรงของโครงสร้าง (FEA) และคำนวณ Cycle Time ของกระบวนการทำงาน"
+                    "ไม่จำกัดเพศ",
+                    "อายุ 22 ปีขึ้นไป",
+                    "จบด้านไฟฟ้า / เครื่องจักรกล / หรือที่เกี่ยวข้อง",
+                    "มีประสบการณ์ด้านการขายเครื่องจักร Automation, Logistics",
+                    "ได้ภาษาอังกฤษหรือภาษาจีน (พิจารณาเป็นพิเศษ)"
                 ],
                 "en": [
-                    "Analyze client requirements and translate them into practical machine design concepts.",
-                    "Develop detailed 3D models and precise 2D engineering drawings for manufacturing.",
-                    "Select standard components including pneumatics, motors, sensors, and power transmission parts.",
-                    "Supervise prototype assembly and conduct operational testing with the production team.",
-                    "Perform structural analysis (FEA) and calculate process cycle times for efficiency."
+                    "No gender restriction",
+                    "Age 22 years or above",
+                    "Graduated in Electrical, Mechanical, or related fields",
+                    "Experience in selling automation or logistics machinery",
+                    "English or Chinese language skills are a plus"
+                ]
+            },
+            "benefits": {
+                "th": [
+                    "ทำงานจันทร์ - ศุกร์",
+                    "ค่าตำแหน่ง / ค่าอาหาร",
+                    "ค่าทำงาน / ค่าครองชีพ / เบี้ยขยัน",
+                    "ค่าคอมมิชชั่น",
+                    "ประกันสังคม / กองทุน",
+                    "อื่น ๆ"
+                ],
+                "en": [
+                    "Monday to Friday work schedule",
+                    "Position and meal allowance",
+                    "Work allowance / cost of living / attendance bonus",
+                    "Commission",
+                    "Social security / fund",
+                    "Others"
                 ]
             }
         }
     ],
-    "SOFTWARE": [
+    "DESIGN": [
         {
             "status": "open",
             "dept": {
-                "th": "ซอฟต์แวร์",
-                "en": "Software"
+                "th": "ออกแบบ",
+                "en": "Design"
             },
             "title": {
-                "th": "นักพัฒนา Full-Stack AI",
-                "en": "AI Full-Stack Developer"
+                "th": "Draftsman",
+                "en": "Draftsman"
             },
             "experience": {
-                "th": "0-2 ปี",
-                "en": "0-2 years"
+                "th": null,
+                "en": null
             },
             "education": {
-                "th": "ปริญญาตรี วิศวกรรมคอมพิวเตอร์ หรือวิทยาการคอมพิวเตอร์",
-                "en": "Bachelor's degree in Computer Engineering or Computer Science"
+                "th": "ปวส. สาขาเครื่องกล / เขียนแบบเครื่องกล หรือสาขาที่เกี่ยวข้อง",
+                "en": "Diploma in Mechanical Drafting or related field"
             },
             "salary": {
-                "th": "ตามประสบการณ์",
-                "en": "Based on Experience"
+                "th": null,
+                "en": null
             },
             "location": {
-                "th": "Remote / กรุงเทพฯ",
-                "en": "Remote / Bangkok"
+                "th": null,
+                "en": null
             },
             "type": {
-                "th": "งานประจำ",
-                "en": "Full-time"
+                "th": null,
+                "en": null
             },
             "desc": {
                 "th": [
-                    "พัฒนาแอปพลิเคชันเว็บและแพลตฟอร์ม Cloud สำหรับระบบวิเคราะห์ข้อมูลโรงงานอัจฉริยะ",
-                    "เชื่อมต่อระบบซอฟต์แวร์เข้ากับอุปกรณ์ IoT และฐานข้อมูลในระบบอุตสาหกรรม",
-                    "ออกแบบและติดตั้งระบบประมวลผล Computer Vision สำหรับการตรวจสอบคุณภาพ (Quality Inspection)",
-                    "พัฒนา Dashboard สำหรับแสดงผลกราฟข้อมูลแบบเรียลไทม์ และระบบแจ้งเตือนผ่านช่องทางต่างๆ",
-                    "ศึกษาวิจัยและนำอัลกอริทึม Machine Learning มาปรับใช้ เพื่อเพิ่มประสิทธิภาพการผลิต"
+                    "จัดทำ Drawing 2D/3D ตามแบบที่ได้รับจากวิศวกร",
+                    "แก้ไขและปรับปรุง Drawing",
+                    "จัดทำ BOM เบื้องต้น"
                 ],
                 "en": [
-                    "Develop web applications and cloud platforms for smart factory data analytics.",
-                    "Integrate software systems with IoT devices and industrial-grade databases.",
-                    "Design and implement Computer Vision systems for automated quality inspection.",
-                    "Create real-time data visualization dashboards and multi-channel notification systems.",
-                    "Research and deploy Machine Learning algorithms to optimize manufacturing throughput."
+                    "Prepare 2D/3D drawings based on engineering designs.",
+                    "Revise and improve drawings as assigned.",
+                    "Prepare preliminary Bill of Materials (BOM)."
+                ]
+            },
+            "qualification": {
+                "th": [
+                    "ใช้ AutoCAD และ SolidWorks ได้",
+                    "ทำงานละเอียดรอบคอบ",
+                    "สื่อสารภาษาอังกฤษได้จะพิจารณาเป็นพิเศษ"
+                ],
+                "en": [
+                    "Proficient in AutoCAD and SolidWorks",
+                    "Detail-oriented",
+                    "English communication skills are a plus"
+                ]
+            }
+        },
+        {
+            "status": "open",
+            "dept": {
+                "th": "ออกแบบเครื่องจักร",
+                "en": "Machine Design"
+            },
+            "title": {
+                "th": "Junior Machine Designer",
+                "en": "Junior Machine Designer"
+            },
+            "experience": {
+                "th": "ไม่เกิน 2 ปี",
+                "en": "Up to 2 years"
+            },
+            "education": {
+                "th": "ปวส. / ปริญญาตรี วิศวกรรมเครื่องกล / Mechatronics",
+                "en": "Diploma or Bachelor's degree in Mechanical Engineering or Mechatronics"
+            },
+            "salary": {
+                "th": null,
+                "en": null
+            },
+            "location": {
+                "th": null,
+                "en": null
+            },
+            "type": {
+                "th": null,
+                "en": null
+            },
+            "desc": {
+                "th": [
+                    "ออกแบบ Drawing 2D/3D",
+                    "จัดทำ BOM และ Spec",
+                    "พัฒนาแนวคิด Automation / Special Purpose Machine",
+                    "ประสานงานกับฝ่ายผลิต"
+                ],
+                "en": [
+                    "Design 2D/3D drawings.",
+                    "Prepare BOM and specifications.",
+                    "Develop automation and special purpose machine concepts.",
+                    "Coordinate with production teams."
                 ]
             }
         }

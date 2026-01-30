@@ -43,30 +43,34 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
     const t = await getTranslations('careers');
 
     // Use centralized JSON data instead of translation files for positions
-    // Flatten the grouped data first
-    const allPositions = (Object.values(positionsData) as unknown as CareerPosition[][])
+    // Flatten the grouped data first, ignoring non-array entries (like _comment or BENEFITS)
+    const allPositions = Object.values(positionsData)
+        .filter((val): val is any[] => Array.isArray(val))
         .flat()
-        .filter(p => typeof p === 'object');
+        .filter(p => typeof p === 'object' && p !== null);
 
     // Filter only those with status 'open'
     const positions = allPositions
         .filter((pos) => pos.status === 'open')
         .map((pos, idx) => ({
             id: idx.toString(),
-            dept: pos.dept[locale as 'th' | 'en'],
-            title: pos.title[locale as 'th' | 'en'],
-            location: pos.location[locale as 'th' | 'en'],
-            type: pos.type[locale as 'th' | 'en'],
-            desc: pos.desc[locale as 'th' | 'en'],
-            experience: pos.experience[locale as 'th' | 'en'],
-            education: pos.education[locale as 'th' | 'en'],
-            salary: pos.salary[locale as 'th' | 'en']
+            dept: pos.dept?.[locale as 'th' | 'en'] || '',
+            title: pos.title?.[locale as 'th' | 'en'] || '',
+            location: pos.location?.[locale as 'th' | 'en'] || '',
+            type: pos.type?.[locale as 'th' | 'en'] || '',
+            desc: pos.desc?.[locale as 'th' | 'en'] || [],
+            experience: pos.experience?.[locale as 'th' | 'en'] || '',
+            education: pos.education?.[locale as 'th' | 'en'] || '',
+            salary: pos.salary?.[locale as 'th' | 'en'] || '',
+            qualification: (pos as any).qualification?.[locale as 'th' | 'en'] || [],
+            benefits: (pos as any).benefits?.[locale as 'th' | 'en'] || []
         }));
 
     const positionKeys = positions.map(pos => pos.id);
-    const benefits = t.raw('benefits_list') as string[];
+    // Use generic benefits from JSON if available, otherwise fallback or empty
+    const globalBenefits = (positionsData as any).BENEFITS?.[locale as 'th' | 'en'] || [];
+    const benefits = globalBenefits.length > 0 ? globalBenefits : (t.raw('benefits_list') as string[]);
 
-    // Convert translations to plain objects for client component
     const translations = {
         title: t('title'),
         subtitle: t('subtitle'),

@@ -2,19 +2,245 @@
     "ROBOTICS": [
         {
             "title": {
-                "th": "ระบบ AMR ในอุตสาหกรรมการผลิต",
-                "en": "AMR System in Manufacturing"
+                "th": "ABB Cobot แขนคู่ (Double Arm Pick & Place)",
+                "en": "ABB Cobot Double Arm Pick and Place"
             },
             "thumbnail": "",
-            "youtubeUrl": "https://www.youtube.com/watch?v=eJ46cwHkbFg&t=162s",
+            "youtubeUrl": "https://youtu.be/xlDid0rxxUg",
             "category": {
-                "th": "หุ่นยนต์",
+                "th": "หุ่นยนต์อุตสาหกรรม",
                 "en": "Robotics"
             },
-            "description": {
-                "th": "การใช้งานหุ่นยนต์เคลื่อนที่อัตโนมัติในการขนย้ายชิ้นงาน",
-                "en": "Implementation of Autonomous Mobile Robots for material handling."
-            }
+            "description": [
+                {
+                    "th": "หุ่นยนต์ ABB YuMi (Cobot) แบบ 2 แขน",
+                    "en": "ABB YuMi Dual-arm Collaborative Robot"
+                },
+                {
+                    "th": "งานประกอบชิ้นส่วน (Assembly) ความละเอียดสูง",
+                    "en": "High-precision assembly task"
+                }
+            ]
+        },
+        {
+            "title": {
+                "th": "Kuka Robot ทำงานร่วมกัน (Multi-Robot Operation)",
+                "en": "Kuka Robot Multi-Robot Operation"
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://youtu.be/iL0MSeHf-6o",
+            "category": {
+                "th": "หุ่นยนต์อุตสาหกรรม",
+                "en": "Robotics"
+            },
+            "description": [
+                {
+                    "th": "การทำงานประสานกันระหว่าง Robot 2 ตัว (Handshake)",
+                    "en": "Synchronized operation between two robots"
+                },
+                {
+                    "th": "Pick & Place และส่งต่อชิ้นงานต่อเนื่อง",
+                    "en": "Continuous Pick & Place and part transfer"
+                }
+            ]
+        },
+        {
+            "title": {
+                "th": "UR Cobot งานหยอดกาว (Dispensing)",
+                "en": "UR Cobot Dispensing"
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://youtu.be/5Osh8qtYma4",
+            "category": {
+                "th": "หุ่นยนต์อุตสาหกรรม",
+                "en": "Robotics"
+            },
+            "description": [
+                {
+                    "th": "Universal Robot (Cobot) สำหรับงาน Dispensing",
+                    "en": "Universal Robot (Cobot) for dispensing application"
+                },
+                {
+                    "th": "ควบคุม Path การเคลื่อนที่แม่นยำ",
+                    "en": "Precise path control for gluing/sealing"
+                }
+            ]
+        },
+        {
+            "title": {
+                "th": "Nachi Robot ป้อนชิ้นงาน (Machine Tending)",
+                "en": "Nachi Robot Machine Tending"
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://youtu.be/66pWB9HXYCI",
+            "category": {
+                "th": "หุ่นยนต์อุตสาหกรรม",
+                "en": "Robotics"
+            },
+            "description": [
+                {
+                    "th": "ระบบ Machine Tending อัตโนมัติด้วย Nachi Robot",
+                    "en": "Automatic Machine Tending with Nachi Robot"
+                },
+                {
+                    "th": "Load/Unload ชิ้นงานเข้าสู่เครื่อง CNC",
+                    "en": "Load/Unload workpieces into CNC machine"
+                }
+            ]
+        },
+        {
+            "title": {
+                "th": "Yamaha SCARA Robot (High Speed Pick & Place)",
+                "en": "Yamaha SCARA Robot Pick and Place"
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://youtu.be/WG9rsxPeFTc",
+            "category": {
+                "th": "หุ่นยนต์อุตสาหกรรม",
+                "en": "Robotics"
+            },
+            "description": [
+                {
+                    "th": "หุ่นยนต์ SCARA แบบคู่สำหรับงานความเร็วสูง",
+                    "en": "Dual SCARA robots for high-speed application"
+                },
+                {
+                    "th": "Pick & Place ชิ้นส่วนขนาดเล็กบน Conveyor",
+                    "en": "Pick & Place small parts on conveyor"
+                }
+            ]
+        },
+        {
+            "title": {
+                "th": "Fanuc Robot หยิบจับชิ้นงาน (Pick & Place)",
+                "en": "Fanuc Robot Pick and Place"
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://youtu.be/722cvsS749s",
+            "category": {
+                "th": "หุ่นยนต์อุตสาหกรรม",
+                "en": "Robotics"
+            },
+            "description": [
+                {
+                    "th": "Fanuc Robot สำหรับงาน Handling ทั่วไป",
+                    "en": "Fanuc Robot for general handling"
+                },
+                {
+                    "th": "เคลื่อนย้าย Part ระหว่าง Station การผลิต",
+                    "en": "Transfer parts between production stations"
+                }
+            ]
+        },
+        {
+            "title": {
+                "th": "Yaskawa Robot งานเชื่อม (Welding)",
+                "en": "Yaskawa Robot Welding"
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://youtu.be/bWV4NWod2cs",
+            "category": {
+                "th": "หุ่นยนต์อุตสาหกรรม",
+                "en": "Robotics"
+            },
+            "description": [
+                {
+                    "th": "Yaskawa Motoman สำหรับงาน Arc Welding",
+                    "en": "Yaskawa Motoman for Arc Welding"
+                },
+                {
+                    "th": "เชื่อมชิ้นงานทรงกลมร่วมกับ Positioner",
+                    "en": "Circular welding with positioner"
+                }
+            ]
+        },
+        {
+            "title": {
+                "th": "Kuka Robot งานขัด (Polishing with Force Control)",
+                "en": "Kuka Robot Polishing with Force Control"
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://youtu.be/MXqREGkXqvw",
+            "category": {
+                "th": "หุ่นยนต์อุตสาหกรรม",
+                "en": "Robotics"
+            },
+            "description": [
+                {
+                    "th": "งานขัดผิว (Finishing) พร้อมระบบ Force Control",
+                    "en": "Surface finishing with Force Control system"
+                },
+                {
+                    "th": "ควบคุมแรงกดสม่ำเสมอเพื่อคุณภาพผิวงาน",
+                    "en": "Consistent pressure control for surface quality"
+                }
+            ]
+        },
+        {
+            "title": {
+                "th": "Kuka Robot งานพับโลหะ (Bending Machine Tending)",
+                "en": "Kuka Robot Bending Machine Tending"
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://youtu.be/nQW1LAsDzws",
+            "category": {
+                "th": "หุ่นยนต์อุตสาหกรรม",
+                "en": "Robotics"
+            },
+            "description": [
+                {
+                    "th": "ระบบป้อนแผ่นโลหะเข้าเครื่องพับ (Press Brake)",
+                    "en": "Sheet metal feeding for Press Brake"
+                },
+                {
+                    "th": "Handling แผ่นโลหะขนาดใหญ่ได้อย่างแม่นยำ",
+                    "en": "Precise handling of large metal sheets"
+                }
+            ]
+        },
+        {
+            "title": {
+                "th": "ABB Delta Robot (High Speed Pick & Place)",
+                "en": "ABB Delta Robot Pick and Place"
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://youtu.be/gZ2XPtE1kUM",
+            "category": {
+                "th": "หุ่นยนต์อุตสาหกรรม",
+                "en": "Robotics"
+            },
+            "description": [
+                {
+                    "th": "หุ่นยนต์ Delta (FlexPicker) สำหรับงานความเร็วสูง",
+                    "en": "Delta robot (FlexPicker) for high-speed tasks"
+                },
+                {
+                    "th": "Pick & Place และแพ็คสินค้าบนสายพาน",
+                    "en": "Pick & Place and packing on conveyor"
+                }
+            ]
+        },
+        {
+            "title": {
+                "th": "Yaskawa Delta Robot (Food Handling)",
+                "en": "Yaskawa Delta Robot Pick and Place"
+            },
+            "thumbnail": "",
+            "youtubeUrl": "https://youtu.be/DGD5zOOtNxs",
+            "category": {
+                "th": "หุ่นยนต์อุตสาหกรรม",
+                "en": "Robotics"
+            },
+            "description": [
+                {
+                    "th": "หุ่นยนต์ Delta ความเร็วสูงสำหรับอุตสาหกรรมอาหาร",
+                    "en": "High-speed Delta robot for food industry"
+                },
+                {
+                    "th": "Pick & Place ชิ้นงาน (เบอร์เกอร์/อาหารแปรรูป)",
+                    "en": "Pick & Place food products (Burgers/Patty)"
+                }
+            ]
         }
     ],
     "AI": [

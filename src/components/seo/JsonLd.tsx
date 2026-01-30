@@ -81,7 +81,7 @@ export function generateOrganizationSchema(lang: string): OrganizationSchema {
     contactPoint: {
       "@type": "ContactPoint",
       telephone: "+66-XX-XXX-XXXX",
-      email: "info@eureka-automation.com",
+      email: "hr@eurekaautomation.co.th",
       contactType: "customer service",
     },
     address: {

@@ -65,7 +65,7 @@ export function Header({ lang }: HeaderProps) {
               <Link
                 key={item.name}
                 href={item.href}
-                className={`px-4 py-2 text-[11px] font-bold uppercase tracking-[0.2em] transition-all rounded-lg relative group/item ${active ? 'text-emerald-400' : textColor
+                className={`px-4 py-1 text-[14px] font-semibold uppercase tracking-[0.2em] transition-all rounded-lg relative group/item ${active ? 'text-emerald-400' : textColor
                   }`}
               >
                 {item.name}

@@ -217,18 +217,25 @@ function VideoCard({
         >
             {/* Image Container - ตัด margin-bottom และ border-radius ออกเพราะ Parent จัดการแล้ว */}
             <div className="relative aspect-video bg-zinc-200">
-                <div className={`absolute inset-0 bg-zinc-300 animate-pulse ${isLoaded ? 'hidden' : 'block'}`} />
-
-                <Image
-                    src={video.thumbnail || getYouTubeThumbnail(video.youtubeUrl, 'hq')}
-                    alt={video.title[locale as "th" | "en"]}
-                    fill
-                    unoptimized
-                    loading="lazy"
-                    className={`object-cover group-hover:scale-110 transition-all duration-700 ease-in-out ${isLoaded ? 'opacity-100 blur-0 scale-100' : 'opacity-0 blur-xl scale-110'
-                        }`}
-                    onLoad={() => setIsLoaded(true)}
-                />
+                {(video.thumbnail || getYouTubeThumbnail(video.youtubeUrl, 'hq')) ? (
+                    <>
+                        <div className={`absolute inset-0 bg-zinc-300 animate-pulse ${isLoaded ? 'hidden' : 'block'}`} />
+                        <Image
+                            src={video.thumbnail || getYouTubeThumbnail(video.youtubeUrl, 'hq')}
+                            alt={video.title[locale as "th" | "en"]}
+                            fill
+                            unoptimized
+                            loading="lazy"
+                            className={`object-cover group-hover:scale-110 transition-all duration-700 ease-in-out ${isLoaded ? 'opacity-100 blur-0 scale-100' : 'opacity-0 blur-xl scale-110'
+                                }`}
+                            onLoad={() => setIsLoaded(true)}
+                        />
+                    </>
+                ) : (
+                    <div className="absolute inset-0 flex items-center justify-center bg-zinc-100 text-zinc-400">
+                        <span className="text-xs uppercase tracking-wider font-medium">No Preview</span>
+                    </div>
+                )}
 
                 <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors flex items-center justify-center z-10">
                     <div className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center group-hover:scale-125 transition-transform duration-300">

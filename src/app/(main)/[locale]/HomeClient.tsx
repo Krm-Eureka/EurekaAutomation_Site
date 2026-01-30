@@ -563,7 +563,7 @@ export default function HomeClient({ locale }: { locale: string }) {
                 </section>
 
                 {/* Contact Section */}
-                <section id="contact" className="py-16 sm:py-20 lg:py-24 bg-zinc-950 text-white relative">
+                <section id="contact" className="py-4 sm:py-8 lg:py-12 bg-zinc-950 text-white relative">
                     <div className="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMCAwaDQwdjQwaC00MFoiLz48cGF0aCBkPSJNMCAwaDF2NDBIOFoiIGZpbGw9IndoaXRlIiBmaWxsLW9wYWNpdHk9Ii4wNSIvPjxwYXRoIGQ9Ik0wIDBoNDB2MUgwWiIgZmlsbD0id2hpdGUiIGZpbGwtb3BhY2l0eT0iLjA1Ii8+PC9nPjwvc3ZnPg==')]"></div>
 
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
@@ -587,13 +587,13 @@ export default function HomeClient({ locale }: { locale: string }) {
 
                                 <div className="space-y-4 pt-4">
                                     {[
-                                        { icon: Phone, label: tContact('call_us'), val: "+66 2 123 4567" },
-                                        { icon: Mail, label: tContact('email_us'), val: "info@eureka-automation.com" },
-                                        { icon: MapPin, label: tContact('visit_us'), val: "Pathum Thani, Thailand" }
+                                        { icon: Phone, label: tContact('call_us'), val: "094-4096287" },
+                                        { icon: Mail, label: tContact('email_us'), val: "hr@eurekaautomation.co.th" },
+                                        { icon: MapPin, label: tContact('visit_us'), val: "15, 48 BIGGERLAND 4 KLONG 8, Lam Luk Ka, Lam Luk Ka District, Pathum Thani 12150" }
                                     ].map((item, i) => (
                                         <motion.div
                                             key={i}
-                                            className="flex items-center gap-6 group p-4 rounded-2xl hover:bg-white/5 transition-colors cursor-pointer"
+                                            className="flex items-center gap-2 group p-1 rounded-2xl hover:bg-white/5 transition-colors cursor-pointer"
                                             whileHover={{ x: 10 }}
                                         >
                                             <div className="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center text-white group-hover:bg-emerald-600 transition-colors">
