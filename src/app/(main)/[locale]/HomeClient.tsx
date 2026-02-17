@@ -585,10 +585,10 @@ export default function HomeClient({ locale }: { locale: string }) {
                                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-900/30 border border-emerald-800 rounded-full text-sm font-bold text-emerald-400">
                                     <Mail size={16} /> {tContact('tag')}
                                 </div>
-                                <h2 className="text-4xl md:text-6xl font-bold tracking-tight leading-[1.1]">
+                                <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight leading-[1.1]">
                                     {tContact('title')}
                                 </h2>
-                                <p className="text-xl text-zinc-400 font-light leading-relaxed max-w-lg">
+                                <p className="text-lg sm:text-xl text-zinc-400 font-light leading-relaxed max-w-lg">
                                     {tContact('description')}
                                 </p>
 
@@ -601,19 +601,19 @@ export default function HomeClient({ locale }: { locale: string }) {
                                     ].map((item, i) => (
                                         <motion.div
                                             key={i}
-                                            className="flex items-center gap-2 group p-1 rounded-2xl hover:bg-white/5 transition-colors cursor-pointer"
+                                            className="flex items-start gap-3 group p-2 rounded-2xl hover:bg-white/5 transition-colors cursor-pointer"
                                             whileHover={{ x: 10 }}
                                             onClick={() => {
                                                 console.log('Home: Contact Clicked', item.action);
                                                 setSelectedContact({ type: item.action.type, value: item.action.value, label: item.label, href: item.action.href });
                                             }}
                                         >
-                                            <div className="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center text-white group-hover:bg-emerald-600 transition-colors">
-                                                <item.icon size={20} />
+                                            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-zinc-800 rounded-full flex shrink-0 items-center justify-center text-white group-hover:bg-emerald-600 transition-colors">
+                                                <item.icon size={18} className="sm:size-5" />
                                             </div>
-                                            <div>
-                                                <p className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-1">{item.label}</p>
-                                                <p className="font-medium text-white text-lg">{item.val}</p>
+                                            <div className="min-w-0">
+                                                <p className="text-[10px] sm:text-xs font-bold text-zinc-500 uppercase tracking-widest mb-0.5 sm:mb-1">{item.label}</p>
+                                                <p className="font-medium text-white text-base sm:text-lg break-all sm:break-words leading-tight">{item.val}</p>
                                             </div>
                                         </motion.div>
                                     ))}

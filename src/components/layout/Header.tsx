@@ -122,12 +122,13 @@ export function Header({ lang }: HeaderProps) {
         {/* Mobile Menu Btn */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className={`md:hidden p-2 rounded-xl border transition-all duration-300 ${scrolled
-            ? 'text-zinc-900 bg-zinc-100 border-zinc-200 shadow-sm'
-            : 'text-white bg-white/5 border-white/10'
+          className={`md:hidden relative z-[100] p-2.5 rounded-xl border transition-all duration-300 flex items-center justify-center min-w-[44px] min-h-[44px] ${scrolled
+            ? 'text-zinc-900 bg-white border-zinc-200 shadow-sm'
+            : 'text-white bg-emerald-600/20 border-emerald-400/40 backdrop-blur-sm'
             }`}
         >
-          {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          {mobileMenuOpen ? <X size={24} className="text-emerald-500" /> : <Menu size={24} />}
+          <span className="sr-only">Menu</span>
         </button>
       </nav>
 
