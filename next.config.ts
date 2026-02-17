@@ -24,8 +24,6 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
   trailingSlash: true,
-  // @ts-ignore
-  allowedDevOrigins: ['192.168.10.100', 'localhost:3000'],
 };
 
 export default withNextIntl(nextConfig);
