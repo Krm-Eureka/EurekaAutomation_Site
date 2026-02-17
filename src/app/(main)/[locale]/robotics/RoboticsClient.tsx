@@ -25,7 +25,7 @@ export default function RoboticsClient() {
 
     const allVideos = Object.entries(videoDataRaw)
         .filter(([key]) => !key.startsWith('_'))
-        .flatMap(([_, value]) => value) as Video[];
+        .flatMap(([, value]) => value) as Video[];
     const roboticsVideos = allVideos.filter((v) => v.category.en === 'Robotics');
 
     const { scrollY } = useScroll();

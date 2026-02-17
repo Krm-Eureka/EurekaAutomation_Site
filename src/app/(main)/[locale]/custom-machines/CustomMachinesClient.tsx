@@ -25,7 +25,7 @@ export default function CustomMachinesClient() {
 
     const allVideos = Object.entries(videoDataRaw)
         .filter(([key]) => !key.startsWith('_'))
-        .flatMap(([_, value]) => value) as Video[];
+        .flatMap(([, value]) => value) as Video[];
     const machineVideos = allVideos.filter((v) => v.category.en === 'Machines');
 
     const { scrollY } = useScroll();

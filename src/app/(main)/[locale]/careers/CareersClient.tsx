@@ -66,7 +66,7 @@ const JobCard = ({ pos, isExpanded, onToggle, translations }: {
     pos: CareerPosition,
     isExpanded: boolean,
     onToggle: () => void,
-    translations: any
+    translations: Record<string, any>
 }) => (
     <motion.div
         variants={itemVariants}

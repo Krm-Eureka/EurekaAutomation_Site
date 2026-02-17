@@ -24,11 +24,8 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
   trailingSlash: true,
-  // allowedDevOrigins is a new Next.js 15+ feature for internal dev proxying
-  experimental: {
-    // @ts-ignore
-    allowedDevOrigins: ['192.168.10.100', 'localhost:3000'],
-  },
+  // @ts-ignore
+  allowedDevOrigins: ['192.168.10.100', 'localhost:3000'],
 };
 
 export default withNextIntl(nextConfig);

@@ -17,5 +17,5 @@ export const clientLogos = [
     { name: "Toshiba Carrier", logo: withBasePath("/images/logos/Toshiba-Carrier-logo.png"), href: "https://www.toshiba-carrier.co.th/" },
     { name: "Yamada", logo: withBasePath("/images/logos/Yamada-logo.jpg"), href: "https://www.yscthai.com/" },
     { name: "Visteon Thailand", logo: withBasePath("/images/logos/Visteon-logo.svg"), href: "https://www.visteon.com/overview/default.aspx" },
-    { name: "Sappe TH", logo: withBasePath("/images/logos/Sappe_logo.svg"), href: "https://www.daikin.co.th/" },
+    { name: "Sappe TH", logo: withBasePath("/images/logos/Sappe_logo.svg"), href: "https://www.sappe.com/en/home-en/" },
 ];

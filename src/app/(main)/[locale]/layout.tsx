@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       siteName: 'Eureka Automation',
       images: [
         {
-          url: '/images/eureka-og.png',
+          url: '/images/eureka-og.webp',
           width: 1200,
           height: 630,
           alt: 'Eureka Automation - Industrial Innovation',
@@ -61,7 +61,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       card: 'summary_large_image',
       title: tSeo('default_title'),
       description: tSeo('default_description'),
-      images: ['/images/eureka-og.png'],
+      images: ['/images/eureka-og.webp'],
     },
     robots: {
       index: true,
@@ -91,7 +91,7 @@ export default async function RootLayout({
 }) {
   const { locale } = await params;
 
-  if (!routing.locales.includes(locale as any)) {
+  if (!routing.locales.includes(locale as "en" | "th")) {
     notFound();
   }
 

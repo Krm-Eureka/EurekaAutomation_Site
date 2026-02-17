@@ -100,7 +100,7 @@ export default function HomeClient({ locale }: { locale: string }) {
                 <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-zinc-900">
                     <motion.div style={{ y: y1 }} className="absolute inset-0 z-0">
                         <Image
-                            src={withBasePath("/images/eureka-og.png")}
+                            src={withBasePath("/images/eureka-og.webp")}
                             alt="Industrial Automation"
                             fill
                             className="object-cover opacity-90 scale-110"
@@ -269,7 +269,7 @@ export default function HomeClient({ locale }: { locale: string }) {
                                 >
                                     {/* รูป Eureka OG */}
                                     <Image
-                                        src={withBasePath("/images/hero-automation.png")}
+                                        src={withBasePath("/images/hero-automation.webp")}
                                         alt="Eureka Automation Facility"
                                         fill
                                         className="object-cover"

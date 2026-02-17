@@ -243,10 +243,10 @@
             ]
         }
     ],
-    "_AI": [
+    "AI": [
         {
             "title": {
-                "th": "โซลูชัน AI สำหรับการตรวจสอบคุณภาพ",
+                "th": "AI Solution สำหรับการตรวจสอบคุณภาพ",
                 "en": "AI Solutions for Quality Inspection"
             },
             "thumbnail": "",
@@ -264,7 +264,7 @@
         },
         {
             "title": {
-                "th": "การบำรุงรักษาเชิงคาดการณ์ด้วย AI",
+                "th": "การบำรุงรักษาเชิงคาดการณ์ด้วย AI Solution",
                 "en": "Predictive Maintenance with AI"
             },
             "thumbnail": "",

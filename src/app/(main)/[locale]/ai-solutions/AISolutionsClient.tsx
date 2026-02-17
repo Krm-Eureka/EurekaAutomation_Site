@@ -25,7 +25,7 @@ export default function AISolutionsClient() {
 
     const allVideos = Object.entries(videoDataRaw)
         .filter(([key]) => !key.startsWith('_'))
-        .flatMap(([_, value]) => value) as Video[];
+        .flatMap(([, value]) => value) as Video[];
     const aiVideos = allVideos.filter((v) => v.category.en === 'AI');
 
     const { scrollY } = useScroll();

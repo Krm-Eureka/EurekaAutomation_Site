@@ -10,7 +10,6 @@ const pages = [
   '/products',
   '/careers',
   '/contact',
-  '/blog',
   '/custom-machines',
   '/robotics',
   '/logistics',
@@ -29,7 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       sitemapEntries.push({
         url: `${baseUrl}${basePath}/${locale}${page}`,
         lastModified: new Date(),
-        changeFrequency: (page === '/blog' ? 'weekly' : 'monthly') as any,
+        changeFrequency: (page === '/blog' ? 'weekly' : 'monthly'),
         priority: page === '' ? 1.0 : 0.8,
       });
     });

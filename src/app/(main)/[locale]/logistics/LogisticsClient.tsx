@@ -25,7 +25,7 @@ export default function LogisticsClient() {
 
     const allVideos = Object.entries(videoDataRaw)
         .filter(([key]) => !key.startsWith('_'))
-        .flatMap(([_, value]) => value) as Video[];
+        .flatMap(([, value]) => value) as Video[];
     const logisticsVideos = allVideos.filter((v) => v.category.en === 'Logistics');
 
     const { scrollY } = useScroll();

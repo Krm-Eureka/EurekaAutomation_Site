@@ -7,7 +7,7 @@
         "get_started": "เริ่มต้นใช้งาน",
         "seo": {
             "default_title": "Eureka Automation | โซลูชันออโตเมชันและนวัตกรรมอุตสาหกรรม",
-            "default_description": "ผู้เชี่ยวชาญด้านการออกแบบเครื่องจักร, โซลูชัน AI และเทคโนโลยีออโตเมชันอุตสาหกรรมในประเทศไทย เพิ่มประสิทธิภาพการผลิตด้วยวิศวกรรมความแม่นยำ มาตรฐาน ISO 9001:2015",
+            "default_description": "ผู้เชี่ยวชาญด้านการออกแบบเครื่องจักร, AI Solution และเทคโนโลยีออโตเมชันอุตสาหกรรมในประเทศไทย เพิ่มประสิทธิภาพการผลิตด้วยวิศวกรรมความแม่นยำ มาตรฐาน ISO 9001:2015",
             "careers_title": "ร่วมงานกับเรา | Eureka Automation",
             "careers_description": "มาร่วมเป็นส่วนหนึ่งของทีมวิศวกรรมระดับโลก ขับเคลื่อนนวัตกรรมออโตเมชันและเทคโนโลยีโรบอต",
             "services_title": "การบริการของเรา | Eureka Automation",
@@ -58,7 +58,7 @@
             "cnc": "งาน CNC",
             "plc": "โปรแกรม PLC",
             "custom": "เครื่องจักรตามสั่ง",
-            "amr": "ระบบ AMR/AGV"
+            "amr": "ระบบ AMR / AGV"
         }
     },
     "about": {
@@ -100,7 +100,7 @@
         },
         "coreFocus": {
             "label": "จุดเน้นหลัก",
-            "value": "Automation, Robotics, AI และ Smart Logistics"
+            "value": "Automation, Robotics, AI Solution และ Smart Logistics"
         },
         "si_certificate": {
             "label": "ใบรับรอง SI",
@@ -163,7 +163,7 @@
         },
         "services": {
             "ai_ml": {
-                "title": "AI & Machine Learning",
+                "title": "AI Solution",
                 "desc": "ระบบ Predictive Maintenance และ Quality Control อัจฉริยะด้วย Neural Networks"
             },
             "automation": {
@@ -252,7 +252,7 @@
         "view_category": "แยกหมวดหมู่",
         "labels": {
             "experience": "ประสบการณ์:",
-            "education": "จบจาก:",
+            "education": "ประวัติการศึกษา:",
             "salary": "เงินเดือน:"
         },
         "responsibilities_label": "บทบาทและความรับผิดชอบ",
@@ -338,9 +338,9 @@
     },
     "subpages": {
         "ai": {
-            "title": "โซลูชัน AI และ Machine Learning",
+            "title": "AI Solution",
             "content_title": "การผลิตอัจฉริยะด้วย AI",
-            "content_desc": "ใช้พลังของ AI และ Machine Learning เพื่อการทำ Predictive Maintenance, การเพิ่มประสิทธิภาพ Quality Control และ Production Forecasting โซลูชัน AI ของเราเปลี่ยนข้อมูลดิบให้เป็นข้อมูลเชิงลึกที่นำไปปฏิบัติได้จริง (Actionable Insights) เพื่อการตัดสินใจที่ชาญฉลาดยิ่งขึ้น"
+            "content_desc": "ใช้พลังของ AI Solution และ Machine Learning เพื่อการทำ Predictive Maintenance, การเพิ่มประสิทธิภาพ Quality Control และ Production Forecasting โซลูชัน AI ของเราเปลี่ยนข้อมูลดิบให้เป็นข้อมูลเชิงลึกที่นำไปปฏิบัติได้จริง (Actionable Insights) เพื่อการตัดสินใจที่ชาญฉลาดยิ่งขึ้น"
         },
         "robotics": {
             "title": "หุ่นยนต์และระบบอัตโนมัติ",

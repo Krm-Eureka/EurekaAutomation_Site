@@ -44,14 +44,14 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
 
     // Use centralized JSON data instead of translation files for positions
     // Flatten the grouped data first, ignoring non-array entries (like _comment or BENEFITS)
-    const allPositions = Object.values(positionsData)
-        .filter((val): val is any[] => Array.isArray(val))
+    const allPositions = (Object.values(positionsData) as any[])
+        .filter((val) => Array.isArray(val))
         .flat()
         .filter(p => typeof p === 'object' && p !== null);
 
-    // Filter only those with status 'open'
-    const positions = allPositions
-        .filter((pos) => pos.status === 'open')
+    // Filter and map positions
+    const positions = (allPositions as any[])
+        .filter(pos => pos.status === 'open')
         .map((pos, idx) => ({
             id: idx.toString(),
             dept: pos.dept?.[locale as 'th' | 'en'] || '',
@@ -62,13 +62,13 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
             experience: pos.experience?.[locale as 'th' | 'en'] || '',
             education: pos.education?.[locale as 'th' | 'en'] || '',
             salary: pos.salary?.[locale as 'th' | 'en'] || '',
-            qualification: (pos as any).qualification?.[locale as 'th' | 'en'] || [],
-            benefits: (pos as any).benefits?.[locale as 'th' | 'en'] || []
+            qualification: pos.qualification?.[locale as 'th' | 'en'] || [],
+            benefits: pos.benefits?.[locale as 'th' | 'en'] || []
         }));
 
     const positionKeys = positions.map(pos => pos.id);
     // Use generic benefits from JSON if available, otherwise fallback or empty
-    const globalBenefits = (positionsData as any).BENEFITS?.[locale as 'th' | 'en'] || [];
+    const globalBenefits = (positionsData as { BENEFITS: Record<string, string[]> }).BENEFITS?.[locale as 'th' | 'en'] || [];
     const benefits = globalBenefits.length > 0 ? globalBenefits : (t.raw('benefits_list') as string[]);
 
     const translations = {
