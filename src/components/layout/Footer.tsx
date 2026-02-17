@@ -184,7 +184,7 @@ export function Footer() {
 
           <div className="mt-16 pt-8 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium uppercase tracking-widest">
             <p className="text-zinc-600">
-              {currentYear} Eureka Automation.
+              &copy; {currentYear} Eureka Automation.
             </p>
           </div>
         </div>

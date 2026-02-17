@@ -1,5 +1,7 @@
 'use client';
 
+import { withBasePath } from "@/lib/utils";
+
 import { useState, useMemo } from 'react';
 import Image from 'next/image';
 import { CareersForm } from "@/components/sections/CareersForm";
@@ -146,7 +148,7 @@ const JobCard = ({ pos, isExpanded, onToggle, translations }: {
                     >
                         <div className={`pt-6 mt-6 border-t ${isExpanded ? 'border-zinc-800' : 'border-zinc-100'}`}>
 
-                            <div className="grid md:grid-cols-2 gap-8 md:gap-12">
+                            <div className="grid md:grid-cols-2 gap-6 md:gap-8">
                                 {/* Left Column: Qualifications & Benefits */}
                                 <div className="space-y-6">
                                     {pos.qualification && pos.qualification.length > 0 && (
@@ -258,7 +260,7 @@ export default function CareersClient({ locale, positionKeys, benefits, position
     });
 
     return (
-        <div className="bg-zinc-50 min-h-screen">
+        <div className="bg-zinc-50 min-h-screen overflow-hidden">
             {/* 1. Hero Section - Compact */}
             <section className="bg-zinc-950 pt-24 sm:pt-28 md:pt-36 pb-12 sm:pb-20 text-white overflow-hidden relative">
                 <div className="absolute inset-0">
@@ -338,7 +340,7 @@ export default function CareersClient({ locale, positionKeys, benefits, position
                 <div className="absolute top-0 right-0 w-1/2 h-full bg-white hidden lg:block"></div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    <div className="grid lg:grid-cols-2 gap-12 items-center">
+                    <div className="grid lg:grid-cols-2 gap-8 items-center">
                         <motion.div
                             initial={{ opacity: 0, x: -30 }}
                             whileInView={{ opacity: 1, x: 0 }}
@@ -383,7 +385,7 @@ export default function CareersClient({ locale, positionKeys, benefits, position
                             <div className="absolute inset-0 bg-emerald-500/5 blur-3xl rounded-full transform -translate-y-8"></div>
                             <div className="relative aspect-square md:aspect-[4/3] overflow-hidden rounded-[2rem] border border-zinc-200 shadow-2xl bg-zinc-950 shadow-emerald-500/10">
                                 <Image
-                                    src="/images/careers-hologram.png"
+                                    src={withBasePath("/images/careers-hologram.webp")}
                                     alt="Careers at Eureka"
                                     fill
                                     className="object-cover opacity-80 mix-blend-screen group-hover:scale-110 transition-transform duration-1000"

@@ -1,8 +1,10 @@
-"use client";
 import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/routing';
 import { Send, CheckCircle2, AlertCircle, Loader2, User, Mail, Phone, Briefcase, MessageSquare, ShieldCheck, Lock } from 'lucide-react';
 import Script from 'next/script';
+import PrivacyPolicyModal from '@/components/modals/PrivacyPolicyModal';
+import { useLocale } from 'next-intl';
 
 declare global {
     interface Window {
@@ -25,9 +27,22 @@ const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycby2VqN9mtvZP99N
 
 export function CareersForm() {
     const t = useTranslations('careers.form');
+    const locale = useLocale();
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
     const [errorMessage, setErrorMessage] = useState('');
     const [pdpaConsent, setPdpaConsent] = useState(false);
+    const [showPdpaModal, setShowPdpaModal] = useState(false);
+
+    // Manual text for checkbox label to ensure strict separation as requested
+    const localeText = locale === 'th' ? {
+        agree: "ข้าพเจ้ายินยอมให้ข้อมูลส่วนบุคคลตาม",
+        policy: "นโยบายความเป็นส่วนตัว (Privacy Policy)",
+        company: "ของบริษัทเพื่อใช้ในการพิจารณาเข้าทำงาน"
+    } : {
+        agree: "I agree to the personal data processing according to the",
+        policy: "Privacy Policy",
+        company: "of the company for employment consideration."
+    };
 
     const [formData, setFormData] = useState({
         firstName: '',
@@ -37,6 +52,8 @@ export function CareersForm() {
         position: '',
         message: ''
     });
+
+    const [honeypot, setHoneypot] = useState('');
 
     useEffect(() => {
         const handleApply = (e: Event) => {
@@ -50,6 +67,11 @@ export function CareersForm() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
+        // Spam Check
+        if (honeypot) {
+            console.warn("Spam detected: Honeypot field filled.");
+            return; // Silent reject
+        }
 
         if (!pdpaConsent) {
             alert('โปรดยอมรับนโยบายคุ้มครองข้อมูลส่วนบุคคล (PDPA)');
@@ -70,7 +92,8 @@ export function CareersForm() {
                 phone: formData.phone,
                 position: formData.position,
                 message: formData.message,
-                pdpaAccepted: true
+                pdpaAccepted: true,
+                _honeypot: honeypot // Send to server to check too
             };
 
             console.log("2. Payload ready:", payload);
@@ -170,6 +193,17 @@ export function CareersForm() {
             )}
 
             <form onSubmit={handleSubmit} className="space-y-5 p-1">
+                {/* Honeypot Field (Hidden) for Spam Protection */}
+                <input
+                    type="text"
+                    name="_honey"
+                    style={{ display: 'none' }}
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
+                    tabIndex={-1}
+                    autoComplete="off"
+                />
+
                 {/* Name Group */}
                 <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
@@ -224,7 +258,7 @@ export function CareersForm() {
                     <div className="space-y-1.5">
                         <label className="text-xs font-bold text-zinc-500 uppercase tracking-wider flex items-center gap-2 px-1">
                             <Phone size={12} className="text-emerald-600" />
-                            เบอร์โทรศัพท์ / Phone <span className="text-red-500">*</span>
+                            {t('phone')} <span className="text-red-500">*</span>
                         </label>
                         <input
                             type="tel"
@@ -289,7 +323,7 @@ export function CareersForm() {
                         <label htmlFor="pdpa" className="text-xs text-zinc-600 leading-relaxed cursor-pointer select-none font-medium flex items-center gap-2">
                             <ShieldCheck size={14} className="text-emerald-600 shrink-0" />
                             <span>
-                                ข้าพเจ้ายินยอมให้ข้อมูลส่วนบุคคลตาม <span className="text-emerald-700 font-bold underline">นโยบายความเป็นส่วนตัว (Privacy Policy)</span> ของบริษัทเพื่อใช้ในการพิจารณาเข้าทำงาน
+                                {localeText.agree} <button type="button" onClick={() => setShowPdpaModal(true)} className="text-emerald-700 font-bold underline hover:text-emerald-800 transition-colors">{localeText.policy}</button> {localeText.company}
                             </span>
                         </label>
                     </div>
@@ -320,6 +354,12 @@ export function CareersForm() {
                     )}
                 </button>
             </form>
+
+            <PrivacyPolicyModal
+                isOpen={showPdpaModal}
+                onClose={() => setShowPdpaModal(false)}
+                onAccept={() => setPdpaConsent(true)}
+            />
         </div>
     );
 }

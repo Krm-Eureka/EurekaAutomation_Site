@@ -295,6 +295,7 @@
         "form": {
             "name": "Full Name",
             "email": "Email",
+            "phone": "Phone",
             "position": "Position",
             "resume": "Resume URL (Google Drive/Dropbox)",
             "message": "Message",
@@ -355,6 +356,64 @@
             "title": "Smart Logistics Solutions",
             "content_title": "Intelligent Warehouse & Material Flow",
             "content_desc": "Optimize your supply chain with our smart logistics solutions featuring autonomous mobile robots (AMR), automated guided vehicles (AGV), and warehouse management systems (WMS). Streamline material handling, reduce errors, and increase throughput across your operations."
+        }
+    },
+    "privacy": {
+        "title": "Privacy Policy",
+        "subtitle": "We value your privacy and are committed to protecting your personal data in compliance with the Personal Data Protection Act (PDPA).",
+        "last_updated": "Last Updated",
+        "seo": {
+            "title": "Privacy Policy | Eureka Automation",
+            "description": "Our commitment to protecting your personal data and privacy rights."
+        },
+        "intro": {
+            "title": "Introduction",
+            "content_1": "Eureka Automation respects your privacy and is committed to protecting your personal data. This privacy policy will inform you as to how we look after your personal data when you visit our website or apply for a job with us.",
+            "content_2": "We comply with the Personal Data Protection Act (PDPA) of Thailand to ensure your data is handled securely and transparently."
+        },
+        "collection": {
+            "title": "Data We Collect",
+            "desc": "We may collect, use, store and transfer different kinds of personal data about you which we have grouped together follows:",
+            "items": {
+                "name": "Identity Data (Name, Lastname)",
+                "contact": "Contact Data (Email, Phone number)",
+                "resume": "Professional Data (Resume, CV, Portfolio)",
+                "cookies": "Technical Data (IP address, Browser type)",
+                "device": "Usage Data (How you use our website)"
+            }
+        },
+        "purpose": {
+            "title": "How We Use Your Data",
+            "items": {
+                "1": "To evaluate your application for employment",
+                "2": "To contact you regarding your application or inquiries",
+                "3": "To improve our website and user experience",
+                "4": "To comply with legal obligations"
+            }
+        },
+        "rights": {
+            "title": "Your Rights",
+            "desc": "Under the PDPA, you have rights regarding your personal data:",
+            "access": {
+                "title": "Right to Access",
+                "desc": "You can request a copy of your personal data."
+            },
+            "rectification": {
+                "title": "Right to Rectification",
+                "desc": "You can request correction of inaccurate data."
+            },
+            "erasure": {
+                "title": "Right to Erasure",
+                "desc": "You can request deletion of your data when no longer necessary."
+            },
+            "restriction": {
+                "title": "Right to Restriction",
+                "desc": "You can request to restrict the processing of your data."
+            }
+        },
+        "contact": {
+            "title": "Contact Us",
+            "desc": "If you have any questions about this privacy policy or our privacy practices, please contact our HR Department:"
         }
     }
 }
