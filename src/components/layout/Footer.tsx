@@ -28,7 +28,7 @@ export function Footer() {
     <>
       <footer className="bg-zinc-950 text-zinc-400 border-t border-zinc-900">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
             {/* Company Info */}
             <div className="space-y-6">
               <Link href="/" className="block">

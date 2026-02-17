@@ -7,7 +7,7 @@ export const clientLogos = [
     { name: "Kawasaki", logo: withBasePath("/images/logos/Kawasaki-logo.jpg"), href: "https://www.kawasaki.co.th/th" },
     { name: "Mahle", logo: withBasePath("/images/logos/Mahle-logo.svg"), href: "https://www.mahle.com/" },
     { name: "Mitsubishi", logo: withBasePath("/images/logos/Mitsubishi-logo.svg"), href: "https://www.mitsubishi-motors.co.th/" },
-    { name: "OR", logo: withBasePath("/images/logos/OR-logo.svg"), href: "https://www.pttplc.com/th" },
+    { name: "OR", logo: withBasePath("/images/logos/OR-logo.svg"), href: "https://www.pttor.com/" },
     { name: "Panasonic", logo: withBasePath("/images/logos/Panasonic-logo.svg"), href: "https://www.panasonic.com/" },
     { name: "Schneider Electric", logo: withBasePath("/images/logos/Schneider-Electric-logo.svg"), href: "https://www.se.com/" },
     { name: "Valeo", logo: withBasePath("/images/logos/Valeo-logo.png"), href: "https://www.valeo.com/en/" },
