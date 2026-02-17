@@ -39,7 +39,7 @@ export function Header({ lang }: HeaderProps) {
     : 'bg-transparent py-5';
 
   const textColor = scrolled ? 'text-zinc-600 hover:text-emerald-600' : 'text-white/80 hover:text-white';
-  const logoFilter = scrolled ? 'opacity-90 group-hover:opacity-100 transition-all' : 'brightness-0 invert opacity-90 group-hover:opacity-100 transition-all';
+  const logoFilter = scrolled ? 'transition-all' : 'brightness-0 invert transition-all';
   const buttonStyle = scrolled
     ? 'bg-emerald-600 text-white hover:bg-zinc-900 shadow-lg'
     : 'bg-emerald-500 text-zinc-950 hover:bg-white shadow-[0_0_20px_rgba(16,185,129,0.2)]';
@@ -54,7 +54,7 @@ export function Header({ lang }: HeaderProps) {
       <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between h-14">
         {/* Logo */}
         <Link href="/" className="flex items-center group relative z-10">
-          <div className={`relative h-10 w-40 transition-all duration-300 ${logoFilter}`}>
+          <div className={`relative h-11 w-44 transition-all duration-300 ${logoFilter}`}>
             <Image src={withBasePath("/eureka-logo.png")} alt="Logo" fill className="object-contain object-left" priority />
           </div>
         </Link>
@@ -92,8 +92,8 @@ export function Header({ lang }: HeaderProps) {
               locale="en"
               scroll={false}
               className={`px-3 py-1 rounded-lg text-[10px] font-bold transition-all ${lang === 'en'
-                  ? 'bg-emerald-500 text-zinc-950'
-                  : scrolled ? 'text-zinc-400 hover:text-zinc-900' : 'text-zinc-500 hover:text-white'
+                ? 'bg-emerald-500 text-zinc-950'
+                : scrolled ? 'text-zinc-400 hover:text-zinc-900' : 'text-zinc-500 hover:text-white'
                 }`}
             >
               EN
@@ -103,8 +103,8 @@ export function Header({ lang }: HeaderProps) {
               locale="th"
               scroll={false}
               className={`px-3 py-1 rounded-lg text-[10px] font-bold transition-all ${lang === 'th'
-                  ? 'bg-emerald-500 text-zinc-950'
-                  : scrolled ? 'text-zinc-400 hover:text-zinc-900' : 'text-zinc-500 hover:text-white'
+                ? 'bg-emerald-500 text-zinc-950'
+                : scrolled ? 'text-zinc-400 hover:text-zinc-900' : 'text-zinc-500 hover:text-white'
                 }`}
             >
               TH

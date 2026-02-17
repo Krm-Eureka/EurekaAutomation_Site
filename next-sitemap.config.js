@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: process.env.SITE_URL || 'https://krm-eureka.github.io/EurekaAutomation_Site',
+  siteUrl: 'https://th.eurekaautomation.co.th',
   generateRobotsTxt: true,
   generateIndexSitemap: false,
   outDir: './out',
@@ -15,43 +15,36 @@ module.exports = {
     ],
   },
   transform: async (config, path) => {
-    // Define all supported locales
     const locales = ['en', 'th'];
-    
-    // Check if path is valid
     if (!path) return null;
 
-    // Find current locale in path
-    const currentLocale = locales.find(l => path === `/${l}` || path.startsWith(`/${l}/`));
-    
+    // Standardize path to start with /
+    const normalizedPath = path.startsWith('/') ? path : '/' + path;
+
+    // Find if the path already starts with a locale
+    const currentLocale = locales.find(l => normalizedPath.startsWith(`/${l}/`) || normalizedPath === `/${l}`);
+
     if (!currentLocale) {
-        // If no locale found (e.g. root or static assets), return as is
-        return {
-            loc: path,
-            changefreq: 'weekly',
-            priority: 0.7,
-            lastmod: new Date().toISOString(),
-        };
+      return {
+        loc: normalizedPath,
+        changefreq: 'weekly',
+        priority: 0.7,
+        lastmod: new Date().toISOString(),
+      };
     }
 
-    // Get the path without locale
-    // e.g. /th/about -> /about
-    let purePath = path.substring(currentLocale.length + 1);
+    // Extract the part after the locale
+    let purePath = normalizedPath.substring(currentLocale.length + 1);
     if (!purePath.startsWith('/')) purePath = '/' + purePath;
-    if (purePath === '//') purePath = '/'; // Fix root edge case
 
-    // Generate alternate refs for all locales
-    const alternateRefs = locales.map(locale => {
-        // Construct new path
-        const newPath = `/${locale}${purePath === '/' ? '' : purePath}`;
-        return {
-          href: `${config.siteUrl}${newPath}`,
-          hreflang: locale,
-        };
-    });
+    // Generate alternateRefs using the absolute URLs
+    const alternateRefs = locales.map(locale => ({
+      href: `${config.siteUrl}/${locale}${purePath === '/' ? '/' : purePath}`,
+      hreflang: locale,
+    }));
 
     return {
-      loc: path,
+      loc: normalizedPath,
       changefreq: 'weekly',
       priority: purePath === '/' ? 1.0 : 0.7,
       lastmod: new Date().toISOString(),

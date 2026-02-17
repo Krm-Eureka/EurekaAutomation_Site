@@ -3,17 +3,16 @@ import ContactClient from './ContactClient';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'nav' });
-  const tContact = await getTranslations({ locale, namespace: 'contact' });
+  const tSeo = await getTranslations({ locale, namespace: 'common.seo' });
 
   return {
-    title: t('contact'),
-    description: tContact('description'),
+    title: tSeo('contact_title'),
+    description: tSeo('contact_description'),
     alternates: {
-      canonical: `/${locale}/contact`,
+      canonical: `/${locale}/contact/`,
       languages: {
-        'en': '/en/contact',
-        'th': '/th/contact',
+        'en': '/en/contact/',
+        'th': '/th/contact/',
       },
     },
   };

@@ -75,9 +75,9 @@ export function generateOrganizationSchema(lang: string): OrganizationSchema {
     description:
       lang === "en"
         ? "Industrial Automation Solutions Provider in Thailand"
-        : "ผู้ให้บริการโซลูชันระบบอัตโนมัติอุตสาหกรรมในประเทศไทย",
-    url: `https://eureka-automation.com/${lang}`,
-    logo: "https://eureka-automation.com/logo.png",
+        : "ผู้ให้บริการโซลูชันออโตเมชันอุตสาหกรรมในประเทศไทย",
+    url: `https://th.eurekaautomation.co.th/${lang}/`,
+    logo: "https://th.eurekaautomation.co.th/eureka-logo.png",
     contactPoint: {
       "@type": "ContactPoint",
       telephone: "+66-XX-XXX-XXXX",

@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import { Send, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
+import { Send, CheckCircle2, AlertCircle, Loader2, User, Mail, Phone, Briefcase, MessageSquare, ShieldCheck } from 'lucide-react';
 
 /**
  * [Senior Next.js Developer Note]
@@ -156,7 +156,7 @@ export function CareersForm() {
     }
 
     return (
-        <div className="bg-white border border-zinc-200 rounded-3xl p-8 shadow-xl relative overflow-hidden">
+        <div className="bg-white rounded-3xl relative overflow-hidden">
             {isSubmitting && (
                 <div className="absolute inset-0 bg-white/80 backdrop-blur-[2px] z-50 flex flex-col items-center justify-center space-y-4">
                     <Loader2 className="text-emerald-600 animate-spin" size={48} />
@@ -164,37 +164,48 @@ export function CareersForm() {
                 </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                        <label className="text-sm font-bold text-zinc-800">ชื่อ / First Name <span className="text-red-500">*</span></label>
+            <form onSubmit={handleSubmit} className="space-y-5 p-1">
+                {/* Name Group */}
+                <div className="grid md:grid-cols-2 gap-4">
+                    <div className="space-y-1.5">
+                        <label className="text-xs font-bold text-zinc-500 uppercase tracking-wider flex items-center gap-2 px-1">
+                            <User size={12} className="text-emerald-600" />
+                            {t('name')} (First) <span className="text-red-500">*</span>
+                        </label>
                         <input
                             type="text"
                             name="firstName"
                             required
-                            placeholder="First Name"
+                            placeholder="John"
                             value={formData.firstName}
                             onChange={handleChange}
-                            className="w-full bg-zinc-50 border border-zinc-200 rounded-xl p-3.5 text-zinc-900 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all placeholder:text-zinc-400"
+                            className="w-full bg-white border border-zinc-300/60 rounded-xl px-4 py-3 text-zinc-900 focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none transition-all placeholder:text-zinc-400 text-sm font-medium shadow-sm"
                         />
                     </div>
-                    <div className="space-y-2">
-                        <label className="text-sm font-bold text-zinc-800">นามสกุล / Last Name <span className="text-red-500">*</span></label>
+                    <div className="space-y-1.5">
+                        <label className="text-xs font-bold text-zinc-500 uppercase tracking-wider flex items-center gap-2 px-1">
+                            <User size={12} className="text-emerald-600" />
+                            {t('name')} (Last) <span className="text-red-500">*</span>
+                        </label>
                         <input
                             type="text"
                             name="lastName"
                             required
-                            placeholder="Last Name"
+                            placeholder="Doe"
                             value={formData.lastName}
                             onChange={handleChange}
-                            className="w-full bg-zinc-50 border border-zinc-200 rounded-xl p-3.5 text-zinc-900 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all placeholder:text-zinc-400"
+                            className="w-full bg-white border border-zinc-300/60 rounded-xl px-4 py-3 text-zinc-900 focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none transition-all placeholder:text-zinc-400 text-sm font-medium shadow-sm"
                         />
                     </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                        <label className="text-sm font-bold text-zinc-800">{t('email')} <span className="text-red-500">*</span></label>
+                {/* Contact Group */}
+                <div className="grid md:grid-cols-2 gap-4">
+                    <div className="space-y-1.5">
+                        <label className="text-xs font-bold text-zinc-500 uppercase tracking-wider flex items-center gap-2 px-1">
+                            <Mail size={12} className="text-emerald-600" />
+                            {t('email')} <span className="text-red-500">*</span>
+                        </label>
                         <input
                             type="email"
                             name="email"
@@ -202,11 +213,14 @@ export function CareersForm() {
                             placeholder="email@example.com"
                             value={formData.email}
                             onChange={handleChange}
-                            className="w-full bg-zinc-50 border border-zinc-200 rounded-xl p-3.5 text-zinc-900 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all placeholder:text-zinc-400"
+                            className="w-full bg-white border border-zinc-300/60 rounded-xl px-4 py-3 text-zinc-900 focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none transition-all placeholder:text-zinc-400 text-sm font-medium shadow-sm"
                         />
                     </div>
-                    <div className="space-y-2">
-                        <label className="text-sm font-bold text-zinc-800">เบอร์โทรศัพท์ / Phone <span className="text-red-500">*</span></label>
+                    <div className="space-y-1.5">
+                        <label className="text-xs font-bold text-zinc-500 uppercase tracking-wider flex items-center gap-2 px-1">
+                            <Phone size={12} className="text-emerald-600" />
+                            เบอร์โทรศัพท์ / Phone <span className="text-red-500">*</span>
+                        </label>
                         <input
                             type="tel"
                             name="phone"
@@ -214,58 +228,70 @@ export function CareersForm() {
                             placeholder="0XX-XXX-XXXX"
                             value={formData.phone}
                             onChange={handleChange}
-                            className="w-full bg-zinc-50 border border-zinc-200 rounded-xl p-3.5 text-zinc-900 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all placeholder:text-zinc-400"
+                            className="w-full bg-white border border-zinc-300/60 rounded-xl px-4 py-3 text-zinc-900 focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none transition-all placeholder:text-zinc-400 text-sm font-medium shadow-sm"
                         />
                     </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                        <label className="text-sm font-bold text-zinc-800">{t('position')} <span className="text-red-500">*</span></label>
-                        <input
-                            type="text"
-                            name="position"
-                            required
-                            id="position-input"
-                            placeholder="Desired Position"
-                            value={formData.position}
-                            onChange={handleChange}
-                            className="w-full bg-zinc-50 border border-zinc-200 rounded-xl p-3.5 text-zinc-900 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all placeholder:text-zinc-400"
-                        />
-                    </div>
-                </div>
-
-                <div className="space-y-2">
-                    <label className="text-sm font-bold text-zinc-800">{t('message')}</label>
-                    <textarea
-                        name="message"
-                        rows={4}
-                        placeholder="Tell us about yourself..."
-                        value={formData.message}
+                {/* Position */}
+                <div className="space-y-1.5">
+                    <label className="text-xs font-bold text-zinc-500 uppercase tracking-wider flex items-center gap-2 px-1">
+                        <Briefcase size={12} className="text-emerald-600" />
+                        {t('position')} <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                        type="text"
+                        name="position"
+                        required
+                        id="position-input"
+                        placeholder="Desired Position"
+                        value={formData.position}
                         onChange={handleChange}
-                        className="w-full bg-zinc-50 border border-zinc-200 rounded-xl p-3.5 text-zinc-900 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all resize-none placeholder:text-zinc-400"
+                        className="w-full bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-3 text-zinc-900 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all placeholder:text-zinc-400 text-sm font-medium"
                     />
                 </div>
 
-                <div className="p-4 bg-zinc-100 border border-zinc-200 rounded-2xl space-y-3">
+                {/* Message */}
+                <div className="space-y-1.5">
+                    <label className="text-xs font-bold text-zinc-500 uppercase tracking-wider flex items-center gap-2 px-1">
+                        <MessageSquare size={12} className="text-emerald-600" />
+                        {t('message')}
+                    </label>
+                    <textarea
+                        name="message"
+                        rows={3}
+                        placeholder="Tell us about yourself..."
+                        value={formData.message}
+                        onChange={handleChange}
+                        className="w-full bg-white border border-zinc-300/60 rounded-xl px-4 py-3 text-zinc-900 focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none transition-all resize-none placeholder:text-zinc-400 text-sm font-medium shadow-sm"
+                    />
+                </div>
+
+                {/* PDPA Section */}
+                <div className="p-4 bg-emerald-50/50 border border-emerald-100 rounded-2xl">
                     <div className="flex items-start gap-3">
-                        <input
-                            type="checkbox"
-                            id="pdpa"
-                            required
-                            checked={pdpaConsent}
-                            onChange={(e) => setPdpaConsent(e.target.checked)}
-                            className="mt-1 w-5 h-5 rounded border-zinc-400 text-emerald-600 focus:ring-emerald-500 cursor-pointer"
-                        />
-                        <label htmlFor="pdpa" className="text-sm text-zinc-700 leading-relaxed cursor-pointer select-none font-medium">
-                            ข้าพเจ้ายินยอมให้นโยบายความเป็นส่วนตัว (Privacy Policy)
+                        <div className="pt-1">
+                            <input
+                                type="checkbox"
+                                id="pdpa"
+                                required
+                                checked={pdpaConsent}
+                                onChange={(e) => setPdpaConsent(e.target.checked)}
+                                className="w-4 h-4 rounded border-emerald-200 text-emerald-600 focus:ring-emerald-500 cursor-pointer accent-emerald-600"
+                            />
+                        </div>
+                        <label htmlFor="pdpa" className="text-xs text-zinc-600 leading-relaxed cursor-pointer select-none font-medium flex items-center gap-2">
+                            <ShieldCheck size={14} className="text-emerald-600 shrink-0" />
+                            <span>
+                                ข้าพเจ้ายินยอมให้ข้อมูลส่วนบุคคลตาม <span className="text-emerald-700 font-bold underline">นโยบายความเป็นส่วนตัว (Privacy Policy)</span> ของบริษัทเพื่อใช้ในการพิจารณาเข้าทำงาน
+                            </span>
                         </label>
                     </div>
                 </div>
 
                 {status === 'error' && (
-                    <div className="p-4 bg-red-50 border border-red-100 text-red-700 rounded-xl flex items-center gap-3 text-sm font-bold animate-shake">
-                        <AlertCircle size={18} />
+                    <div className="p-3 bg-red-50 border border-red-100 text-red-700 rounded-xl flex items-center gap-3 text-xs font-bold animate-shake">
+                        <AlertCircle size={16} />
                         <span>{errorMessage}</span>
                     </div>
                 )}
@@ -273,10 +299,10 @@ export function CareersForm() {
                 <button
                     type="submit"
                     disabled={isSubmitting || !pdpaConsent}
-                    className="w-full h-14 bg-zinc-900 text-white font-black rounded-xl hover:bg-emerald-600 transition-all shadow-lg hover:shadow-emerald-500/25 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed group"
+                    className="w-full h-12 bg-zinc-950 text-white font-black rounded-xl hover:bg-emerald-600 transition-all shadow-lg hover:shadow-emerald-500/25 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed group text-sm uppercase tracking-widest"
                 >
                     {t('submit')}
-                    <Send size={20} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                 </button>
             </form>
         </div>

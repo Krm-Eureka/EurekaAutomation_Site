@@ -4,15 +4,32 @@
         "related_videos": "Related Videos",
         "showcase": "Showcase",
         "activities": "Activities",
-        "get_started": "Get Started"
+        "get_started": "Get Started",
+        "seo": {
+            "default_title": "Eureka Automation | Advanced Industrial Solutions Thailand",
+            "default_description": "Leading provider of custom machine design, AI solutions, and industrial automation in Thailand. Precision engineering for the future. ISO 9001:2015 Certified.",
+            "careers_title": "Careers | Eureka Automation",
+            "careers_description": "Join our global engineering team and drive innovation in automation and robotics.",
+            "services_title": "Our Services | Eureka Automation",
+            "services_description": "Comprehensive automation design, CNC machining, and PLC programming services.",
+            "solutions_title": "Industrial Solutions | Eureka Automation",
+            "solutions_description": "Smart logistics solutions featuring AMR, AGV, and intelligent warehouse management.",
+            "products_title": "Industrial Products | Eureka Automation",
+            "products_description": "Custom-built machines and standardized units for high-efficiency manufacturing.",
+            "contact_title": "Contact Us | Eureka Automation",
+            "contact_description": "Consult with our automation experts for your industrial needs today.",
+            "blog_title": "Insights & Blog | Eureka Automation",
+            "blog_description": "Stay updated with the latest trends in manufacturing technology and automation."
+        }
     },
     "nav": {
         "home": "Home",
         "about": "About Us",
-        "products & Services": "Products & Service",
+        "products & Services": "Products & Services",
         "services": "Services",
         "products": "Products",
         "solutions": "Solutions",
+        "line_oa": "Line OA",
         "blog": "Blog",
         "contact": "Contact",
         "careers": "Careers",
@@ -27,10 +44,11 @@
     },
     "footer": {
         "rights": "All rights reserved.",
-        "description": "AI-Powered Industrial Automation Solutions",
+        "description": "Industrial Automation Solutions",
         "quick_links": "Quick Links",
         "services": "Services",
         "contact": "Contact",
+        "careers": "Careers",
         "service_list": {
             "cnc": "CNC Machining",
             "plc": "PLC Programming",
@@ -78,6 +96,10 @@
         "coreFocus": {
             "label": "Core Focus",
             "value": "Automation, Robotics, AI, and Logistics."
+        },
+        "si_certificate": {
+            "label": "SI Certificate",
+            "value": "Thai-German Institute (TGI)"
         }
     },
     "home": {
@@ -88,6 +110,8 @@
         },
         "careers_cta": {
             "title": "Interested in joining our team?",
+            "hr_contact": "HR Recruitment: hr@eurekaautomation.co.th",
+            "hr_phone": "Tel: 094-4096287",
             "button": "Explore Careers"
         },
         "capabilities": "Core Engineering Strengths",
@@ -118,6 +142,19 @@
                 }
             }
         },
+        "contact_modal": {
+            "confirm_map": "Open Map",
+            "confirm_call": "Call Now",
+            "confirm_email": "Send Email",
+            "confirm_link": "Open Link",
+            "cancel": "Cancel",
+            "call_msg": "Would you like to call us at {val}?",
+            "email_msg": "Would you like to send an email to {val}?",
+            "line_msg": "Would you like to contact us or add us on Line OA?",
+            "map_msg": "Would you like to open Google Maps for directions?",
+            "copy": "Copy",
+            "copied": "Copied!"
+        },
         "services": {
             "ai_ml": {
                 "title": "AI & Machine Learning",
@@ -133,7 +170,7 @@
             },
             "smart_logistics": {
                 "title": "Smart Logistics",
-                "desc": "AMR/AGV & WMS integration."
+                "desc": "AMR/AGV & Logistics integration."
             },
             "plc": {
                 "title": "PLC Programming",

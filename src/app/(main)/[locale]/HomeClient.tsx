@@ -4,14 +4,18 @@ import { JsonLd, generateOrganizationSchema } from "@/components/seo/JsonLd";
 import {
     ArrowRight, Cpu, Cog, Database, Truck, Zap, Activity,
     Target, Award, Users, Factory, Sparkles,
-    Phone, Mail, MapPin
+    Phone, Mail, MapPin, Linkedin,
+    MessageSquare,
 } from "lucide-react";
+import { useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { withBasePath } from "@/lib/utils";
 import Image from "next/image";
 import { Link } from '@/i18n/routing';
 import VideoGallery from "@/components/sections/VideoGallery";
+import ContactModal from "@/components/modals/ContactModal";
+import { clientLogos } from "@/data/clients";
 import videoDataRaw from "@/data/videos.json";
 
 interface Video {
@@ -26,33 +30,25 @@ const videoData = (Object.entries(videoDataRaw)
     .filter(([key]) => !key.startsWith('_'))
     .flatMap(([_, value]) => value) as Video[]);
 
-const clientLogos = [
-    { name: "Daikin", logo: withBasePath("/images/logos/Daikin-logo.svg"), href: "https://www.daikin.co.th/" },
-    { name: "Ford", logo: withBasePath("/images/logos/Ford-logo.svg"), href: "https://www.ford.co.th/" },
-    { name: "Honda", logo: withBasePath("/images/logos/Honda-logo.svg"), href: "https://www.honda.co.th/" },
-    { name: "Kawasaki", logo: withBasePath("/images/logos/Kawasaki-logo.jpg"), href: "https://www.kawasaki.co.th/th" },
-    { name: "Mahle", logo: withBasePath("/images/logos/Mahle-logo.svg"), href: "https://www.mahle.com/" },
-    { name: "Mitsubishi", logo: withBasePath("/images/logos/Mitsubishi-logo.svg"), href: "https://www.mitsubishi-motors.co.th/" },
-    { name: "OR", logo: withBasePath("/images/logos/OR-logo.svg"), href: "https://www.pttplc.com/th" },
-    { name: "Panasonic", logo: withBasePath("/images/logos/Panasonic-logo.svg"), href: "https://www.panasonic.com/" },
-    { name: "Schneider Electric", logo: withBasePath("/images/logos/Schneider-Electric-logo.svg"), href: "https://www.se.com/" },
-    { name: "Valeo", logo: withBasePath("/images/logos/Valeo-logo.png"), href: "https://www.valeo.com/en/" },
-    { name: "Lumentum", logo: withBasePath("/images/logos/Lumentum-logo.png"), href: "https://www.lumentum.com/en" },
-    { name: "Suzuki", logo: withBasePath("/images/logos/Suzuki-logo.png"), href: "https://www.marutisuzuki.com/" },
-    { name: "MEK", logo: withBasePath("/images/logos/Mek-logo.jpg"), href: "https://www.mektec.co.th/" },
-    { name: "Toshiba Carrier", logo: withBasePath("/images/logos/Toshiba-Carrier-logo.png"), href: "https://www.toshiba-carrier.co.th/" },
-    { name: "Yamada", logo: withBasePath("/images/logos/Yamada-logo.jpg"), href: "https://www.yscthai.com/" },
-    { name: "Visteon Thailand", logo: withBasePath("/images/logos/Visteon-logo.svg"), href: "https://www.visteon.com/overview/default.aspx" },
-    { name: "Sappe TH", logo: withBasePath("/images/logos/Sappe_logo.svg"), href: "https://www.daikin.co.th/" },
-];
-
 export default function HomeClient({ locale }: { locale: string }) {
+    const [selectedContact, setSelectedContact] = useState<{ type: string, value: string, label: string, href?: string } | null>(null);
+
+    const handleConfirm = () => {
+        if (!selectedContact) return;
+        if (selectedContact.type === 'map' || selectedContact.type === 'line') {
+            window.open(selectedContact.href || selectedContact.value, '_blank');
+        } else {
+            window.location.href = `${selectedContact.type}:${selectedContact.value}`;
+        }
+        setTimeout(() => setSelectedContact(null), 100);
+    };
     const tHero = useTranslations('hero');
     const tHome = useTranslations('home');
     const tServices = useTranslations('home.services');
     const tAbout = useTranslations('about');
     const tProducts = useTranslations('products');
     const tContact = useTranslations('contact');
+    const tTrust = useTranslations('industrialTrust');
 
     const serviceKeys = ['custom_machines', 'automation', 'smart_logistics'] as const;
     const orgSchema = generateOrganizationSchema(locale);
@@ -183,18 +179,19 @@ export default function HomeClient({ locale }: { locale: string }) {
                             transition={{ duration: 0.8 }}
                         >
                             <div className="space-y-6">
-                                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white">{useTranslations('industrialTrust')('title')}</h2>
+                                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white">{tTrust('title')}</h2>
                                 <p className="text-lg text-zinc-400 leading-relaxed">
-                                    {useTranslations('industrialTrust')('description')}
+                                    {tTrust('description')}
                                 </p>
                             </div>
 
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-10">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10">
                                 {[
                                     { k: 'headquarters', delay: 0 },
                                     { k: 'globalReach', delay: 0.1 },
                                     { k: 'exporting', delay: 0.2 },
-                                    { k: 'coreFocus', delay: 0.3 }
+                                    { k: 'coreFocus', delay: 0.3 },
+                                    { k: 'si_certificate', delay: 0.4 }
                                 ].map((item) => (
                                     <motion.div
                                         key={item.k}
@@ -205,8 +202,8 @@ export default function HomeClient({ locale }: { locale: string }) {
                                         className="space-y-2"
                                     >
                                         <div className="w-8 h-1 bg-emerald-500 mb-3"></div>
-                                        <p className="font-semibold text-white uppercase text-xs tracking-wider opacity-70">{useTranslations('industrialTrust')(`${item.k}.label`)}</p>
-                                        <p className="text-xl text-white font-medium">{useTranslations('industrialTrust')(`${item.k}.value`)}</p>
+                                        <p className="font-semibold text-white uppercase text-xs tracking-wider opacity-70">{tTrust(`${item.k}.label`)}</p>
+                                        <p className="text-xl text-white font-medium">{tTrust(`${item.k}.value`)}</p>
                                     </motion.div>
                                 ))}
                             </div>
@@ -345,7 +342,7 @@ export default function HomeClient({ locale }: { locale: string }) {
                                             <div className="absolute inset-0 bg-emerald-500/50 rounded-full animate-ping opacity-0 group-hover:opacity-100"></div>
                                         </div>
 
-                                        <h3 className="text-3xl font-bold text-white mb-3 group-hover:text-emerald-400 transition-colors font-mono">{item.year}</h3>
+                                        <h3 className="text-3xl font-bold text-white mb-3 group-hover:text-emerald-400 transition-colors">{item.year}</h3>
 
                                         <div className="px-4">
                                             <p className="font-bold text-white mb-2 text-lg">{tHome(`timeline.milestones.${item.year}.title`)}</p>
@@ -375,7 +372,7 @@ export default function HomeClient({ locale }: { locale: string }) {
                         </motion.div>
 
                         <motion.div
-                            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
+                            className="flex flex-wrap justify-center gap-4 sm:gap-6"
                             variants={containerVariants}
                             initial="hidden"
                             whileInView="show"
@@ -391,7 +388,7 @@ export default function HomeClient({ locale }: { locale: string }) {
                                 };
                                 const route = routeMap[key];
                                 return (
-                                    <Link href={route} key={key} className="h-full block">
+                                    <Link href={route} key={key} className="w-full sm:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-1.5rem)] max-w-sm block">
                                         <motion.div
                                             variants={itemVariants}
                                             className="group relative h-full flex flex-row sm:flex-col items-center sm:items-start bg-white p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-zinc-100 shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden gap-5 sm:gap-0"
@@ -597,14 +594,19 @@ export default function HomeClient({ locale }: { locale: string }) {
 
                                 <div className="space-y-4 pt-4">
                                     {[
-                                        { icon: Phone, label: tContact('call_us'), val: "094-4096287" },
-                                        { icon: Mail, label: tContact('email_us'), val: "hr@eurekaautomation.co.th" },
-                                        { icon: MapPin, label: tContact('visit_us'), val: "15, 48 BIGGERLAND 4 KLONG 8, Lam Luk Ka, Lam Luk Ka District, Pathum Thani 12150" }
+                                        { icon: Phone, label: tContact('call_us'), val: "02-096-3556", action: { type: 'tel', value: '020963556' } },
+                                        { icon: MessageSquare, label: "Line OA", val: "@636ekooa", action: { type: 'line', value: '@636ekooa', href: 'https://line.me/ti/p/@636ekooa' } },
+                                        { icon: Mail, label: tContact('email_us'), val: "Marketing@eurekaautomation.co.th", action: { type: 'mailto', value: 'Marketing@eurekaautomation.co.th' } },
+                                        { icon: MapPin, label: tContact('visit_us'), val: "15, 48 BIGGERLAND 4 KLONG 8, Pathum Thani 12150", action: { type: 'map', value: 'https://www.google.com/maps/search/?api=1&query=Eureka+Automation+Thailand+48/15+Moo+4+Biggerland+4+Klong+8' } }
                                     ].map((item, i) => (
                                         <motion.div
                                             key={i}
                                             className="flex items-center gap-2 group p-1 rounded-2xl hover:bg-white/5 transition-colors cursor-pointer"
                                             whileHover={{ x: 10 }}
+                                            onClick={() => {
+                                                console.log('Home: Contact Clicked', item.action);
+                                                setSelectedContact({ type: item.action.type, value: item.action.value, label: item.label, href: item.action.href });
+                                            }}
                                         >
                                             <div className="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center text-white group-hover:bg-emerald-600 transition-colors">
                                                 <item.icon size={20} />
@@ -628,7 +630,24 @@ export default function HomeClient({ locale }: { locale: string }) {
                             >
                                 <div className="mb-8">
                                     <h3 className="text-2xl font-bold text-white mb-2">{tHome('careers_cta.title')}</h3>
-                                    <p className="text-zinc-400">We are always looking for talent.</p>
+                                    <button
+                                        onClick={() => {
+                                            console.log('Home: Careers Email Clicked');
+                                            setSelectedContact({ type: 'mailto', value: 'hr@eurekaautomation.co.th', label: 'HR Recruitment' });
+                                        }}
+                                        className="text-zinc-400 mb-1 block hover:text-emerald-500 transition-colors text-left"
+                                    >
+                                        {tHome('careers_cta.hr_contact')}
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            console.log('Home: Careers Phone Clicked');
+                                            setSelectedContact({ type: 'tel', value: '0944096287', label: 'HR Recruitment' });
+                                        }}
+                                        className="text-zinc-400 mb-4 block hover:text-emerald-500 transition-colors text-left"
+                                    >
+                                        {tHome('careers_cta.hr_phone')}
+                                    </button>
                                 </div>
                                 <Link
                                     href="/careers"
@@ -644,6 +663,13 @@ export default function HomeClient({ locale }: { locale: string }) {
                     </div>
                 </section>
             </div>
+
+            {/* Contact Confirmation Modal */}
+            <ContactModal
+                selectedContact={selectedContact}
+                onClose={() => setSelectedContact(null)}
+                onConfirm={handleConfirm}
+            />
         </>
     );
 }

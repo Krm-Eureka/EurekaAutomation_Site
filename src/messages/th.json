@@ -4,7 +4,23 @@
         "related_videos": "วิดีโอที่เกี่ยวข้อง",
         "showcase": "ผลงาน",
         "activities": "กิจกรรม",
-        "get_started": "เริ่มต้นใช้งาน"
+        "get_started": "เริ่มต้นใช้งาน",
+        "seo": {
+            "default_title": "Eureka Automation | โซลูชันออโตเมชันและนวัตกรรมอุตสาหกรรม",
+            "default_description": "ผู้เชี่ยวชาญด้านการออกแบบเครื่องจักร, โซลูชัน AI และเทคโนโลยีออโตเมชันอุตสาหกรรมในประเทศไทย เพิ่มประสิทธิภาพการผลิตด้วยวิศวกรรมความแม่นยำ มาตรฐาน ISO 9001:2015",
+            "careers_title": "ร่วมงานกับเรา | Eureka Automation",
+            "careers_description": "มาร่วมเป็นส่วนหนึ่งของทีมวิศวกรรมระดับโลก ขับเคลื่อนนวัตกรรมออโตเมชันและเทคโนโลยีโรบอต",
+            "services_title": "การบริการของเรา | Eureka Automation",
+            "services_description": "บริการออกแบบและติดตั้งระบบออโตเมชันครบวงจร งาน CNC และการโปรแกรม PLC",
+            "solutions_title": "โซลูชันอุตสาหกรรม | Eureka Automation",
+            "solutions_description": "โซลูชันโลจิสติกส์อัจฉริยะ AMR, AGV และสมาร์ทแฟคทอรี",
+            "products_title": "สินค้าเครื่องจักรอุตสาหกรรม | Eureka Automation",
+            "products_description": "เครื่องจักรเฉพาะทางและย่านอัตโนมัติมาตรฐานสำหรับการผลิตประสิทธิภาพสูง",
+            "contact_title": "ติดต่อเรา | Eureka Automation",
+            "contact_description": "ปรึกษาวิศวกรผู้เชี่ยวชาญด้านระบบออโตเมชันได้ทันที",
+            "blog_title": "บทความและสาระน่ารู้ | Eureka Automation",
+            "blog_description": "เกาะติดเทรนด์เทคโนโลยีการผลิตและนวัตกรรมออโตเมชันล่าสุด"
+        }
     },
     "nav": {
         "home": "หน้าแรก",
@@ -13,6 +29,7 @@
         "services": "การบริการ",
         "products": "สินค้า",
         "solutions": "โซลูชัน",
+        "line_oa": "Line OA",
         "blog": "บทความ",
         "contact": "ติดต่อเรา",
         "careers": "ร่วมงานกับเรา",
@@ -31,6 +48,7 @@
         "quick_links": "Quick Links",
         "services": "บริการ",
         "contact": "ติดต่อ",
+        "careers": "ร่วมงานกับเรา",
         "service_list": {
             "cnc": "งาน CNC",
             "plc": "โปรแกรม PLC",
@@ -40,7 +58,7 @@
     },
     "about": {
         "tag": "วิสัยทัศน์และการเติบโต",
-        "title": "ทศวรรษแห่งความเชี่ยวชาญ ด้าน Precision Engineering",
+        "title": "ทศวรรษแห่งความเชี่ยวชาญด้าน Precision Engineering",
         "who_we_are": "เราคือใคร",
         "description": "ตั้งแต่ปี 2553 Eureka Automation เป็นพาร์ทเนอร์ที่ได้รับความไว้วางใจในการออกแบบและสร้างนวัตกรรม Industrial Solutions สำหรับอุตสาหกรรม Automotive และ Electronics ชั้นนำระดับโลก",
         "comprehensive_services": "บริการครบวงจรของเรารวมถึงการวิเคราะห์ความต้องการ การออกแบบเครื่องกลและไฟฟ้า งาน CNC โปรแกรม PLC และการประกอบเครื่องจักร",
@@ -62,7 +80,7 @@
     },
     "industrialTrust": {
         "title": "INDUSTRIAL TRUST",
-        "description": "Eureka Automation คือ System Integrator (SI) ชั้นนำที่เชี่ยวชาญด้าน Smart Manufacturing Design เริ่มต้นในปี 2014 จากรากฐานทางวิศวกรรมที่แข็งแกร่งตั้งแต่ปี 2002 เราเชื่อมช่องว่างระหว่างวิศวกรรมเครื่องกลและ Digital Intelligence",
+        "description": "Eureka Automation คือ System Integrator (SI) ชั้นนำที่เชี่ยวชาญด้าน Smart Manufacturing Design เริ่มต้นในปี 2557 จากรากฐานทางวิศวกรรมที่แข็งแกร่งตั้งแต่ปี 2545 เราเชื่อมช่องว่างระหว่างวิศวกรรมเครื่องกลและ Digital Intelligence",
         "headquarters": {
             "label": "สำนักงานใหญ่",
             "value": "ปทุมธานี ประเทศไทย"
@@ -78,6 +96,10 @@
         "coreFocus": {
             "label": "จุดเน้นหลัก",
             "value": "Automation, Robotics, AI และ Smart Logistics"
+        },
+        "si_certificate": {
+            "label": "ใบรับรอง SI",
+            "value": "สถาบันไทย-เยอรมัน (TGI)"
         }
     },
     "home": {
@@ -88,6 +110,8 @@
         },
         "careers_cta": {
             "title": "สนใจเข้าร่วมทีมของเรา?",
+            "hr_contact": "ติดต่อฝ่ายบุคคล: hr@eurekaautomation.co.th",
+            "hr_phone": "Tel: 094-4096287",
             "button": "ร่วมงานกับเรา"
         },
         "capabilities": "ความเชี่ยวชาญของเรา",
@@ -97,8 +121,9 @@
         "trusted_by": "ได้รับความไว้วางใจจากผู้นำระดับโลก",
         "timeline": {
             "tag": "เหตุการณ์สำคัญ",
-            "title": "วิวัฒนาการเชิงกลยุทธ์",
+            "title": "ก้าวสำคัญของความสำเร็จ",
             "quote": "จากบริษัทแม่ทำเครื่องจักรในพื้นที่ เป็นพันธมิตรอัตโนมัติระดับโลกที่ได้รับความเชื่อถือจากผู้นำการผลิตชั้นนำ",
+            "button": "ติดต่อทีมงาน",
             "milestones": {
                 "2002": {
                     "title": "ก่อตั้ง Eureka Design",
@@ -117,6 +142,19 @@
                     "desc": "เปิดตัว Business Unit ด้าน AI & Industry สำหรับ Smart Manufacturing ยุคใหม่"
                 }
             }
+        },
+        "contact_modal": {
+            "confirm_map": "ไปที่แผนที่",
+            "confirm_call": "โทรเลย",
+            "confirm_email": "ส่งอีเมล",
+            "confirm_link": "เปิดลิงก์",
+            "cancel": "ยกเลิก",
+            "call_msg": "คุณต้องการโทรหาเราที่เบอร์ {val} หรือไม่?",
+            "email_msg": "คุณต้องการส่งอีเมลหาเราที่ {val} หรือไม่?",
+            "line_msg": "คุณต้องการเพิ่มเพื่อนหรือติดต่อเราผ่าน Line OA ใช่หรือไม่?",
+            "map_msg": "คุณต้องการเปิด Google Maps เพื่อดูเส้นทางใช่หรือไม่?",
+            "copy": "คัดลอก",
+            "copied": "คัดลอกแล้ว!"
         },
         "services": {
             "ai_ml": {
@@ -174,7 +212,7 @@
             },
             "support": {
                 "title": "การสนับสนุนจากผู้เชี่ยวชาญ",
-                "desc": "บริการความบำรุงรักษาหลังการขายและโปรแกรมการฝึกอบรมผู้ใช้งานแบบครบวงจร"
+                "desc": "บริการบำรุงรักษาหลังการขายและโปรแกรมการฝึกอบรมผู้ใช้งานแบบครบวงจร"
             }
         }
     },
@@ -300,7 +338,7 @@
             "content_desc": "ใช้พลังของ AI และ Machine Learning เพื่อการทำ Predictive Maintenance, การเพิ่มประสิทธิภาพ Quality Control และ Production Forecasting โซลูชัน AI ของเราเปลี่ยนข้อมูลดิบให้เป็นข้อมูลเชิงลึกที่นำไปปฏิบัติได้จริง (Actionable Insights) เพื่อการตัดสินใจที่ชาญฉลาดยิ่งขึ้น"
         },
         "robotics": {
-            "title": "Robotics & Automation",
+            "title": "หุ่นยนต์และระบบอัตโนมัติ",
             "content_title": "โซลูชันอัตโนมัติแบบครบวงจร",
             "content_desc": "เปลี่ยนสายการผลิตของคุณด้วยหุ่นยนต์ขั้นสูงและเทคโนโลยีระบบอัตโนมัติ เราออกแบบและติดตั้งระบบอัตโนมัติที่ครอบคลุมซึ่งช่วยเพิ่มประสิทธิภาพ ปรับปรุงความสม่ำเสมอของคุณภาพ และลดต้นทุนแรงงานในขณะที่รักษามาตรฐานความปลอดภัย"
         },
@@ -312,7 +350,7 @@
         "logistics": {
             "title": "โซลูชันโลจิสติกส์อัจฉริยะ",
             "content_title": "คลังสินค้าอัจฉริยะและการไหลของวัสดุ",
-            "content_desc": "เพิ่มประสิทธิภาพ Supply Chain ของคุณด้วยโซลูชัน Smart Logistics ของเราที่มี AMR, AGV และ Warehouse Management Systems (WMS) ปรับปรุง Material Handling ลดข้อผิดพลาด และเพิ่ม Throughput ทั่วทั้งการดำเนินงานของคุณ"
+            "content_desc": "เพิ่มประสิทธิภาพ Supply Chain ของคุณด้วยโซลูชันโลจิสติกส์อัจฉริยะที่มี AMR, AGV และ Warehouse Management Systems (WMS) ปรับปรุง Material Handling ลดข้อผิดพลาด และเพิ่ม Throughput ทั่วทั้งการดำเนินงานของคุณ"
         }
     }
 }

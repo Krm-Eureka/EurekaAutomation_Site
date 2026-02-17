@@ -4,16 +4,16 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'solutions' });
+  const tSeo = await getTranslations({ locale, namespace: 'common.seo' });
 
   return {
-    title: t('title'),
-    description: t('tag'),
+    title: tSeo('solutions_title'),
+    description: tSeo('solutions_description'),
     alternates: {
-      canonical: `/${locale}/solutions`,
+      canonical: `/${locale}/solutions/`,
       languages: {
-        'en': '/en/solutions',
-        'th': '/th/solutions',
+        'en': '/en/solutions/',
+        'th': '/th/solutions/',
       },
     },
   };

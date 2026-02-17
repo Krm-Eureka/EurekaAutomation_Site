@@ -21,37 +21,30 @@ const outfit = Outfit({
   variable: '--font-outfit'
 });
 
+import { getTranslations } from 'next-intl/server';
+
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-
-  const titles: Record<string, string> = {
-    en: "Eureka Automation | Advanced Industrial Solutions Thailand",
-    th: "Eureka Automation | โซลูชันระบบอัตโนมัติและนวัตกรรมอุตสาหกรรม"
-  };
-
-  const descriptions: Record<string, string> = {
-    en: "Leading provider of custom machine design, AI solutions, and industrial automation in Thailand. Precision engineering for the future. ISO 9001:2015 Certified.",
-    th: "ผู้เชี่ยวชาญด้านการออกแบบเครื่องจักร, โซลูชัน AI และระบบอัตโนมัติอุตสาหกรรมในประเทศไทย เพิ่มประสิทธิภาพการผลิตด้วยเทคโนโลยีระดับโลก"
-  };
+  const tSeo = await getTranslations({ locale, namespace: 'common.seo' });
 
   return {
     metadataBase: new URL('https://th.eurekaautomation.co.th'),
     title: {
-      default: titles[locale] || titles.en,
+      default: tSeo('default_title'),
       template: "%s | Eureka Automation"
     },
-    description: descriptions[locale] || descriptions.en,
+    description: tSeo('default_description'),
     alternates: {
-      canonical: `/${locale}`,
+      canonical: `/${locale}/`,
       languages: {
-        'en': '/en',
-        'th': '/th',
+        'en': '/en/',
+        'th': '/th/',
       },
     },
     openGraph: {
       title: 'Eureka Automation',
-      description: descriptions[locale] || descriptions.en,
-      url: `https://th.eurekaautomation.co.th/${locale}`,
+      description: tSeo('default_description'),
+      url: `https://th.eurekaautomation.co.th/${locale}/`,
       siteName: 'Eureka Automation',
       images: [
         {
@@ -66,8 +59,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     },
     twitter: {
       card: 'summary_large_image',
-      title: titles[locale],
-      description: descriptions[locale],
+      title: tSeo('default_title'),
+      description: tSeo('default_description'),
       images: ['/images/eureka-og.png'],
     },
     robots: {

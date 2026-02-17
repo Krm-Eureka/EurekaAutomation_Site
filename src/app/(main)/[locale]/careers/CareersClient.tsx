@@ -553,7 +553,7 @@ export default function CareersClient({ locale, positionKeys, benefits, position
             </section>
 
             {/* 4. Application Form Section - Compact */}
-            <section id="apply" className="py-8 sm:py-12 bg-white relative overflow-hidden">
+            <section id="apply" className="py-12 sm:py-20 bg-zinc-50 relative overflow-hidden">
                 <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMCAwaDQwdjQwaC00MFoiLz48cGF0aCBkPSJNMCAwaDF2NDBIOFoiIGZpbGw9IndoaXRlIiBmaWxsLW9wYWNpdHk9Ii4wNSIvPjxwYXRoIGQ9Ik0wIDBoNDB2MUgwWiIgZmlsbD0id2hpdGUiIGZpbGwtb3BhY2l0eT0iLjA1Ii8+PC9nPjwvc3ZnPg==')] opacity-5 pointer-events-none"></div>
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <motion.div
@@ -572,15 +572,13 @@ export default function CareersClient({ locale, positionKeys, benefits, position
                     </motion.div>
 
                     <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.2 }}
-                        className="bg-zinc-50 p-2 md:p-3 rounded-[2.5rem] shadow-2xl shadow-zinc-200/50 border border-zinc-100"
+                        className="bg-white p-6 sm:p-10 md:p-12 rounded-[2.5rem] shadow-2xl shadow-emerald-900/5 border border-zinc-200/50"
                     >
-                        <div className="bg-white rounded-[2rem] overflow-hidden">
-                            <CareersForm />
-                        </div>
+                        <CareersForm />
                     </motion.div>
                 </div>
             </section>

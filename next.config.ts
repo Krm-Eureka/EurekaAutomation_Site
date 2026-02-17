@@ -5,7 +5,14 @@ const withNextIntl = createNextIntlPlugin();
 
 const isProd = process.env.NODE_ENV === 'production';
 const isGithubActions = process.env.GITHUB_ACTIONS === 'true';
-const BASE_PATH = (isProd || isGithubActions) ? '/EurekaAutomation_Site' : '';
+
+/**
+ * DEPLOY_TARGET:
+ * - 'github': Use /EurekaAutomation_Site prefix (for GitHub Pages testing)
+ * - 'hostneverdie': Use '' root path (for production)
+ */
+const DEPLOY_TARGET = process.env.DEPLOY_TARGET || (isGithubActions ? 'github' : 'hostneverdie');
+const BASE_PATH = DEPLOY_TARGET === 'github' ? '/EurekaAutomation_Site' : '';
 
 const nextConfig: NextConfig = {
   output: 'export',
@@ -20,6 +27,8 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  // @ts-ignore - allowedDevOrigins is a new Next.js 15+ feature for internal dev proxying
+  allowedDevOrigins: ['192.168.10.100'],
 };
 
 export default withNextIntl(nextConfig);

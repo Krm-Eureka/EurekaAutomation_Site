@@ -9,15 +9,15 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params;
-    const t = await getTranslations({ locale, namespace: 'careers' });
+    const tSeo = await getTranslations({ locale, namespace: 'common.seo' });
     return {
-        title: `${t('title')} | Eureka Automation`,
-        description: t('subtitle'),
+        title: tSeo('careers_title'),
+        description: tSeo('careers_description'),
         alternates: {
-            canonical: `/${locale}/careers`,
+            canonical: `/${locale}/careers/`,
             languages: {
-                'en': '/en/careers',
-                'th': '/th/careers',
+                'en': '/en/careers/',
+                'th': '/th/careers/',
             },
         },
     };
