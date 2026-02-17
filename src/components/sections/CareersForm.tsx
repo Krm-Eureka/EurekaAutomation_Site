@@ -137,7 +137,6 @@ export function CareersForm() {
             setErrorMessage('เกิดข้อผิดพลาด: ' + msg);
         } finally {
             console.groupEnd();
-            setIsSubmitting(false);
         }
     };
 
@@ -171,7 +170,7 @@ export function CareersForm() {
 
     return (
         <div className="bg-white rounded-3xl relative overflow-hidden">
-            {isSubmitting && (
+            {status === 'loading' && (
                 <div className="absolute inset-0 bg-white/80 backdrop-blur-[2px] z-50 flex flex-col items-center justify-center space-y-4">
                     <Loader2 className="text-emerald-600 animate-spin" size={48} />
                     <p className="font-bold text-zinc-900 animate-pulse">กำลังประมวลผลข้อมูล... / Processing...</p>
@@ -336,11 +335,20 @@ export function CareersForm() {
 
                 <button
                     type="submit"
-                    disabled={isSubmitting || !pdpaConsent}
+                    disabled={status === 'loading' || !pdpaConsent}
                     className="w-full h-12 bg-zinc-950 text-white font-black rounded-xl hover:bg-emerald-600 transition-all shadow-lg hover:shadow-emerald-500/25 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed group text-sm uppercase tracking-widest"
                 >
-                    {t('submit')}
-                    <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    {status === 'loading' ? (
+                        <>
+                            <Loader2 size={18} className="animate-spin" />
+                            Sending...
+                        </>
+                    ) : (
+                        <>
+                            {t('submit')}
+                            <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                        </>
+                    )}
                 </button>
             </form>
         </div>
