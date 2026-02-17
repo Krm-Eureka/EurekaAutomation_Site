@@ -99,19 +99,19 @@ export function Footer() {
                 <div className="w-8 h-8 bg-zinc-900 rounded-lg flex items-center justify-center shrink-0">
                   <Phone size={14} className="text-zinc-300" />
                 </div>
-                <span>+66 XX XXX XXXX</span>
+                <span>02-096-3556</span>
               </li>
               <li className="flex items-center gap-3">
                 <div className="w-8 h-8 bg-zinc-900 rounded-lg flex items-center justify-center shrink-0">
                   <Mail size={14} className="text-zinc-300" />
                 </div>
-                <span>info@eurekaautomation.co.th</span>
+                <span>Marketing@eurekaautomation.co.th</span>
               </li>
               <li className="flex items-start gap-3">
                 <div className="w-8 h-8 bg-zinc-900 rounded-lg flex items-center justify-center shrink-0 mt-1">
                   <MapPin size={14} className="text-zinc-300" />
                 </div>
-                <span>Bangkok, <br />Thailand</span>
+                <span>Pathumthani, <br />Thailand</span>
               </li>
             </ul>
           </div>
