@@ -66,6 +66,22 @@
                     "Coordinate with mechanical engineering teams.",
                     "Prepare system documentation and reports."
                 ]
+            },
+            "qualification": {
+                "th": [
+                    "วุฒิการศึกษา ปริญญาตรี สาขาวิศวกรรมไฟฟ้า, คอมพิวเตอร์ หรือสาขาที่เกี่ยวข้อง",
+                    "มีประสบการณ์เขียนโปรแกรม PLC (Omron, Mitsubishi, Siemens ฯลฯ)",
+                    "มีความรู้เรื่องวงจรไฟฟ้าและการอ่านแบบไฟฟ้า",
+                    "สามารถเดินทางไปหน้างานต่างจังหวัดได้",
+                    "มีความรับผิดชอบและทำงานภายใต้แรงกดดันได้ดี"
+                ],
+                "en": [
+                    "Bachelor's degree in Electrical Engineering, Computer Engineering, or related field",
+                    "Experience in PLC programming (Omron, Mitsubishi, Siemens, etc.)",
+                    "Knowledge of electrical circuits and drawings",
+                    "Able to travel to customer sites",
+                    "Responsible and able to work under pressure"
+                ]
             }
         }
     ],
@@ -99,6 +115,22 @@
             "type": {
                 "th": "งานประจำ",
                 "en": "Full-time"
+            },
+            "desc": {
+                "th": [
+                    "นำเสนอและขายสินค้า/บริการของบริษัทให้กับลูกค้า",
+                    "วางแผนและจัดทำตารางการเข้าพบลูกค้า",
+                    "ติดตามลูกค้าและปิดการขาย",
+                    "จัดทำใบเสนอราคาและเอกสารสัญญาซื้อขาย",
+                    "ประสานงานกับฝ่ายวิศวกรรมเพื่อตอบสนองความต้องการของลูกค้า"
+                ],
+                "en": [
+                    "Present and sell company products/services to clients.",
+                    "Plan and schedule customer visits.",
+                    "Follow up on leads and close sales.",
+                    "Prepare quotations and sales contracts.",
+                    "Coordinate with the engineering team to meet customer requirements."
+                ]
             },
             "qualification": {
                 "th": [
@@ -217,6 +249,22 @@
                     "Prepare BOM and specifications.",
                     "Develop automation and special purpose machine concepts.",
                     "Coordinate with production teams."
+                ]
+            },
+            "qualification": {
+                "th": [
+                    "วุฒิการศึกษา ปวส. หรือ ปริญญาตรี สาขาวิศวกรรมเครื่องกล หรือสาขาที่เกี่ยวข้อง",
+                    "สามารถใช้โปรแกรม SolidWorks และ AutoCAD ได้ดี",
+                    "มีความรู้พื้นฐานเกี่ยวกับระบบนิวเมติกส์และไฮดรอลิกส์",
+                    "มีความกระตือรือร้นในการเรียนรู้สิ่งใหม่ๆ",
+                    "สามารถทำงานเป็นทีมได้"
+                ],
+                "en": [
+                    "Diploma or Bachelor's degree in Mechanical Engineering or related field",
+                    "Proficient in SolidWorks and AutoCAD",
+                    "Basic knowledge of pneumatic and hydraulic systems",
+                    "Eager to learn new technologies",
+                    "Good team player"
                 ]
             }
         }

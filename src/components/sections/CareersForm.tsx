@@ -264,7 +264,11 @@ export function CareersForm() {
                             type="tel"
                             name="phone"
                             required
+                            minLength={9}
+                            maxLength={15}
                             placeholder="0XX-XXX-XXXX"
+                            pattern="[0-9+\s\-]{9,15}"
+                            title="Please enter a valid phone number"
                             value={formData.phone}
                             onChange={handleChange}
                             className="w-full bg-white border border-zinc-300/60 rounded-xl px-4 py-3 text-zinc-900 focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none transition-all placeholder:text-zinc-400 text-sm font-medium shadow-sm"
