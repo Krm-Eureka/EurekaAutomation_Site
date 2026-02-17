@@ -1,5 +1,4 @@
 import { MetadataRoute } from 'next';
-export const dynamic = 'force-static';
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -8,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/private/'],
     },
-    sitemap: 'https://eureka-automation.com/sitemap.xml',
+    sitemap: 'https://th.eurekaautomation.co.th/sitemap.xml',
   };
 }

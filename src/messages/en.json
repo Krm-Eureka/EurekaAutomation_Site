@@ -20,6 +20,11 @@
             "contact_description": "Consult with our automation experts for your industrial needs today.",
             "blog_title": "Insights & Blog | Eureka Automation",
             "blog_description": "Stay updated with the latest trends in manufacturing technology and automation."
+        },
+        "not_found": {
+            "title": "Oops! Page Not Found",
+            "description": "The page you are looking for doesn't exist or has been moved. Let's get you back on track.",
+            "back_home": "Back to Homepage"
         }
     },
     "nav": {

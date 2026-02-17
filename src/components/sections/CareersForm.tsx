@@ -1,7 +1,15 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import { Send, CheckCircle2, AlertCircle, Loader2, User, Mail, Phone, Briefcase, MessageSquare, ShieldCheck } from 'lucide-react';
+import { Send, CheckCircle2, AlertCircle, Loader2, User, Mail, Phone, Briefcase, MessageSquare, ShieldCheck, Lock } from 'lucide-react';
+import Script from 'next/script';
+
+declare global {
+    interface Window {
+        onloadTurnstileCallback: () => void;
+        turnstile: any;
+    }
+}
 
 /**
  * [Senior Next.js Developer Note]
@@ -18,8 +26,8 @@ const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycby2VqN9mtvZP99N
 
 export function CareersForm() {
     const t = useTranslations('careers.form');
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
+    const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+    const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
     const [errorMessage, setErrorMessage] = useState('');
     const [pdpaConsent, setPdpaConsent] = useState(false);
 
@@ -44,13 +52,19 @@ export function CareersForm() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
+        // Optional: Block submission if Turnstile key is provided but not solved
+        // if (!turnstileToken) {
+        //     setStatus('error');
+        //     setErrorMessage('Please complete the security check.');
+        //     return;
+        // }
+
         if (!pdpaConsent) {
             alert('โปรดยอมรับนโยบายคุ้มครองข้อมูลส่วนบุคคล (PDPA)');
             return;
         }
 
-        setIsSubmitting(true);
-        setStatus('idle');
+        setStatus('loading');
         console.group("🚀 Submitting Application to Google");
 
         try {
@@ -264,6 +278,30 @@ export function CareersForm() {
                         value={formData.message}
                         onChange={handleChange}
                         className="w-full bg-white border border-zinc-300/60 rounded-xl px-4 py-3 text-zinc-900 focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none transition-all resize-none placeholder:text-zinc-400 text-sm font-medium shadow-sm"
+                    />
+                </div>
+
+                {/* Security Section (Turnstile Infrastructure) */}
+                <div className="flex flex-col gap-2">
+                    <div
+                        id="turnstile-container"
+                        className="cf-turnstile"
+                        data-sitekey="YOUR_TURNSTILE_SITE_KEY_HERE"
+                        data-callback="onTurnstileSuccess"
+                    ></div>
+                    {/* @ts-ignore */}
+                    <Script
+                        src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
+                        onLoad={() => {
+                            if (window.turnstile) {
+                                window.turnstile.render('#turnstile-container', {
+                                    sitekey: 'YOUR_TURNSTILE_SITE_KEY_HERE', // Replace with your actual key
+                                    callback: function (token: string) {
+                                        setTurnstileToken(token);
+                                    },
+                                });
+                            }
+                        }}
                     />
                 </div>
 

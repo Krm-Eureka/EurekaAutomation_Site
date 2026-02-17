@@ -24,11 +24,11 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
   trailingSlash: true,
-  typescript: {
-    ignoreBuildErrors: true,
+  // allowedDevOrigins is a new Next.js 15+ feature for internal dev proxying
+  experimental: {
+    // @ts-ignore
+    allowedDevOrigins: ['192.168.10.100', 'localhost:3000'],
   },
-  // @ts-ignore - allowedDevOrigins is a new Next.js 15+ feature for internal dev proxying
-  allowedDevOrigins: ['192.168.10.100'],
 };
 
 export default withNextIntl(nextConfig);
