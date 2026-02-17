@@ -393,11 +393,11 @@ export default function CareersClient({ locale, positionKeys, benefits, position
                                 <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent"></div>
                                 <div className="absolute top-8 right-8 flex items-center gap-2 px-3 py-1 bg-zinc-900/80 border border-white/10 rounded-full backdrop-blur-md">
                                     <div className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse"></div>
-                                    <span className="font-mono text-[8px] text-zinc-400 uppercase tracking-widest">Feed: Internal_Operations</span>
+                                    <span className="font-mono text-[8px] text-zinc-400 uppercase tracking-widest">Status: Recruiting</span>
                                 </div>
                                 <div className="absolute bottom-10 left-10 right-10">
-                                    <div className="font-mono text-emerald-500 font-bold tracking-[0.5em] uppercase text-[9px] mb-2">Enterprise Core</div>
-                                    <h3 className="text-white text-3xl font-black tracking-tight leading-none uppercase italic">The Robotics<br />Revolution</h3>
+                                    <div className="font-mono text-emerald-500 font-bold tracking-[0.5em] uppercase text-[9px] mb-2">Eureka Ways</div>
+                                    <h3 className="text-white text-3xl font-black tracking-tight leading-none uppercase italic">Innovate<br />with Us</h3>
                                 </div>
                             </div>
                         </motion.div>
