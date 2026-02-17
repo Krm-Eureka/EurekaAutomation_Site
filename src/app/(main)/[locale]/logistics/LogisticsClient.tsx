@@ -13,7 +13,7 @@ interface Video {
     thumbnail: string;
     youtubeUrl: string;
     category: { th: string; en: string };
-    description: { th: string; en: string };
+    description: { th: string; en: string }[];
 }
 
 export default function LogisticsClient() {
@@ -23,7 +23,9 @@ export default function LogisticsClient() {
     const tSub = useTranslations('subpages.logistics');
     const tCommon = useTranslations('common');
 
-    const allVideos = Object.values(videoDataRaw).flat() as Video[];
+    const allVideos = Object.entries(videoDataRaw)
+        .filter(([key]) => !key.startsWith('_'))
+        .flatMap(([_, value]) => value) as Video[];
     const logisticsVideos = allVideos.filter((v) => v.category.en === 'Logistics');
 
     const { scrollY } = useScroll();
@@ -42,7 +44,7 @@ export default function LogisticsClient() {
 
     const itemVariants = {
         hidden: { opacity: 0, y: 20 },
-        show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+        show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as any } }
     };
 
     return (

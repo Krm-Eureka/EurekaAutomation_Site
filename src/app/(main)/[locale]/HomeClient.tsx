@@ -14,7 +14,17 @@ import { Link } from '@/i18n/routing';
 import VideoGallery from "@/components/sections/VideoGallery";
 import videoDataRaw from "@/data/videos.json";
 
-const videoData = Object.values(videoDataRaw).flat();
+interface Video {
+    title: { th: string; en: string };
+    thumbnail: string;
+    youtubeUrl: string;
+    category: { th: string; en: string };
+    description: { th: string; en: string }[];
+}
+
+const videoData = (Object.entries(videoDataRaw)
+    .filter(([key]) => !key.startsWith('_'))
+    .flatMap(([_, value]) => value) as Video[]);
 
 const clientLogos = [
     { name: "Daikin", logo: withBasePath("/images/logos/Daikin-logo.svg"), href: "https://www.daikin.co.th/" },
@@ -44,7 +54,7 @@ export default function HomeClient({ locale }: { locale: string }) {
     const tProducts = useTranslations('products');
     const tContact = useTranslations('contact');
 
-    const serviceKeys = ['custom_machines', 'ai_ml', 'automation', 'smart_logistics'] as const;
+    const serviceKeys = ['custom_machines', 'automation', 'smart_logistics'] as const;
     const orgSchema = generateOrganizationSchema(locale);
 
     const { scrollY } = useScroll();
@@ -117,7 +127,7 @@ export default function HomeClient({ locale }: { locale: string }) {
                         >
                             <motion.div variants={itemVariants} className="flex items-center gap-3 mb-6">
                                 <span className="h-[2px] w-8 md:w-12 bg-emerald-500"></span>
-                                <span className="text-emerald-400 font-mono text-xs md:text-sm tracking-[0.2em] uppercase font-semibold">
+                                <span className="text-emerald-400 font-bold text-xs md:text-sm tracking-widest uppercase">
                                     {tHero('certified')}
                                 </span>
                             </motion.div>
@@ -299,7 +309,7 @@ export default function HomeClient({ locale }: { locale: string }) {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                         >
-                            <span className="text-zinc-500 font-mono tracking-[0.2em] uppercase text-sm mb-4 block">
+                            <span className="text-zinc-500 font-bold tracking-widest uppercase text-xs mb-4 block">
                                 {tHome('timeline.tag')}
                             </span>
                             <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-6">
@@ -349,7 +359,7 @@ export default function HomeClient({ locale }: { locale: string }) {
                 </section>
 
                 {/* Services Section - ปรับปรุงใหม่ */}
-                <section id="productsandservices" className="py-16 sm:py-20 lg:py-24 bg-zinc-100">
+                <section id="productsandservices" className="py-4 sm:py-8 lg:py-16 bg-zinc-100">
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <motion.div
                             className="text-center mb-16 max-w-3xl mx-auto"
@@ -418,7 +428,7 @@ export default function HomeClient({ locale }: { locale: string }) {
                 </section>
 
                 {/* Products Section */}
-                <section className="py-8 sm:py-10 lg:py-12 bg-white border-t border-zinc-100">
+                {/* <section className="py-8 sm:py-10 lg:py-12 bg-white border-t border-zinc-100">
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <motion.div
                             className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6"
@@ -489,10 +499,10 @@ export default function HomeClient({ locale }: { locale: string }) {
                             </motion.div>
                         </div>
                     </div>
-                </section>
+                </section> */}
 
                 {/* Video Gallery Section */}
-                <section id="showcase" className="py-8 sm:py-16 lg:py-24 bg-zinc-100 overflow-hidden">
+                <section id="showcase" className="py-4 sm:py-8 lg:py-16 bg-zinc-100 overflow-hidden">
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <motion.div
                             className="text-center mb-12 space-y-4"
@@ -516,7 +526,7 @@ export default function HomeClient({ locale }: { locale: string }) {
                 </section>
 
                 {/* Client Logos Section */}
-                <section className="py-12 sm:py-16 border-y border-zinc-100 bg-white">
+                <section className="py-6 sm:py-8 border-y border-zinc-100 bg-white">
                     <div className="text-center mb-10">
                         <span className="text-xs font-bold uppercase tracking-[0.3em] text-zinc-400">{tHome('trusted_by')}</span>
                     </div>

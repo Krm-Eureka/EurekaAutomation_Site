@@ -35,12 +35,14 @@ export function Header({ lang }: HeaderProps) {
 
   // Dynamic Styles
   const headerBg = scrolled
-    ? 'bg-zinc-550 backdrop-blur-md border-b border-white/5 py-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.5)]'
+    ? 'bg-white/80 backdrop-blur-md border-b border-zinc-200 py-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.05)]'
     : 'bg-transparent py-5';
 
-  const textColor = scrolled ? 'text-zinc-550 hover:text-white' : 'text-white/80 hover:text-white';
+  const textColor = scrolled ? 'text-zinc-600 hover:text-emerald-600' : 'text-white/80 hover:text-white';
   const logoFilter = scrolled ? 'opacity-90 group-hover:opacity-100 transition-all' : 'brightness-0 invert opacity-90 group-hover:opacity-100 transition-all';
-  const buttonStyle = 'bg-emerald-500 text-zinc-950 hover:bg-white shadow-[0_0_20px_rgba(16,185,129,0.2)]';
+  const buttonStyle = scrolled
+    ? 'bg-emerald-600 text-white hover:bg-zinc-900 shadow-lg'
+    : 'bg-emerald-500 text-zinc-950 hover:bg-white shadow-[0_0_20px_rgba(16,185,129,0.2)]';
 
   const isLinkActive = (href: string) => {
     if (href.startsWith('/#')) return false;
@@ -80,15 +82,18 @@ export function Header({ lang }: HeaderProps) {
             );
           })}
 
-          <div className="w-px h-4 bg-white/10 mx-4" />
+          <div className={`w-px h-4 mx-4 ${scrolled ? 'bg-zinc-200' : 'bg-white/10'}`} />
 
           {/* Language Switcher */}
-          <div className="flex p-1 bg-white/5 rounded-xl border border-white/10 backdrop-blur-md">
+          <div className={`flex p-1 rounded-xl border backdrop-blur-md transition-all ${scrolled ? 'bg-zinc-100 border-zinc-200' : 'bg-white/5 border-white/10'
+            }`}>
             <Link
               href={pathname}
               locale="en"
               scroll={false}
-              className={`px-3 py-1 rounded-lg text-[10px] font-bold transition-all ${lang === 'en' ? 'bg-emerald-500 text-zinc-950' : 'text-zinc-500 hover:text-white'
+              className={`px-3 py-1 rounded-lg text-[10px] font-bold transition-all ${lang === 'en'
+                  ? 'bg-emerald-500 text-zinc-950'
+                  : scrolled ? 'text-zinc-400 hover:text-zinc-900' : 'text-zinc-500 hover:text-white'
                 }`}
             >
               EN
@@ -97,7 +102,9 @@ export function Header({ lang }: HeaderProps) {
               href={pathname}
               locale="th"
               scroll={false}
-              className={`px-3 py-1 rounded-lg text-[10px] font-bold transition-all ${lang === 'th' ? 'bg-emerald-500 text-zinc-950' : 'text-zinc-500 hover:text-white'
+              className={`px-3 py-1 rounded-lg text-[10px] font-bold transition-all ${lang === 'th'
+                  ? 'bg-emerald-500 text-zinc-950'
+                  : scrolled ? 'text-zinc-400 hover:text-zinc-900' : 'text-zinc-500 hover:text-white'
                 }`}
             >
               TH

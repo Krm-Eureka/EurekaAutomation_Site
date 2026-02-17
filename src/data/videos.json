@@ -243,7 +243,7 @@
             ]
         }
     ],
-    "AI": [
+    "_AI": [
         {
             "title": {
                 "th": "โซลูชัน AI สำหรับการตรวจสอบคุณภาพ",
@@ -255,10 +255,12 @@
                 "th": "ปัญญาประดิษฐ์",
                 "en": "AI"
             },
-            "description": {
-                "th": "การใช้ Computer Vision ในการตรวจสอบตำหนิชิ้นงานอัตโนมัติ",
-                "en": "Using Computer Vision for automated defect detection."
-            }
+            "description": [
+                {
+                    "th": "การใช้ Computer Vision ในการตรวจสอบตำหนิชิ้นงานอัตโนมัติ",
+                    "en": "Using Computer Vision for automated defect detection."
+                }
+            ]
         },
         {
             "title": {
@@ -271,10 +273,12 @@
                 "th": "ปัญญาประดิษฐ์",
                 "en": "AI"
             },
-            "description": {
-                "th": "การใช้ข้อมูลเซนเซอร์เพื่อทำนายเวลาที่ต้องซ่อมบำรุง",
-                "en": "Using sensor data to predict maintenance needs."
-            }
+            "description": [
+                {
+                    "th": "การใช้ข้อมูลเซนเซอร์เพื่อทำนายเวลาที่ต้องซ่อมบำรุง",
+                    "en": "Using sensor data to predict maintenance needs."
+                }
+            ]
         }
     ],
     "MACHINES": [

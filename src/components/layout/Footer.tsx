@@ -75,11 +75,7 @@ export function Footer() {
                   {tHome('services.custom_machines.title')}
                 </Link>
               </li>
-              <li>
-                <Link href="ai-solutions" className="hover:text-white transition-colors">
-                  {tHome('services.ai_ml.title')}
-                </Link>
-              </li>
+
               <li>
                 <Link href="robotics" className="hover:text-white transition-colors">
                   {tHome('services.automation.title')}
@@ -109,7 +105,7 @@ export function Footer() {
                 <div className="w-8 h-8 bg-zinc-900 rounded-lg flex items-center justify-center shrink-0">
                   <Mail size={14} className="text-zinc-300" />
                 </div>
-                <span>info@eureka-automation.com</span>
+                <span>info@eurekaautomation.co.th</span>
               </li>
               <li className="flex items-start gap-3">
                 <div className="w-8 h-8 bg-zinc-900 rounded-lg flex items-center justify-center shrink-0 mt-1">

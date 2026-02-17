@@ -13,7 +13,7 @@ interface Video {
     thumbnail: string;
     youtubeUrl: string;
     category: { th: string; en: string };
-    description: { th: string; en: string };
+    description: { th: string; en: string }[];
 }
 
 export default function CustomMachinesClient() {
@@ -23,7 +23,9 @@ export default function CustomMachinesClient() {
     const tSub = useTranslations('subpages.machines');
     const tCommon = useTranslations('common');
 
-    const allVideos = Object.values(videoDataRaw).flat() as Video[];
+    const allVideos = Object.entries(videoDataRaw)
+        .filter(([key]) => !key.startsWith('_'))
+        .flatMap(([_, value]) => value) as Video[];
     const machineVideos = allVideos.filter((v) => v.category.en === 'Machines');
 
     const { scrollY } = useScroll();
