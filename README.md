@@ -51,29 +51,27 @@ A modern, high-performance industrial automation website built with Next.js 15 (
 
 ### Core Pages
 - ✅ Home page with Hero, Services showcase, Industries, CTA
-- ✅ About page with company overview and values
+- ✅ About page with company overview and values (Unique content per section)
 - ✅ Services overview with 6 service categories
-- ✅ Products overview with custom/standard categories
+- ✅ Products overview with custom/standard categories (Coming Soon handling)
 - ✅ Solutions page (AMR/AGV, WMS, Production Integration)
 - ✅ Blog listing page
 - ✅ Contact page with form and info
-- ✅ Careers page with job listings
+- ✅ Careers page with job listings (Bilingual support)
 
 ### UI/UX
+- ✅ **"Fresh Green" Theme**: Modern industrial aesthetic with Prompt typography
+- ✅ **Bilingual PDPA Modal**: Fully internationalized (EN/TH) with HR contact integration
 - ✅ Responsive Header with mobile menu
-- ✅ Footer with company info and links
 - ✅ Hero section with animations (Framer Motion)
-- ✅ Mobile-first responsive design
-- ✅ Service/Product cards with hover effects
-- ✅ Language switcher (EN/TH)
-- ✅ Browser Language Detection (Auto-redirect on root)
+- ✅ Standardized Service Detail Template (AI, Robotics, Machines, Logistics)
 
 ### SEO & Optimization
-- ✅ JSON-LD structured data helpers
+- ✅ Static export optimization (Fixes root 404 build issues)
 - ✅ next-sitemap configuration
-- ✅ Static export optimization
 - ✅ Metadata API configuration
 - ✅ Multilingual support with path-based routing
+- ✅ Browser Language Detection
 
 ### Technical
 - ✅ TypeScript for type safety
@@ -105,18 +103,13 @@ See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions.
 **Key points**:
 - Run `bun run build`
 - Upload contents of `out/` folder to `public_html/`
-- Ensure `.htaccess` is configured (optional)
 
 ## 🎨 Design Highlights
 
 ### Color Scheme
 - **Primary**: Fresh Green (`#34A853`)
 - **Secondary**: Deep Green (`#1A2F1A`)
-- **Background**: Paper White / Green Ultra Light
-
-### Typography
-- **Font**: Prompt (Google Fonts)
-- Modern, loopless/looped hybrid optimization for Thai & English
+- **Typography**: Prompt (Thai/English hybrid optimization)
 
 ### UI Patterns
 - Gradient backgrounds for hero sections
@@ -180,8 +173,8 @@ When adding new pages:
 ## 📞 Support
 
 For questions or issues:
-- Email: marketing@eurekaautomation.co.th
-- Phone: 020963556
+- Email: HR@eurekaautomation.co.th
+- Phone: 02-192-3737
 
 ---
 

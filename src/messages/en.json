@@ -365,6 +365,15 @@
         }
     },
     "privacy": {
+        "metadata": {
+            "modal_title": "Privacy Policy / นโยบายความเป็นส่วนตัว",
+            "last_updated": "Last Updated: February 17, 2026",
+            "lang_th": "ภาษาไทย",
+            "lang_en": "English",
+            "version_en": "English Version",
+            "btn_close": "Close / ปิด",
+            "btn_accept": "Accept / ยอมรับ"
+        },
         "title": "Privacy Policy",
         "subtitle": "We value your privacy and are committed to protecting your personal data in compliance with the Personal Data Protection Act (PDPA).",
         "last_updated": "Last Updated",

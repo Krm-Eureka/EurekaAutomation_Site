@@ -169,10 +169,10 @@ export default function PrivacyPolicyModal({ isOpen, onClose, onAccept }: Privac
                                 </div>
                                 <div>
                                     <h2 className="text-lg font-bold text-zinc-900 leading-tight">
-                                        Privacy Policy / นโยบายความเป็นส่วนตัว
+                                        {thMessages.privacy.metadata.modal_title}
                                     </h2>
                                     <p className="text-xs text-zinc-500 font-mono">
-                                        Last Updated: February 17, 2026
+                                        {thMessages.privacy.metadata.last_updated}
                                     </p>
                                 </div>
                             </div>
@@ -192,7 +192,7 @@ export default function PrivacyPolicyModal({ isOpen, onClose, onAccept }: Privac
                                 <div className="relative">
                                     <div className="absolute -left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-emerald-500 to-transparent rounded-full opacity-30"></div>
                                     <span className="inline-block px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full mb-6">
-                                        ภาษาไทย
+                                        {thMessages.privacy.metadata.lang_th}
                                     </span>
                                     <ContentSection t={thMessages.privacy} lang="th" />
                                 </div>
@@ -200,7 +200,7 @@ export default function PrivacyPolicyModal({ isOpen, onClose, onAccept }: Privac
                                 {/* Divider */}
                                 <div className="relative h-px bg-zinc-200 my-12">
                                     <div className="absolute left-1/2 -translate-x-1/2 -top-3 bg-white px-4 text-zinc-400 text-xs uppercase tracking-widest">
-                                        English Version
+                                        {thMessages.privacy.metadata.version_en}
                                     </div>
                                 </div>
 
@@ -208,7 +208,7 @@ export default function PrivacyPolicyModal({ isOpen, onClose, onAccept }: Privac
                                 <div className="relative">
                                     <div className="absolute -left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-zinc-300 to-transparent rounded-full opacity-30"></div>
                                     <span className="inline-block px-3 py-1 bg-zinc-100 text-zinc-600 text-xs font-bold rounded-full mb-6">
-                                        English
+                                        {thMessages.privacy.metadata.lang_en}
                                     </span>
                                     <ContentSection t={enMessages.privacy} lang="en" />
                                 </div>
@@ -223,7 +223,7 @@ export default function PrivacyPolicyModal({ isOpen, onClose, onAccept }: Privac
                                     onClick={onClose}
                                     className="px-6 py-2.5 rounded-xl text-zinc-600 font-bold text-sm hover:bg-zinc-100 transition-colors"
                                 >
-                                    Close / ปิด
+                                    {thMessages.privacy.metadata.btn_close}
                                 </button>
                                 <button
                                     onClick={() => {
@@ -233,7 +233,7 @@ export default function PrivacyPolicyModal({ isOpen, onClose, onAccept }: Privac
                                     className="px-6 py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-sm hover:bg-emerald-700 transition-colors shadow-lg shadow-emerald-600/20 flex items-center gap-2"
                                 >
                                     <ShieldCheck size={16} />
-                                    <span>Accept / ยอมรับ</span>
+                                    <span>{thMessages.privacy.metadata.btn_accept}</span>
                                 </button>
                             </div>
                         )}
