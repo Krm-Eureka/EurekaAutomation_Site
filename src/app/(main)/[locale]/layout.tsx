@@ -102,7 +102,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} className={`${outfit.variable} ${prompt.variable}`}>
-      <body className="font-sans antialiased min-h-screen flex flex-col bg-zinc-950">
+      <body className="font-sans antialiased min-h-screen flex flex-col bg-paper text-ink">
         <NextIntlClientProvider messages={messages}>
           {gaId && <GoogleAnalytics GA_MEASUREMENT_ID={gaId} />}
 

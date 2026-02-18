@@ -57,6 +57,7 @@ A modern, high-performance industrial automation website built with Next.js 15 (
 - ✅ Solutions page (AMR/AGV, WMS, Production Integration)
 - ✅ Blog listing page
 - ✅ Contact page with form and info
+- ✅ Careers page with job listings
 
 ### UI/UX
 - ✅ Responsive Header with mobile menu
@@ -108,13 +109,13 @@ See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions.
 ## 🎨 Design Highlights
 
 ### Color Scheme
-- **Primary**: Deep Industrial Blue (`slate-900`)
-- **Accent**: Safety Orange (`orange-600`)
-- **Background**: White / Light Grey
+- **Primary**: Fresh Green (`#34A853`)
+- **Secondary**: Deep Green (`#1A2F1A`)
+- **Background**: Paper White / Green Ultra Light
 
 ### Typography
-- **Font**: Inter (Google Fonts)
-- Clean, readable, technical aesthetic
+- **Font**: Prompt (Google Fonts)
+- Modern, loopless/looped hybrid optimization for Thai & English
 
 ### UI Patterns
 - Gradient backgrounds for hero sections
@@ -131,7 +132,7 @@ See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions.
 - [ ] Add case study content
 
 ### Priority 2: Forms & CMS
-- [ ] Integrate contact form with Formspree/EmailJS
+- [ ] Integrate contact form (Script-based solution implemented by user)
 - [ ] Add blog CMS (Decap CMS or Keystatic)
 - [ ] Create blog post template
 
@@ -144,7 +145,6 @@ See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions.
 ### Priority 4: Advanced Features
 - [ ] Add product filtering/search
 - [ ] Create case study detail pages
-- [ ] Add careers page with job listings
 - [ ] Implement cookie consent banner
 
 ## 🔒 Static Export Limitations
@@ -157,7 +157,7 @@ Due to HostNeverDie shared hosting constraints:
 - ❌ No middleware (using path-based i18n instead)
 
 **Workarounds implemented**:
-- Forms → Formspree/EmailJS
+- Forms → Script-based solution (e.g. Google Forms/HubSpot)
 - Images → Unoptimized or use external CDN
 - i18n → Path-based routing `/[lang]`
 

@@ -38,11 +38,14 @@ export function Header({ lang }: HeaderProps) {
     ? 'bg-white/80 backdrop-blur-md border-b border-zinc-200 py-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.05)]'
     : 'bg-transparent py-5';
 
-  const textColor = scrolled ? 'text-zinc-600 hover:text-emerald-600' : 'text-white/80 hover:text-white';
+  const textColor = scrolled ? 'text-ink-soft hover:text-green-primary' : 'text-white/80 hover:text-white';
+  // Logo is likely dark/colored by default. Since background is light (paper/green-ultra), we show original logo.
   const logoFilter = scrolled ? 'transition-all' : 'brightness-0 invert transition-all';
+
+
   const buttonStyle = scrolled
-    ? 'bg-emerald-600 text-white hover:bg-zinc-900 shadow-lg'
-    : 'bg-emerald-500 text-zinc-950 hover:bg-white shadow-[0_0_20px_rgba(16,185,129,0.2)]';
+    ? 'bg-green-primary text-white hover:bg-green-dark shadow-lg'
+    : 'bg-green-primary text-white hover:bg-green-dark shadow-[0_4px_16px_rgba(52,168,83,0.25)]';
 
   const isLinkActive = (href: string) => {
     if (href.startsWith('/#')) return false;
@@ -51,7 +54,7 @@ export function Header({ lang }: HeaderProps) {
 
   return (
     <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${headerBg}`}>
-      <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between h-14">
+      <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between h-[76px]">
         {/* Logo */}
         <Link href="/" className="flex items-center group relative z-10">
           <div className={`relative h-11 w-44 transition-all duration-300 ${logoFilter}`}>
@@ -60,40 +63,33 @@ export function Header({ lang }: HeaderProps) {
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-1">
+        <div className="hidden md:flex items-center gap-8">
           {navigation.map((item) => {
             const active = isLinkActive(item.href);
             return (
               <Link
                 key={item.name}
                 href={item.href}
-                className={`px-4 py-1 text-[14px] font-semibold uppercase tracking-[0.2em] transition-all rounded-lg relative group/item ${active ? 'text-emerald-400' : textColor
+                className={`text-[0.85rem] font-normal tracking-wide transition-all relative group/item ${active ? 'text-green-primary font-medium' : textColor
                   }`}
               >
                 {item.name}
-                {active && (
-                  <motion.div
-                    layoutId="activeNav"
-                    className="absolute bottom-0 left-4 right-4 h-0.5 bg-emerald-500 rounded-full"
-                  />
-                )}
-                <div className="absolute bottom-0 left-4 right-4 h-0.5 bg-emerald-500 rounded-full scale-x-0 group-hover/item:scale-x-100 transition-transform origin-left" />
+                <div className={`absolute -bottom-1 left-0 h-0.5 bg-green-primary rounded-full transition-all duration-250 ${active ? 'w-full' : 'w-0 group-hover/item:w-full'}`} />
               </Link>
             );
           })}
 
-          <div className={`w-px h-4 mx-4 ${scrolled ? 'bg-zinc-200' : 'bg-white/10'}`} />
+          <div className={`w-px h-6 mx-2 bg-green-primary/20`} />
 
           {/* Language Switcher */}
-          <div className={`flex p-1 rounded-xl border backdrop-blur-md transition-all ${scrolled ? 'bg-zinc-100 border-zinc-200' : 'bg-white/5 border-white/10'
-            }`}>
+          <div className={`flex p-1 rounded-full border backdrop-blur-md transition-all bg-green-ultra border-green-primary/10`}>
             <Link
               href={pathname}
               locale="en"
               scroll={false}
-              className={`px-3 py-1 rounded-lg text-[10px] font-bold transition-all ${lang === 'en'
-                ? 'bg-emerald-500 text-zinc-950'
-                : scrolled ? 'text-zinc-400 hover:text-zinc-900' : 'text-zinc-500 hover:text-white'
+              className={`px-3 py-1.5 rounded-full text-[0.7rem] font-medium tracking-wider transition-all ${lang === 'en'
+                ? 'bg-green-primary text-white shadow-sm'
+                : 'text-ink-muted hover:text-green-primary bg-transparent'
                 }`}
             >
               EN
@@ -102,9 +98,9 @@ export function Header({ lang }: HeaderProps) {
               href={pathname}
               locale="th"
               scroll={false}
-              className={`px-3 py-1 rounded-lg text-[10px] font-bold transition-all ${lang === 'th'
-                ? 'bg-emerald-500 text-zinc-950'
-                : scrolled ? 'text-zinc-400 hover:text-zinc-900' : 'text-zinc-500 hover:text-white'
+              className={`px-3 py-1.5 rounded-full text-[0.7rem] font-medium tracking-wider transition-all ${lang === 'th'
+                ? 'bg-green-primary text-white shadow-sm'
+                : 'text-ink-muted hover:text-green-primary bg-transparent'
                 }`}
             >
               TH
@@ -113,7 +109,7 @@ export function Header({ lang }: HeaderProps) {
 
           <Link
             href="/#contact"
-            className={`ml-6 px-6 py-2.5 text-[10px] font-bold uppercase tracking-widest rounded-xl transition-all duration-500 ${buttonStyle}`}
+            className={`ml-2 px-6 py-3 text-[0.8rem] font-medium tracking-wide rounded-full transition-all duration-300 hover:-translate-y-0.5 ${buttonStyle}`}
           >
             {Translation('contact')}
           </Link>
@@ -122,12 +118,10 @@ export function Header({ lang }: HeaderProps) {
         {/* Mobile Menu Btn */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className={`md:hidden relative z-[100] p-2.5 rounded-xl border transition-all duration-300 flex items-center justify-center min-w-[44px] min-h-[44px] ${scrolled
-            ? 'text-zinc-900 bg-white border-zinc-200 shadow-sm'
-            : 'text-white bg-emerald-600/20 border-emerald-400/40 backdrop-blur-sm'
+          className={`md:hidden relative z-[100] p-2.5 rounded-xl border transition-all duration-300 flex items-center justify-center min-w-[44px] min-h-[44px] ${'text-ink bg-white/50 border-green-primary/20 backdrop-blur-sm'
             }`}
         >
-          {mobileMenuOpen ? <X size={24} className="text-emerald-500" /> : <Menu size={24} />}
+          {mobileMenuOpen ? <X size={24} className="text-green-primary" /> : <Menu size={24} className="text-ink" />}
           <span className="sr-only">Menu</span>
         </button>
       </nav>
@@ -135,7 +129,7 @@ export function Header({ lang }: HeaderProps) {
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
         <motion.div
-          className="absolute top-full left-0 right-0 bg-zinc-900/95 backdrop-blur-2xl border-b border-white/10 shadow-2xl overflow-hidden"
+          className="absolute top-full left-0 right-0 bg-paper/95 backdrop-blur-2xl border-b border-green-primary/10 shadow-xl overflow-hidden"
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
         >
@@ -144,21 +138,21 @@ export function Header({ lang }: HeaderProps) {
               <Link
                 key={item.name}
                 href={item.href}
-                className="block px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-zinc-400 hover:text-emerald-400 hover:bg-white/5 rounded-2xl transition-all"
+                className="block px-6 py-4 text-[0.9rem] font-medium text-ink-soft hover:text-green-primary hover:bg-green-ultra/50 rounded-2xl transition-all"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {item.name}
               </Link>
             ))}
 
-            <div className="h-px bg-white/10 my-4" />
+            <div className="h-px bg-green-primary/10 my-4" />
 
             <div className="grid grid-cols-2 gap-4 mb-6">
               <Link
                 href={pathname}
                 locale="en"
                 scroll={false}
-                className={`flex items-center justify-center py-4 rounded-2xl text-[10px] font-bold transition-all border ${lang === 'en' ? 'bg-emerald-500 border-emerald-400 text-zinc-950' : 'bg-white/5 border-white/10 text-zinc-400'
+                className={`flex items-center justify-center py-3 rounded-xl text-xs font-bold transition-all border ${lang === 'en' ? 'bg-green-primary border-green-primary text-white' : 'bg-white border-green-primary/10 text-ink-muted'
                   }`}
                 onClick={() => setMobileMenuOpen(false)}
               >
@@ -168,7 +162,7 @@ export function Header({ lang }: HeaderProps) {
                 href={pathname}
                 locale="th"
                 scroll={false}
-                className={`flex items-center justify-center py-4 rounded-2xl text-[10px] font-bold transition-all border ${lang === 'th' ? 'bg-emerald-500 border-emerald-400 text-zinc-950' : 'bg-white/5 border-white/10 text-zinc-400'
+                className={`flex items-center justify-center py-3 rounded-xl text-xs font-bold transition-all border ${lang === 'th' ? 'bg-green-primary border-green-primary text-white' : 'bg-white border-green-primary/10 text-ink-muted'
                   }`}
                 onClick={() => setMobileMenuOpen(false)}
               >
@@ -178,7 +172,7 @@ export function Header({ lang }: HeaderProps) {
 
             <Link
               href="/#contact"
-              className="block px-6 py-5 text-[10px] font-bold uppercase tracking-widest text-zinc-950 bg-emerald-500 rounded-2xl text-center shadow-[0_10px_20px_rgba(16,185,129,0.2)]"
+              className="block px-6 py-4 text-xs font-bold uppercase tracking-widest text-white bg-green-primary rounded-xl text-center shadow-lg"
               onClick={() => setMobileMenuOpen(false)}
             >
               {Translation('contact')}

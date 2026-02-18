@@ -101,17 +101,16 @@ export default function HomeClient({ locale }: { locale: string }) {
                     <motion.div style={{ y: y1 }} className="absolute inset-0 z-0">
                         <Image
                             src={withBasePath("/images/eureka-og.webp")}
-                            alt="Industrial Automation"
+                            alt="Eureka Automation"
                             fill
-                            className="object-cover opacity-90 scale-110"
+                            className="object-cover opacity-90 scale-100"
                             priority
-                            unoptimized
+                            sizes="100vw"
                         />
-                        <div className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] bg-emerald-500/10 rounded-full blur-[120px] animate-pulse"></div>
-                        <div className="absolute bottom-[-20%] left-[-10%] w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[100px] animate-pulse delay-1000"></div>
+                        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-green-primary/40"></div>
 
-                        <div className="absolute inset-0 bg-gradient-to-r from-zinc-900 via-zinc-900/80 to-transparent"></div>
-                        <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent"></div>
+                        {/* Organic blob background - Adjusted blending for dark mode */}
+                        <div className="absolute top-[-10%] right-[-5%] w-[700px] h-[700px] bg-green-primary/10 rounded-full blur-[60px] pointer-events-none mix-blend-screen"></div>
                     </motion.div>
 
                     <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
@@ -122,34 +121,45 @@ export default function HomeClient({ locale }: { locale: string }) {
                             className="max-w-4xl"
                         >
                             <motion.div variants={itemVariants} className="flex items-center gap-3 mb-6">
-                                <span className="h-[2px] w-8 md:w-12 bg-emerald-500"></span>
-                                <span className="text-emerald-400 font-bold text-xs md:text-sm tracking-widest uppercase">
+                                <span className="h-[2px] w-8 md:w-12 bg-green-primary"></span>
+                                <span className="text-green-400 font-bold text-xs md:text-sm tracking-widest uppercase">
                                     {tHero('certified')}
                                 </span>
                             </motion.div>
 
                             <motion.h1 variants={itemVariants} className="text-5xl md:text-7xl lg:text-8xl font-black text-white mb-6 tracking-tight leading-[1.1]">
-                                Eureka <br />
-                                <span className="text-transparent bg-clip-text bg-emerald-500 ">
-                                    <span className="text-red-500">A</span>utomat<span className="text-red-500">i</span>on.
-                                </span>
+                                {locale === 'th' ? (
+                                    <>
+                                        ยูเรกา <br />
+                                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-primary to-green-300">
+                                            ออโตเมชั่น
+                                        </span>
+                                    </>
+                                ) : (
+                                    <>
+                                        Eureka <br />
+                                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-primary to-green-300">
+                                            <span className="text-red-500">A</span>utomat<span className="text-red-500">i</span>on.
+                                        </span>
+                                    </>
+                                )}
                             </motion.h1>
 
-                            <motion.p variants={itemVariants} className="text-lg md:text-2xl text-zinc-300 max-w-2xl mb-10 leading-relaxed font-light">
+                            <motion.p variants={itemVariants} className="text-lg md:text-2xl text-gray-200 max-w-2xl mb-10 leading-relaxed font-light">
                                 {tHero('subtitle')}
                             </motion.p>
 
                             <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4">
                                 <Link
                                     href="/#productsandservices"
-                                    className="group px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-full font-bold text-lg shadow-[0_0_30px_rgba(16,185,129,0.3)] hover:shadow-[0_0_40px_rgba(16,185,129,0.5)] transition-all duration-300 flex items-center justify-center gap-3 hover:-translate-y-1"
+                                    className="group px-8 py-4 bg-gradient-to-r from-green-primary to-green-dark hover:from-green-light hover:to-green-primary text-white rounded-full font-bold text-lg shadow-[0_4px_20px_rgba(52,168,83,0.3)] hover:shadow-[0_8px_32px_rgba(52,168,83,0.4)] transition-all duration-300 flex items-center justify-center gap-3 hover:-translate-y-1"
                                 >
                                     {tHero('cta')}
                                     <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
                                 </Link>
                                 <Link
                                     href="/#contact"
-                                    className="px-8 py-4 bg-white/5 backdrop-blur-sm border border-white/10 text-white rounded-full font-bold text-lg hover:bg-white hover:text-zinc-900 transition-all text-center hover:-translate-y-1"
+                                    className="px-8 py-4 bg-white border border-green-primary/20 text-green-primary rounded-full font-bold text-lg hover:bg-green-ultra hover:text-green-dark transition-all text-center hover:-translate-y-1 shadow-sm"
                                 >
                                     {tHero('contact')}
                                 </Link>
@@ -163,29 +173,31 @@ export default function HomeClient({ locale }: { locale: string }) {
                         transition={{ delay: 2, duration: 2, repeat: Infinity }}
                         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
                     >
-                        <span className="text-[10px] uppercase tracking-widest text-zinc-500">Scroll</span>
-                        <div className="w-[1px] h-12 bg-gradient-to-b from-zinc-500 to-transparent"></div>
+                        <span className="text-[10px] uppercase tracking-widest text-ink-muted">Scroll</span>
+                        <div className="w-[1px] h-12 bg-gradient-to-b from-green-primary to-transparent"></div>
                     </motion.div>
                 </section>
 
                 {/* Industrial Trust Section */}
-                <section className="py-16 sm:py-20 bg-zinc-900 text-white border-b border-zinc-800">
+                {/* Industrial Trust Section */}
+                <section className="py-10 sm:py-10 bg-white border-b border-green-primary/10">
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <motion.div
-                            className="grid lg:grid-cols-2 gap-16 items-start"
+                            className="grid lg:grid-cols-2 gap-5 lg:gap-10 items-start"
                             initial={{ opacity: 0, y: 50 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-100px" }}
                             transition={{ duration: 0.8 }}
                         >
-                            <div className="space-y-6">
-                                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white">{tTrust('title')}</h2>
-                                <p className="text-lg text-zinc-400 leading-relaxed">
+                            <div className="space-y-8">
+                                <h2 className="text-3xl md:text-5xl font-black tracking-tight text-ink uppercase leading-none">{tTrust('title')}</h2>
+                                <div className="w-20 h-1.5 bg-green-primary rounded-full"></div>
+                                <p className="text-xl text-ink-soft leading-relaxed font-light">
                                     {tTrust('description')}
                                 </p>
                             </div>
 
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-2 gap-y-4">
                                 {[
                                     { k: 'headquarters', delay: 0 },
                                     { k: 'globalReach', delay: 0.1 },
@@ -199,11 +211,11 @@ export default function HomeClient({ locale }: { locale: string }) {
                                         whileInView={{ opacity: 1, x: 0 }}
                                         viewport={{ once: true }}
                                         transition={{ delay: item.delay, duration: 0.5 }}
-                                        className="space-y-2"
+                                        className="space-y-3 group"
                                     >
-                                        <div className="w-8 h-1 bg-emerald-500 mb-3"></div>
-                                        <p className="font-semibold text-white uppercase text-xs tracking-wider opacity-70">{tTrust(`${item.k}.label`)}</p>
-                                        <p className="text-xl text-white font-medium">{tTrust(`${item.k}.value`)}</p>
+                                        <div className="w-8 h-1 bg-green-primary/30 group-hover:bg-green-primary transition-colors duration-300"></div>
+                                        <p className="font-bold text-green-primary uppercase text-xs tracking-widest">{tTrust(`${item.k}.label`)}</p>
+                                        <p className="text-2xl text-ink font-semibold leading-tight">{tTrust(`${item.k}.value`)}</p>
                                     </motion.div>
                                 ))}
                             </div>
@@ -212,7 +224,7 @@ export default function HomeClient({ locale }: { locale: string }) {
                 </section>
 
                 {/* About Section */}
-                <section id="about" className="py-16 sm:py-20 lg:py-24 bg-zinc-200 overflow-hidden">
+                <section id="about" className="py-16 sm:py-20 lg:py-24 bg-green-ultra overflow-hidden">
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
                             <motion.div
@@ -222,13 +234,13 @@ export default function HomeClient({ locale }: { locale: string }) {
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.8 }}
                             >
-                                <span className="text-emerald-600 font-bold tracking-wider uppercase text-sm border-b-2 border-emerald-100 pb-1 inline-block">
+                                <span className="text-green-primary font-bold tracking-wider uppercase text-sm border-b-2 border-green-primary/20 pb-1 inline-block">
                                     {tAbout('tag')}
                                 </span>
-                                <h2 className="text-4xl md:text-5xl font-bold text-zinc-900 tracking-tight leading-tight">
+                                <h2 className="text-4xl md:text-5xl font-bold text-ink tracking-tight leading-tight">
                                     {tAbout('title')}
                                 </h2>
-                                <p className="text-xl text-zinc-600 leading-relaxed font-light">
+                                <p className="text-xl text-ink-soft leading-relaxed font-light">
                                     {tAbout('description')}
                                 </p>
 
@@ -242,12 +254,12 @@ export default function HomeClient({ locale }: { locale: string }) {
                                                 whileHover={{ x: 10 }}
                                                 transition={{ type: "spring", stiffness: 300 }}
                                             >
-                                                <div className={`w-12 h-12 ${valueColors[i]} rounded-xl flex items-center justify-center text-white shrink-0 shadow-lg group-hover:scale-110 transition-transform`}>
+                                                <div className={`w-12 h-12 ${valueColors[i].replace('bg-emerald-600', 'bg-green-primary').replace('bg-zinc-900', 'bg-ink').replace('bg-zinc-700', 'bg-ink-soft')} rounded-xl flex items-center justify-center text-white shrink-0 shadow-lg group-hover:scale-110 transition-transform`}>
                                                     <Icon size={20} />
                                                 </div>
                                                 <div>
-                                                    <h3 className="font-bold text-lg text-zinc-900 mb-1">{tAbout(`values.${key}.title`)}</h3>
-                                                    <p className="text-zinc-500 text-sm leading-relaxed">{tAbout(`values.${key}.desc`)}</p>
+                                                    <h3 className="font-bold text-lg text-ink mb-1">{tAbout(`values.${key}.title`)}</h3>
+                                                    <p className="text-ink-muted text-sm leading-relaxed">{tAbout(`values.${key}.desc`)}</p>
                                                 </div>
                                             </motion.div>
                                         );
@@ -275,7 +287,8 @@ export default function HomeClient({ locale }: { locale: string }) {
                                         className="object-cover"
                                         sizes="(max-width: 768px) 100vw, 50vw"
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+                                    <div className="absolute inset-0 bg-green-primary/10 mix-blend-multiply"></div>
+                                    <div className="absolute inset-0 bg-gradient-to-t from-green-dark/80 via-transparent to-transparent"></div>
                                 </motion.div>
 
                                 <motion.div
@@ -293,11 +306,11 @@ export default function HomeClient({ locale }: { locale: string }) {
                             </motion.div>
                         </div>
                     </div>
-                </section>
+                </section >
 
                 {/* Timeline Section */}
-                <section className="py-16 sm:py-20 lg:py-24 bg-zinc-950 text-white relative overflow-hidden">
-                    <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-zinc-800 to-transparent"></div>
+                < section className="py-16 sm:py-20 lg:py-24 bg-white text-ink relative overflow-hidden" >
+                    <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-green-primary/20 to-transparent"></div>
 
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
                         <motion.div
@@ -306,17 +319,17 @@ export default function HomeClient({ locale }: { locale: string }) {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                         >
-                            <span className="text-zinc-500 font-bold tracking-widest uppercase text-xs mb-4 block">
+                            <span className="text-green-primary font-bold tracking-widest uppercase text-xs mb-4 block">
                                 {tHome('timeline.tag')}
                             </span>
-                            <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-6">
+                            <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-ink mb-6">
                                 {tHome('timeline.title')}
                             </h2>
                         </motion.div>
 
                         <div className="relative">
                             <motion.div
-                                className="hidden md:block absolute top-8 left-10 right-10 h-[2px] bg-zinc-800"
+                                className="hidden md:block absolute top-8 left-10 right-10 h-[2px] bg-green-ultra"
                                 initial={{ scaleX: 0 }}
                                 whileInView={{ scaleX: 1 }}
                                 viewport={{ once: true }}
@@ -338,25 +351,25 @@ export default function HomeClient({ locale }: { locale: string }) {
                                         viewport={{ once: true }}
                                         transition={{ delay: index * 0.2, duration: 0.5 }}
                                     >
-                                        <div className="w-4 h-4 rounded-full bg-zinc-800 border-2 border-zinc-600 group-hover:bg-emerald-500 group-hover:border-emerald-400 transition-colors mb-6 z-10 relative">
-                                            <div className="absolute inset-0 bg-emerald-500/50 rounded-full animate-ping opacity-0 group-hover:opacity-100"></div>
+                                        <div className="w-4 h-4 rounded-full bg-white border-2 border-green-primary/30 group-hover:bg-green-primary group-hover:border-green-primary transition-colors mb-6 z-10 relative shadow-sm">
+                                            <div className="absolute inset-0 bg-green-primary/50 rounded-full animate-ping opacity-0 group-hover:opacity-100"></div>
                                         </div>
 
-                                        <h3 className="text-3xl font-bold text-white mb-3 group-hover:text-emerald-400 transition-colors">{item.year}</h3>
+                                        <h3 className="text-3xl font-bold text-ink mb-3 group-hover:text-green-primary transition-colors">{item.year}</h3>
 
                                         <div className="px-4">
-                                            <p className="font-bold text-white mb-2 text-lg">{tHome(`timeline.milestones.${item.year}.title`)}</p>
-                                            <p className="text-zinc-500 text-sm leading-relaxed">{tHome(`timeline.milestones.${item.year}.desc`)}</p>
+                                            <p className="font-bold text-ink mb-2 text-lg">{tHome(`timeline.milestones.${item.year}.title`)}</p>
+                                            <p className="text-ink-muted text-sm leading-relaxed">{tHome(`timeline.milestones.${item.year}.desc`)}</p>
                                         </div>
                                     </motion.div>
                                 ))}
                             </div>
                         </div>
                     </div>
-                </section>
+                </section >
 
                 {/* Services Section - ปรับปรุงใหม่ */}
-                <section id="productsandservices" className="py-4 sm:py-8 lg:py-16 bg-zinc-100">
+                < section id="productsandservices" className="py-4 sm:py-8 lg:py-16 bg-paper-warm" >
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <motion.div
                             className="text-center mb-16 max-w-3xl mx-auto"
@@ -364,11 +377,11 @@ export default function HomeClient({ locale }: { locale: string }) {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                         >
-                            <span className="text-emerald-600 font-bold tracking-wider uppercase text-sm mb-3 block">
+                            <span className="text-green-primary font-bold tracking-wider uppercase text-sm mb-3 block">
                                 {tHome('capabilities_tag')}
                             </span>
-                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-zinc-900 mb-6">{tHome('capabilities')}</h2>
-                            <p className="text-lg sm:text-xl text-zinc-500">{tHome('transform_desc')}</p>
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-ink mb-6">{tHome('capabilities')}</h2>
+                            <p className="text-lg sm:text-xl text-ink-soft">{tHome('transform_desc')}</p>
                         </motion.div>
 
                         <motion.div
@@ -391,26 +404,26 @@ export default function HomeClient({ locale }: { locale: string }) {
                                     <Link href={route} key={key} className="w-full sm:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-1.5rem)] max-w-sm block">
                                         <motion.div
                                             variants={itemVariants}
-                                            className="group relative h-full flex flex-row sm:flex-col items-center sm:items-start bg-white p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-zinc-100 shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden gap-5 sm:gap-0"
+                                            className="group relative h-full flex flex-row sm:flex-col items-center sm:items-start bg-white p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-green-primary/5 shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden gap-5 sm:gap-0"
                                             whileHover={{ y: -10 }}
                                         >
-                                            <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-emerald-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                            <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-green-ultra opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-                                            <div className="relative w-14 h-14 sm:w-16 sm:h-16 bg-zinc-50 rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0 mb-0 sm:mb-8 group-hover:bg-emerald-600 group-hover:rotate-6 transition-all duration-500">
-                                                <Icon size={32} className="text-zinc-700 w-7 h-7 sm:w-8 sm:h-8 group-hover:text-white transition-colors duration-300" />
+                                            <div className="relative w-14 h-14 sm:w-16 sm:h-16 bg-green-ultra rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0 mb-0 sm:mb-8 group-hover:bg-green-primary group-hover:rotate-6 transition-all duration-500">
+                                                <Icon size={32} className="text-green-dark w-7 h-7 sm:w-8 sm:h-8 group-hover:text-white transition-colors duration-300" />
                                             </div>
 
                                             <div className="flex-1 min-w-0 sm:w-full flex flex-col h-full">
-                                                <h3 className="relative text-lg sm:text-xl font-bold text-zinc-900 mb-1 sm:mb-4 group-hover:text-emerald-700 transition-colors line-clamp-1 sm:line-clamp-none">
+                                                <h3 className="relative text-lg sm:text-xl font-bold text-ink mb-1 sm:mb-4 group-hover:text-green-primary transition-colors line-clamp-1 sm:line-clamp-none">
                                                     {tServices(`${key}.title`)}
                                                 </h3>
 
-                                                <div className="relative text-zinc-500 leading-relaxed sm:mb-8 text-sm line-clamp-2 sm:line-clamp-3">
+                                                <div className="relative text-ink-muted leading-relaxed sm:mb-8 text-sm line-clamp-2 sm:line-clamp-3">
                                                     {tServices(`${key}.desc`)}
                                                 </div>
 
-                                                <div className="mt-auto pt-4 border-t border-zinc-100 relative z-10 items-center justify-between hidden sm:flex">
-                                                    <span className="text-sm font-bold text-zinc-400 group-hover:text-emerald-600 transition-colors flex items-center gap-2">
+                                                <div className="mt-auto pt-4 border-t border-green-ultra relative z-10 items-center justify-between hidden sm:flex">
+                                                    <span className="text-sm font-bold text-ink-soft group-hover:text-green-primary transition-colors flex items-center gap-2">
                                                         {tHome('learn_more')}
                                                         <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                                                     </span>
@@ -422,7 +435,7 @@ export default function HomeClient({ locale }: { locale: string }) {
                             })}
                         </motion.div>
                     </div>
-                </section>
+                </section >
 
                 {/* Products Section */}
                 {/* <section className="py-8 sm:py-10 lg:py-12 bg-white border-t border-zinc-100">
@@ -499,7 +512,7 @@ export default function HomeClient({ locale }: { locale: string }) {
                 </section> */}
 
                 {/* Video Gallery Section */}
-                <section id="showcase" className="py-4 sm:py-8 lg:py-16 bg-zinc-100 overflow-hidden">
+                <section id="showcase" className="py-4 sm:py-8 lg:py-16 bg-paper overflow-hidden">
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <motion.div
                             className="text-center mb-12 space-y-4"
@@ -507,13 +520,13 @@ export default function HomeClient({ locale }: { locale: string }) {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                         >
-                            <span className="text-emerald-600 font-bold tracking-wider uppercase text-sm">
+                            <span className="text-green-primary font-bold tracking-wider uppercase text-sm">
                                 {tHome('showcase.tag')}
                             </span>
-                            <h2 className="text-3xl md:text-4xl font-bold text-zinc-900">
+                            <h2 className="text-3xl md:text-4xl font-bold text-ink">
                                 {tHome('showcase.title')}
                             </h2>
-                            <p className="text-lg text-zinc-500 max-w-2xl mx-auto font-light">
+                            <p className="text-lg text-ink-soft max-w-2xl mx-auto font-light">
                                 {tHome('showcase.description')}
                             </p>
                         </motion.div>
@@ -570,8 +583,8 @@ export default function HomeClient({ locale }: { locale: string }) {
                 </section>
 
                 {/* Contact Section */}
-                <section id="contact" className="py-4 sm:py-8 lg:py-12 bg-zinc-950 text-white relative">
-                    <div className="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMCAwaDQwdjQwaC00MFoiLz48cGF0aCBkPSJNMCAwaDF2NDBIOFoiIGZpbGw9IndoaXRlIiBmaWxsLW9wYWNpdHk9Ii4wNSIvPjxwYXRoIGQ9Ik0wIDBoNDB2MUgwWiIgZmlsbD0id2hpdGUiIGZpbGwtb3BhY2l0eT0iLjA1Ii8+PC9nPjwvc3ZnPg==')]"></div>
+                <section id="contact" className="py-4 sm:py-8 lg:py-12 bg-green-ultra text-ink relative">
+                    <div className="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMCAwaDQwdjQwaC00MFoiLz48cGF0aCBkPSJNMCAwaDF2NDBIOFoiIGZpbGw9IiMzNEE4NTMiIGZpbGwtb3BhY2l0eT0iLjIiLz48L2c+PC9zdmc+')]"></div>
 
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
                         <div className="grid lg:grid-cols-2 gap-20 items-center">
@@ -582,13 +595,13 @@ export default function HomeClient({ locale }: { locale: string }) {
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.8 }}
                             >
-                                <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-900/30 border border-emerald-800 rounded-full text-sm font-bold text-emerald-400">
+                                <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-primary/10 border border-green-primary/30 rounded-full text-sm font-bold text-green-dark">
                                     <Mail size={16} /> {tContact('tag')}
                                 </div>
                                 <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight leading-[1.1]">
                                     {tContact('title')}
                                 </h2>
-                                <p className="text-lg sm:text-xl text-zinc-400 font-light leading-relaxed max-w-lg">
+                                <p className="text-lg sm:text-xl text-ink-soft font-light leading-relaxed max-w-lg">
                                     {tContact('description')}
                                 </p>
 
@@ -601,19 +614,19 @@ export default function HomeClient({ locale }: { locale: string }) {
                                     ].map((item, i) => (
                                         <motion.div
                                             key={i}
-                                            className="flex items-start gap-3 group p-2 rounded-2xl hover:bg-white/5 transition-colors cursor-pointer"
+                                            className="flex items-start gap-3 group p-2 rounded-2xl hover:bg-white/50 transition-colors cursor-pointer"
                                             whileHover={{ x: 10 }}
                                             onClick={() => {
                                                 console.log('Home: Contact Clicked', item.action);
                                                 setSelectedContact({ type: item.action.type, value: item.action.value, label: item.label, href: item.action.href });
                                             }}
                                         >
-                                            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-zinc-800 rounded-full flex shrink-0 items-center justify-center text-white group-hover:bg-emerald-600 transition-colors">
+                                            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-full flex shrink-0 items-center justify-center text-green-primary group-hover:bg-green-primary group-hover:text-white transition-colors shadow-sm">
                                                 <item.icon size={18} className="sm:size-5" />
                                             </div>
                                             <div className="min-w-0">
-                                                <p className="text-[10px] sm:text-xs font-bold text-zinc-500 uppercase tracking-widest mb-0.5 sm:mb-1">{item.label}</p>
-                                                <p className="font-medium text-white text-base sm:text-lg break-all sm:break-words leading-tight">{item.val}</p>
+                                                <p className="text-[10px] sm:text-xs font-bold text-ink-muted uppercase tracking-widest mb-0.5 sm:mb-1">{item.label}</p>
+                                                <p className="font-medium text-ink text-base sm:text-lg break-all sm:break-words leading-tight">{item.val}</p>
                                             </div>
                                         </motion.div>
                                     ))}
@@ -621,7 +634,7 @@ export default function HomeClient({ locale }: { locale: string }) {
                             </motion.div>
 
                             <motion.div
-                                className="bg-zinc-900 p-8 md:p-12 rounded-[2.5rem] border border-zinc-800 shadow-2xl"
+                                className="bg-white p-8 md:p-12 rounded-[2.5rem] border border-green-primary/10 shadow-2xl"
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
@@ -629,13 +642,13 @@ export default function HomeClient({ locale }: { locale: string }) {
                                 whileHover={{ y: -5 }}
                             >
                                 <div className="mb-8">
-                                    <h3 className="text-2xl font-bold text-white mb-2">{tHome('careers_cta.title')}</h3>
+                                    <h3 className="text-2xl font-bold text-ink mb-2">{tHome('careers_cta.title')}</h3>
                                     <button
                                         onClick={() => {
                                             console.log('Home: Careers Email Clicked');
                                             setSelectedContact({ type: 'mailto', value: 'hr@eurekaautomation.co.th', label: 'HR Recruitment' });
                                         }}
-                                        className="text-zinc-400 mb-1 block hover:text-emerald-500 transition-colors text-left"
+                                        className="text-ink-muted mb-1 block hover:text-green-primary transition-colors text-left"
                                     >
                                         {tHome('careers_cta.hr_contact')}
                                     </button>
@@ -644,14 +657,14 @@ export default function HomeClient({ locale }: { locale: string }) {
                                             console.log('Home: Careers Phone Clicked');
                                             setSelectedContact({ type: 'tel', value: '0944096287', label: 'HR Recruitment' });
                                         }}
-                                        className="text-zinc-400 mb-4 block hover:text-emerald-500 transition-colors text-left"
+                                        className="text-ink-muted mb-4 block hover:text-green-primary transition-colors text-left"
                                     >
                                         {tHome('careers_cta.hr_phone')}
                                     </button>
                                 </div>
                                 <Link
                                     href="/careers"
-                                    className="flex items-center justify-between w-full p-6 bg-emerald-600 hover:bg-emerald-500 text-white rounded-2xl font-bold transition-all group"
+                                    className="flex items-center justify-between w-full p-6 bg-green-primary hover:bg-green-dark text-white rounded-2xl font-bold transition-all group"
                                 >
                                     <span>{tHome('careers_cta.button')}</span>
                                     <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -662,12 +675,13 @@ export default function HomeClient({ locale }: { locale: string }) {
                         </div>
                     </div>
                 </section>
-            </div>
+            </div >
 
             {/* Contact Confirmation Modal */}
-            <ContactModal
+            < ContactModal
                 selectedContact={selectedContact}
-                onClose={() => setSelectedContact(null)}
+                onClose={() => setSelectedContact(null)
+                }
                 onConfirm={handleConfirm}
             />
         </>

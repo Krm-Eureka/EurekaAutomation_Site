@@ -26,13 +26,13 @@ export function Footer() {
 
   return (
     <>
-      <footer className="bg-zinc-950 text-zinc-400 border-t border-zinc-900">
+      <footer className="bg-green-ultra text-ink-muted border-t border-green-primary/10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
             {/* Company Info */}
             <div className="space-y-6">
               <Link href="/" className="block">
-                <div className={`relative h-14 w-52 brightness-0 invert opacity-100 hover:opacity-100 transition-opacity cursor-pointer`}>
+                <div className={`relative h-14 w-52 transition-all cursor-pointer`}>
                   <Image
                     src={withBasePath("/eureka-logo.png")}
                     alt="Eureka Automation"
@@ -42,17 +42,17 @@ export function Footer() {
                   />
                 </div>
               </Link>
-              <p className="text-sm leading-relaxed max-w-xs">
+              <p className="text-sm leading-relaxed max-w-xs text-ink-soft">
                 {t('description')}
               </p>
               <div className="flex gap-4">
-                <a href="https://linkedin.com/company/eureka-automation-thailand" target="_blank" rel="noopener noreferrer" className="p-2 bg-zinc-900 rounded-full hover:text-white transition-colors">
+                <a href="https://linkedin.com/company/eureka-automation-thailand" target="_blank" rel="noopener noreferrer" className="p-2 bg-white rounded-full hover:text-green-primary hover:shadow-md transition-all text-ink">
                   <Linkedin size={18} />
                 </a>
-                <a href="https://facebook.com/EurekaAutomationThailand" target="_blank" rel="noopener noreferrer" className="p-2 bg-zinc-900 rounded-full hover:text-white transition-colors">
+                <a href="https://facebook.com/EurekaAutomationThailand" target="_blank" rel="noopener noreferrer" className="p-2 bg-white rounded-full hover:text-green-primary hover:shadow-md transition-all text-ink">
                   <Facebook size={18} />
                 </a>
-                <a href="https://www.youtube.com/channel/UCk8yICYGWD3uvI7QPjA08kQ" target="_blank" rel="noopener noreferrer" className="p-2 bg-zinc-900 rounded-full hover:text-white transition-colors">
+                <a href="https://www.youtube.com/channel/UCk8yICYGWD3uvI7QPjA08kQ" target="_blank" rel="noopener noreferrer" className="p-2 bg-white rounded-full hover:text-green-primary hover:shadow-md transition-all text-ink">
                   <Youtube size={18} />
                 </a>
               </div>
@@ -60,27 +60,27 @@ export function Footer() {
 
             {/* Quick Links */}
             <div>
-              <h4 className="font-semibold text-white mb-6 uppercase tracking-wider text-xs">
+              <h4 className="font-bold text-ink mb-6 uppercase tracking-wider text-xs">
                 {t('quick_links')}
               </h4>
               <ul className="space-y-4 text-sm">
                 <li>
-                  <Link href="#about" className="hover:text-white transition-colors">
+                  <Link href="#about" className="hover:text-green-primary transition-colors">
                     {tNav('about')}
                   </Link>
                 </li>
                 <li>
-                  <Link href="#productsandservices" className="hover:text-white transition-colors">
+                  <Link href="#productsandservices" className="hover:text-green-primary transition-colors">
                     {tNav('products & Services')}
                   </Link>
                 </li>
                 <li>
-                  <Link href="/careers" className="hover:text-white transition-colors">
+                  <Link href="/careers" className="hover:text-green-primary transition-colors">
                     {tNav('careers')}
                   </Link>
                 </li>
                 <li>
-                  <Link href="#contact" className="hover:text-white transition-colors">
+                  <Link href="#contact" className="hover:text-green-primary transition-colors">
                     {tNav('contact')}
                   </Link>
                 </li>
@@ -89,23 +89,23 @@ export function Footer() {
 
             {/* Services */}
             <div>
-              <h4 className="font-semibold text-white mb-6 uppercase tracking-wider text-xs">
+              <h4 className="font-bold text-ink mb-6 uppercase tracking-wider text-xs">
                 {t('services')}
               </h4>
               <ul className="space-y-4 text-sm">
                 <li>
-                  <Link href="/custom-machines" className="hover:text-white transition-colors">
+                  <Link href="/custom-machines" className="hover:text-green-primary transition-colors">
                     {tHome('services.custom_machines.title')}
                   </Link>
                 </li>
 
                 <li>
-                  <Link href="/robotics" className="hover:text-white transition-colors">
+                  <Link href="/robotics" className="hover:text-green-primary transition-colors">
                     {tHome('services.automation.title')}
                   </Link>
                 </li>
                 <li>
-                  <Link href="/logistics" className="hover:text-white transition-colors">
+                  <Link href="/logistics" className="hover:text-green-primary transition-colors">
                     {tHome('services.smart_logistics.title')}
                   </Link>
                 </li>
@@ -114,7 +114,7 @@ export function Footer() {
 
             {/* Contact */}
             <div>
-              <h4 className="font-semibold text-white mb-6 uppercase tracking-wider text-xs">
+              <h4 className="font-bold text-ink mb-6 uppercase tracking-wider text-xs">
                 {t('contact')}
               </h4>
               <ul className="space-y-4 text-sm">
@@ -125,12 +125,12 @@ export function Footer() {
                     setSelectedContact({ type: 'tel', value: '020963556', label: 'Call Us' });
                   }}
                 >
-                  <div className="w-10 h-10 bg-zinc-900 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-emerald-600 transition-colors">
-                    <Phone size={16} className="text-zinc-300 group-hover:text-white" />
+                  <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shrink-0 group-hover:bg-green-primary transition-colors shadow-sm">
+                    <Phone size={16} className="text-ink-soft group-hover:text-white" />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-[10px] text-emerald-500 font-bold tracking-widest uppercase mb-0.5">Call Us</span>
-                    <span className="text-zinc-300">02-096-3556</span>
+                    <span className="text-[10px] text-green-primary font-bold tracking-widest uppercase mb-0.5">Call Us</span>
+                    <span className="text-ink-soft group-hover:text-green-dark transition-colors">02-096-3556</span>
                   </div>
                 </li>
                 <li
@@ -140,12 +140,12 @@ export function Footer() {
                     setSelectedContact({ type: 'mailto', value: 'Marketing@eurekaautomation.co.th', label: 'Marketing' });
                   }}
                 >
-                  <div className="w-10 h-10 bg-zinc-900 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-emerald-600 transition-colors">
-                    <Mail size={16} className="text-zinc-300 group-hover:text-white" />
+                  <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shrink-0 group-hover:bg-green-primary transition-colors shadow-sm">
+                    <Mail size={16} className="text-ink-soft group-hover:text-white" />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-[10px] text-emerald-500 font-bold tracking-widest uppercase mb-0.5 block">Marketing</span>
-                    <span className="text-zinc-300 break-all lg:break-normal">Marketing@eurekaautomation.co.th</span>
+                    <span className="text-[10px] text-green-primary font-bold tracking-widest uppercase mb-0.5 block">Marketing</span>
+                    <span className="text-ink-soft group-hover:text-green-dark transition-colors break-all lg:break-normal">Marketing@eurekaautomation.co.th</span>
                   </div>
                 </li>
                 <li
@@ -155,12 +155,12 @@ export function Footer() {
                     setSelectedContact({ type: 'line', value: '@636ekooa', label: 'Line OA', href: 'https://line.me/ti/p/@636ekooa' });
                   }}
                 >
-                  <div className="w-10 h-10 bg-zinc-900 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-emerald-600 transition-colors">
-                    <MessageSquare size={16} className="text-zinc-300 group-hover:text-white" />
+                  <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shrink-0 group-hover:bg-green-primary transition-colors shadow-sm">
+                    <MessageSquare size={16} className="text-ink-soft group-hover:text-white" />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-[10px] text-emerald-500 font-bold tracking-widest uppercase mb-0.5">Line OA</span>
-                    <span className="text-zinc-300">@636ekooa</span>
+                    <span className="text-[10px] text-green-primary font-bold tracking-widest uppercase mb-0.5">Line OA</span>
+                    <span className="text-ink-soft group-hover:text-green-dark transition-colors">@636ekooa</span>
                   </div>
                 </li>
                 <li
@@ -170,20 +170,20 @@ export function Footer() {
                     setSelectedContact({ type: 'map', value: 'https://www.google.com/maps/search/?api=1&query=Eureka+Automation+Thailand+48/15+Moo+4+Biggerland+4+Klong+8', label: 'Location' });
                   }}
                 >
-                  <div className="w-10 h-10 bg-zinc-900 rounded-xl flex items-center justify-center shrink-0 mt-1 group-hover:bg-emerald-600 transition-colors">
-                    <MapPin size={16} className="text-zinc-300 group-hover:text-white" />
+                  <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shrink-0 mt-1 group-hover:bg-green-primary transition-colors shadow-sm">
+                    <MapPin size={16} className="text-ink-soft group-hover:text-white" />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-[10px] text-emerald-500 font-bold tracking-widest uppercase mb-0.5">Location</span>
-                    <span className="text-zinc-300">Pathum Thani, <br />Thailand</span>
+                    <span className="text-[10px] text-green-primary font-bold tracking-widest uppercase mb-0.5">Location</span>
+                    <span className="text-ink-soft group-hover:text-green-dark transition-colors">Pathum Thani, <br />Thailand</span>
                   </div>
                 </li>
               </ul>
             </div>
           </div>
 
-          <div className="mt-16 pt-8 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium uppercase tracking-widest">
-            <p className="text-zinc-600">
+          <div className="mt-16 pt-8 border-t border-green-primary/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium uppercase tracking-widest">
+            <p className="text-ink-muted">
               &copy; {currentYear} Eureka Automation.
             </p>
           </div>
