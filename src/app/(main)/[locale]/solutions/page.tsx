@@ -73,6 +73,10 @@ export default async function SolutionsPage({
           <div className="grid lg:grid-cols-2 gap-12">
             {solutions.map((solution) => {
               const Icon = solution.icon;
+              const href = solution.slug === 'amr-agv'
+                ? `/${locale}/logistics`
+                : `/${locale}/#contact?subject=wms`;
+
               return (
                 <div key={solution.slug} className="group p-10 bg-zinc-50 rounded-3xl border border-zinc-100 hover:border-emerald-500/20 hover:bg-white hover:shadow-2xl transition-all">
                   <div className="mb-8 w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-zinc-900 shadow-sm group-hover:bg-emerald-600 group-hover:text-white transition-all">
@@ -92,7 +96,7 @@ export default async function SolutionsPage({
                       </li>
                     ))}
                   </ul>
-                  <Link href={`/${locale}/#contact`} className="inline-flex items-center gap-2 font-bold text-zinc-900 group-hover:text-emerald-600 transition-colors">
+                  <Link href={href} className="inline-flex items-center gap-2 font-bold text-zinc-900 group-hover:text-emerald-600 transition-colors">
                     {tCommon('get_started')} <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
                   </Link>
                 </div>

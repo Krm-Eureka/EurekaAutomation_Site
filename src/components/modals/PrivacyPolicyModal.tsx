@@ -112,25 +112,32 @@ export default function PrivacyPolicyModal({ isOpen, onClose, onAccept }: Privac
     }, []);
 
     // Prevent scrolling when modal is open
-    if (typeof window !== 'undefined') {
-        const preventScroll = () => {
-            document.documentElement.style.overflow = 'hidden';
-            document.body.style.overflow = 'hidden';
-            document.body.style.touchAction = 'none'; // Prevent touch scrolling on body
-        };
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const preventScroll = () => {
+                document.documentElement.style.overflow = 'hidden';
+                document.body.style.overflow = 'hidden';
+                document.body.style.touchAction = 'none'; // Prevent touch scrolling on body
+            };
 
-        const allowScroll = () => {
-            document.documentElement.style.overflow = '';
-            document.body.style.overflow = '';
-            document.body.style.touchAction = '';
-        };
+            const allowScroll = () => {
+                document.documentElement.style.overflow = '';
+                document.body.style.overflow = '';
+                document.body.style.touchAction = '';
+            };
 
-        if (isOpen) {
-            preventScroll();
-        } else {
-            allowScroll();
+            if (isOpen) {
+                preventScroll();
+            } else {
+                allowScroll();
+            }
+
+            // Cleanup function to ensure scroll is restored when component unmounts or modal closes
+            return () => {
+                allowScroll();
+            };
         }
-    }
+    }, [isOpen]);
 
     if (!mounted) return null;
 

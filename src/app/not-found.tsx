@@ -4,25 +4,14 @@ import "@/app/globals.css";
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Home, ArrowLeft, Search } from 'lucide-react';
+import { Home, ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Prompt, Outfit } from "next/font/google";
-
-const prompt = Prompt({
-    subsets: ["latin", "thai"],
-    weight: ["300", "400", "500", "600", "700", "800", "900"],
-    variable: '--font-prompt'
-});
-
-const outfit = Outfit({
-    subsets: ["latin"],
-    weight: ["300", "400", "500", "600", "700", "800", "900"],
-    variable: '--font-outfit'
-});
+import { useTranslations } from 'next-intl';
 
 export default function NotFound() {
     const router = useRouter();
     const [countdown, setCountdown] = useState(3);
+    const t = useTranslations('common.NotFound');
 
     useEffect(() => {
         if (countdown <= 0) {
@@ -54,16 +43,16 @@ export default function NotFound() {
                     </h1>
 
                     <h2 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
-                        Oops! Page Not Found
+                        {t('heading')}
                     </h2>
 
                     <p className="text-zinc-400 text-lg md:text-xl mb-6 font-light leading-relaxed max-w-lg mx-auto">
-                        The page you are looking for doesn&apos;t exist or has been moved.
+                        {t('description')}
                     </p>
 
                     <div className="mb-12">
                         <p className="text-emerald-500 font-bold animate-pulse">
-                            Redirecting to homepage in {countdown} seconds...
+                            {t('redirecting', { countdown })}
                         </p>
                     </div>
 
@@ -73,7 +62,7 @@ export default function NotFound() {
                             className="flex items-center gap-3 px-10 py-5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-2xl font-bold transition-all shadow-[0_20px_40px_rgba(16,185,129,0.2)] group"
                         >
                             <Home size={20} />
-                            Back to Homepage
+                            {t('back_home')}
                         </Link>
 
                         <button
@@ -81,7 +70,7 @@ export default function NotFound() {
                             className="flex items-center gap-3 px-10 py-5 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-2xl font-bold transition-all backdrop-blur-sm"
                         >
                             <ArrowLeft size={20} />
-                            <span>Go Back</span>
+                            <span>{t('go_back')}</span>
                         </button>
                     </div>
                 </motion.div>

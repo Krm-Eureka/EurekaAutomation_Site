@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import { Link } from '@/i18n/routing';
-import { Send, CheckCircle2, AlertCircle, Loader2, User, Mail, Phone, Briefcase, MessageSquare, ShieldCheck, Lock } from 'lucide-react';
-import Script from 'next/script';
+// import { Link } from '@/i18n/routing';
+import { Send, CheckCircle2, AlertCircle, Loader2, User, Mail, Phone, Briefcase, MessageSquare, ShieldCheck } from 'lucide-react';
 import PrivacyPolicyModal from '@/components/modals/PrivacyPolicyModal';
 import { useLocale } from 'next-intl';
 

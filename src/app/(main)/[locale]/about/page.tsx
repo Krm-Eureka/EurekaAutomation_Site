@@ -7,7 +7,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
   return {
     title: t('title'),
-    description: t('description'),
+    description: t('hero_desc'),
     alternates: {
       canonical: `/${locale}/about`,
       languages: {
@@ -43,7 +43,7 @@ export default async function AboutPage({
             {t("title")}
           </h1>
           <p className="text-xl text-slate-300 max-w-3xl leading-relaxed">
-            {t("description")}
+            {t("hero_desc")}
           </p>
         </div>
       </section>
@@ -57,7 +57,7 @@ export default async function AboutPage({
                 {t("who_we_are")}
               </h2>
               <p className="text-lg text-slate-600 leading-relaxed">
-                {t("description")}
+                {t("overview_desc")}
               </p>
               <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100">
                 <p className="text-slate-600 italic">
@@ -69,7 +69,7 @@ export default async function AboutPage({
               <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 via-emerald-700 to-zinc-900 opacity-90"></div>
               <div className="absolute inset-0 flex flex-col items-center justify-center text-white/40">
                 <Factory size={80} strokeWidth={1} className="mb-4" />
-                <span className="text-xs uppercase tracking-[0.3em] font-bold">{t("placeholder")}</span>
+                {/* <span className="text-xs uppercase tracking-[0.3em] font-bold">{t("placeholder")}</span> */}
               </div>
             </div>
           </div>

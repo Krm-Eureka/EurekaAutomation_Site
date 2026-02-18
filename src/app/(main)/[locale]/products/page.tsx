@@ -1,4 +1,4 @@
-// import Link from "next/link";
+import Link from "next/link";
 import { Factory, Sparkles, ChevronRight, Package, Cog, ShieldCheck, HeartHandshake } from "lucide-react";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 
@@ -28,6 +28,7 @@ export default async function ProductsPage({
   setRequestLocale(locale);
   const t = await getTranslations('products');
   const tNav = await getTranslations('nav');
+  const tCommon = await getTranslations('common');
 
   const categories = [
     {
@@ -70,10 +71,15 @@ export default async function ProductsPage({
           <div className="grid md:grid-cols-2 gap-12">
             {categories.map((category) => {
               const Icon = category.icon;
+              const isComingSoon = category.slug === 'standard-machines';
+              const href = !isComingSoon ? `/${locale}/custom-machines` : '#';
+              const Wrapper = isComingSoon ? 'div' : Link;
+
               return (
-                <div
+                <Wrapper
                   key={category.slug}
-                  className="group relative overflow-hidden rounded-3xl bg-zinc-900 aspect-[16/10] flex flex-col justify-end p-10 hover:shadow-2xl transition-all"
+                  href={href as string}
+                  className={`group relative overflow-hidden rounded-3xl bg-zinc-900 aspect-[16/10] flex flex-col justify-end p-10 transition-all ${!isComingSoon ? 'hover:shadow-2xl cursor-pointer' : 'cursor-default opacity-90'}`}
                 >
                   <div className={`absolute top-0 right-0 w-32 h-32 ${category.tagColor} opacity-20 blur-3xl group-hover:opacity-40 transition-opacity`}></div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10"></div>
@@ -86,11 +92,15 @@ export default async function ProductsPage({
                     <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
                       {category.title}
                     </h2>
-                    <button className="flex items-center gap-2 text-white/60 font-bold group-hover:text-white transition-colors">
-                      {t('view_catalogue')} <ChevronRight size={20} className="group-hover:translate-x-2 transition-transform" />
-                    </button>
+                    <span className={`flex items-center gap-2 font-bold transition-colors ${isComingSoon ? 'text-zinc-500' : 'text-white/60 group-hover:text-white'}`}>
+                      {isComingSoon ? tCommon('coming_soon') : (
+                        <>
+                          {t('view_catalogue')} <ChevronRight size={20} className="group-hover:translate-x-2 transition-transform" />
+                        </>
+                      )}
+                    </span>
                   </div>
-                </div>
+                </Wrapper>
               );
             })}
           </div>

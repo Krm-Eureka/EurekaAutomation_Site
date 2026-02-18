@@ -7,7 +7,8 @@ import { Home, ArrowLeft, Search } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function NotFound() {
-    const t = useTranslations('common.not_found');
+    const t = useTranslations('common.NotFound');
+    const tCommon = useTranslations('common');
     const router = useRouter();
     const [countdown, setCountdown] = useState(3);
 
@@ -45,7 +46,7 @@ export default function NotFound() {
                     </h1>
 
                     <h2 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
-                        {t('title')}
+                        {t('heading')}
                     </h2>
 
                     <p className="text-zinc-400 text-lg md:text-xl mb-6 font-light leading-relaxed max-w-lg mx-auto">
@@ -54,7 +55,7 @@ export default function NotFound() {
 
                     <div className="mb-12">
                         <p className="text-emerald-500 font-bold animate-pulse">
-                            Redirecting to homepage in {countdown} seconds...
+                            {t('redirecting', { countdown })}
                         </p>
                     </div>
 
@@ -72,7 +73,7 @@ export default function NotFound() {
                             className="flex items-center gap-3 px-10 py-5 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-2xl font-bold transition-all backdrop-blur-sm"
                         >
                             <ArrowLeft size={20} />
-                            <span>{useTranslations('common')('back')}</span>
+                            <span>{tCommon('back')}</span>
                         </button>
                     </div>
                 </motion.div>

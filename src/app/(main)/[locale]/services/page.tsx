@@ -29,8 +29,9 @@ export default async function ServicesPage({
   const t = await getTranslations('home');
   const tNav = await getTranslations('nav');
   const tServices = await getTranslations('home.services');
+  const tCommon = await getTranslations('common');
 
-  const serviceKeys = ['ai_ml', 'automation', 'custom_machines', 'smart_logistics', 'plc', 'cnc'] as const;
+  const serviceKeys = ['automation', 'custom_machines', 'smart_logistics', 'ai_ml', 'plc', 'cnc'] as const;
   const serviceIcons = {
     ai_ml: Zap,
     automation: Settings,
@@ -77,9 +78,23 @@ export default async function ServicesPage({
                   <p className="text-zinc-500 leading-relaxed mb-8">
                     {tServices(`${key}.desc`)}
                   </p>
-                  <Link href={`/${locale}/#services`} className="inline-flex items-center font-bold text-zinc-900 hover:text-emerald-600 transition-colors">
-                    {t('learn_more')} <ArrowRight size={20} className="ml-2" />
-                  </Link>
+                  {['plc', 'cnc', 'ai_ml'].includes(key) ? (
+                    <span className="inline-flex items-center font-bold text-zinc-400 cursor-not-allowed">
+                      {tCommon('coming_soon')}
+                    </span>
+                  ) : (
+                    <Link
+                      href={
+                        key === 'ai_ml' ? `/${locale}/ai-solutions` :
+                          key === 'automation' ? `/${locale}/robotics` :
+                            key === 'custom_machines' ? `/${locale}/custom-machines` :
+                              `/${locale}/logistics`
+                      }
+                      className="inline-flex items-center font-bold text-zinc-900 hover:text-emerald-600 transition-colors"
+                    >
+                      {t('learn_more')} <ArrowRight size={20} className="ml-2" />
+                    </Link>
+                  )}
                 </div>
               );
             })}

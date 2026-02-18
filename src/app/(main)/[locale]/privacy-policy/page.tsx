@@ -36,7 +36,7 @@ export default async function PrivacyPolicy({
                         {t('subtitle')}
                     </p>
                     <p className="text-sm text-zinc-400 mt-6 font-mono uppercase tracking-widest">
-                        {t('last_updated')}: February 17, 2026
+                        {t('last_updated')}: {t('last_updated_date')}
                     </p>
                 </div>
             </div>
@@ -123,7 +123,7 @@ export default async function PrivacyPolicy({
                             </div>
                             <div>
                                 <div className="text-xs text-zinc-500 uppercase tracking-wider mb-0.5">Email</div>
-                                <a href="mailto:HR@eurekaautomation.co.th" className="hover:text-emerald-400 transition-colors font-medium">HR@eurekaautomation.co.th</a>
+                                <a href={`mailto:${t('contact.email')}`} className="hover:text-emerald-400 transition-colors font-medium">{t('contact.email')}</a>
                             </div>
                         </div>
                         <div className="flex items-center gap-4">
@@ -132,7 +132,7 @@ export default async function PrivacyPolicy({
                             </div>
                             <div>
                                 <div className="text-xs text-zinc-500 uppercase tracking-wider mb-0.5">Phone</div>
-                                <a href="tel:02-192-3737" className="hover:text-emerald-400 transition-colors font-medium">02-192-3737</a>
+                                <a href={`tel:${t('contact.phone')}`} className="hover:text-emerald-400 transition-colors font-medium">{t('contact.phone')}</a>
                             </div>
                         </div>
                         <div className="col-span-full flex items-start gap-4 pt-4 border-t border-white/10">

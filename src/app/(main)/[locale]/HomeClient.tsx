@@ -241,7 +241,7 @@ export default function HomeClient({ locale }: { locale: string }) {
                                     {tAbout('title')}
                                 </h2>
                                 <p className="text-xl text-ink-soft leading-relaxed font-light">
-                                    {tAbout('description')}
+                                    {tAbout('overview_desc')}
                                 </p>
 
                                 <div className="space-y-6 pt-6">

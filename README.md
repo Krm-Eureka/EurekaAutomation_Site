@@ -24,7 +24,7 @@ A modern, high-performance industrial automation website built with Next.js 15 (
 ## 📁 Site Structure
 
 ```
-/                        → Redirects to /en
+/                        → Auto-redirects to /th or /en based on browser language
 ├── /en (English)
 │   ├── / (Home)
 │   ├── /about
@@ -66,6 +66,7 @@ A modern, high-performance industrial automation website built with Next.js 15 (
 - ✅ Mobile-first responsive design
 - ✅ Service/Product cards with hover effects
 - ✅ Language switcher (EN/TH)
+- ✅ Browser Language Detection (Auto-redirect on root)
 
 ### SEO & Optimization
 - ✅ JSON-LD structured data helpers
@@ -179,8 +180,8 @@ When adding new pages:
 ## 📞 Support
 
 For questions or issues:
-- Email: info@eureka-automation.com
-- Phone: +66 XX XXX XXXX
+- Email: marketing@eurekaautomation.co.th
+- Phone: 020963556
 
 ---
 

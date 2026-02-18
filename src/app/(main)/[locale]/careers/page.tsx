@@ -25,18 +25,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 import positionsData from "@/data/careers.json";
 
-interface CareerPosition {
-    status: string;
-    dept: { th: string; en: string };
-    title: { th: string; en: string };
-    location: { th: string; en: string };
-    type: { th: string; en: string };
-    desc: { th: string | string[]; en: string | string[] };
-    experience: { th: string; en: string };
-    education: { th: string; en: string };
-    salary: { th: string; en: string };
-}
-
 export default async function CareersPage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params;
     setRequestLocale(locale);
@@ -44,30 +32,29 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
 
     // Use centralized JSON data instead of translation files for positions
     // Flatten the grouped data first, ignoring non-array entries (like _comment or BENEFITS)
-    const allPositions = (Object.values(positionsData) as any[])
-        .filter((val) => Array.isArray(val))
-        .flat()
-        .filter(p => typeof p === 'object' && p !== null);
+    const allPositions = Object.entries(positionsData as any)
+        .filter(([key]) => key !== 'BENEFITS' && !key.startsWith('_'))
+        .flatMap(([, value]) => Array.isArray(value) ? value : [])
+        .filter((p): p is any => typeof p === 'object' && p !== null);
 
     // Filter and map positions
-    const positions = (allPositions as any[])
-        .filter(pos => pos.status === 'open')
-        .map((pos, idx) => ({
+    const positions = allPositions
+        .filter((pos: any) => pos.status === 'open')
+        .map((pos: any, idx: number) => ({
             id: idx.toString(),
-            dept: pos.dept?.[locale as 'th' | 'en'] || '',
-            title: pos.title?.[locale as 'th' | 'en'] || '',
-            location: pos.location?.[locale as 'th' | 'en'] || '',
-            type: pos.type?.[locale as 'th' | 'en'] || '',
-            desc: pos.desc?.[locale as 'th' | 'en'] || [],
-            experience: pos.experience?.[locale as 'th' | 'en'] || '',
-            education: pos.education?.[locale as 'th' | 'en'] || '',
-            salary: pos.salary?.[locale as 'th' | 'en'] || '',
-            qualification: pos.qualification?.[locale as 'th' | 'en'] || [],
-            benefits: pos.benefits?.[locale as 'th' | 'en'] || []
+            dept: pos.dept?.[locale] || '',
+            title: pos.title?.[locale] || '',
+            location: pos.location?.[locale] || '',
+            type: pos.type?.[locale] || '',
+            desc: pos.desc?.[locale] || [],
+            experience: pos.experience?.[locale] || '',
+            education: pos.education?.[locale] || '',
+            salary: pos.salary?.[locale] || '',
+            qualification: pos.qualification?.[locale] || [],
+            benefits: pos.benefits?.[locale] || []
         }));
 
     const positionKeys = positions.map(pos => pos.id);
-    // Use generic benefits from JSON if available, otherwise fallback or empty
     const globalBenefits = (positionsData as { BENEFITS: Record<string, string[]> }).BENEFITS?.[locale as 'th' | 'en'] || [];
     const benefits = globalBenefits.length > 0 ? globalBenefits : (t.raw('benefits_list') as string[]);
 

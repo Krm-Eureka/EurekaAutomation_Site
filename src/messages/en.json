@@ -4,6 +4,8 @@
         "related_videos": "Related Videos",
         "showcase": "Showcase",
         "activities": "Activities",
+        "actions": "Actions",
+        "coming_soon": "Coming Soon",
         "get_started": "Get Started",
         "seo": {
             "default_title": "Eureka Automation | Advanced Industrial Solutions Thailand",
@@ -21,10 +23,13 @@
             "blog_title": "Insights & Blog | Eureka Automation",
             "blog_description": "Stay updated with the latest trends in manufacturing technology and automation."
         },
-        "not_found": {
+        "NotFound": {
             "title": "Oops! Page Not Found",
+            "heading": "Oops! Page Not Found",
             "description": "The page you are looking for doesn't exist or has been moved. Let's get you back on track.",
-            "back_home": "Back to Homepage"
+            "redirecting": "Redirecting to homepage in {countdown} seconds...",
+            "back_home": "Back to Homepage",
+            "go_back": "Go Back"
         }
     },
     "nav": {
@@ -65,7 +70,8 @@
         "tag": "Our Legacy",
         "title": "A Decade of Engineering Precision",
         "who_we_are": "Who We Are",
-        "description": "Since 2010, Eureka Automation has been a trusted partner in designing and manufacturing innovative industrial solutions for global leaders in the Automotive and Electronics sectors.",
+        "hero_desc": "A Decade of Engineering Precision",
+        "overview_desc": "Since 2010, Eureka Automation has been a trusted partner in designing and manufacturing innovative industrial solutions for global leaders in the Automotive and Electronics sectors.",
         "comprehensive_services": "Our comprehensive services include requirement analysis, mechanical/electrical design, CNC machining, PLC programming, and complete machine assembly.",
         "values": {
             "innovation": {
@@ -362,6 +368,7 @@
         "title": "Privacy Policy",
         "subtitle": "We value your privacy and are committed to protecting your personal data in compliance with the Personal Data Protection Act (PDPA).",
         "last_updated": "Last Updated",
+        "last_updated_date": "February 17, 2026",
         "seo": {
             "title": "Privacy Policy | Eureka Automation",
             "description": "Our commitment to protecting your personal data and privacy rights."
@@ -413,7 +420,9 @@
         },
         "contact": {
             "title": "Contact Us",
-            "desc": "If you have any questions about this privacy policy or our privacy practices, please contact our HR Department:"
+            "desc": "If you have any questions about this privacy policy or our privacy practices, please contact our HR Department:",
+            "email": "HR@eurekaautomation.co.th",
+            "phone": "02-192-3737"
         }
     }
 }

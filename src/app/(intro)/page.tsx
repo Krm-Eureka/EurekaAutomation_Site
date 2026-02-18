@@ -13,7 +13,12 @@ export default function RootPage() {
     console.log("⚡ [EUREKA] System Booting...");
 
     const timer = setTimeout(() => {
-      router.replace('/en');
+      // Detect browser language
+      const browserLang = typeof navigator !== 'undefined' ? (navigator.language || (navigator.languages && navigator.languages[0])) : 'en';
+      const targetPath = browserLang?.toLowerCase().startsWith('th') ? '/th' : '/en';
+
+      console.log(`⚡ [EUREKA] Detected Language: ${browserLang} -> Redirecting to: ${targetPath}`);
+      router.replace(targetPath);
     }, 1200);
 
     return () => clearTimeout(timer);
