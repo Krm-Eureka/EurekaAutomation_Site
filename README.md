@@ -19,7 +19,7 @@ A modern, high-performance industrial automation website built with Next.js 15 (
 | **Animations** | Framer Motion | Professional animations |
 | **i18n** | Path-based routing (`/[lang]`) | Works with static export |
 | **SEO** | next-sitemap + Metadata API | Automated sitemap + SEO optimization |
-| **Package Manager** | npm | As required |
+| **Package Manager** | bun | Fast, all-in-one toolkit |
 
 ## 📁 Site Structure
 
@@ -84,13 +84,13 @@ A modern, high-performance industrial automation website built with Next.js 15 (
 
 ```bash
 # Install dependencies
-npm install
+bun install
 
 # Development server
-npm run dev
+bun run dev
 
 # Build for production
-npm run build
+bun run build
 
 # The output will be in ./out directory
 ```
@@ -102,7 +102,7 @@ The site is configured for static export to HostNeverDie shared hosting.
 See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions.
 
 **Key points**:
-- Run `npm run build`
+- Run `bun run build`
 - Upload contents of `out/` folder to `public_html/`
 - Ensure `.htaccess` is configured (optional)
 
@@ -174,7 +174,7 @@ When adding new pages:
 2. Add navigation link in Header component
 3. Update Footer if needed
 4. Add metadata for SEO
-5. Test build with `npm run build`
+5. Test build with `bun run build`
 
 ## 📞 Support
 
