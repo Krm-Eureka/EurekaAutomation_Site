@@ -81,10 +81,16 @@ export default function ServiceDetailClient({
                         />
                     )}
                     {backgroundImage && (
-                        <div
-                            className="absolute inset-0 z-0 bg-cover bg-center opacity-20"
-                            style={{ backgroundImage: `url(${withBasePath(backgroundImage)})` }}
-                        />
+                        <>
+                            <div className={`absolute inset-0 z-0 bg-zinc-900 animate-pulse transition-opacity duration-1000`} />
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 1 }}
+                                className="absolute inset-0 z-0 bg-cover bg-center opacity-20"
+                                style={{ backgroundImage: `url(${withBasePath(backgroundImage)})` }}
+                            />
+                        </>
                     )}
                     {/* Theme Glow Effects */}
                     <div className={`absolute top-[-10%] right-[-10%] w-[500px] h-[500px] ${themeColor} rounded-full blur-[100px] animate-pulse`}></div>

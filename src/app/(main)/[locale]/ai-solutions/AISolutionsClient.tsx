@@ -10,7 +10,7 @@ export default function AISolutionsClient() {
             videoCategory="AI"
             themeColor="bg-fuchsia-500/10"
             secondThemeColor="bg-cyan-500/10"
-            backgroundImage="/images/eureka-og.webp"
+            backgroundImage="/images/hero-automation.webp"
             icon={Sparkles}
             homeServiceKey="ai_ml"
         />

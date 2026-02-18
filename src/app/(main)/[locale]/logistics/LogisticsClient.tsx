@@ -10,7 +10,7 @@ export default function LogisticsClient() {
             videoCategory="LOGISTICS"
             themeColor="bg-emerald-500/10"
             secondThemeColor="bg-blue-500/10"
-            backgroundImage="/images/eureka-og.webp"
+            backgroundImage="/images/eureka-og02.webp"
             icon={Truck}
             homeServiceKey="smart_logistics"
         />
