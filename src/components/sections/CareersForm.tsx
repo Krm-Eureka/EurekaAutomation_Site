@@ -342,17 +342,17 @@ export function CareersForm() {
                 <button
                     type="submit"
                     disabled={status === 'loading' || !pdpaConsent}
-                    className="w-full h-12 bg-zinc-950 text-white font-black rounded-xl hover:bg-emerald-600 transition-all shadow-lg hover:shadow-emerald-500/25 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed group text-sm uppercase tracking-widest"
+                    className="w-full py-4 bg-green-primary hover:bg-green-dark text-white rounded-2xl font-bold transition-all shadow-xl shadow-green-primary/10 flex items-center justify-center gap-2 disabled:opacity-50"
                 >
                     {status === 'loading' ? (
                         <>
-                            <Loader2 size={18} className="animate-spin" />
-                            Sending...
+                            <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                            {t('sending')}
                         </>
                     ) : (
                         <>
+                            <Send size={20} />
                             {t('submit')}
-                            <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                         </>
                     )}
                 </button>

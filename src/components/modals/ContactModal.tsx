@@ -112,7 +112,7 @@ export default function ContactModal({
 
                                 <button
                                     onClick={onConfirm}
-                                    className="px-6 py-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-2xl font-bold transition-all shadow-lg shadow-emerald-600/20 uppercase text-sm tracking-widest text-center"
+                                    className="px-6 py-4 bg-green-primary hover:bg-green-dark text-white rounded-2xl font-bold transition-all shadow-xl shadow-green-primary/10 uppercase text-sm tracking-widest text-center"
                                 >
                                     {selectedContact.type === "map" ? (
                                         tHome("contact_modal.confirm_map")

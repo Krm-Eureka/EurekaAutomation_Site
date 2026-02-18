@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { Link, useRouter } from '@/i18n/routing';
-import { Home, ArrowLeft, Search } from 'lucide-react';
+import { Home, ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function NotFound() {
@@ -26,7 +26,7 @@ export default function NotFound() {
     return (
         <div className="min-h-screen flex items-center justify-center bg-zinc-950 text-white p-4 relative overflow-hidden">
             {/* Background Decor */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-emerald-500/5 rounded-full blur-[150px] pointer-events-none"></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-green-primary/5 rounded-full blur-[150px] pointer-events-none"></div>
 
             {/* Grid Pattern */}
             <div className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMCAwaDQwdjQwaC00MFoiLz48cGF0aCBkPSJNMCAwaDF2NDBIOFoiIGZpbGw9IndoaXRlIiBmaWxsLW9wYWNpdHk9Ii4wNSIvPjxwYXRoIGQ9Ik0wIDBoNDB2MUgwWiIgZmlsbD0id2hpdGUiIGZpbGwtb3BhY2l0eT0iLjA1Ii8+PC9nPjwvc3ZnPg==')]"></div>
@@ -37,10 +37,6 @@ export default function NotFound() {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.8 }}
                 >
-                    <div className="inline-flex items-center justify-center w-24 h-24 bg-emerald-500/10 rounded-3xl mb-8 border border-emerald-500/20">
-                        <Search size={40} className="text-emerald-500" />
-                    </div>
-
                     <h1 className="text-[120px] md:text-[180px] font-black leading-none tracking-tighter text-white/5 mb-[-20px] md:mb-[-40px] select-none">
                         404
                     </h1>
@@ -54,7 +50,7 @@ export default function NotFound() {
                     </p>
 
                     <div className="mb-12">
-                        <p className="text-emerald-500 font-bold animate-pulse">
+                        <p className="text-green-primary font-bold animate-pulse">
                             {t('redirecting', { countdown })}
                         </p>
                     </div>
@@ -62,7 +58,7 @@ export default function NotFound() {
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                         <Link
                             href="/"
-                            className="flex items-center gap-3 px-10 py-5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-2xl font-bold transition-all shadow-[0_20px_40px_rgba(16,185,129,0.2)] group"
+                            className="flex items-center gap-3 px-10 py-5 bg-green-primary hover:bg-green-light text-white rounded-2xl font-bold transition-all shadow-[0_20px_40px_rgba(52,168,83,0.2)] group"
                         >
                             <Home size={20} />
                             {t('back_home')}

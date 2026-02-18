@@ -1,5 +1,5 @@
 "use client";
-import { X, ShieldCheck, Mail, Phone, MapPin, Globe } from 'lucide-react';
+import { X, ShieldCheck, Mail, Phone } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
@@ -79,8 +79,8 @@ const ContentSection = ({ t, lang }: { t: typeof thMessages.privacy, lang: 'th' 
                 {Object.entries(t.rights).filter(([key]) => key !== 'title' && key !== 'desc').map(([key, value]) => {
                     const right = value as { title: string; desc: string };
                     return (
-                        <div key={key} className="p-3 rounded-xl border border-zinc-200 hover:border-emerald-500/50 hover:bg-emerald-50/10 transition-colors">
-                            <h4 className="font-bold text-emerald-700 text-sm mb-1">{right.title}</h4>
+                        <div key={key} className="p-3 rounded-xl border border-zinc-200 hover:border-green-primary/50 hover:bg-green-ultra/10 transition-colors">
+                            <h4 className="font-bold text-green-dark text-sm mb-1">{right.title}</h4>
                             <p className="text-xs text-zinc-500">{right.desc}</p>
                         </div>
                     );
@@ -233,7 +233,7 @@ export default function PrivacyPolicyModal({ isOpen, onClose, onAccept }: Privac
                                         onAccept();
                                         onClose();
                                     }}
-                                    className="px-6 py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-sm hover:bg-emerald-700 transition-colors shadow-lg shadow-emerald-600/20 flex items-center gap-2"
+                                    className="flex-1 py-4 bg-green-primary hover:bg-green-dark text-white rounded-2xl font-bold transition-all shadow-lg shadow-green-primary/20"
                                 >
                                     <ShieldCheck size={16} />
                                     <span>{thMessages.privacy.metadata.btn_accept}</span>

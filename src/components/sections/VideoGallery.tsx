@@ -78,9 +78,9 @@ export default function VideoGallery({ videos, locale, hideFilter = false }: Vid
                         <button
                             key={category}
                             onClick={() => setSelectedCategory(category)}
-                            className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${selectedCategory === category
-                                ? "bg-emerald-600 text-white shadow-lg shadow-emerald-500/30"
-                                : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
+                            className={`px-6 py-2.5 rounded-2xl text-sm font-bold transition-all ${selectedCategory === category
+                                ? 'bg-green-primary text-white shadow-lg shadow-green-primary/20 scale-105'
+                                : 'bg-zinc-100 text-zinc-500 hover:bg-zinc-200'
                                 }`}
                         >
                             {category === "All" ? (locale === "th" ? "ทั้งหมด" : "All") : category}

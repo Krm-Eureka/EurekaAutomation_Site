@@ -51,7 +51,7 @@ export default function RootPage() {
               opacity: [0.3, 0.6, 0.3]
             }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -inset-8 bg-emerald-500/5 rounded-full blur-2xl"
+            className="absolute -inset-8 bg-green-primary/5 rounded-full blur-2xl"
           />
 
           <div className="relative w-64 h-24">
@@ -69,7 +69,7 @@ export default function RootPage() {
             initial={{ top: "-10%" }}
             animate={{ top: "110%" }}
             transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-            className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-emerald-500/30 to-transparent z-10"
+            className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-green-primary/30 to-transparent z-10"
           />
         </motion.div>
 
@@ -82,7 +82,7 @@ export default function RootPage() {
               animate={{ opacity: 1 }}
               className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400"
             >
-              Initializing <span className="text-emerald-500">v4.0</span>
+              Initializing <span className="text-green-primary">v4.0</span>
             </motion.span>
             <motion.div
               animate={{ opacity: [0, 1, 0] }}
@@ -101,7 +101,7 @@ export default function RootPage() {
               initial={{ width: "0%" }}
               animate={{ width: "100%" }}
               transition={{ duration: 1.1, ease: "easeInOut" }}
-              className="h-full bg-gradient-to-r from-zinc-900 via-emerald-600 to-red-600 rounded-full"
+              className="h-full bg-gradient-to-r from-zinc-900 via-green-primary to-red-600 rounded-full"
             />
           </div>
 
@@ -109,7 +109,7 @@ export default function RootPage() {
           <div className="mt-4 flex justify-between">
             <div className="flex gap-4">
               <div className="flex items-center gap-1.5">
-                <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
+                <div className="w-1.5 h-1.5 bg-green-primary rounded-full" />
                 <span className="text-[8px] font-bold text-zinc-400 uppercase tracking-tighter">Engine_Ready</span>
               </div>
               <div className="flex items-center gap-1.5">

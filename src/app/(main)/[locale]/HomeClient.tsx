@@ -3,8 +3,8 @@
 import { JsonLd, generateOrganizationSchema } from "@/components/seo/JsonLd";
 import {
     ArrowRight, Cpu, Cog, Database, Truck, Zap, Activity,
-    Target, Award, Users, Factory, Sparkles,
-    Phone, Mail, MapPin, Linkedin,
+    Target, Award, Users,
+    Phone, Mail, MapPin,
     MessageSquare,
 } from "lucide-react";
 import { useState } from "react";
@@ -28,7 +28,7 @@ interface Video {
 
 const videoData = (Object.entries(videoDataRaw)
     .filter(([key]) => !key.startsWith('_'))
-    .flatMap(([_, value]) => value) as Video[]);
+    .flatMap(([, value]) => value) as Video[]);
 
 export default function HomeClient({ locale }: { locale: string }) {
     const [selectedContact, setSelectedContact] = useState<{ type: string, value: string, label: string, href?: string } | null>(null);
@@ -46,7 +46,6 @@ export default function HomeClient({ locale }: { locale: string }) {
     const tHome = useTranslations('home');
     const tServices = useTranslations('home.services');
     const tAbout = useTranslations('about');
-    const tProducts = useTranslations('products');
     const tContact = useTranslations('contact');
     const tTrust = useTranslations('industrialTrust');
 
@@ -391,7 +390,7 @@ export default function HomeClient({ locale }: { locale: string }) {
                             whileInView="show"
                             viewport={{ once: true, margin: "-50px" }}
                         >
-                            {serviceKeys.map((key, index) => {
+                            {serviceKeys.map((key) => {
                                 const Icon = serviceIcons[key];
                                 const routeMap: { [key: string]: string } = {
                                     custom_machines: '/custom-machines',

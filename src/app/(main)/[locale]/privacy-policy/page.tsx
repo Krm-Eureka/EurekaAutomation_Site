@@ -25,8 +25,8 @@ export default async function PrivacyPolicy({
             {/* Header */}
             <div className="bg-zinc-50 border-b border-zinc-100 mb-12">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-                    <div className="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                        <ShieldCheck className="text-emerald-600" size={32} />
+                    <div className="w-16 h-16 bg-green-pale rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <ShieldCheck className="text-green-dark" size={32} />
                     </div>
                     <h1 className="text-3xl md:text-4xl font-black text-zinc-900 mb-4 tracking-tight">
                         {t('title')}
@@ -83,7 +83,7 @@ export default async function PrivacyPolicy({
                         <ul className="space-y-3">
                             {[1, 2, 3, 4].map((item) => (
                                 <li key={item} className="flex gap-3 text-zinc-700">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-2 shrink-0"></div>
+                                    <div className="w-1.5 h-1.5 rounded-full bg-green-primary mt-2 shrink-0"></div>
                                     <span>{t(`purpose.items.${item}`)}</span>
                                 </li>
                             ))}
@@ -110,7 +110,7 @@ export default async function PrivacyPolicy({
 
                 {/* 5. Contact */}
                 <section className="bg-zinc-900 rounded-3xl p-8 text-white relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 blur-[80px] rounded-full transform translate-x-1/2 -translate-y-1/2"></div>
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-green-primary/10 blur-[80px] rounded-full transform translate-x-1/2 -translate-y-1/2"></div>
 
                     <h2 className="text-xl font-bold mb-6 relative z-10">{t('contact.title')}</h2>
                     <p className="text-zinc-400 mb-8 relative z-10">{t('contact.desc')}</p>

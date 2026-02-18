@@ -88,7 +88,7 @@ export default async function ProductsPage({
                     <div className="w-16 h-16 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform">
                       <Icon size={32} />
                     </div>
-                    <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">{category.description}</span>
+                    <span className="text-xs font-bold uppercase tracking-widest text-green-primary">{category.description}</span>
                     <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
                       {category.title}
                     </h2>

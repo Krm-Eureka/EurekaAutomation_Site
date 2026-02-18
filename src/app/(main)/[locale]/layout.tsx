@@ -2,25 +2,9 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
-import "@/app/globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
-import { Prompt, Outfit } from "next/font/google";
-
-// ตั้งค่า Font
-const prompt = Prompt({
-  subsets: ["latin", "thai"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
-  variable: '--font-prompt'
-});
-
-const outfit = Outfit({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
-  variable: '--font-outfit'
-});
-
 import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
@@ -101,19 +85,17 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={`${outfit.variable} ${prompt.variable}`}>
-      <body className="font-sans antialiased min-h-screen flex flex-col bg-paper text-ink">
-        <NextIntlClientProvider messages={messages}>
-          {gaId && <GoogleAnalytics GA_MEASUREMENT_ID={gaId} />}
+    <div className={`flex flex-col min-h-screen bg-paper text-ink transition-colors duration-300 font-sans`}>
+      <NextIntlClientProvider messages={messages}>
+        {gaId && <GoogleAnalytics GA_MEASUREMENT_ID={gaId} />}
 
-          <Header lang={locale} />
-          <main className="flex-grow">
-            {children}
-          </main>
+        <Header lang={locale} />
+        <main className="flex-grow">
+          {children}
+        </main>
 
-          <Footer />
-        </NextIntlClientProvider>
-      </body>
-    </html>
+        <Footer />
+      </NextIntlClientProvider>
+    </div>
   );
 }

@@ -5,7 +5,7 @@ import { withBasePath } from "@/lib/utils";
 import { useState, useMemo } from 'react';
 import Image from 'next/image';
 import { CareersForm } from "@/components/sections/CareersForm";
-import { MapPin, Clock, ChevronRight, CheckCircle2, List, Grid3x3, Briefcase, GraduationCap, Coins, Search, ChevronDown, ChevronUp } from "lucide-react";
+import { MapPin, Clock, ChevronRight, CheckCircle2, List, Grid3x3, Briefcase, GraduationCap, Coins, Search, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface CareerPosition {
@@ -73,8 +73,8 @@ const JobCard = ({ pos, isExpanded, onToggle, translations }: {
     <motion.div
         variants={itemVariants}
         className={`group relative transition-all duration-500 rounded-2xl overflow-hidden cursor-pointer ${isExpanded
-            ? 'bg-zinc-900 ring-1 ring-emerald-500/50 shadow-2xl shadow-emerald-900/20'
-            : 'bg-white border border-zinc-200 hover:border-emerald-500/50 hover:shadow-xl hover:shadow-emerald-500/5'
+            ? 'bg-zinc-900 ring-1 ring-green-primary/50 shadow-2xl shadow-green-dark/20'
+            : 'bg-white border border-zinc-200 hover:border-green-primary/50 hover:shadow-xl hover:shadow-green-primary/5'
             }`}
         onClick={onToggle}
     >
@@ -83,7 +83,7 @@ const JobCard = ({ pos, isExpanded, onToggle, translations }: {
                 <div className="space-y-3 flex-grow">
                     {/* Header: Dept & Location */}
                     <div className="flex flex-wrap items-center gap-3">
-                        <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 font-bold text-[10px] uppercase tracking-wider">
+                        <span className="px-2.5 py-0.5 rounded-full bg-green-pale text-green-dark font-bold text-[10px] uppercase tracking-wider">
                             {pos.dept}
                         </span>
                         <div className="flex items-center gap-1.5 text-zinc-500 text-xs font-medium">
@@ -586,25 +586,4 @@ export default function CareersClient({ locale, positionKeys, benefits, position
             </section>
         </div>
     );
-}
-
-// Helper component for arrow animation
-function ArrowIcon() {
-    return (
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="group-hover/btn:translate-x-1 transition-transform"
-        >
-            <path d="M5 12h14" />
-            <path d="m12 5 7 7-7 7" />
-        </svg>
-    )
 }

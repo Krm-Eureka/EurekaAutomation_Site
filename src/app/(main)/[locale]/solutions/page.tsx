@@ -1,7 +1,6 @@
 import Link from "next/link";
-import { Truck, Database, Activity, ArrowRight } from "lucide-react";
+import { ArrowRight, Sparkles, Truck, Database } from "lucide-react";
 import { setRequestLocale, getTranslations } from "next-intl/server";
-
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const tSeo = await getTranslations({ locale, namespace: 'common.seo' });
@@ -52,11 +51,11 @@ export default async function SolutionsPage({
       {/* Hero */}
       <section className="bg-zinc-950 pt-48 pb-24 text-white overflow-hidden relative">
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute top-0 right-0 w-96 h-96 bg-green-primary/10 rounded-full blur-3xl"></div>
         </div>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-xs font-bold uppercase tracking-widest text-zinc-400 mb-8">
-            <Activity size={14} className="text-emerald-400" /> {tNav('solutions')}
+            <Sparkles size={14} className="text-green-light" /> {tNav('solutions')}
           </div>
           <h1 className="text-5xl md:text-7xl font-black mb-8 tracking-tight">
             {t('title')}
@@ -78,10 +77,10 @@ export default async function SolutionsPage({
                 : `/${locale}/#contact?subject=wms`;
 
               return (
-                <div key={solution.slug} className="group p-10 bg-zinc-50 rounded-3xl border border-zinc-100 hover:border-emerald-500/20 hover:bg-white hover:shadow-2xl transition-all">
-                  <div className="mb-8 w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-zinc-900 shadow-sm group-hover:bg-emerald-600 group-hover:text-white transition-all">
-                    <Icon size={32} />
-                  </div>
+                <div key={solution.slug} className="group p-10 bg-zinc-50 rounded-3xl border border-zinc-100 hover:border-green-primary/20 hover:bg-white hover:shadow-2xl transition-all">
+                  <span className="w-12 h-12 bg-green-ultra rounded-xl flex items-center justify-center text-green-primary mb-6 group-hover:bg-green-primary group-hover:text-white transition-all">
+                    <Icon size={24} />
+                  </span>
                   <h2 className="text-3xl font-bold text-zinc-900 mb-4 tracking-tight">
                     {solution.title}
                   </h2>
@@ -91,12 +90,12 @@ export default async function SolutionsPage({
                   <ul className="space-y-4 mb-10">
                     {solution.features.map((feature, i) => (
                       <li key={i} className="flex items-center gap-3 text-zinc-500 font-medium">
-                        <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></div>
+                        <div className="w-1.5 h-1.5 bg-green-primary rounded-full"></div>
                         {feature}
                       </li>
                     ))}
                   </ul>
-                  <Link href={href} className="inline-flex items-center gap-2 font-bold text-zinc-900 group-hover:text-emerald-600 transition-colors">
+                  <Link href={href} className="inline-flex items-center gap-2 font-bold text-zinc-900 group-hover:text-green-primary transition-colors">
                     {tCommon('get_started')} <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
                   </Link>
                 </div>
