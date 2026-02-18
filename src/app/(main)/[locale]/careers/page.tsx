@@ -32,15 +32,26 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
 
     // Use centralized JSON data instead of translation files for positions
     // Flatten the grouped data first, ignoring non-array entries (like _comment or BENEFITS)
-    const allPositions = Object.entries(positionsData as any)
-        .filter(([key]) => key !== 'BENEFITS' && !key.startsWith('_'))
-        .flatMap(([, value]) => Array.isArray(value) ? value : [])
-        .filter((p): p is any => typeof p === 'object' && p !== null);
+    const allPositions = Object.values(positionsData as Record<string, unknown[] | unknown>)
+        .filter((value): value is unknown[] => Array.isArray(value))
+        .flat();
 
     // Filter and map positions
-    const positions = allPositions
-        .filter((pos: any) => pos.status === 'open')
-        .map((pos: any, idx: number) => ({
+    const positions = (allPositions as Array<{
+        status: string;
+        dept?: Record<string, string>;
+        title?: Record<string, string>;
+        location?: Record<string, string>;
+        type?: Record<string, string>;
+        desc?: Record<string, string[]>;
+        experience?: Record<string, string>;
+        education?: Record<string, string>;
+        salary?: Record<string, string>;
+        qualification?: Record<string, string[]>;
+        benefits?: Record<string, string[]>;
+    }>)
+        .filter((pos) => pos.status === 'open')
+        .map((pos, idx: number) => ({
             id: idx.toString(),
             dept: pos.dept?.[locale] || '',
             title: pos.title?.[locale] || '',

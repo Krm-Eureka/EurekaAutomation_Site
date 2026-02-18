@@ -76,12 +76,15 @@ const ContentSection = ({ t, lang }: { t: typeof thMessages.privacy, lang: 'th' 
             </h3>
             <p className="text-zinc-600 mb-6 text-sm">{t.rights.desc}</p>
             <div className="grid sm:grid-cols-2 gap-3">
-                {Object.entries(t.rights).filter(([key]) => key !== 'title' && key !== 'desc').map(([key, value]: [string, any]) => (
-                    <div key={key} className="p-3 rounded-xl border border-zinc-200 hover:border-emerald-500/50 hover:bg-emerald-50/10 transition-colors">
-                        <h4 className="font-bold text-emerald-700 text-sm mb-1">{value.title}</h4>
-                        <p className="text-xs text-zinc-500">{value.desc}</p>
-                    </div>
-                ))}
+                {Object.entries(t.rights).filter(([key]) => key !== 'title' && key !== 'desc').map(([key, value]) => {
+                    const right = value as { title: string; desc: string };
+                    return (
+                        <div key={key} className="p-3 rounded-xl border border-zinc-200 hover:border-emerald-500/50 hover:bg-emerald-50/10 transition-colors">
+                            <h4 className="font-bold text-emerald-700 text-sm mb-1">{right.title}</h4>
+                            <p className="text-xs text-zinc-500">{right.desc}</p>
+                        </div>
+                    );
+                })}
             </div>
         </section>
 
@@ -107,8 +110,8 @@ export default function PrivacyPolicyModal({ isOpen, onClose, onAccept }: Privac
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
-        setMounted(true);
-        return () => setMounted(false);
+        const handle = requestAnimationFrame(() => setMounted(true));
+        return () => cancelAnimationFrame(handle);
     }, []);
 
     // Prevent scrolling when modal is open

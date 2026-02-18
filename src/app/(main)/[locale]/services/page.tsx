@@ -78,7 +78,7 @@ export default async function ServicesPage({
                   <p className="text-zinc-500 leading-relaxed mb-8">
                     {tServices(`${key}.desc`)}
                   </p>
-                  {['plc', 'cnc', 'ai_ml'].includes(key) ? (
+                  {['plc', 'cnc'].includes(key) ? (
                     <span className="inline-flex items-center font-bold text-zinc-400 cursor-not-allowed">
                       {tCommon('coming_soon')}
                     </span>

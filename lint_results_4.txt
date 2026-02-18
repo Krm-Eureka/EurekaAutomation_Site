@@ -1,0 +1,31 @@
+$ eslint
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+
+D:\KRM\26\EurekaAutomation_site\next.config.ts
+  6:7  warning  'isProd' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\KRM\26\EurekaAutomation_site\public\google.script.js
+    2:10  warning  'doPost' is defined but never used      @typescript-eslint/no-unused-vars
+  136:31  warning  'statusCode' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\KRM\26\EurekaAutomation_site\src\app\(main)\[locale]\HomeClient.tsx
+    6:27  warning  'Factory' is defined but never used             @typescript-eslint/no-unused-vars
+    6:36  warning  'Sparkles' is defined but never used            @typescript-eslint/no-unused-vars
+    7:26  warning  'Linkedin' is defined but never used            @typescript-eslint/no-unused-vars
+   31:16  warning  '_' is defined but never used                   @typescript-eslint/no-unused-vars
+   49:11  warning  'tProducts' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  394:52  warning  'index' is defined but never used               @typescript-eslint/no-unused-vars
+
+D:\KRM\26\EurekaAutomation_site\src\app\(main)\[locale]\careers\CareersClient.tsx
+    8:122  warning  'ChevronUp' is defined but never used  @typescript-eslint/no-unused-vars
+  592:10   warning  'ArrowIcon' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\KRM\26\EurekaAutomation_site\src\app\(main)\[locale]\privacy-policy\page.tsx
+  1:10  warning  'useTranslations' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\KRM\26\EurekaAutomation_site\src\components\modals\PrivacyPolicyModal.tsx
+  2:39  warning  'MapPin' is defined but never used  @typescript-eslint/no-unused-vars
+  2:47  warning  'Globe' is defined but never used   @typescript-eslint/no-unused-vars
+
+Γ£û 14 problems (0 errors, 14 warnings)
+

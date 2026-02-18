@@ -27,7 +27,7 @@ export default function NotFound() {
                         </h2>
 
                         <p className="text-zinc-400 text-lg md:text-xl mb-12 font-light leading-relaxed max-w-lg mx-auto">
-                            The page you are looking for doesn't exist or has been moved.
+                            The page you are looking for doesn&apos;t exist or has been moved.
                         </p>
 
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
