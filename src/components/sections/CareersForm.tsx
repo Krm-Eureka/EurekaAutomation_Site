@@ -3,7 +3,6 @@ import { useTranslations } from 'next-intl';
 // import { Link } from '@/i18n/routing';
 import { Send, CheckCircle2, AlertCircle, Loader2, User, Mail, Phone, Briefcase, MessageSquare, ShieldCheck } from 'lucide-react';
 import PrivacyPolicyModal from '@/components/modals/PrivacyPolicyModal';
-import { useLocale } from 'next-intl';
 
 declare global {
     interface Window {
@@ -21,26 +20,20 @@ declare global {
  * ---------------------------------------------------------
  */
 
-// ใส่ URL จากการ Deploy Google Apps Script (Web App)
-const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycby2VqN9mtvZP99NhLPlPeXkNa834vP0HuVbq0lts7RdiymhBHoqkiwProh4Hg4CLZcS/exec";
+import { GAS_WEB_APP_URL } from '@/lib/constants';
 
 export function CareersForm() {
     const t = useTranslations('careers.form');
-    const locale = useLocale();
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+    const [retryCount, setRetryCount] = useState(0);
     const [errorMessage, setErrorMessage] = useState('');
     const [pdpaConsent, setPdpaConsent] = useState(false);
     const [showPdpaModal, setShowPdpaModal] = useState(false);
 
-    // Manual text for checkbox label to ensure strict separation as requested
-    const localeText = locale === 'th' ? {
-        agree: "ข้าพเจ้ายินยอมให้ข้อมูลส่วนบุคคลตาม",
-        policy: "นโยบายความเป็นส่วนตัว (Privacy Policy)",
-        company: "ของบริษัทเพื่อใช้ในการพิจารณาเข้าทำงาน"
-    } : {
-        agree: "I agree to the personal data processing according to the",
-        policy: "Privacy Policy",
-        company: "of the company for employment consideration."
+    const localeText = {
+        agree: t('pdpa_agree'),
+        policy: t('pdpa_policy'),
+        company: t('pdpa_company')
     };
 
     const [formData, setFormData] = useState({
@@ -73,11 +66,25 @@ export function CareersForm() {
         }
 
         if (!pdpaConsent) {
-            alert('โปรดยอมรับนโยบายคุ้มครองข้อมูลส่วนบุคคล (PDPA)');
+            alert(t('pdpa_alert'));
+            return;
+        }
+
+        // IP-less Client-Side Rate Limiter (Anti-Spam)
+        const now = Date.now();
+        const lastSubTime = localStorage.getItem('last_sub_time');
+        const subCount = parseInt(localStorage.getItem('sub_count') || '0', 10);
+
+        if (lastSubTime && now - parseInt(lastSubTime) > 3600000) {
+            localStorage.setItem('sub_count', '0');
+        } else if (subCount >= 3) {
+            setErrorMessage("Rate Limit Exceeded: คุณส่งแบบฟอร์มบ่อยเกินไป กรุณารอ 1 ชั่วโมงแล้วลองใหม่");
+            setStatus('error');
             return;
         }
 
         setStatus('loading');
+        setRetryCount(0);
         console.group("🚀 Submitting Application to Google");
 
         try {
@@ -92,49 +99,63 @@ export function CareersForm() {
                 position: formData.position,
                 message: formData.message,
                 pdpaAccepted: true,
-                _honeypot: honeypot // Send to server to check too
+                _honeypot: honeypot, // Send to server to check too
+                _origin: window.location.origin // ส่งต้นทางไปยืนยันกับ Apps Script
             };
 
-            console.log("2. Payload ready:", payload);
-            console.log("3. Sending request to GAS URL:", GAS_WEB_APP_URL);
+            const MAX_RETRIES = 3;
+            for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+                try {
+                    console.log(`2. Sending request to GAS URL... (Attempt ${attempt}/${MAX_RETRIES})`);
 
-            /**
-             * [CRITICAL FIX] Removed 'no-cors' mode.
-             * GAS Web Apps support CORS if deployed as "Anyone".
-             * Using 'cors' allows us to catch 401, 404, 500 errors properly.
-             * If access is restricted (e.g. Workspace only), it will return 401.
-             */
-            const response = await fetch(GAS_WEB_APP_URL, {
-                method: 'POST',
-                mode: 'cors', // changed from 'no-cors'
-                headers: {
-                    'Content-Type': 'text/plain;charset=utf-8',
-                },
-                body: JSON.stringify(payload)
-            });
+                    const response = await fetch(GAS_WEB_APP_URL, {
+                        method: 'POST',
+                        mode: 'cors',
+                        headers: {
+                            'Content-Type': 'text/plain;charset=utf-8',
+                        },
+                        body: JSON.stringify(payload)
+                    });
 
-            console.log("4. Response status:", response.status, response.statusText);
+                    console.log(`3. Response status (Attempt ${attempt}):`, response.status, response.statusText);
 
-            if (!response.ok) {
-                if (response.status === 401) {
-                    throw new Error("401 Unauthorized: โปรดตรวจสอบว่าที่อยู่ URL ถูกต้องและ Deploy เป็น 'Anyone' (ทุกคน) ไม่ใช่เฉพาะคนในองค์กร");
+                    if (!response.ok) {
+                        if (response.status === 401) {
+                            throw new Error("401 Unauthorized: " + t('error_unauthorized'));
+                        }
+                        throw new Error(`Server returned ${response.status}: ${response.statusText}`);
+                    }
+
+                    const resultText = await response.text();
+                    console.log("4. Server response text:", resultText);
+
+                    if (resultText.toLowerCase().includes("error")) {
+                        throw new Error(resultText);
+                    }
+
+                    // Success
+                    setStatus('success');
+                    console.info("🎉 Application sent successfully!");
+                    setFormData({ firstName: '', lastName: '', email: '', phone: '', position: '', message: '' });
+                    setPdpaConsent(false);
+                    
+                    // Update Rate Limiter Storage
+                    localStorage.setItem('last_sub_time', Date.now().toString());
+                    const currentCount = parseInt(localStorage.getItem('sub_count') || '0', 10);
+                    localStorage.setItem('sub_count', (currentCount + 1).toString());
+                    
+                    break; // Exit retry loop
+
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                } catch (err: any) {
+                    if (attempt === MAX_RETRIES || (err && err.message && err.message.includes('401 Unauthorized'))) {
+                        throw err; // Throw to outer catch if it's the last attempt or an unrecoverable error
+                    }
+                    console.warn(`Attempt ${attempt} failed. Retrying in 4 seconds...`, err);
+                    setRetryCount(attempt);
+                    await new Promise(resolve => setTimeout(resolve, 4000));
                 }
-                throw new Error(`Server returned ${response.status}: ${response.statusText}`);
             }
-
-            // ในโหมด cors เราสามารถอ่าน text ได้ถ้า GAS คืนค่ามา
-            const resultText = await response.text();
-            console.log("5. Server response text:", resultText);
-
-            if (resultText.toLowerCase().includes("error")) {
-                throw new Error(resultText);
-            }
-
-            setStatus('success');
-            console.info("🎉 Application sent successfully!");
-
-            setFormData({ firstName: '', lastName: '', email: '', phone: '', position: '', message: '' });
-            setPdpaConsent(false);
 
         } catch (error: unknown) {
             console.error("❌ Submission Failed:", error);
@@ -145,7 +166,7 @@ export function CareersForm() {
                 msg = error.message;
                 // ตรวจสอบว่าเป็นเรื่อง CORS หรือเปล่า
                 if (msg.toLowerCase().includes("failed to fetch")) {
-                    msg = "ไม่สามารถเชื่อมต่อกับ Server ได้ (อาจเกิดจากปัญหา CORS หรือ URL ไม่ถูกต้อง) โปรดตรวจสอบการตั้งค่า Deploy ใน Apps Script ให้เป็น 'Anyone'";
+                    msg = t('error_network');
                 }
             }
             setErrorMessage('เกิดข้อผิดพลาด: ' + msg);
@@ -165,17 +186,17 @@ export function CareersForm() {
                     <CheckCircle2 className="text-white" size={40} />
                 </div>
                 <h3 className="text-2xl font-bold text-zinc-900">
-                    ส่งข้อมูลเรียบร้อยแล้ว!
+                    {t('success_title')}
                 </h3>
-                <p className="text-zinc-700 max-w-sm mx-auto font-medium">
-                    ขอบคุณที่สนใจร่วมงานกับเรา ทางฝ่ายบุคคล (HR) <br />จะติดต่อกลับไปโดยเร็วที่สุด
+                <p className="text-zinc-700 max-w-sm mx-auto font-medium whitespace-pre-line">
+                    {t('success_desc')}
                 </p>
                 <div className="pt-4 border-t border-emerald-100 mt-6">
                     <button
                         onClick={() => setStatus('idle')}
                         className="text-emerald-600 font-black hover:underline"
                     >
-                        ส่งข้อมูลเพิ่มเติม
+                        {t('send_more')}
                     </button>
                 </div>
             </div>
@@ -187,7 +208,9 @@ export function CareersForm() {
             {status === 'loading' && (
                 <div className="absolute inset-0 bg-white/80 backdrop-blur-[2px] z-50 flex flex-col items-center justify-center space-y-4">
                     <Loader2 className="text-emerald-600 animate-spin" size={48} />
-                    <p className="font-bold text-zinc-900 animate-pulse">กำลังประมวลผลข้อมูล... / Processing...</p>
+                    <p className="font-bold text-zinc-900 animate-pulse text-center px-4 whitespace-pre-line">
+                        {retryCount > 0 ? t('retrying', { count: retryCount }) : t('processing')}
+                    </p>
                 </div>
             )}
 

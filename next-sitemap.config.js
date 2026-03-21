@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: 'https://th.eurekaautomation.co.th',
+  siteUrl: 'https://eurekaautomation.co.th',
   generateRobotsTxt: true,
   generateIndexSitemap: false,
   outDir: './out',

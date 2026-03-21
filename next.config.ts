@@ -3,7 +3,6 @@ import type { NextConfig } from "next";
 
 const withNextIntl = createNextIntlPlugin();
 
-const isProd = process.env.NODE_ENV === 'production';
 const isGithubActions = process.env.GITHUB_ACTIONS === 'true';
 
 /**

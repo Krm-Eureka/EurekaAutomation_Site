@@ -7,15 +7,17 @@
         "actions": "การดำเนินการ",
         "coming_soon": "เร็วๆ นี้",
         "get_started": "เริ่มต้นใช้งาน",
+        "sticky_cta": "ติดต่อรับคำปรึกษากับวิศวกรและฝ่ายขายฟรีทันที",
         "seo": {
-            "default_title": "Eureka Automation | โซลูชันออโตเมชันและนวัตกรรมอุตสาหกรรม",
-            "default_description": "ผู้เชี่ยวชาญด้านการออกแบบเครื่องจักร, AI Solution และเทคโนโลยีออโตเมชันอุตสาหกรรมในประเทศไทย เพิ่มประสิทธิภาพการผลิตด้วยวิศวกรรมความแม่นยำ มาตรฐาน ISO 9001:2015",
-            "careers_title": "ร่วมงานกับเรา | Eureka Automation",
-            "careers_description": "มาร่วมเป็นส่วนหนึ่งของทีมวิศวกรรมระดับโลก ขับเคลื่อนนวัตกรรมออโตเมชันและเทคโนโลยีโรบอต",
+            "default_title": "Eureka Automation | นวัตกรรมเครื่องจักรอัตโนมัติและหุ่นยนต์อุตสาหกรรม",
+            "default_description": "ผู้เชี่ยวชาญด้าน System Integrator (SI) รับออกแบบและผลิตเครื่องจักรอัตโนมัติ (OEM), หุ่นยนต์อุตสาหกรรม และ Automation Solution ครบวงจร เพื่อลดต้นทุนการผลิตและเพิ่มศักยภาพอุตสาหกรรมในไทย",
+            "keywords": "รับจ้างผลิตเครื่องจักร, ผู้ผลิตเครื่องจักรอัตโนมัติ, OEM, System Integrator, Automation Solution, ออกแบบระบบอัตโนมัติ, ลดต้นทุนการผลิต, เครื่องจักรเฉพาะทาง",
+            "careers_title": "ประกาศรับสมัครงาน (Careers) | Eureka Automation",
+            "careers_description": "มาร่วมเป็นส่วนหนึ่งของทีมผู้นำนวัตกรรม Automation และ Robotics ผู้เชี่ยวชาญการสร้างสรรค์เทคโนโลยีเพื่ออนาคตอุตสาหกรรม",
             "services_title": "การบริการของเรา | Eureka Automation",
             "services_description": "บริการออกแบบและติดตั้งระบบออโตเมชันครบวงจร งาน CNC และการโปรแกรม PLC",
-            "solutions_title": "โซลูชันอุตสาหกรรม | Eureka Automation",
-            "solutions_description": "โซลูชันโลจิสติกส์อัจฉริยะ AMR, AGV และสมาร์ทแฟคทอรี",
+            "solutions_title": "เทคโนโลยีอุตสาหกรรม | Eureka Automation",
+            "solutions_description": "ระบบโลจิสติกส์อัจฉริยะ AMR, AGV และสมาร์ทแฟคทอรี",
             "products_title": "สินค้าเครื่องจักรอุตสาหกรรม | Eureka Automation",
             "products_description": "เครื่องจักรเฉพาะทางและย่านอัตโนมัติมาตรฐานสำหรับการผลิตประสิทธิภาพสูง",
             "contact_title": "ติดต่อเรา | Eureka Automation",
@@ -38,7 +40,7 @@
         "products & Services": "สินค้าและบริการ",
         "services": "การบริการ",
         "products": "สินค้า",
-        "solutions": "โซลูชัน",
+        "solutions": "Solution",
         "line_oa": "Line OA",
         "blog": "บทความ",
         "contact": "ติดต่อเรา",
@@ -47,9 +49,9 @@
     },
     "hero": {
         "title": "ยูเรกา ออโตเมชั่น",
-        "subtitle": "ยกระดับอุตสาหกรรมด้วยระบบ Automation อัจฉริยะ มาตรฐานระดับโลก ISO 9001:2015",
-        "cta": "ดูโซลูชันของเรา",
-        "contact": "ปรึกษาวิศวกร",
+        "subtitle": "ยกระดับการผลิตด้วยเทคโนโลยี Automation มาตรฐานระดับโลก ISO 9001:2015",
+        "cta": "Explore Solutions",
+        "contact": "Contact Specialist",
         "certified": "Certified Excellence ISO 9001:2015"
     },
     "footer": {
@@ -64,19 +66,38 @@
             "plc": "โปรแกรม PLC",
             "custom": "เครื่องจักรตามสั่ง",
             "amr": "ระบบ AMR / AGV"
+        },
+        "offices": {
+            "title": "สำนักงานของเรา",
+            "th": {
+                "tag": "TH",
+                "name": "Thailand HQ",
+                "company": "Eureka Automation Co., Ltd.",
+                "address1": "15, 48 BIGGERLAND 4 KLONG 8",
+                "address2": "Pathum Thani 12150, Thailand",
+                "tel": "02-096-3556"
+            },
+            "in": {
+                "tag": "IN",
+                "name": "India Office",
+                "company": "Eureka Design India Pvt. Ltd.",
+                "address1": "Plot 107, Sector 6, IMT Manesar",
+                "address2": "Haryana 122052, India",
+                "tel": "+91 124 400 9973"
+            }
         }
     },
     "about": {
         "tag": "วิสัยทัศน์และการเติบโต",
-        "title": "ทศวรรษแห่งความเชี่ยวชาญด้าน Precision Engineering",
+        "title": "ประสบการณ์กว่า 20 ปี ในการออกแบบเครื่องจักรและระบบ Automation",
         "who_we_are": "เราคือใคร",
-        "hero_desc": "ทศวรรษแห่งความเชี่ยวชาญด้าน Precision Engineering",
+        "hero_desc": "ผู้นำด้านเทคโนโลยีเครื่องจักรและระบบออโตเมชัน ประสบการณ์กว่า 20 ปี",
         "overview_desc": "ตั้งแต่ปี 2553 Eureka Automation เป็นพาร์ทเนอร์ที่ได้รับความไว้วางใจในการออกแบบและสร้างนวัตกรรม Industrial Solutions สำหรับอุตสาหกรรม Automotive และ Electronics ชั้นนำระดับโลก",
-        "comprehensive_services": "บริการครบวงจรของเรารวมถึงการวิเคราะห์ความต้องการ การออกแบบเครื่องกลและไฟฟ้า งาน CNC โปรแกรม PLC และการประกอบเครื่องจักร",
+        "comprehensive_services": "บริการครบวงจรของเรารวมถึงการวิเคราะห์ความต้องการ ออกแบบ Mechanical & Electrical Design, งาน CNC, โปรแกรม PLC และการประกอบเครื่องจักร",
         "values": {
             "innovation": {
                 "title": "นวัตกรรม",
-                "desc": "โซลูชันขั้นสูง"
+                "desc": "นวัตกรรมอัจฉริยะ"
             },
             "quality": {
                 "title": "คุณภาพ",
@@ -111,13 +132,35 @@
         "si_certificate": {
             "label": "ใบรับรอง SI",
             "value": "สถาบันไทย-เยอรมัน (TGI)"
+        },
+        "stats": {
+            "years": {
+                "value": "20+",
+                "label": "ปีแห่งความเป็นเลิศ"
+            },
+            "projects": {
+                "value": "2000+",
+                "label": "โครงการที่ส่งมอบ"
+            },
+            "clients": {
+                "value": "100+",
+                "label": "ลูกค้าทั่วโลก"
+            },
+            "countries": {
+                "value": "14",
+                "label": "ประเทศที่ให้บริการ"
+            },
+            "offices": {
+                "value": "2",
+                "label": "สำนักงานต่างประเทศ"
+            }
         }
     },
     "home": {
         "showcase": {
             "tag": "ผลงาน",
             "title": "ผลงานและกิจกรรมของเรา",
-            "description": "สัมผัสนวัตกรรมและโซลูชันของเราผ่านวิดีโอสาธิตการทำงานจริง"
+            "description": "สัมผัสนวัตกรรมและ Solution ของเราผ่านวิดีโอสาธิตการทำงานจริง"
         },
         "careers_cta": {
             "title": "สนใจเข้าร่วมทีมของเรา?",
@@ -138,7 +181,7 @@
             "milestones": {
                 "2002": {
                     "title": "ก่อตั้ง Eureka Design",
-                    "desc": "เริ่มต้นการเดินทางด้าน Mechanical Engineering และการสร้างเครื่องจักร Precision"
+                    "desc": "เริ่มต้นก้าวแรกในงาน Mechanical Engineering และการผลิตเครื่องจักรที่ซับซ้อน"
                 },
                 "2014": {
                     "title": "ขยายไปยังสากล",
@@ -146,7 +189,7 @@
                 },
                 "2015": {
                     "title": "ก่อตั้ง Eureka Automation",
-                    "desc": "เปลี่ยนมาเป็น System Integrator แบบครบวงจรสำหรับโซลูชัน Automation ขั้นสูง"
+                    "desc": "เปลี่ยนมาเป็น System Integrator แบบครบวงจร สำหรับระบบออโตเมชันอัจฉริยะ"
                 },
                 "2019": {
                     "title": "ยุคอัตโนมัติอัจฉริยะ",
@@ -170,19 +213,39 @@
         "services": {
             "ai_ml": {
                 "title": "AI Solution",
-                "desc": "ระบบ Predictive Maintenance และ Quality Control อัจฉริยะด้วย Neural Networks"
+                "desc": "ระบบ Predictive Maintenance และ Quality Control อัจฉริยะด้วย Neural Networks",
+                "features": [
+                    "Computer Vision",
+                    "Predictive Analytics",
+                    "Process Optimization"
+                ]
             },
             "automation": {
-                "title": "ระบบอัตโนมัติ",
-                "desc": "สายการผลิตอัตโนมัติครบวงจร"
+                "title": "Automation Solution (ระบบออโตเมชันและแขนกลอุตสาหกรรม)",
+                "desc": "ออกแบบและติดตั้งระบบ Automation เต็มรูปแบบ",
+                "features": [
+                    "Industrial Robot (ABB, Kuka, Fanuc, Yaskawa)",
+                    "ระบบพาเลทไทเซอร์ (Palletizing & Picking System)",
+                    "Collaborative Robot (Cobots)"
+                ]
             },
             "custom_machines": {
-                "title": "เครื่องจักรเฉพาะทาง",
-                "desc": "เครื่องจักรเฉพาะทางตามโจทย์การผลิต"
+                "title": "เครื่องจักรเฉพาะทาง (Custom Machines)",
+                "desc": "ออกแบบและสร้างเครื่องจักรเฉพาะทางตามโจทย์การผลิตของลูกค้าเพื่อให้ได้ประสิทธิภาพสูงสุดและลดต้นทุนในระยะยาว",
+                "features": [
+                    "Assembly & Testing Solutions",
+                    "Robotic Workcell (เซลล์หุ่นยนต์อุตสาหกรรม)",
+                    "Vision System & Inspection"
+                ]
             },
             "smart_logistics": {
-                "title": "Smart Logistics",
-                "desc": "ระบบหุ่นยนต์ขนย้ายและจัดการคลังสินค้า"
+                "title": "Smart Logistics (ระบบขนส่งอัตโนมัติ AMR, AGV)",
+                "desc": "ยกระดับคลังสินค้าด้วยระบบโลจิสติกส์อัจฉริยะ (Smart Logistics) ขนส่งแม่นยำด้วยหุ่นยนต์ AMR ชั้นนำ",
+                "features": [
+                    "Geek+ AMR Integration (หุ่นยนต์ AMR)",
+                    "Automated Warehouse (AS/RS)",
+                    "Fleet Management System"
+                ]
             },
             "plc": {
                 "title": "โปรแกรม PLC",
@@ -198,10 +261,28 @@
             "electronics": "อิเล็กทรอนิกส์",
             "fb": "อาหารและเครื่องดื่ม",
             "pharma": "ยาและเวชภัณฑ์"
+        },
+        "news": {
+            "tag": "อัปเดตล่าสุด",
+            "title": "ข่าวสารและข้อมูลเชิงลึก",
+            "items": {
+                "tgi": {
+                    "title": "ต่ออายุใบรับรองสถาบัน TGI",
+                    "desc": "Eureka Automation ได้รับการต่ออายุใบรับรองผู้รวมระบบ (System Integrator) จากสถาบันไทย-เยอรมัน"
+                },
+                "iso": {
+                    "title": "ได้รับมาตรฐาน ISO 9001:2015",
+                    "desc": "ตอกย้ำความมุ่งมั่นด้านการจัดการคุณภาพและความเป็นเลิศทางวิศวกรรม"
+                },
+                "ai_division": {
+                    "title": "เปิดตัวแผนก AI ใหม่",
+                    "desc": "นำเสนอระบบซ่อมบำรุงเชิงคาดการณ์ (Predictive Maintenance) สำหรับโรงงานอัจฉริยะ"
+                }
+            }
         }
     },
     "products": {
-        "tag": "โซลูชันของเรา",
+        "tag": "Solution ของเรา",
         "title": "สร้างสรรค์นวัตกรรมเครื่องจักรแห่งอนาคต",
         "view_catalogue": "ดูแคตตาล็อก",
         "custom": {
@@ -219,7 +300,7 @@
             },
             "custom": {
                 "title": "วิศวกรรมเฉพาะทาง",
-                "desc": "โซลูชันที่ออกแบบมาเพื่อจัดการกับความท้าทายในการผลิตที่ซับซ้อน"
+                "desc": "Solution ที่ออกแบบมาเพื่อจัดการกับความท้าทายในการผลิตที่ซับซ้อน"
             },
             "support": {
                 "title": "การสนับสนุนจากผู้เชี่ยวชาญ",
@@ -230,9 +311,9 @@
     "contact": {
         "tag": "สอบถามข้อมูล",
         "title": "ก้าวสู่อนาคตแห่งการผลิตไปพร้อมกับเรา",
-        "description": "พร้อมที่จะเพิ่มขีดความสามารถในการแข่งขันแล้วหรือยัง? ทีมวิศวกรและผู้เชี่ยวชาญของเราพร้อมสนับสนุนคุณในการออกแบบและติดตั้งโซลูชันที่ตอบโจทย์ที่สุด",
-        "call_us": "โทรหาเรา",
-        "email_us": "อีเมลหาเรา",
+        "description": "พร้อมที่จะเพิ่มขีดความสามารถในการแข่งขันแล้วหรือยัง? ทีมวิศวกรและผู้เชี่ยวชาญของเราพร้อมสนับสนุนคุณในการออกแบบและติดตั้ง Solution ที่ตอบโจทย์ที่สุด",
+        "call_us": "Contact Support",
+        "email_us": "Send Inquiry",
         "visit_us": "เยี่ยมชมเรา",
         "support_hours": "ทีมสนับสนุนของเราพร้อมให้บริการวันจันทร์ถึงศุกร์ 9:00 น. – 18:00 น.",
         "form": {
@@ -243,10 +324,10 @@
             "message": "ข้อความ",
             "submit": "ส่งข้อความ",
             "options": {
-                "custom": "ระบบอัตโนมัติตามสั่ง",
-                "cnc": "งาน CNC",
-                "wms": "WMS & โลจิสติกส์",
-                "general": "สอบถามทั่วไป"
+                "custom": "ออกแบบเครื่องจักร",
+                "cnc": "ระบบ Robotic & Automation",
+                "wms": "โลจิสติกส์ & WMS",
+                "general": "สอบถามข้อมูลทั่วไป"
             }
         }
     },
@@ -273,6 +354,14 @@
         "apply_now": "สมัครเลย",
         "apply_today": "สมัครวันนี้",
         "apply_desc": "กรอกข้อมูลของคุณ แล้วเราจะติดต่อกลับโดยเร็ว",
+        "client": {
+            "share_tooltip": "แชร์ หรือ คัดลอกลิงก์ตำแหน่งงานนี้",
+            "copied_toast": "คัดลอกแล้ว!",
+            "share_text": "ร่วมงานตำแหน่ง {job_title} ที่ Eureka Automation!",
+            "search_placeholder": "ค้นหาตำแหน่งงาน...",
+            "all_departments": "ทุกแผนก",
+            "no_results": "ไม่พบตำแหน่งงานที่ค้นหา"
+        },
         "positions": [
             {
                 "id": "plc-eng",
@@ -296,7 +385,7 @@
                 "dept": "ซอฟต์แวร์",
                 "location": "Remote / กรุงเทพฯ",
                 "type": "งานประจำ",
-                "desc": "พัฒนาเครื่องมือภายในและหน้าจอแสดงผล (Dashboard) สำหรับโซลูชัน IIoT และโรงงานอัจฉริยะ"
+                "desc": "พัฒนาเครื่องมือภายในและหน้าจอแสดงผล (Dashboard) สำหรับ IIoT Solution และโรงงานอัจฉริยะ"
             }
         ],
         "form": {
@@ -306,7 +395,19 @@
             "position": "ตำแหน่งที่สนใจ",
             "resume": "ลิงก์ Resume (Google Drive/Dropbox)",
             "message": "ข้อความเพิ่มเติม",
-            "submit": "ส่งใบสมัคร"
+            "submit": "ส่งใบสมัคร",
+            "sending": "กำลังส่งข้อมูล...",
+            "success_title": "ส่งข้อมูลเรียบร้อยแล้ว!",
+            "success_desc": "ขอบคุณที่สนใจร่วมงานกับเรา ทางฝ่ายบุคคล (HR) \nจะติดต่อกลับไปโดยเร็วที่สุด",
+            "send_more": "ส่งข้อมูลเพิ่มเติม",
+            "pdpa_alert": "โปรดยอมรับนโยบายคุ้มครองข้อมูลส่วนบุคคล (PDPA)",
+            "pdpa_agree": "ข้าพเจ้ายินยอมให้ข้อมูลส่วนบุคคลตาม",
+            "pdpa_policy": "นโยบายความเป็นส่วนตัว (Privacy Policy)",
+            "pdpa_company": "ของบริษัทเพื่อใช้ในการพิจารณาเข้าทำงาน",
+            "processing": "กำลังประมวลผลข้อมูล...",
+            "retrying": "ระบบการสมัครมีผู้ใช้งานมาก\\nกำลังต่อคิวส่งข้อมูลใหม่อัตโนมัติ (รอบที่ {count}/3)...",
+            "error_unauthorized": "โปรดตรวจสอบว่าที่อยู่ URL ถูกต้องและ Deploy เป็น 'Anyone' (ทุกคน) ไม่ใช่เฉพาะคนในองค์กร",
+            "error_network": "ไม่สามารถเชื่อมต่อกับ Server ได้ (อาจเกิดจากปัญหา CORS หรือ URL ไม่ถูกต้อง) โปรดตรวจสอบการตั้งค่า Deploy ใน Apps Script ให้เป็น 'Anyone'"
         }
     },
     "blog": {
@@ -322,14 +423,14 @@
         }
     },
     "solutions": {
-        "title": "โซลูชันโลจิสติกส์และโรงงานอัจฉริยะ",
-        "tag": "โซลูชันขั้นสูงเพื่อการเปลี่ยนผ่านสู่ยุคดิจิทัล",
+        "title": "โลจิสติกส์และสมาร์ทแฟคทอรี Solution",
+        "tag": "นวัตกรรมเพื่อการเปลี่ยนผ่านสู่ยุคดิจิทัล",
         "amr_agv": {
             "title": "ระบบ AMR และ AGV",
-            "tag": "โซลูชันการขนย้ายวัสดุอัตโนมัติ",
+            "tag": "Solution การขนย้ายวัสดุอัตโนมัติ",
             "features": [
                 "การรวมระบบ Geek+",
-                "โซลูชัน AGV ตามสั่ง",
+                "AGV Solution ตามสั่ง",
                 "การจัดการกลุ่มหุ่นยนต์"
             ]
         },
@@ -347,22 +448,22 @@
         "ai": {
             "title": "AI Solution",
             "content_title": "การผลิตอัจฉริยะด้วย AI",
-            "content_desc": "ใช้พลังของ AI Solution และ Machine Learning เพื่อการทำ Predictive Maintenance, การเพิ่มประสิทธิภาพ Quality Control และ Production Forecasting โซลูชัน AI ของเราเปลี่ยนข้อมูลดิบให้เป็นข้อมูลเชิงลึกที่นำไปปฏิบัติได้จริง (Actionable Insights) เพื่อการตัดสินใจที่ชาญฉลาดยิ่งขึ้น"
+            "content_desc": "ใช้พลังของ AI Solution และ Machine Learning เพื่อยกระดับโรงงานของคุณด้วย Predictive Maintenance ที่ช่วยลดค่าใช้จ่ายในการซ่อมบำรุงและปัญหาเครื่องจักรหยุดทำงาน (Downtime) พร้อมทั้งเพิ่มประสิทธิภาพ Quality Control เพื่อลดอัตราของเสีย (Defect Reduction) สู่เป้าหมาย Zero Defect ตอบโจทย์ฝ่ายจัดซื้อด้วยความคุ้มค่าของการลงทุน (High ROI) และคาดการณ์ยอดการผลิต (Production Forecasting) ได้อย่างแม่นยำ เปลี่ยนข้อมูลดิบให้เป็นข้อมูลเชิงลึก (Actionable Insights) เพื่อประสิทธิผลสูงสุด"
         },
         "robotics": {
-            "title": "หุ่นยนต์และระบบอัตโนมัติ",
-            "content_title": "โซลูชันอัตโนมัติแบบครบวงจร",
-            "content_desc": "เปลี่ยนสายการผลิตของคุณด้วยหุ่นยนต์ขั้นสูงและเทคโนโลยีระบบอัตโนมัติ เราออกแบบและติดตั้งระบบอัตโนมัติที่ครอบคลุมซึ่งช่วยเพิ่มประสิทธิภาพ ปรับปรุงความสม่ำเสมอของคุณภาพ และลดต้นทุนแรงงานในขณะที่รักษามาตรฐานความปลอดภัย"
+            "title": "หุ่นยนต์และ Automation",
+            "content_title": "Automation Solution แบบครบวงจร",
+            "content_desc": "ในฐานะ System Integrator (SI) ชั้นนำ เราให้บริการ Automation Solution แบบครบวงจร (Turnkey) ตั้งแต่การให้คำปรึกษา ออกแบบ จนถึงการติดตั้งระบบ ไม่ว่าจะเป็นหุ่นยนต์แขนกลและโคบอทส์ (Robotic Arms & Cobots), ระบบสายพานลำเลียง หรือระบบคัดแยกอัตโนมัติ ช่วยลดข้อจำกัดและต้นทุนด้านแรงงาน (Labor Cost Reduction) พร้อมเพิ่มความเร็วและกำลังการผลิต (Productivity) ให้ได้ตามเป้าหมายขององค์กรอย่างยั่งยืน"
         },
         "machines": {
             "title": "เครื่องจักรอุตสาหกรรมสั่งทำพิเศษ",
-            "content_title": "โซลูชันที่ปรับแต่งตามความต้องการของคุณ",
-            "content_desc": "เครื่องจักรอุตสาหกรรมสั่งทำพิเศษของเราได้รับการออกแบบทางวิศวกรรมเพื่อตอบสนองความต้องการการผลิตเฉพาะของคุณ เราผสมผสานวิศวกรรมความแม่นยำเข้ากับการออกแบบนวัตกรรมเพื่อส่งมอบโซลูชันที่ช่วยเพิ่มผลผลิตและลดต้นทุนการดำเนินงาน"
+            "content_title": "Solution ที่ปรับแต่งตามความต้องการของคุณ",
+            "content_desc": "เราคือผู้ผลิตเครื่องจักร (OEM) และผู้เชี่ยวชาญรับสร้างเครื่องจักรเฉพาะทาง (Custom Machines) ที่สอดคล้องกับข้อกำหนดการผลิตเฉพาะบุคคล (Customized Specifications) นำเสนอเครื่องจักรที่มีความแม่นยำสูง (High Precision) และเชื่อถือได้เพื่อช่วยแก้ไขปัญหาคอขวดในกระบวนการผลิต ส่งมอบ Solution ที่สามารถเพิ่มขีดความสามารถในการแข่งขัน ลดต้นทุนการดำเนินงาน (Opex) และคุ้มค่ากับการลงทุนในระยะยาว"
         },
         "logistics": {
-            "title": "โซลูชันโลจิสติกส์อัจฉริยะ",
-            "content_title": "คลังสินค้าอัจฉริยะและการไหลของวัสดุ",
-            "content_desc": "เพิ่มประสิทธิภาพ Supply Chain ของคุณด้วยโซลูชันโลจิสติกส์อัจฉริยะที่มี AMR, AGV และ Warehouse Management Systems (WMS) ปรับปรุง Material Handling ลดข้อผิดพลาด และเพิ่ม Throughput ทั่วทั้งการดำเนินงานของคุณ"
+            "title": "Smart Logistics Solution",
+            "content_title": "คลังสินค้าอัจฉริยะและระบบขนถ่ายวัสดุอัตโนมัติ",
+            "content_desc": "บริหารจัดการระบบ Supply Chain ด้วย Smart Logistics Solution เต็มรูปแบบ ผสานการทำงานของหุ่นยนต์อัตโนมัติ AMR, AGV และระบบคลังสินค้าอัจฉริยะ Warehouse Management Systems (WMS) เพื่อร่นระยะเวลาการทำงาน ลดต้นทุนส่วนเกินจากการจัดการคลังสินค้า แก้ปัญหาความผิดพลาดจากคน (Human Error) และเพิ่มประสิทธิภาพในการกระจายสินค้า (Throughput) ให้มีความรวดเร็ว แม่นยำ และพร้อมรองรับการเติบโตของธุรกิจในอนาคต"
         }
     },
     "privacy": {

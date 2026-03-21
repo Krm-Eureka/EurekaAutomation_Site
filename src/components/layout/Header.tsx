@@ -54,7 +54,7 @@ export function Header({ lang }: HeaderProps) {
 
   return (
     <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${headerBg}`}>
-      <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between h-[76px]">
+      <nav className="mx-auto max-w-7xl px-5 sm:px-3 lg:px-4 flex items-center justify-between h-[76px]">
         {/* Logo */}
         <Link href="/" className="flex items-center group relative z-10">
           <div className={`relative h-11 w-44 transition-all duration-300 ${logoFilter}`}>

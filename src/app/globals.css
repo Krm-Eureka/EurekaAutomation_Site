@@ -2,24 +2,24 @@
 /* Fresh Green Theme Applied - Force Rebuild V2 */
 
 :root {
-  --background: #F7FBF7;
-  --foreground: #1A2F1A;
+  --background: #ffffff;
+  --foreground: #111111;
 
   /* Fresh Green Theme Variables */
-  --ink: #1A2F1A;
-  --ink-soft: #2D4A2D;
-  --ink-muted: #6B8F6B;
-  --paper: #F7FBF7;
-  --paper-warm: #EFF6EF;
-  /* --white is usually #FFFFFF, which tailwind already has, but we can map it if needed or just use white */
+  --ink: #111111;
+  --ink-soft: #333333;
+  --ink-muted: #666666;
+  --paper: #ffffff;
+  --paper-warm: #f8f9fa;
 
-  --green-primary: #34A853;
-  --green-light: #5FD37D;
+  --green-primary: #22a952;
+  --green-light: #e8f7ed;
   --green-pale: #D8F3DC;
-  --green-ultra: #F0FAF1;
-  --green-dark: #2D8944;
+  --green-ultra: #f0fdf4;
+  --green-dark: #1a8a42;
   --mint: #7CEAA3;
   --sage: #9FCDAA;
+  --red-accent: #e53e3e;
 }
 
 @theme inline {
@@ -39,19 +39,46 @@
   --color-green-dark: var(--green-dark);
   --color-mint: var(--mint);
   --color-sage: var(--sage);
+  --color-red-accent: var(--red-accent);
 
-  --font-sans: var(--font-outfit), var(--font-prompt), ui-sans-serif, system-ui;
-  --font-prompt: var(--font-prompt);
-  --font-outfit: var(--font-outfit);
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-inter: var(--font-inter);
+  --font-kanit: var(--font-kanit);
 }
 
 body {
   background: var(--paper);
   color: var(--ink);
-  font-family: var(--font-prompt), sans-serif;
+  font-family: var(--font-inter), sans-serif;
   overflow-x: hidden;
-  /* Prevent horizontal scroll */
   width: 100%;
+}
+
+body.th {
+  font-family: var(--font-kanit), sans-serif;
+  line-height: 1.7; /* Balanced for Kanit */
+  word-break: normal; /* Better than break-word for Thai if possible */
+}
+
+/* Thai headings - Modern and Readable */
+body.th h1,
+body.th h2,
+body.th h3,
+body.th h4,
+body.th h5,
+body.th h6 {
+  line-height: 1.4 !important;
+  letter-spacing: 0 !important;
+  text-wrap: balance; /* Prevents awkward line breaks for Thai headings */
+}
+
+/* Thai paragraphs and content */
+body.th p,
+body.th span,
+body.th li,
+body.th a {
+  line-height: 1.75;
+  text-wrap: pretty;
 }
 
 html {

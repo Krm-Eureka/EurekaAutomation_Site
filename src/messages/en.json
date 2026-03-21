@@ -7,11 +7,13 @@
         "actions": "Actions",
         "coming_soon": "Coming Soon",
         "get_started": "Get Started",
+        "sticky_cta": "Get Free Consultation With Our Engineers Now",
         "seo": {
-            "default_title": "Eureka Automation | Advanced Industrial Solutions Thailand",
-            "default_description": "Leading provider of custom machine design, AI solutions, and industrial automation in Thailand. Precision engineering for the future. ISO 9001:2015 Certified.",
+            "default_title": "Eureka Automation | Custom Machines & Industrial Robotics",
+            "default_description": "Leading System Integrator (SI) and OEM in Thailand. We specialize in custom machine building, industrial robotics, and turnkey automation solutions to reduce manufacturing costs and boost productivity.",
+            "keywords": "Custom Machine Builder Thailand, OEM Automation, System Integrator, Industrial Robotics, Automation Solutions, Cost Reduction Manufacturing, Turnkey Automation",
             "careers_title": "Careers | Eureka Automation",
-            "careers_description": "Join our global engineering team and drive innovation in automation and robotics.",
+            "careers_description": "Join our team of automation and robotics pioneers. We are looking for passionate individuals to shape the future of industrial technology.",
             "services_title": "Our Services | Eureka Automation",
             "services_description": "Comprehensive automation design, CNC machining, and PLC programming services.",
             "solutions_title": "Industrial Solutions | Eureka Automation",
@@ -64,6 +66,25 @@
             "plc": "PLC Programming",
             "custom": "Custom Machines",
             "amr": "AMR / AGV Systems"
+        },
+        "offices": {
+            "title": "Our Offices",
+            "th": {
+                "tag": "TH",
+                "name": "Thailand HQ",
+                "company": "Eureka Automation Co., Ltd.",
+                "address1": "15, 48 BIGGERLAND 4 KLONG 8",
+                "address2": "Pathum Thani 12150, Thailand",
+                "tel": "02-096-3556"
+            },
+            "in": {
+                "tag": "IN",
+                "name": "India Office",
+                "company": "Eureka Design India Pvt. Ltd.",
+                "address1": "Plot 107, Sector 6, IMT Manesar",
+                "address2": "Haryana 122052, India",
+                "tel": "+91 124 400 9973"
+            }
         }
     },
     "about": {
@@ -111,6 +132,28 @@
         "si_certificate": {
             "label": "SI Certificate",
             "value": "Thai-German Institute (TGI)"
+        },
+        "stats": {
+            "years": {
+                "value": "20+",
+                "label": "Years of Excellence"
+            },
+            "projects": {
+                "value": "2000+",
+                "label": "Projects Completed"
+            },
+            "clients": {
+                "value": "100+",
+                "label": "Global Clients"
+            },
+            "countries": {
+                "value": "14",
+                "label": "Countries Served"
+            },
+            "offices": {
+                "value": "2",
+                "label": "International Offices"
+            }
         }
     },
     "home": {
@@ -169,19 +212,39 @@
         "services": {
             "ai_ml": {
                 "title": "AI & Machine Learning",
-                "desc": "Predictive maintenance and QC systems powered by neural networks."
+                "desc": "Predictive maintenance and QC systems powered by neural networks.",
+                "features": [
+                    "Computer Vision",
+                    "Predictive Analytics",
+                    "Process Optimization"
+                ]
             },
             "automation": {
-                "title": "Automation",
-                "desc": "End-to-end automated production lines."
+                "title": "Automation & Robotics",
+                "desc": "End-to-end automated production lines.",
+                "features": [
+                    "ABB, Kuka, Fanuc, Yaskawa",
+                    "Palletizing & pick-and-place",
+                    "Collaborative robots (Cobots)"
+                ]
             },
             "custom_machines": {
                 "title": "Custom Machines",
-                "desc": "Tailored mechanics for specific needs."
+                "desc": "Tailored mechanics for specific needs.",
+                "features": [
+                    "Assembly & testing machines",
+                    "Robotic workcells",
+                    "Vision inspection systems"
+                ]
             },
             "smart_logistics": {
                 "title": "Smart Logistics",
-                "desc": "AMR/AGV & Logistics integration."
+                "desc": "AMR/AGV & Logistics integration.",
+                "features": [
+                    "Geek+ AMR integration",
+                    "Automated warehousing",
+                    "Fleet management systems"
+                ]
             },
             "plc": {
                 "title": "PLC Programming",
@@ -197,6 +260,24 @@
             "electronics": "Electronics",
             "fb": "F&B",
             "pharma": "Pharma"
+        },
+        "news": {
+            "tag": "LATEST UPDATES",
+            "title": "News & Insights",
+            "items": {
+                "tgi": {
+                    "title": "TGI Certification Renewed",
+                    "desc": "Eureka Automation successfully renewed the prestigious System Integrator certification from Thai-German Institute."
+                },
+                "iso": {
+                    "title": "ISO 9001:2015 Awarded",
+                    "desc": "Reaffirming our commitment to quality management and engineering excellence."
+                },
+                "ai_division": {
+                    "title": "New AI Division Launched",
+                    "desc": "Introducing predictive maintenance and machine learning solutions for smart factories."
+                }
+            }
         }
     },
     "products": {
@@ -242,9 +323,9 @@
             "message": "Message",
             "submit": "Send Message",
             "options": {
-                "custom": "Custom Automation",
-                "cnc": "CNC Machining",
-                "wms": "WMS & Logistics",
+                "custom": "Machine Design",
+                "cnc": "Robotic Automation",
+                "wms": "Logistics & WMS",
                 "general": "General Inquiry"
             }
         }
@@ -272,6 +353,14 @@
         "apply_now": "Apply Now",
         "apply_today": "Apply Today",
         "apply_desc": "Submit your details and we'll get back to you soon.",
+        "client": {
+            "share_tooltip": "Share or copy job link",
+            "copied_toast": "Copied!",
+            "share_text": "Join Eureka Automation as a {job_title}!",
+            "search_placeholder": "Search positions...",
+            "all_departments": "All Departments",
+            "no_results": "No positions found matching criteria"
+        },
         "positions": [
             {
                 "id": "plc-eng",
@@ -305,7 +394,19 @@
             "position": "Position",
             "resume": "Resume URL (Google Drive/Dropbox)",
             "message": "Message",
-            "submit": "Send Application"
+            "submit": "Send Application",
+            "sending": "Sending...",
+            "success_title": "Data sent successfully!",
+            "success_desc": "Thank you for your interest in joining us. Our HR team \nwill contact you soon.",
+            "send_more": "Submit another application",
+            "pdpa_alert": "Please accept the Personal Data Protection Policy (PDPA)",
+            "pdpa_agree": "I agree to the personal data processing according to the",
+            "pdpa_policy": "Privacy Policy",
+            "pdpa_company": "of the company for employment consideration.",
+            "processing": "Processing...",
+            "retrying": "System is busy.\\nAutomatically queuing your submission (Attempt {count}/3)...",
+            "error_unauthorized": "Please ensure the URL is correct and deployed as 'Anyone' and not restricted to your organization",
+            "error_network": "Failed to connect to Server (Possible CORS issue or invalid URL). Please ensure Apps Script deployment is set to 'Anyone'"
         }
     },
     "blog": {
@@ -344,24 +445,24 @@
     },
     "subpages": {
         "ai": {
-            "title": "AI & Machine Learning Solutions",
-            "content_title": "Intelligent Manufacturing with AI",
-            "content_desc": "Harness the power of artificial intelligence and machine learning for predictive maintenance, quality control optimization, and production forecasting. Our AI solutions transform raw data into actionable insights for smarter decision-making."
+            "title": "AI Solutions",
+            "content_title": "Intelligent Manufacturing Powered by AI",
+            "content_desc": "Leverage advanced AI and Machine Learning to achieve high-ROI Predictive Maintenance, significantly reducing costly unplanned downtime. Optimize Quality Control to bring defect rates closer to zero while ensuring absolute precision. Our AI solutions transform raw factory data into actionable insights for intelligent production forecasting, giving procurement teams cost predictability and unmatched operational efficiency."
         },
         "robotics": {
-            "title": "Robotics & Automation",
-            "content_title": "End-to-End Automation Solutions",
-            "content_desc": "Transform your production lines with advanced robotics and automation technologies. We design and implement comprehensive automation systems that increase efficiency, improve quality consistency, and reduce labor costs while maintaining safety standards."
+            "title": "Advanced Robotics & Automation",
+            "content_title": "Turnkey Automation Systems",
+            "content_desc": "As a top-tier System Integrator (SI), we deliver comprehensive Turnkey Automation Solutions from concept to final commissioning. Whether deploying Industrial Robotic Arms, Collaborative Robots (Cobots), or automated conveyor and sorting systems, we help manufacturers overcome labor shortages, drastically cut long-term labor costs, and predictably boost production volume to meet your competitive targets head-on."
         },
         "machines": {
             "title": "Custom Industrial Machines",
-            "content_title": "Tailored Solutions for Your Needs",
-            "content_desc": "Our custom industrial machines are engineered to meet your specific manufacturing requirements. We combine precision engineering with innovative design to deliver solutions that enhance productivity and reduce operational costs."
+            "content_title": "Tailored Solutions for Your Operations",
+            "content_desc": "Operating as a dedicated OEM and Custom Machine Builder, we engineer highly specialized industrial machinery designed around your unique specifications. By combining precision engineering with robust operational design, we build custom solutions that eliminate production bottlenecks, reduce operational expenditure (OpEx), and guarantee a fast path to ROI for procurement and facility management teams."
         },
         "logistics": {
             "title": "Smart Logistics Solutions",
-            "content_title": "Intelligent Warehouse & Material Flow",
-            "content_desc": "Optimize your supply chain with our smart logistics solutions featuring autonomous mobile robots (AMR), automated guided vehicles (AGV), and warehouse management systems (WMS). Streamline material handling, reduce errors, and increase throughput across your operations."
+            "content_title": "Intelligent Warehousing & Material Flow",
+            "content_desc": "Transform your supply chain infrastructure with our integrated Smart Warehousing solutions. Combining cutting-edge Autonomous Mobile Robots (AMR), Automated Guided Vehicles (AGV), and robust Warehouse Management Systems (WMS), we eliminate costly human errors in material handling. Dramatically shrink overhead logistics costs while exponentially increasing throughput and inventory accuracy."
         }
     },
     "privacy": {

@@ -2,10 +2,11 @@
 
 import { withBasePath } from "@/lib/utils";
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import { GAS_WEB_APP_URL } from '@/lib/constants';
 import Image from 'next/image';
 import { CareersForm } from "@/components/sections/CareersForm";
-import { MapPin, Clock, ChevronRight, CheckCircle2, List, Grid3x3, Briefcase, GraduationCap, Coins, Search, ChevronDown } from "lucide-react";
+import { MapPin, Clock, ChevronRight, CheckCircle2, List, Grid3x3, Briefcase, GraduationCap, Coins, Search, ChevronDown, Share2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface CareerPosition {
@@ -24,7 +25,6 @@ interface CareerPosition {
 
 interface CareersClientProps {
     locale: string;
-    positionKeys: string[];
     benefits: string[];
     positions: CareerPosition[];
     translations: {
@@ -45,7 +45,16 @@ interface CareersClientProps {
         };
         benefits_title: string;
         responsibilities_label: string;
+        client?: {
+            share_tooltip: string;
+            copied_toast: string;
+            share_text: string;
+            search_placeholder?: string;
+            all_departments?: string;
+            no_results?: string;
+        };
     };
+    dataSource?: 'sheets' | 'local';
 }
 
 // Animation Variants
@@ -69,7 +78,9 @@ const JobCard = ({ pos, isExpanded, onToggle, translations }: {
     isExpanded: boolean,
     onToggle: () => void,
     translations: CareersClientProps['translations']
-}) => (
+}) => {
+    const [isCopied, setIsCopied] = useState(false);
+    return (
     <motion.div
         variants={itemVariants}
         className={`group relative transition-all duration-500 rounded-2xl overflow-hidden cursor-pointer ${isExpanded
@@ -206,16 +217,54 @@ const JobCard = ({ pos, isExpanded, onToggle, translations }: {
                                         </div>
                                     )}
 
-                                    <div className="pt-4 mt-auto">
+                                    <div className="pt-4 mt-auto flex gap-3">
                                         <button
-                                            onClick={() => {
+                                            onClick={(e) => {
+                                                e.stopPropagation();
                                                 window.dispatchEvent(new CustomEvent('apply-position', { detail: pos.title }));
                                                 document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
                                             }}
-                                            className="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-zinc-950 rounded-xl font-bold text-xs uppercase tracking-widest transition-all shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/40 flex items-center justify-center gap-2"
+                                            className="flex-1 py-3 bg-emerald-500 hover:bg-emerald-400 text-zinc-950 rounded-xl font-bold text-[11px] sm:text-xs uppercase tracking-widest transition-all shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/40 flex items-center justify-center gap-2"
                                         >
                                             {translations.apply_now}
                                             <ChevronRight size={16} />
+                                        </button>
+                                        <button
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                const url = window.location.href.split('#')[0] + '#open=' + encodeURIComponent(pos.title);
+                                                
+                                                const handleSuccess = () => {
+                                                    setIsCopied(true);
+                                                    setTimeout(() => setIsCopied(false), 1000);
+                                                };
+
+                                                if (navigator.share) {
+                                                    const shareText = translations.client?.share_text?.replace('{job_title}', pos.title) || `ร่วมงานตำแหน่ง ${pos.title} ที่ Eureka Automation!`;
+                                                    navigator.share({ title: pos.title, url, text: shareText }).catch(console.error);
+                                                } else if (navigator.clipboard && window.isSecureContext) {
+                                                    navigator.clipboard.writeText(url).then(handleSuccess).catch(console.error);
+                                                } else {
+                                                    // Fallback for non-HTTPS (e.g. testing over LAN HTTP)
+                                                    const textArea = document.createElement("textarea");
+                                                    textArea.value = url;
+                                                    textArea.style.position = "fixed";
+                                                    document.body.appendChild(textArea);
+                                                    textArea.focus();
+                                                    textArea.select();
+                                                    try {
+                                                        document.execCommand('copy');
+                                                        handleSuccess();
+                                                    } catch (err) {
+                                                        console.error('Fallback: Oops, unable to copy', err);
+                                                    }
+                                                    document.body.removeChild(textArea);
+                                                }
+                                            }}
+                                            title={translations.client?.share_tooltip || "แชร์ หรือ คัดลอกลิงก์ตำแหน่งงานนี้"}
+                                            className="min-w-[48px] shrink-0 py-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 rounded-xl font-bold flex items-center justify-center px-3 transition-all shadow-lg shadow-zinc-900/20"
+                                        >
+                                            {isCopied ? <span className="text-emerald-400 font-bold tracking-wider text-[10px] flex gap-1 items-center animate-in fade-in zoom-in duration-200"><CheckCircle2 size={13}/> {translations.client?.copied_toast || "Copied!"}</span> : <Share2 size={16} />}
                                         </button>
                                     </div>
                                 </div>
@@ -227,11 +276,102 @@ const JobCard = ({ pos, isExpanded, onToggle, translations }: {
             </AnimatePresence>
         </div>
     </motion.div>
-);
+    );
+};
 
-export default function CareersClient({ locale, positionKeys, benefits, positions, translations }: CareersClientProps) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export default function CareersClient({ locale, benefits, positions, translations, dataSource = 'local' }: CareersClientProps) {
     const [viewMode, setViewMode] = useState<'all' | 'category'>('all');
     const [expandedPositions, setExpandedPositions] = useState<string[]>([]);
+
+    // Real-Time Data Sync logic
+    const [livePositions, setLivePositions] = useState<CareerPosition[]>(positions);
+    const [isRefreshing, setIsRefreshing] = useState(false);
+
+    useEffect(() => {
+        const fetchLivePositions = async () => {
+            setIsRefreshing(true);
+            try {
+                const url = new URL(GAS_WEB_APP_URL);
+                url.searchParams.append('t', Date.now().toString()); // Cache buster
+                
+                // [CRITICAL FIX] Removed { cache: 'no-store' } because it triggers a CORS OPTIONS preflight request.
+                // The 't' parameter above is enough to prevent browser caching.
+                const res = await fetch(url.toString());
+                if (res.ok) {
+                    const contentType = res.headers.get("content-type");
+                    if (contentType && contentType.includes("application/json")) {
+                        const allPositions = await res.json();
+                        if (Array.isArray(allPositions)) {
+                            // Parse function exactly same as server-side
+                            const parseArray = (text?: string) => {
+                                if (!text) return [];
+                                return String(text).split('\n').map(item => item.trim()).filter(Boolean);
+                            };
+                            /* eslint-disable @typescript-eslint/no-explicit-any */
+                            const freshPositions = allPositions
+                                .filter((pos: any) => pos && pos.status && String(pos.status).toLowerCase() === 'open')
+                                .map((pos: any) => ({
+                                    id: String(pos.id),
+                                    dept: String(locale === 'th' ? (pos.dept_th || '') : (pos.dept_en || '')) || 'Uncategorized',
+                                    title: String(locale === 'th' ? (pos.title_th || '') : (pos.title_en || '')) || 'Untitled',
+                                    location: String(locale === 'th' ? (pos.location_th || '') : (pos.location_en || '')),
+                                    type: String(locale === 'th' ? (pos.type_th || '') : (pos.type_en || '')),
+                                    desc: parseArray(locale === 'th' ? pos.desc_th : pos.desc_en),
+                                    experience: String(locale === 'th' ? (pos.experience_th || '') : (pos.experience_en || '')),
+                                    education: String(locale === 'th' ? (pos.education_th || '') : (pos.education_en || '')),
+                                    salary: String(locale === 'th' ? (pos.salary_th || '') : (pos.salary_en || '')),
+                                    qualification: parseArray(locale === 'th' ? pos.qualification_th : pos.qualification_en),
+                                    benefits: parseArray(locale === 'th' ? pos.benefits_th : pos.benefits_en)
+                                }));
+                            /* eslint-enable @typescript-eslint/no-explicit-any */
+                            
+                            // Prevent empty data from wiping out fallback data
+                            if (freshPositions.length > 0) {
+                                setLivePositions(freshPositions);
+                            }
+                        }
+                    }
+                }
+            } catch (err) {
+                console.error("Failed to refresh live positions:", err);
+            } finally {
+                setIsRefreshing(false);
+            }
+        };
+        fetchLivePositions();
+    }, [locale]);
+
+    // Handle deep link sharing (#open=PositionName)
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        let checks = 0;
+        const maxChecks = 25; // Try for ~5 seconds
+        
+        const tryFillAndScroll = () => {
+            const hash = window.location.hash;
+            if (!hash.startsWith('#open=')) return;
+            
+            const formSection = document.getElementById('apply');
+            if (formSection) {
+                const positionTitle = decodeURIComponent(hash.replace('#open=', ''));
+                // Fill the position field
+                window.dispatchEvent(new CustomEvent('apply-position', { detail: positionTitle }));
+                // Scroll into view gently
+                formSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else if (checks < maxChecks) {
+                checks++;
+                setTimeout(tryFillAndScroll, 200); // Check DOM every 200ms
+            }
+        };
+
+        // Start checking
+        setTimeout(tryFillAndScroll, 300);
+        
+        // Listen to SPA hash change events
+        window.addEventListener('hashchange', tryFillAndScroll);
+        return () => window.removeEventListener('hashchange', tryFillAndScroll);
+    }, []);
 
     // Search & Filter State
     const [searchTerm, setSearchTerm] = useState('');
@@ -239,8 +379,8 @@ export default function CareersClient({ locale, positionKeys, benefits, position
 
     // Memoize unique departments to prevent re-calculations and ensure stability
     const uniqueDepts = useMemo(() => {
-        return Array.from(new Set(positions.map(p => p.dept?.trim()).filter(Boolean))).sort();
-    }, [positions]);
+        return Array.from(new Set(livePositions.map(p => p.dept?.trim()).filter(Boolean))).sort();
+    }, [livePositions]);
 
     const togglePosition = (id: string) => {
         setExpandedPositions(prev =>
@@ -249,7 +389,7 @@ export default function CareersClient({ locale, positionKeys, benefits, position
     };
 
     // Filter Logic
-    const filteredPositions = positions.filter(pos => {
+    const filteredPositions = livePositions.filter(pos => {
         const matchesSearch = pos.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
             pos.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
             (Array.isArray(pos.desc) ? pos.desc.join(' ') : pos.desc).toLowerCase().includes(searchTerm.toLowerCase());
@@ -423,8 +563,13 @@ export default function CareersClient({ locale, positionKeys, benefits, position
                                 {translations.open_positions}
                             </h2>
                         </div>
-                        <div className="font-mono text-zinc-600 text-[9px] md:text-right border border-white/5 p-3 rounded-lg bg-white/[0.02] tracking-widest uppercase">
-                            Operational_Slots: {positionKeys.length} / Found
+                        <div className="font-mono text-zinc-600 text-[9px] md:text-right border border-white/5 p-3 rounded-lg bg-white/[0.02] tracking-widest uppercase flex flex-col items-end gap-1">
+                            <span>Operational_Slots: {livePositions.length}</span>
+                            {isRefreshing ? (
+                                <span className="text-emerald-500 animate-pulse">Syncing Live Updates...</span>
+                            ) : (
+                                <span className="text-emerald-600">Real-Time Synced</span>
+                            )}
                         </div>
                     </motion.div>
 
@@ -436,7 +581,7 @@ export default function CareersClient({ locale, positionKeys, benefits, position
                             </div>
                             <input
                                 type="text"
-                                placeholder={locale === 'th' ? "ค้นหาตำแหน่งงาน..." : "Search positions..."}
+                                placeholder={translations.client?.search_placeholder || "Search positions..."}
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                                 className="w-full pl-10 pr-4 py-3 bg-zinc-900/50 border border-white/10 rounded-xl text-white placeholder-zinc-600 focus:outline-none focus:border-emerald-500/50 focus:border-emerald-500 outline-none transition-all placeholder:text-zinc-400 text-sm"
@@ -450,7 +595,7 @@ export default function CareersClient({ locale, positionKeys, benefits, position
                                 onChange={(e) => setSelectedDept(e.target.value)}
                                 className="w-full pl-4 pr-10 py-3 bg-zinc-900 border border-white/10 rounded-xl text-white focus:outline-none focus:border-emerald-500/50 appearance-none uppercase tracking-wider text-xs font-medium cursor-pointer hover:bg-zinc-800 transition-colors"
                             >
-                                <option value="All" className="bg-zinc-900 text-zinc-300">{locale === 'th' ? "ทุกแผนก" : "All Departments"}</option>
+                                <option value="All" className="bg-zinc-900 text-zinc-300">{translations.client?.all_departments || "All Departments"}</option>
                                 {uniqueDepts.map(dept => (
                                     <option key={dept} value={dept} className="bg-zinc-900 text-zinc-300">
                                         {dept}
@@ -489,7 +634,7 @@ export default function CareersClient({ locale, positionKeys, benefits, position
                                             <Search size={20} />
                                         </div>
                                         <p className="text-zinc-500 font-bold text-xs uppercase tracking-widest">
-                                            {locale === 'th' ? "ไม่พบตำแหน่งงานที่ค้นหา" : "No positions found matching criteria"}
+                                            {translations.client?.no_results || "No positions found matching criteria"}
                                         </p>
                                     </div>
                                 )}
@@ -514,7 +659,7 @@ export default function CareersClient({ locale, positionKeys, benefits, position
                                                     <Search size={20} />
                                                 </div>
                                                 <p className="text-zinc-500 font-bold text-xs uppercase tracking-widest">
-                                                    {locale === 'th' ? "ไม่พบตำแหน่งงานที่ค้นหา" : "No positions found matching criteria"}
+                                                    {translations.client?.no_results || "No positions found matching criteria"}
                                                 </p>
                                             </div>
                                         );

@@ -2,21 +2,23 @@
 
 import { JsonLd, generateOrganizationSchema } from "@/components/seo/JsonLd";
 import {
-    ArrowRight, Cpu, Cog, Database, Truck, Zap, Activity,
+    ArrowRight, Cpu, Cog, Database, Truck, Zap,
     Target, Award, Users,
     Phone, Mail, MapPin,
     MessageSquare,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { withBasePath } from "@/lib/utils";
 import Image from "next/image";
+import CountUp from 'react-countup';
 import { Link } from '@/i18n/routing';
 import VideoGallery from "@/components/sections/VideoGallery";
 import ContactModal from "@/components/modals/ContactModal";
 import { clientLogos } from "@/data/clients";
 import videoDataRaw from "@/data/videos.json";
+import { GAS_WEB_APP_URL } from "@/lib/constants";
 
 interface Video {
     title: { th: string; en: string };
@@ -26,12 +28,50 @@ interface Video {
     description: { th: string; en: string }[];
 }
 
+interface NewsItem {
+    title: string;
+    description: string;
+    date?: string;
+    link?: string;
+    image?: string;
+}
+
 const videoData = (Object.entries(videoDataRaw)
     .filter(([key]) => !key.startsWith('_'))
     .flatMap(([, value]) => value) as Video[]);
 
 export default function HomeClient({ locale }: { locale: string }) {
     const [selectedContact, setSelectedContact] = useState<{ type: string, value: string, label: string, href?: string } | null>(null);
+    const [news, setNews] = useState<NewsItem[]>([]);
+    const [isLoadingNews, setIsLoadingNews] = useState(true);
+
+    useEffect(() => {
+        const fetchNews = async () => {
+            try {
+                const url = new URL(GAS_WEB_APP_URL);
+                url.searchParams.append('sheet', 'Eureka_News');
+                url.searchParams.append('t', Date.now().toString()); // Cache buster
+                
+                // [CRITICAL FIX] Removed { cache: 'no-store' } because it triggers a CORS OPTIONS preflight request that GAS does not support.
+                // The 't' parameter above is enough to prevent browser caching.
+                const res = await fetch(url.toString());
+                if (res.ok) {
+                    const contentType = res.headers.get("content-type");
+                    if (contentType && contentType.includes("application/json")) {
+                        const data = await res.json();
+                        if (Array.isArray(data)) {
+                            setNews(data);
+                        }
+                    }
+                }
+            } catch (err) {
+                console.error("Failed to fetch news:", err);
+            } finally {
+                setIsLoadingNews(false);
+            }
+        };
+        fetchNews();
+    }, []);
 
     const handleConfirm = () => {
         if (!selectedContact) return;
@@ -49,7 +89,7 @@ export default function HomeClient({ locale }: { locale: string }) {
     const tContact = useTranslations('contact');
     const tTrust = useTranslations('industrialTrust');
 
-    const serviceKeys = ['custom_machines', 'automation', 'smart_logistics'] as const;
+    const serviceKeys = ['automation', 'custom_machines', 'smart_logistics'] as const;
     const orgSchema = generateOrganizationSchema(locale);
 
     const { scrollY } = useScroll();
@@ -78,7 +118,6 @@ export default function HomeClient({ locale }: { locale: string }) {
     };
 
     const serviceIcons = {
-        ai_ml: Activity,
         automation: Zap,
         custom_machines: Cog,
         smart_logistics: Truck,
@@ -87,7 +126,6 @@ export default function HomeClient({ locale }: { locale: string }) {
     };
 
     const valueIcons = [Target, Award, Users];
-    const valueColors = ['bg-emerald-600', 'bg-zinc-900', 'bg-zinc-700'];
     const valueKeys = ['innovation', 'quality', 'partnership'] as const;
 
     return (
@@ -96,69 +134,83 @@ export default function HomeClient({ locale }: { locale: string }) {
             <div className="bg-white min-h-screen selection:bg-emerald-600 selection:text-white overflow-x-hidden">
 
                 {/* 1. HERO SECTION */}
-                <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-zinc-900">
+                <section className="relative min-h-screen flex items-center overflow-hidden bg-zinc-900 border-b-4 border-green-primary">
                     <motion.div style={{ y: y1 }} className="absolute inset-0 z-0">
+                        {/* 1. Base Image - Always shows first/as fallback */}
                         <Image
                             src={withBasePath("/images/eureka-og.webp")}
-                            alt="Eureka Automation"
+                            alt="Eureka Automation Facility"
                             fill
-                            className="object-cover opacity-90 scale-100"
+                            className="object-cover scale-110"
                             priority
                             sizes="100vw"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-green-primary/40"></div>
 
-                        {/* Organic blob background - Adjusted blending for dark mode */}
-                        <div className="absolute top-[-10%] right-[-5%] w-[700px] h-[700px] bg-green-primary/10 rounded-full blur-[60px] pointer-events-none mix-blend-screen"></div>
+                        {/* 2. Video Background - Overlays image */}
+                        <video
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                            poster={withBasePath("/images/eureka-og.webp")}
+                            className="absolute inset-0 w-full h-full object-cover scale-110 z-10"
+                        >
+                            <source src={withBasePath("/videos/hero-video.mp4")} type="video/mp4" />
+                        </video>
+
+                        {/* 3. Gradient Overlay - Topmost layer for readablity */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/95 via-zinc-900/80 to-green-primary/30 z-20"></div>
                     </motion.div>
 
-                    <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+                    <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-left flex flex-col items-start">
                         <motion.div
                             variants={containerVariants}
                             initial="hidden"
                             animate="show"
-                            className="max-w-4xl"
+                            className="max-w-4xl flex flex-col items-start"
                         >
-                            <motion.div variants={itemVariants} className="flex items-center gap-3 mb-6">
-                                <span className="h-[2px] w-8 md:w-12 bg-green-primary"></span>
-                                <span className="text-green-400 font-bold text-xs md:text-sm tracking-widest uppercase">
+                            <motion.div variants={itemVariants} className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+                                <span className="relative flex h-2 w-2">
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-primary opacity-75"></span>
+                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-primary"></span>
+                                </span>
+                                <span className="text-white font-medium text-xs md:text-sm tracking-widest uppercase">
                                     {tHero('certified')}
                                 </span>
                             </motion.div>
 
-                            <motion.h1 variants={itemVariants} className="text-5xl md:text-7xl lg:text-8xl font-black text-white mb-6 tracking-tight leading-[1.1]">
+                            <motion.h1 variants={itemVariants} className={`text-5xl md:text-7xl lg:text-[5.5rem] font-black text-white mb-6 ${locale === 'th' ? 'leading-[1.45] tracking-normal' : 'tracking-tight leading-[1.05]'}`}>
                                 {locale === 'th' ? (
                                     <>
                                         ยูเรกา <br />
-                                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-primary to-green-300">
+                                        <span className="text-green-primary">
                                             ออโตเมชั่น
                                         </span>
                                     </>
                                 ) : (
                                     <>
-                                        Eureka <br />
-                                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-primary to-green-300">
-                                            <span className="text-red-500">A</span>utomat<span className="text-red-500">i</span>on.
+                                        Eureka<br />
+                                        <span className="text-green-primary">
+                                            <span className="text-red-accent">A</span>utomat<span className="text-red-accent">i</span>on
                                         </span>
                                     </>
                                 )}
                             </motion.h1>
 
-                            <motion.p variants={itemVariants} className="text-lg md:text-2xl text-gray-200 max-w-2xl mb-10 leading-relaxed font-light">
+                            <motion.p variants={itemVariants} className="text-lg md:text-xl text-white/80 max-w-2xl mb-5 leading-relaxed font-light">
                                 {tHero('subtitle')}
                             </motion.p>
 
-                            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4">
+                            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mt-2">
                                 <Link
                                     href="/#productsandservices"
-                                    className="group px-8 py-4 bg-gradient-to-r from-green-primary to-green-dark hover:from-green-light hover:to-green-primary text-white rounded-full font-bold text-lg shadow-[0_4px_20px_rgba(52,168,83,0.3)] hover:shadow-[0_8px_32px_rgba(52,168,83,0.4)] transition-all duration-300 flex items-center justify-center gap-3 hover:-translate-y-1"
+                                    className="px-4 py-2 bg-green-primary hover:bg-green-dark text-white rounded-full font-bold text-lg shadow-[0_8px_24px_rgba(34,169,82,0.4)] transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto text-center"
                                 >
                                     {tHero('cta')}
-                                    <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
                                 </Link>
                                 <Link
                                     href="/#contact"
-                                    className="px-8 py-4 bg-white border border-green-primary/20 text-green-primary rounded-full font-bold text-lg hover:bg-green-ultra hover:text-green-dark transition-all text-center hover:-translate-y-1 shadow-sm"
+                                    className="px-4 py-2 bg-transparent border-2 border-white/20 text-white rounded-full font-bold text-lg hover:bg-white/10 hover:border-white/40 transition-all duration-300 backdrop-blur-sm hover:-translate-y-1 w-full sm:w-auto text-center"
                                 >
                                     {tHero('contact')}
                                 </Link>
@@ -168,117 +220,67 @@ export default function HomeClient({ locale }: { locale: string }) {
 
                     <motion.div
                         initial={{ opacity: 0 }}
-                        animate={{ opacity: 1, y: [0, 10, 0] }}
-                        transition={{ delay: 2, duration: 2, repeat: Infinity }}
-                        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 1, duration: 1 }}
+                        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
                     >
-                        <span className="text-[10px] uppercase tracking-widest text-ink-muted">Scroll</span>
-                        <div className="w-[1px] h-12 bg-gradient-to-b from-green-primary to-transparent"></div>
+                        <span className="text-[10px] uppercase font-bold tracking-[4px] text-white/50">Scroll</span>
+                        <div className="w-[1px] h-16 bg-white/10 relative overflow-hidden">
+                            <motion.div
+                                className="absolute top-0 left-0 w-full h-[30%] bg-white"
+                                animate={{ y: ['-100%', '300%'] }}
+                                transition={{ duration: 2, repeat: Infinity, ease: [0.77, 0, 0.175, 1] }}
+                            />
+                        </div>
                     </motion.div>
                 </section>
 
-                {/* Industrial Trust Section */}
-                {/* Industrial Trust Section */}
-                <section className="py-10 sm:py-10 bg-white border-b border-green-primary/10">
-                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                        <motion.div
-                            className="grid lg:grid-cols-2 gap-5 lg:gap-10 items-start"
-                            initial={{ opacity: 0, y: 50 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-100px" }}
-                            transition={{ duration: 0.8 }}
-                        >
-                            <div className="space-y-8">
-                                <h2 className="text-3xl md:text-5xl font-black tracking-tight text-ink uppercase leading-none">{tTrust('title')}</h2>
-                                <div className="w-20 h-1.5 bg-green-primary rounded-full"></div>
-                                <p className="text-xl text-ink-soft leading-relaxed font-light">
-                                    {tTrust('description')}
-                                </p>
-                            </div>
-
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-2 gap-y-4">
-                                {[
-                                    { k: 'headquarters', delay: 0 },
-                                    { k: 'globalReach', delay: 0.1 },
-                                    { k: 'exporting', delay: 0.2 },
-                                    { k: 'coreFocus', delay: 0.3 },
-                                    { k: 'si_certificate', delay: 0.4 }
-                                ].map((item) => (
-                                    <motion.div
-                                        key={item.k}
-                                        initial={{ opacity: 0, x: 20 }}
-                                        whileInView={{ opacity: 1, x: 0 }}
-                                        viewport={{ once: true }}
-                                        transition={{ delay: item.delay, duration: 0.5 }}
-                                        className="space-y-3 group"
-                                    >
-                                        <div className="w-8 h-1 bg-green-primary/30 group-hover:bg-green-primary transition-colors duration-300"></div>
-                                        <p className="font-bold text-green-primary uppercase text-xs tracking-widest">{tTrust(`${item.k}.label`)}</p>
-                                        <p className="text-2xl text-ink font-semibold leading-tight">{tTrust(`${item.k}.value`)}</p>
-                                    </motion.div>
-                                ))}
-                            </div>
-                        </motion.div>
+                {/* Stats Section */}
+                <section className="py-10 bg-green-primary text-white border-b border-green-dark relative z-20">
+                    <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+                        <div className="flex flex-wrap justify-center gap-8 md:justify-between">
+                            {[
+                                { val: 20, suffix: "+", k: "years" },
+                                { val: 2000, suffix: "+", k: "projects" },
+                                { val: 100, suffix: "+", k: "clients" },
+                                { val: 14, suffix: "", k: "countries" },
+                                { val: 2, suffix: "", k: "offices" }
+                            ].map((stat, i) => (
+                                <motion.div
+                                    key={i}
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, margin: "-50px" }}
+                                    transition={{ delay: i * 0.1, duration: 0.8 }}
+                                    className="text-center flex-1 min-w-[150px]"
+                                >
+                                    <h2 className="text-4xl md:text-[3rem] font-black mb-1 flex items-center justify-center">
+                                        <CountUp end={stat.val} duration={2.5} separator="," enableScrollSpy scrollSpyOnce />
+                                        {stat.suffix}
+                                    </h2>
+                                    <p className="text-sm font-medium uppercase tracking-[1px] text-white/90">
+                                        {tTrust(`stats.${stat.k}.label`)}
+                                    </p>
+                                </motion.div>
+                            ))}
+                        </div>
                     </div>
                 </section>
 
                 {/* About Section */}
-                <section id="about" className="py-16 sm:py-20 lg:py-24 bg-green-ultra overflow-hidden">
-                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                        <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
-                            <motion.div
-                                className="flex-1 space-y-8"
-                                initial={{ opacity: 0, x: -50 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.8 }}
-                            >
-                                <span className="text-green-primary font-bold tracking-wider uppercase text-sm border-b-2 border-green-primary/20 pb-1 inline-block">
-                                    {tAbout('tag')}
-                                </span>
-                                <h2 className="text-4xl md:text-5xl font-bold text-ink tracking-tight leading-tight">
-                                    {tAbout('title')}
-                                </h2>
-                                <p className="text-xl text-ink-soft leading-relaxed font-light">
-                                    {tAbout('overview_desc')}
-                                </p>
+                <section id="about" className="py-10 sm:py-12 bg-paper overflow-hidden">
+                    <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+                        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-center">
 
-                                <div className="space-y-6 pt-6">
-                                    {valueKeys.map((key, i) => {
-                                        const Icon = valueIcons[i];
-                                        return (
-                                            <motion.div
-                                                key={key}
-                                                className="flex gap-6 items-start group"
-                                                whileHover={{ x: 10 }}
-                                                transition={{ type: "spring", stiffness: 300 }}
-                                            >
-                                                <div className={`w-12 h-12 ${valueColors[i].replace('bg-emerald-600', 'bg-green-primary').replace('bg-zinc-900', 'bg-ink').replace('bg-zinc-700', 'bg-ink-soft')} rounded-xl flex items-center justify-center text-white shrink-0 shadow-lg group-hover:scale-110 transition-transform`}>
-                                                    <Icon size={20} />
-                                                </div>
-                                                <div>
-                                                    <h3 className="font-bold text-lg text-ink mb-1">{tAbout(`values.${key}.title`)}</h3>
-                                                    <p className="text-ink-muted text-sm leading-relaxed">{tAbout(`values.${key}.desc`)}</p>
-                                                </div>
-                                            </motion.div>
-                                        );
-                                    })}
-                                </div>
-                            </motion.div>
-
+                            {/* Left Image & Badge */}
                             <motion.div
-                                className="flex-1 relative"
-                                initial={{ opacity: 0, scale: 0.8 }}
+                                className="flex-1 relative w-full lg:w-1/2"
+                                initial={{ opacity: 0, scale: 0.95 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.8 }}
                             >
-                                <motion.div
-                                    className="relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl bg-zinc-100"
-                                    animate={{ y: [0, -20, 0] }}
-                                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                                >
-                                    {/* รูป Eureka OG */}
+                                <div className="relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl">
                                     <Image
                                         src={withBasePath("/images/hero-automation.webp")}
                                         alt="Eureka Automation Facility"
@@ -287,104 +289,155 @@ export default function HomeClient({ locale }: { locale: string }) {
                                         sizes="(max-width: 768px) 100vw, 50vw"
                                     />
                                     <div className="absolute inset-0 bg-green-primary/10 mix-blend-multiply"></div>
-                                    <div className="absolute inset-0 bg-gradient-to-t from-green-dark/80 via-transparent to-transparent"></div>
-                                </motion.div>
+                                </div>
 
                                 <motion.div
-                                    className="absolute -bottom-10 -left-10 bg-white p-8 rounded-2xl shadow-xl max-w-xs hidden md:block border border-zinc-100"
+                                    className="absolute -bottom-4 -right-2 md:-right-4 bg-paper p-4 lg:p-6 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] max-w-[280px] border border-green-light"
                                     initial={{ opacity: 0, y: 50 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
-                                    transition={{ delay: 0.5 }}
-                                    whileHover={{ scale: 1.05 }}
+                                    transition={{ delay: 0.4 }}
                                 >
-                                    <p className="text-4xl font-black text-emerald-600 mb-1">20+</p>
-                                    <p className="text-zinc-600 font-bold">Years of Excellence</p>
-                                    <p className="text-zinc-400 text-sm mt-2">Delivering world-class automation solutions.</p>
+                                    <p className="text-4xl font-black text-green-primary mb-1 mt-0">20+</p>
+                                    <p className="text-ink font-bold m-0 leading-tight">Years of Excellence</p>
+                                    <p className="text-ink-muted text-sm mt-2 mb-0">Delivering world-class automation solutions.</p>
                                 </motion.div>
                             </motion.div>
+
+                            {/* Right Content */}
+                            <motion.div
+                                className="flex-1 w-full lg:w-1/2 space-y-4 lg:pl-4"
+                                initial={{ opacity: 0, x: 50 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.8 }}
+                            >
+                                <div>
+                                    <span className="text-white bg-green-primary px-4 py-1.5 rounded-full text-[13px] font-bold tracking-[2px] uppercase mb-4 inline-block shadow-sm">
+                                        {tAbout('tag')}
+                                    </span>
+                                    <h2 className={`text-3xl md:text-[2.5rem] font-black text-ink mb-3 ${locale === 'th' ? 'leading-[1.5] tracking-normal' : 'tracking-tight leading-[1.2]'}`}>
+                                        {tAbout('title')}
+                                    </h2>
+                                    <p className="text-[17px] text-ink-muted leading-relaxed font-light mb-4">
+                                        {tAbout('overview_desc')}
+                                    </p>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-4 pb-4 border-b border-black/5">
+                                    {[
+                                        { k: 'headquarters' },
+                                        { k: 'globalReach' },
+                                        { k: 'exporting' },
+                                        { k: 'coreFocus' }
+                                    ].map((item) => (
+                                        <div key={item.k}>
+                                            <h4 className="font-bold text-[15px] text-ink mb-1">{tTrust(`${item.k}.label`)}</h4>
+                                            <p className="text-sm text-ink-muted leading-relaxed m-0">{tTrust(`${item.k}.value`)}</p>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <ul className="space-y-3 pt-2 m-0 p-0 list-none">
+                                    {valueKeys.map((key, i) => {
+                                        const Icon = valueIcons[i];
+                                        return (
+                                            <li key={key} className="flex gap-4 items-start group">
+                                                <div className="w-12 h-12 bg-green-ultra rounded-[14px] flex items-center justify-center text-green-primary shrink-0 transition-all duration-300 group-hover:bg-green-primary group-hover:text-white group-hover:scale-110 shadow-sm group-hover:shadow-[0_4px_15px_rgba(34,169,82,0.3)]">
+                                                    <Icon size={20} />
+                                                </div>
+                                                <div className="flex-1">
+                                                    <h4 className="font-bold text-[17px] text-ink mb-1 group-hover:text-green-primary transition-colors">{tAbout(`values.${key}.title`)}</h4>
+                                                    <p className="text-ink-muted text-[15px] leading-relaxed m-0">{tAbout(`values.${key}.desc`)}</p>
+                                                </div>
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            </motion.div>
+
                         </div>
                     </div>
-                </section >
+                </section>
 
-                {/* Timeline Section */}
-                < section className="py-16 sm:py-20 lg:py-24 bg-white text-ink relative overflow-hidden" >
-                    <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-green-primary/20 to-transparent"></div>
-
-                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+                {/* Milestones Section */}
+                <section className="py-10 sm:py-12 bg-ink text-white overflow-hidden">
+                    <div className="mx-auto max-w-[1000px] px-4 sm:px-6 lg:px-8">
                         <motion.div
-                            className="text-center mb-20"
+                            className="text-center mb-8 max-w-3xl mx-auto"
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                         >
-                            <span className="text-green-primary font-bold tracking-widest uppercase text-xs mb-4 block">
+                            <span className="text-green-primary font-bold tracking-widest uppercase text-sm border border-green-primary/30 px-4 py-1.5 rounded-full inline-block mb-5">
                                 {tHome('timeline.tag')}
                             </span>
-                            <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-ink mb-6">
+                            <h2 className={`text-3xl md:text-[3rem] font-black text-white mb-6 ${locale === 'th' ? 'leading-[1.5] tracking-normal' : 'tracking-tight'}`}>
                                 {tHome('timeline.title')}
                             </h2>
                         </motion.div>
 
                         <div className="relative">
-                            <motion.div
-                                className="hidden md:block absolute top-8 left-10 right-10 h-[2px] bg-green-ultra"
-                                initial={{ scaleX: 0 }}
-                                whileInView={{ scaleX: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 1.5, ease: "easeInOut" }}
-                            ></motion.div>
+                            {/* Vertical Line */}
+                            <div className="absolute left-1/2 top-0 bottom-0 w-[2px] bg-white/10 -translate-x-1/2 hidden md:block"></div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-6">
+                            <div className="flex flex-col gap-6 md:gap-8">
                                 {[
-                                    { year: '2002', circle: 'Start' },
-                                    { year: '2014', circle: 'Global' },
-                                    { year: '2015', circle: 'Auto' },
-                                    { year: '2019', circle: 'AI' }
-                                ].map((item, index) => (
-                                    <motion.div
-                                        key={index}
-                                        className="relative flex flex-col items-center text-center group"
-                                        initial={{ opacity: 0, y: 30 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        viewport={{ once: true }}
-                                        transition={{ delay: index * 0.2, duration: 0.5 }}
-                                    >
-                                        <div className="w-4 h-4 rounded-full bg-white border-2 border-green-primary/30 group-hover:bg-green-primary group-hover:border-green-primary transition-colors mb-6 z-10 relative shadow-sm">
-                                            <div className="absolute inset-0 bg-green-primary/50 rounded-full animate-ping opacity-0 group-hover:opacity-100"></div>
-                                        </div>
+                                    { year: '2002' },
+                                    { year: '2014' },
+                                    { year: '2015' },
+                                    { year: '2019' }
+                                ].map((item, index) => {
+                                    const isEven = index % 2 === 0;
+                                    return (
+                                        <motion.div
+                                            key={index}
+                                            className={`relative flex flex-col md:flex-row items-center justify-between w-full group ${!isEven ? 'md:flex-row-reverse' : ''}`}
+                                            initial={{ opacity: 0, y: 30 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            viewport={{ once: true, margin: "-50px" }}
+                                            transition={{ delay: index * 0.1, duration: 0.6 }}
+                                        >
+                                            {/* Year */}
+                                            <div className={`w-full md:w-[45%] text-6xl font-black text-white/10 mb-4 md:mb-0 ${isEven ? 'md:text-right text-center' : 'md:text-left text-center'}`}>
+                                                {item.year}
+                                            </div>
 
-                                        <h3 className="text-3xl font-bold text-ink mb-3 group-hover:text-green-primary transition-colors">{item.year}</h3>
+                                            {/* Dot */}
+                                            <div className="hidden md:block w-5 h-5 bg-green-primary rounded-full border-4 border-ink z-10 relative shadow-[0_0_15px_rgba(34,169,82,0.5)]">
+                                            </div>
 
-                                        <div className="px-4">
-                                            <p className="font-bold text-ink mb-2 text-lg">{tHome(`timeline.milestones.${item.year}.title`)}</p>
-                                            <p className="text-ink-muted text-sm leading-relaxed">{tHome(`timeline.milestones.${item.year}.desc`)}</p>
-                                        </div>
-                                    </motion.div>
-                                ))}
+                                            {/* Card */}
+                                            <div className="w-full md:w-[45%] bg-white/5 p-6 rounded-2xl backdrop-blur-md border border-white/5 hover:-translate-y-1 hover:bg-white/10 hover:border-green-primary/30 transition-all duration-300 shadow-xl">
+                                                <h3 className="text-xl lg:text-2xl font-bold text-green-primary mb-2">{tHome(`timeline.milestones.${item.year}.title`)}</h3>
+                                                <p className="text-white/70 leading-relaxed text-sm lg:text-base m-0">{tHome(`timeline.milestones.${item.year}.desc`)}</p>
+                                            </div>
+                                        </motion.div>
+                                    );
+                                })}
                             </div>
                         </div>
                     </div>
-                </section >
+                </section>
 
-                {/* Services Section - ปรับปรุงใหม่ */}
-                < section id="productsandservices" className="py-4 sm:py-8 lg:py-16 bg-paper-warm" >
-                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                {/* Capabilities Section */}
+                <section id="productsandservices" className="py-10 lg:py-12 bg-white text-ink">
+                    <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
                         <motion.div
-                            className="text-center mb-16 max-w-3xl mx-auto"
+                            className="text-center mb-8"
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                         >
-                            <span className="text-green-primary font-bold tracking-wider uppercase text-sm mb-3 block">
+                            <span className="text-green-primary font-bold tracking-widest uppercase text-sm border-b-2 border-green-primary/20 pb-1 inline-block mb-3">
                                 {tHome('capabilities_tag')}
                             </span>
-                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-ink mb-6">{tHome('capabilities')}</h2>
-                            <p className="text-lg sm:text-xl text-ink-soft">{tHome('transform_desc')}</p>
+                            <h2 className={`text-3xl sm:text-4xl md:text-[3rem] font-black text-ink mb-3 ${locale === 'th' ? 'leading-[1.5] tracking-normal' : 'tracking-tight'}`}>{tHome('capabilities')}</h2>
+                            <p className="text-[17px] text-ink-muted max-w-2xl mx-auto leading-relaxed font-light">{tHome('transform_desc')}</p>
                         </motion.div>
 
                         <motion.div
-                            className="flex flex-wrap justify-center gap-4 sm:gap-6"
+                            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
                             variants={containerVariants}
                             initial="hidden"
                             whileInView="show"
@@ -393,48 +446,56 @@ export default function HomeClient({ locale }: { locale: string }) {
                             {serviceKeys.map((key) => {
                                 const Icon = serviceIcons[key];
                                 const routeMap: { [key: string]: string } = {
-                                    custom_machines: '/custom-machines',
                                     ai_ml: '/ai-solutions',
+                                    custom_machines: '/custom-machines',
                                     automation: '/robotics',
                                     smart_logistics: '/logistics'
                                 };
                                 const route = routeMap[key];
+                                const features = tServices.raw(`${key}.features`) as string[] || [];
+
                                 return (
-                                    <Link href={route} key={key} className="w-full sm:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-1.5rem)] max-w-sm block">
-                                        <motion.div
-                                            variants={itemVariants}
-                                            className="group relative h-full flex flex-row sm:flex-col items-center sm:items-start bg-white p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-green-primary/5 shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden gap-5 sm:gap-0"
-                                            whileHover={{ y: -10 }}
-                                        >
-                                            <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-green-ultra opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                    <motion.div
+                                        key={key}
+                                        variants={itemVariants}
+                                        className="group bg-paper-warm p-8 rounded-[20px] border border-transparent hover:border-green-primary/30 hover:-translate-y-2 hover:bg-white hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] transition-all duration-300 relative overflow-hidden flex flex-col"
+                                    >
+                                        <div className="w-16 h-16 bg-white rounded-[15px] flex items-center justify-center text-green-primary mb-6 shadow-[0_10px_20px_rgba(0,0,0,0.05)] group-hover:bg-green-primary group-hover:text-white group-hover:rotate-12 transition-all duration-300 pointer-events-none">
+                                            <Icon size={28} />
+                                        </div>
 
-                                            <div className="relative w-14 h-14 sm:w-16 sm:h-16 bg-green-ultra rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0 mb-0 sm:mb-8 group-hover:bg-green-primary group-hover:rotate-6 transition-all duration-500">
-                                                <Icon size={32} className="text-green-dark w-7 h-7 sm:w-8 sm:h-8 group-hover:text-white transition-colors duration-300" />
-                                            </div>
+                                        <h3 className="text-[1.4rem] font-black text-ink mb-4 group-hover:text-green-primary transition-colors">
+                                            {tServices(`${key}.title`)}
+                                        </h3>
 
-                                            <div className="flex-1 min-w-0 sm:w-full flex flex-col h-full">
-                                                <h3 className="relative text-lg sm:text-xl font-bold text-ink mb-1 sm:mb-4 group-hover:text-green-primary transition-colors line-clamp-1 sm:line-clamp-none">
-                                                    {tServices(`${key}.title`)}
-                                                </h3>
+                                        <p className="text-ink-muted leading-[1.6] mb-4 font-light">
+                                            {tServices(`${key}.desc`)}
+                                        </p>
 
-                                                <div className="relative text-ink-muted leading-relaxed sm:mb-8 text-sm line-clamp-2 sm:line-clamp-3">
-                                                    {tServices(`${key}.desc`)}
-                                                </div>
+                                        {features && features.length > 0 && (
+                                            <ul className="mb-6 space-y-2 mt-auto list-none pl-0">
+                                                {features.map((ft, idx) => (
+                                                    <li key={idx} className="flex items-center gap-3 text-ink font-medium text-[15px]">
+                                                        <div className="w-5 h-5 bg-green-primary rounded-full shrink-0 flex items-center justify-center">
+                                                            <div className="w-[5px] h-[10px] border-b-2 border-r-2 border-white rotate-45 -mt-[2px]"></div>
+                                                        </div>
+                                                        {ft}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        )}
 
-                                                <div className="mt-auto pt-4 border-t border-green-ultra relative z-10 items-center justify-between hidden sm:flex">
-                                                    <span className="text-sm font-bold text-ink-soft group-hover:text-green-primary transition-colors flex items-center gap-2">
-                                                        {tHome('learn_more')}
-                                                        <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </motion.div>
-                                    </Link>
+                                        <div className="mt-auto pt-4 pointer-events-auto">
+                                            <Link href={route} className="inline-flex items-center gap-2 font-bold text-green-primary group-hover:gap-4 transition-all uppercase text-[13px] tracking-wider">
+                                                Discover More <ArrowRight size={18} />
+                                            </Link>
+                                        </div>
+                                    </motion.div>
                                 );
                             })}
                         </motion.div>
                     </div>
-                </section >
+                </section>
 
                 {/* Products Section */}
                 {/* <section className="py-8 sm:py-10 lg:py-12 bg-white border-t border-zinc-100">
@@ -511,10 +572,10 @@ export default function HomeClient({ locale }: { locale: string }) {
                 </section> */}
 
                 {/* Video Gallery Section */}
-                <section id="showcase" className="py-4 sm:py-8 lg:py-16 bg-paper overflow-hidden">
+                <section id="showcase" className="py-4 sm:py-6 lg:py-8 bg-paper overflow-hidden">
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <motion.div
-                            className="text-center mb-12 space-y-4"
+                            className="text-center mb-6 space-y-2"
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
@@ -535,30 +596,31 @@ export default function HomeClient({ locale }: { locale: string }) {
                 </section>
 
                 {/* Client Logos Section */}
-                <section className="py-6 sm:py-8 border-y border-zinc-100 bg-white">
-                    <div className="text-center mb-10">
-                        <span className="text-xs font-bold uppercase tracking-[0.3em] text-zinc-400">{tHome('trusted_by')}</span>
+                <section className="py-10 border-y border-black/5 bg-white overflow-hidden">
+                    <div className="text-center mb-5">
+                        <span className="text-sm font-bold uppercase tracking-[2px] text-black/40">{tHome('trusted_by')}</span>
                     </div>
 
-                    <div className="relative group/slider overflow-hidden">
-                        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white to-transparent z-10"></div>
-                        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white to-transparent z-10"></div>
+                    <div className="relative group/slider max-w-[1200px] mx-auto">
+                        <div className="absolute left-0 top-0 bottom-0 w-24 md:w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
+                        <div className="absolute right-0 top-0 bottom-0 w-24 md:w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
 
                         <div className="flex w-max animate-infinite-scroll group-hover/slider:pause-animation">
-                            {[...clientLogos, ...clientLogos, ...clientLogos, ...clientLogos].map((client, i) => (
+                            {[...clientLogos, ...clientLogos, ...clientLogos].map((client, i) => (
                                 <Link
                                     key={i}
                                     href={client.href}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex items-center justify-center min-w-[200px] px-8 transition-opacity hover:opacity-100 opacity-40 grayscale hover:grayscale-0 duration-500"
+                                    className="flex items-center justify-center w-[200px] h-[100px] px-8 transition-all hover:opacity-100 opacity-50 grayscale hover:grayscale-0 duration-300 hover:scale-110"
                                 >
-                                    <div className="relative w-32 h-16">
+                                    <div className="relative w-full h-full">
                                         <Image
                                             src={client.logo}
                                             alt={client.name}
                                             fill
                                             className="object-contain"
+                                            loading="lazy"
                                         />
                                     </div>
                                 </Link>
@@ -570,10 +632,10 @@ export default function HomeClient({ locale }: { locale: string }) {
                         __html: `
                         @keyframes scroll-left {
                             from { transform: translateX(0); }
-                            to { transform: translateX(-25%); }
+                            to { transform: translateX(-33.33%); }
                         }
                         .animate-infinite-scroll {
-                            animation: scroll-left 80s linear infinite;
+                            animation: scroll-left 40s linear infinite;
                         }
                         .pause-animation {
                             animation-play-state: paused !important;
@@ -581,100 +643,220 @@ export default function HomeClient({ locale }: { locale: string }) {
                     `}} />
                 </section>
 
-                {/* Contact Section */}
-                <section id="contact" className="py-4 sm:py-8 lg:py-12 bg-green-ultra text-ink relative">
-                    <div className="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMCAwaDQwdjQwaC00MFoiLz48cGF0aCBkPSJNMCAwaDF2NDBIOFoiIGZpbGw9IiMzNEE4NTMiIGZpbGwtb3BhY2l0eT0iLjIiLz48L2c+PC9zdmc+')]"></div>
+                {/* News & Insights Section */}
+                <section className="py-10 lg:py-12 bg-paper-warm">
+                    <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+                        <motion.div
+                            className="text-center mb-8"
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                        >
+                            <span className="text-green-primary font-bold tracking-widest uppercase text-sm border-b-2 border-green-primary/20 pb-1 inline-block mb-4">
+                                {tHome('news.tag')}
+                            </span>
+                            <h2 className="text-3xl md:text-[3rem] font-black text-ink tracking-tight mb-2">
+                                {tHome('news.title')}
+                            </h2>
+                        </motion.div>
 
-                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
-                        <div className="grid lg:grid-cols-2 gap-20 items-center">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            {isLoadingNews ? (
+                                Array.from({ length: 3 }).map((_, idx) => (
+                                    <div key={idx} className="bg-white rounded-[20px] border border-black/5 flex flex-col overflow-hidden animate-pulse min-h-[400px]">
+                                        <div className="aspect-[3/2] bg-zinc-200"></div>
+                                        <div className="p-6 flex flex-col flex-1 gap-4">
+                                            <div className="h-4 bg-zinc-200 rounded w-1/4"></div>
+                                            <div className="h-6 bg-zinc-200 rounded w-3/4"></div>
+                                            <div className="space-y-2 flex-1">
+                                                <div className="h-4 bg-zinc-200 rounded w-full"></div>
+                                                <div className="h-4 bg-zinc-200 rounded w-full"></div>
+                                                <div className="h-4 bg-zinc-200 rounded w-2/3"></div>
+                                            </div>
+                                            <div className="h-4 bg-zinc-200 rounded w-1/3 mt-auto"></div>
+                                        </div>
+                                    </div>
+                                ))
+                            ) : news.length > 0 ? (
+                                news.map((item, idx) => (
+                                    <motion.div
+                                        key={idx}
+                                        className="group bg-white rounded-[20px] overflow-hidden border border-black/5 hover:border-green-primary/30 hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] transition-all duration-300 flex flex-col"
+                                        initial={{ opacity: 0, y: 30 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true, margin: "-50px" }}
+                                        transition={{ delay: idx * 0.1, duration: 0.6 }}
+                                    >
+                                        <div className="relative aspect-[3/2] bg-green-ultra overflow-hidden shrink-0">
+                                            {item.image ? (
+                                                <Image src={item.image} alt={item.title} fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
+                                            ) : (
+                                                <div className="absolute inset-0 bg-gradient-to-br from-green-primary/20 to-transparent z-10 transition-opacity group-hover:opacity-50"></div>
+                                            )}
+                                        </div>
+                                        <div className="p-6 flex flex-col flex-1">
+                                            <div className="text-green-primary font-bold text-[13px] tracking-wider uppercase mb-2 text-left">{item.date || "News"}</div>
+                                            <h3 className="text-xl font-bold text-ink mb-2 group-hover:text-green-primary transition-colors line-clamp-2 text-left">
+                                                {item.title}
+                                            </h3>
+                                            <p className="text-ink-muted text-[15px] leading-relaxed mb-4 line-clamp-3 flex-1 text-left">
+                                                {item.description}
+                                            </p>
+                                            <Link href={item.link || "#"} className="inline-flex items-center gap-2 font-bold text-green-primary group-hover:gap-3 transition-all uppercase text-[13px] tracking-wider mt-auto text-left w-max">
+                                                Read More <ArrowRight size={16} />
+                                            </Link>
+                                        </div>
+                                    </motion.div>
+                                ))
+                            ) : (
+                                ['tgi', 'iso', 'ai_division'].map((newsKey, idx) => (
+                                    <motion.div
+                                        key={newsKey}
+                                        className="group bg-white rounded-[20px] overflow-hidden border border-black/5 hover:border-green-primary/30 hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] transition-all duration-300 flex flex-col"
+                                        initial={{ opacity: 0, y: 30 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true, margin: "-50px" }}
+                                        transition={{ delay: idx * 0.1, duration: 0.6 }}
+                                    >
+                                        <div className="relative aspect-[3/2] bg-green-ultra overflow-hidden shrink-0">
+                                            <div className="absolute inset-0 bg-gradient-to-br from-green-primary/20 to-transparent z-10 transition-opacity group-hover:opacity-50"></div>
+                                        </div>
+                                        <div className="p-6 flex flex-col flex-1">
+                                            <div className="text-green-primary font-bold text-[13px] tracking-wider uppercase mb-2 text-left">Mar 15, 2024</div>
+                                            <h3 className="text-xl font-bold text-ink mb-2 group-hover:text-green-primary transition-colors line-clamp-2 text-left">
+                                                {tHome(`news.items.${newsKey}.title`)}
+                                            </h3>
+                                            <p className="text-ink-muted text-[15px] leading-relaxed mb-4 line-clamp-3 flex-1 text-left">
+                                                {tHome(`news.items.${newsKey}.desc`)}
+                                            </p>
+                                            <Link href="#" className="inline-flex items-center gap-2 font-bold text-green-primary group-hover:gap-3 transition-all uppercase text-[13px] tracking-wider mt-auto text-left w-max">
+                                                Read More <ArrowRight size={16} />
+                                            </Link>
+                                        </div>
+                                    </motion.div>
+                                ))
+                            )}
+                        </div>
+                    </div>
+                </section>
+
+                {/* Contact & Careers Section */}
+                <section id="contact" className="py-10 lg:py-12 bg-white text-ink relative">
+                    {/* Background Pattern */}
+                    <div className="absolute inset-0 opacity-[0.03] bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMCAwaDQwdjQwaC00MFoiLz48cGF0aCBkPSJNMCAwaDF2NDBIOFoiIGZpbGw9IiMzNEE4NTMiIGZpbGwtb3BhY2l0eT0iLjIiLz48L2c+PC9zdmc+')] pointer-events-none"></div>
+
+                    <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 relative z-10 space-y-12">
+                        {/* Contact Block */}
+                        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
                             <motion.div
-                                className="space-y-8"
+                                className="space-y-4 lg:space-y-6"
                                 initial={{ opacity: 0, x: -50 }}
                                 whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.8 }}
                             >
-                                <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-primary/10 border border-green-primary/30 rounded-full text-sm font-bold text-green-dark">
-                                    <Mail size={16} /> {tContact('tag')}
+                                <div className="inline-flex items-center gap-2 px-4 py-2 border-b-2 border-green-primary/30 text-sm font-bold text-green-primary uppercase tracking-widest">
+                                    {tContact('tag')}
                                 </div>
-                                <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight leading-[1.1]">
+                                <h2 className={`text-3xl sm:text-4xl md:text-[3rem] font-black ${locale === 'th' ? 'leading-[1.5] tracking-normal' : 'tracking-tight leading-[1.1]'}`}>
                                     {tContact('title')}
                                 </h2>
-                                <p className="text-lg sm:text-xl text-ink-soft font-light leading-relaxed max-w-lg">
+                                <p className="text-[17px] text-ink-muted font-light leading-relaxed max-w-lg">
                                     {tContact('description')}
                                 </p>
 
-                                <div className="space-y-4 pt-4">
+                                <div className="space-y-4 pt-2">
                                     {[
-                                        { icon: Phone, label: tContact('call_us'), val: "02-096-3556", action: { type: 'tel', value: '020963556' } },
-                                        { icon: MessageSquare, label: "Line OA", val: "@636ekooa", action: { type: 'line', value: '@636ekooa', href: 'https://line.me/ti/p/@636ekooa' } },
-                                        { icon: Mail, label: tContact('email_us'), val: "Marketing@eurekaautomation.co.th", action: { type: 'mailto', value: 'Marketing@eurekaautomation.co.th' } },
-                                        { icon: MapPin, label: tContact('visit_us'), val: "15, 48 BIGGERLAND 4 KLONG 8, Pathum Thani 12150", action: { type: 'map', value: 'https://www.google.com/maps/search/?api=1&query=Eureka+Automation+Thailand+48/15+Moo+4+Biggerland+4+Klong+8' } }
+                                        { icon: MapPin, label: "Headquarters", val: "15, 48 BIGGERLAND 4 KLONG 8, Pathum Thani 12150", action: { type: 'map', value: 'https://www.google.com/maps/search/?api=1&query=Eureka+Automation+Thailand+48/15+Moo+4+Biggerland+4+Klong+8' } },
+                                        { icon: Phone, label: "Call Us", val: "02-096-3556", action: { type: 'tel', value: '020963556' } },
+                                        { icon: Mail, label: "Email", val: "Marketing@eurekaautomation.co.th", action: { type: 'mailto', value: 'Marketing@eurekaautomation.co.th' } },
+                                        { icon: MessageSquare, label: "Line OA", val: "@636ekooa", action: { type: 'line', value: '@636ekooa', href: 'https://line.me/ti/p/@636ekooa' } }
                                     ].map((item, i) => (
                                         <motion.div
                                             key={i}
-                                            className="flex items-start gap-3 group p-2 rounded-2xl hover:bg-white/50 transition-colors cursor-pointer"
-                                            whileHover={{ x: 10 }}
+                                            className="flex items-start gap-4 group transition-colors cursor-pointer"
+                                            whileHover={{ x: 5 }}
                                             onClick={() => {
-                                                console.log('Home: Contact Clicked', item.action);
+                                                if (item.action.type === 'line' && item.action.href) {
+                                                    window.open(item.action.href, '_blank', 'noopener,noreferrer');
+                                                    return;
+                                                }
                                                 setSelectedContact({ type: item.action.type, value: item.action.value, label: item.label, href: item.action.href });
                                             }}
                                         >
-                                            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-full flex shrink-0 items-center justify-center text-green-primary group-hover:bg-green-primary group-hover:text-white transition-colors shadow-sm">
-                                                <item.icon size={18} className="sm:size-5" />
+                                            <div className="w-12 h-12 bg-paper-warm rounded-2xl flex shrink-0 items-center justify-center text-green-primary group-hover:bg-green-primary group-hover:text-white transition-all shadow-sm group-hover:shadow-[0_10px_20px_rgba(34,169,82,0.2)] group-hover:-translate-y-1">
+                                                <item.icon size={20} />
                                             </div>
-                                            <div className="min-w-0">
-                                                <p className="text-[10px] sm:text-xs font-bold text-ink-muted uppercase tracking-widest mb-0.5 sm:mb-1">{item.label}</p>
-                                                <p className="font-medium text-ink text-base sm:text-lg break-all sm:break-words leading-tight">{item.val}</p>
+                                            <div className="min-w-0 pt-1">
+                                                <p className="text-[13px] font-bold text-ink mb-1">{item.label}</p>
+                                                <p className="font-light text-ink-muted text-[15px] break-all sm:break-words leading-relaxed">{item.val}</p>
                                             </div>
                                         </motion.div>
                                     ))}
                                 </div>
                             </motion.div>
 
+                            {/* Contact Form OR Careers CTA inside Contact right-side? */}
                             <motion.div
-                                className="bg-white p-8 md:p-12 rounded-[2.5rem] border border-green-primary/10 shadow-2xl"
-                                initial={{ opacity: 0, scale: 0.9 }}
+                                className="bg-paper-warm p-6 md:p-8 rounded-[24px] shadow-[0_20px_40px_rgba(0,0,0,0.04)] border border-black/5"
+                                initial={{ opacity: 0, scale: 0.95 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.2, duration: 0.8 }}
-                                whileHover={{ y: -5 }}
                             >
-                                <div className="mb-8">
-                                    <h3 className="text-2xl font-bold text-ink mb-2">{tHome('careers_cta.title')}</h3>
-                                    <button
-                                        onClick={() => {
-                                            console.log('Home: Careers Email Clicked');
-                                            setSelectedContact({ type: 'mailto', value: 'hr@eurekaautomation.co.th', label: 'HR Recruitment' });
-                                        }}
-                                        className="text-ink-muted mb-1 block hover:text-green-primary transition-colors text-left"
-                                    >
-                                        {tHome('careers_cta.hr_contact')}
-                                    </button>
-                                    <button
-                                        onClick={() => {
-                                            console.log('Home: Careers Phone Clicked');
-                                            setSelectedContact({ type: 'tel', value: '0944096287', label: 'HR Recruitment' });
-                                        }}
-                                        className="text-ink-muted mb-4 block hover:text-green-primary transition-colors text-left"
-                                    >
-                                        {tHome('careers_cta.hr_phone')}
-                                    </button>
-                                </div>
-                                <Link
-                                    href="/careers"
-                                    className="flex items-center justify-between w-full p-6 bg-green-primary hover:bg-green-dark text-white rounded-2xl font-bold transition-all group"
-                                >
-                                    <span>{tHome('careers_cta.button')}</span>
-                                    <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                                        <ArrowRight size={20} />
+                                <h3 className="text-2xl font-black text-ink mb-8">Send us a message</h3>
+                                <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+                                    <div>
+                                        <label className="block text-[13px] font-bold text-ink uppercase tracking-wider mb-2">Name</label>
+                                        <input type="text" placeholder="John Doe" className="w-full bg-white border border-black/10 rounded-xl px-4 py-3 placeholder-black/20 focus:outline-none focus:border-green-primary focus:ring-1 focus:ring-green-primary transition-all text-[15px]" />
                                     </div>
-                                </Link>
+                                    <div>
+                                        <label className="block text-[13px] font-bold text-ink uppercase tracking-wider mb-2">Email</label>
+                                        <input type="email" placeholder="john@example.com" className="w-full bg-white border border-black/10 rounded-xl px-4 py-3 placeholder-black/20 focus:outline-none focus:border-green-primary focus:ring-1 focus:ring-green-primary transition-all text-[15px]" />
+                                    </div>
+                                    <div>
+                                        <label className="block text-[13px] font-bold text-ink uppercase tracking-wider mb-2">Message</label>
+                                        <textarea rows={4} placeholder="How can we help you?" className="w-full bg-white border border-black/10 rounded-xl px-4 py-3 placeholder-black/20 focus:outline-none focus:border-green-primary focus:ring-1 focus:ring-green-primary transition-all text-[15px] resize-none"></textarea>
+                                    </div>
+                                    <button type="submit" className="w-full bg-green-primary hover:bg-green-dark text-white rounded-xl py-4 font-bold transition-colors flex justify-center items-center gap-2">
+                                        Send Message <ArrowRight size={18} />
+                                    </button>
+                                </form>
                             </motion.div>
                         </div>
+
+                        {/* Careers CTA Banner
+                        <motion.div
+                            className="bg-green-ultra rounded-[24px] overflow-hidden flex flex-col md:flex-row items-center border border-green-primary/20 relative"
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                        >
+                            <div className="flex-1 p-8 md:p-10 lg:p-12 relative z-10">
+                                <h2 className="text-3xl font-black text-ink mb-3">{tHome('careers_cta.title')}</h2>
+                                <p className="text-[15px] lg:text-[17px] text-ink-soft mb-6 max-w-lg leading-relaxed">{tHome('careers_cta.hr_contact')} - {tHome('careers_cta.hr_phone')}</p>
+                                <Link
+                                    href="/careers"
+                                    className="inline-flex items-center gap-2 px-6 py-3 bg-green-primary hover:bg-green-dark text-white rounded-full font-bold transition-all group"
+                                >
+                                    {tHome('careers_cta.button')}
+                                    <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                                </Link>
+                            </div>
+                            <div className="w-full md:w-[40%] h-[300px] md:h-auto md:absolute md:right-0 md:top-0 md:bottom-0 shrink-0">
+                                <div className="absolute inset-0 bg-green-primary/10"></div>
+                                <Image
+                                    src={withBasePath("/images/hero-bg.webp")}
+                                    alt="Careers at Eureka Automation"
+                                    fill
+                                    className="object-cover opacity-80 mix-blend-multiply"
+                                />
+                            </div>
+                        </motion.div> */}
+
                     </div>
                 </section>
-            </div >
+            </div>
 
             {/* Contact Confirmation Modal */}
             < ContactModal

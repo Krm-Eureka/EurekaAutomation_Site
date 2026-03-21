@@ -6,6 +6,21 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
 import { getTranslations } from 'next-intl/server';
+import { Inter, Kanit } from "next/font/google";
+import StickyCTA from "@/components/ui/StickyCTA";
+import "@/app/globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: '--font-inter'
+});
+
+const kanit = Kanit({
+  subsets: ["latin", "thai"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: '--font-kanit'
+});
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -18,6 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       template: "%s | Eureka Automation"
     },
     description: tSeo('default_description'),
+    keywords: tSeo('keywords'),
     alternates: {
       canonical: `/${locale}/`,
       languages: {
@@ -85,17 +101,19 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <div className={`flex flex-col min-h-screen bg-paper text-ink transition-colors duration-300 font-sans`}>
-      <NextIntlClientProvider messages={messages}>
-        {gaId && <GoogleAnalytics GA_MEASUREMENT_ID={gaId} />}
+    <html lang={locale} className={`${inter.variable} ${kanit.variable} scroll-smooth`}>
+      <body className={`flex flex-col min-h-screen bg-paper text-ink transition-colors duration-300 font-sans ${locale === 'th' ? 'th' : ''}`}>
+        <NextIntlClientProvider messages={messages}>
+          {gaId && <GoogleAnalytics GA_MEASUREMENT_ID={gaId} />}
 
-        <Header lang={locale} />
-        <main className="flex-grow">
-          {children}
-        </main>
-
-        <Footer />
-      </NextIntlClientProvider>
-    </div>
+          <Header lang={locale} />
+          <main className="flex-grow">
+            {children}
+          </main>
+          <StickyCTA />
+          <Footer />
+        </NextIntlClientProvider>
+      </body>
+    </html>
   );
 }

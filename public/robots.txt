@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Prevent indexing of system files or temp files
+Disallow: /out/
+Disallow: /.next/
+Disallow: /scripts/
+
+# Sitemaps
+Sitemap: https://eurekaautomation.co.th/sitemap.xml

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link } from '@/i18n/routing';
 import Image from "next/image";
 import { withBasePath } from '@/lib/utils';
-import { Mail, Phone, MapPin, Facebook, Linkedin, MessageSquare, Youtube } from "lucide-react";
+import { Mail, Facebook, Linkedin, MessageSquare, Youtube } from "lucide-react";
 import { useTranslations } from "next-intl";
 import ContactModal from "@/components/modals/ContactModal";
 
@@ -26,61 +26,77 @@ export function Footer() {
 
   return (
     <>
-      <footer className="bg-green-ultra text-ink-muted border-t border-green-primary/10">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+      <footer className="bg-ink text-white/70 border-t border-white/10">
+        <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 py-10 lg:py-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 lg:gap-4 mb-8">
             {/* Company Info */}
-            <div className="space-y-6">
+            <div className="lg:col-span-5 space-y-4 pr-2 lg:pr-4">
               <Link href="/" className="block">
-                <div className={`relative h-14 w-52 transition-all cursor-pointer`}>
+                <div className="relative h-12 w-48 transition-all cursor-pointer">
                   <Image
                     src={withBasePath("/eureka-logo.png")}
                     alt="Eureka Automation"
                     fill
-                    className="object-contain object-left"
+                    className="object-contain object-left brightness-0 invert opacity-90 hover:opacity-100 transition-opacity"
                     unoptimized
                   />
                 </div>
               </Link>
-              <p className="text-sm leading-relaxed max-w-xs text-ink-soft">
+              <p className="text-[15px] leading-relaxed max-w-[280px] font-light text-white/60">
                 {t('description')}
               </p>
-              <div className="flex gap-4">
-                <a href="https://linkedin.com/company/eureka-automation-thailand" target="_blank" rel="noopener noreferrer" className="p-2 bg-white rounded-full hover:text-green-primary hover:shadow-md transition-all text-ink">
+
+              <div className="flex flex-col gap-1.5 pt-1">
+                <a href="mailto:Marketing@eurekaautomation.co.th" className="flex items-center gap-2 group w-max">
+                  <Mail size={18} className="text-green-primary group-hover:text-white transition-colors" />
+                  <span className="text-[15px] group-hover:text-white transition-colors font-light text-white/70">Marketing@eurekaautomation.co.th</span>
+                </a>
+                <a href="https://line.me/ti/p/@636ekooa" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 group w-max">
+                  <MessageSquare size={18} className="text-green-primary group-hover:text-white transition-colors" />
+                  <span className="text-[15px] group-hover:text-white transition-colors font-light text-white/70">@636ekooa</span>
+                </a>
+              </div>
+
+              <div className="flex gap-1.5 pt-1">
+                <a href="https://linkedin.com/company/eureka-automation-thailand" target="_blank" rel="noopener noreferrer" className="w-10 h-10 flex items-center justify-center bg-white/5 rounded-full hover:bg-green-primary hover:text-white transition-all text-white/80 shrink-0">
                   <Linkedin size={18} />
                 </a>
-                <a href="https://facebook.com/EurekaAutomationThailand" target="_blank" rel="noopener noreferrer" className="p-2 bg-white rounded-full hover:text-green-primary hover:shadow-md transition-all text-ink">
+                <a href="https://facebook.com/EurekaAutomationThailand" target="_blank" rel="noopener noreferrer" className="w-10 h-10 flex items-center justify-center bg-white/5 rounded-full hover:bg-green-primary hover:text-white transition-all text-white/80 shrink-0">
                   <Facebook size={18} />
                 </a>
-                <a href="https://www.youtube.com/channel/UCk8yICYGWD3uvI7QPjA08kQ" target="_blank" rel="noopener noreferrer" className="p-2 bg-white rounded-full hover:text-green-primary hover:shadow-md transition-all text-ink">
+                <a href="https://www.youtube.com/channel/UCk8yICYGWD3uvI7QPjA08kQ" target="_blank" rel="noopener noreferrer" className="w-10 h-10 flex items-center justify-center bg-white/5 rounded-full hover:bg-green-primary hover:text-white transition-all text-white/80 shrink-0">
                   <Youtube size={18} />
                 </a>
               </div>
             </div>
 
             {/* Quick Links */}
-            <div>
-              <h4 className="font-bold text-ink mb-6 uppercase tracking-wider text-xs">
+            <div className="lg:col-span-3 mt-2 lg:mt-0">
+              <h4 className="font-bold text-white mb-4 uppercase tracking-[2px] text-[13px]">
                 {t('quick_links')}
               </h4>
-              <ul className="space-y-4 text-sm">
+              <ul className="space-y-2 text-[15px] font-light mb-4 lg:mb-0">
                 <li>
-                  <Link href="#about" className="hover:text-green-primary transition-colors">
+                  <Link href="#about" className="hover:text-green-primary transition-colors flex items-center gap-2 group w-max">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-primary opacity-0 group-hover:opacity-100 transition-opacity"></span>
                     {tNav('about')}
                   </Link>
                 </li>
                 <li>
-                  <Link href="#productsandservices" className="hover:text-green-primary transition-colors">
+                  <Link href="#productsandservices" className="hover:text-green-primary transition-colors flex items-center gap-2 group w-max">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-primary opacity-0 group-hover:opacity-100 transition-opacity"></span>
                     {tNav('products & Services')}
                   </Link>
                 </li>
                 <li>
-                  <Link href="/careers" className="hover:text-green-primary transition-colors">
+                  <Link href="/careers" className="hover:text-green-primary transition-colors flex items-center gap-2 group w-max">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-primary opacity-0 group-hover:opacity-100 transition-opacity"></span>
                     {tNav('careers')}
                   </Link>
                 </li>
                 <li>
-                  <Link href="#contact" className="hover:text-green-primary transition-colors">
+                  <Link href="#contact" className="hover:text-green-primary transition-colors flex items-center gap-2 group w-max">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-primary opacity-0 group-hover:opacity-100 transition-opacity"></span>
                     {tNav('contact')}
                   </Link>
                 </li>
@@ -88,102 +104,64 @@ export function Footer() {
             </div>
 
             {/* Services */}
-            <div>
-              <h4 className="font-bold text-ink mb-6 uppercase tracking-wider text-xs">
+            <div className="lg:col-span-4">
+              <h4 className="font-bold text-white mb-4 uppercase tracking-[2px] text-[13px]">
                 {t('services')}
               </h4>
-              <ul className="space-y-4 text-sm">
+              <ul className="space-y-3 text-[15px] font-light">
                 <li>
-                  <Link href="/custom-machines" className="hover:text-green-primary transition-colors">
-                    {tHome('services.custom_machines.title')}
+                  <Link href="/custom-machines" className="hover:text-green-primary transition-colors flex items-start gap-2.5 group">
+                    <span className="w-1.5 h-1.5 mt-[6px] rounded-full bg-green-primary opacity-0 group-hover:opacity-100 transition-opacity shrink-0"></span>
+                    <span className="leading-relaxed">{tHome('services.custom_machines.title')}</span>
                   </Link>
                 </li>
 
                 <li>
-                  <Link href="/robotics" className="hover:text-green-primary transition-colors">
-                    {tHome('services.automation.title')}
+                  <Link href="/robotics" className="hover:text-green-primary transition-colors flex items-start gap-2.5 group">
+                    <span className="w-1.5 h-1.5 mt-[6px] rounded-full bg-green-primary opacity-0 group-hover:opacity-100 transition-opacity shrink-0"></span>
+                    <span className="leading-relaxed">{tHome('services.automation.title')}</span>
                   </Link>
                 </li>
                 <li>
-                  <Link href="/logistics" className="hover:text-green-primary transition-colors">
-                    {tHome('services.smart_logistics.title')}
+                  <Link href="/logistics" className="hover:text-green-primary transition-colors flex items-start gap-2.5 group">
+                    <span className="w-1.5 h-1.5 mt-[6px] rounded-full bg-green-primary opacity-0 group-hover:opacity-100 transition-opacity shrink-0"></span>
+                    <span className="leading-relaxed">{tHome('services.smart_logistics.title')}</span>
                   </Link>
                 </li>
               </ul>
             </div>
 
-            {/* Contact */}
-            <div>
-              <h4 className="font-bold text-ink mb-6 uppercase tracking-wider text-xs">
-                {t('contact')}
-              </h4>
-              <ul className="space-y-4 text-sm">
-                <li
-                  className="flex items-center gap-4 group cursor-pointer"
-                  onClick={() => {
-                    console.log('Footer: Phone Clicked');
-                    setSelectedContact({ type: 'tel', value: '020963556', label: 'Call Us' });
-                  }}
-                >
-                  <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shrink-0 group-hover:bg-green-primary transition-colors shadow-sm">
-                    <Phone size={16} className="text-ink-soft group-hover:text-white" />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-[10px] text-green-primary font-bold tracking-widest uppercase mb-0.5">Call Us</span>
-                    <span className="text-ink-soft group-hover:text-green-dark transition-colors">02-096-3556</span>
-                  </div>
-                </li>
-                <li
-                  className="flex items-start gap-4 group cursor-pointer"
-                  onClick={() => {
-                    console.log('Footer: Email Clicked');
-                    setSelectedContact({ type: 'mailto', value: 'Marketing@eurekaautomation.co.th', label: 'Marketing' });
-                  }}
-                >
-                  <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shrink-0 group-hover:bg-green-primary transition-colors shadow-sm">
-                    <Mail size={16} className="text-ink-soft group-hover:text-white" />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-[10px] text-green-primary font-bold tracking-widest uppercase mb-0.5 block">Marketing</span>
-                    <span className="text-ink-soft group-hover:text-green-dark transition-colors break-all lg:break-normal">Marketing@eurekaautomation.co.th</span>
-                  </div>
-                </li>
-                <li
-                  className="flex items-center gap-4 group cursor-pointer"
-                  onClick={() => {
-                    console.log('Footer: Line Clicked');
-                    setSelectedContact({ type: 'line', value: '@636ekooa', label: 'Line OA', href: 'https://line.me/ti/p/@636ekooa' });
-                  }}
-                >
-                  <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shrink-0 group-hover:bg-green-primary transition-colors shadow-sm">
-                    <MessageSquare size={16} className="text-ink-soft group-hover:text-white" />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-[10px] text-green-primary font-bold tracking-widest uppercase mb-0.5">Line OA</span>
-                    <span className="text-ink-soft group-hover:text-green-dark transition-colors">@636ekooa</span>
-                  </div>
-                </li>
-                <li
-                  className="flex items-start gap-4 group cursor-pointer"
-                  onClick={() => {
-                    console.log('Footer: Map Clicked');
-                    setSelectedContact({ type: 'map', value: 'https://www.google.com/maps/search/?api=1&query=Eureka+Automation+Thailand+48/15+Moo+4+Biggerland+4+Klong+8', label: 'Location' });
-                  }}
-                >
-                  <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shrink-0 mt-1 group-hover:bg-green-primary transition-colors shadow-sm">
-                    <MapPin size={16} className="text-ink-soft group-hover:text-white" />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-[10px] text-green-primary font-bold tracking-widest uppercase mb-0.5">Location</span>
-                    <span className="text-ink-soft group-hover:text-green-dark transition-colors">Pathum Thani, <br />Thailand</span>
-                  </div>
-                </li>
-              </ul>
+          </div>
+
+          {/* Offices Location Boxes */}
+          <div className="border-t border-white/10 pt-8 mt-4">
+            <h4 className="font-bold text-white mb-6 uppercase tracking-[2px] text-[13px]">
+              {t('offices.title')}
+            </h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* TH Headquarters */}
+              <div className="bg-white/5 hover:bg-white/10 transition-colors border-l-[3px] border-green-primary p-4 lg:p-5 rounded-r-xl border-y border-r border-white/5">
+                <p className="text-green-primary font-bold text-[15px] mb-2 flex items-center gap-2">
+                  <span className="text-white/50 text-[11px] tracking-wider uppercase font-black">{t('offices.th.tag')}</span> {t('offices.th.name')}
+                </p>
+                <p className="text-white font-medium text-[15px] mb-1.5">{t('offices.th.company')}</p>
+                <p className="text-white/60 text-[14px] leading-relaxed mb-3">{t('offices.th.address1')}<br />{t('offices.th.address2')}</p>
+                <p className="text-white/80 text-[14px]">Tel: <a href="tel:020963556" className="font-medium hover:text-green-primary transition-colors">{t('offices.th.tel')}</a></p>
+              </div>
+              {/* IN Office */}
+              <div className="bg-white/5 hover:bg-white/10 transition-colors border-l-[3px] border-green-primary p-4 lg:p-5 rounded-r-xl border-y border-r border-white/5">
+                <p className="text-green-primary font-bold text-[15px] mb-2 flex items-center gap-2">
+                  <span className="text-white/50 text-[11px] tracking-wider uppercase font-black">{t('offices.in.tag')}</span> {t('offices.in.name')}
+                </p>
+                <p className="text-white font-medium text-[15px] mb-1.5">{t('offices.in.company')}</p>
+                <p className="text-white/60 text-[14px] leading-relaxed mb-3">{t('offices.in.address1')}<br />{t('offices.in.address2')}</p>
+                <p className="text-white/80 text-[14px]">Tel: <a href="tel:+911244009973" className="font-medium hover:text-green-primary transition-colors">{t('offices.in.tel')}</a></p>
+              </div>
             </div>
           </div>
 
-          <div className="mt-16 pt-8 border-t border-green-primary/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium uppercase tracking-widest">
-            <p className="text-ink-muted">
+          <div className="mt-10 pt-4 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-[13px] font-medium uppercase tracking-[2px]">
+            <p className="text-white/40">
               &copy; {currentYear} Eureka Automation.
             </p>
           </div>
