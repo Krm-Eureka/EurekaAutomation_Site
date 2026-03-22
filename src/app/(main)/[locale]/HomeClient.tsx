@@ -7,7 +7,7 @@ import {
     Phone, Mail, MapPin,
     MessageSquare,
 } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { withBasePath } from "@/lib/utils";
@@ -44,6 +44,17 @@ export default function HomeClient({ locale }: { locale: string }) {
     const [selectedContact, setSelectedContact] = useState<{ type: string, value: string, label: string, href?: string } | null>(null);
     const [news, setNews] = useState<NewsItem[]>([]);
     const [isLoadingNews, setIsLoadingNews] = useState(true);
+    const videoRef = useRef<HTMLVideoElement>(null);
+
+    useEffect(() => {
+        if (videoRef.current) {
+            // Force muted via JS property for better mobile support
+            videoRef.current.muted = true;
+            videoRef.current.play().catch(err => {
+                console.log("Autoplay was prevented:", err);
+            });
+        }
+    }, []);
 
     useEffect(() => {
         const fetchNews = async () => {
@@ -148,10 +159,12 @@ export default function HomeClient({ locale }: { locale: string }) {
 
                         {/* 2. Video Background - Overlays image */}
                         <video
+                            ref={videoRef}
                             autoPlay
                             muted
                             loop
                             playsInline
+                            preload="auto"
                             poster={withBasePath("/images/eureka-og.webp")}
                             className="absolute inset-0 w-full h-full object-cover scale-110 z-10"
                         >

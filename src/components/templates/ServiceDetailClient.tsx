@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect, useRef } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { motion, useScroll, useTransform, Variants } from "framer-motion";
 import { useRouter } from "@/i18n/routing";
@@ -42,6 +43,16 @@ export default function ServiceDetailClient({
     const tHome = useTranslations('home.services');
     const tSub = useTranslations(`subpages.${namespace}`);
     const tCommon = useTranslations('common');
+    const videoRef = useRef<HTMLVideoElement>(null);
+
+    useEffect(() => {
+        if (videoRef.current) {
+            videoRef.current.muted = true;
+            videoRef.current.play().catch(err => {
+                console.log("Autoplay was prevented:", err);
+            });
+        }
+    }, []);
 
     // Filter videos based on category
     const videos = (videoDataRaw as Record<string, Video[]>)[videoCategory] || [];
@@ -72,11 +83,13 @@ export default function ServiceDetailClient({
                 <motion.div style={{ y: y1 }} className="absolute inset-0 z-0">
                     {backgroundVideo && (
                         <video
+                            ref={videoRef}
                             src={withBasePath(backgroundVideo)}
                             autoPlay
                             muted
                             loop
                             playsInline
+                            preload="auto"
                             className="absolute z-0 w-full h-full object-cover opacity-20"
                         />
                     )}
