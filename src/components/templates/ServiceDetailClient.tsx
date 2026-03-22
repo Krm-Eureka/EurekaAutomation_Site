@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { motion, useScroll, useTransform, Variants } from "framer-motion";
 import { useRouter } from "@/i18n/routing";
