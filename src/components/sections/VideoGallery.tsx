@@ -92,8 +92,8 @@ export default function VideoGallery({ videos, locale, hideFilter = false }: Vid
         const x = e.pageX - scrollContainerRef.current.offsetLeft;
         const distance = Math.abs(e.pageX - mouseDownX);
 
-        // Only start dragging if the distance is greater than the threshold (e.g., 5 pixels)
-        if (distance > 5) {
+        // Only start dragging if the distance is greater than the threshold (e.g., 15 pixels)
+        if (distance > 15) {
             if (!isDragging) setIsDragging(true);
             e.preventDefault();
             const walk = (x - startX) * 2; // Scroll speed multiplier

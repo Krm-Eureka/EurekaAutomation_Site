@@ -159,7 +159,7 @@ export default function HomeClient({ locale }: { locale: string }) {
                         </video>
 
                         {/* 3. Gradient Overlay - Topmost layer for readablity */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/95 via-zinc-900/80 to-green-primary/30 z-20"></div>
+                        <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/95 via-zinc-900/80 to-green-primary/30 z-20 pointer-events-none"></div>
                     </motion.div>
 
                     <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-left flex flex-col items-start">

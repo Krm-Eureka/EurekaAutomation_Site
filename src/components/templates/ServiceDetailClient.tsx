@@ -95,7 +95,7 @@ export default function ServiceDetailClient({
                     {/* Theme Glow Effects */}
                     <div className={`absolute top-[-10%] right-[-10%] w-[500px] h-[500px] ${themeColor} rounded-full blur-[100px] animate-pulse`}></div>
                     <div className={`absolute bottom-[-20%] left-[-20%] w-[400px] h-[400px] ${secondThemeColor} rounded-full blur-[90px] animate-pulse delay-500`}></div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/80 to-transparent"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/80 to-transparent pointer-events-none"></div>
                 </motion.div>
 
                 <motion.div style={{ y: y2 }} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
