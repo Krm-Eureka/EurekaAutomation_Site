@@ -295,7 +295,7 @@ export default function HomeClient({ locale }: { locale: string }) {
                             >
                                 <div className="relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl">
                                     <Image
-                                        src={withBasePath("/images/hero-automation.webp")}
+                                        src={withBasePath("/images/Our_Legacy.webp")}
                                         alt="Eureka Automation Facility"
                                         fill
                                         className="object-cover"
@@ -329,11 +329,14 @@ export default function HomeClient({ locale }: { locale: string }) {
                                     <span className="text-white bg-green-primary px-4 py-1.5 rounded-full text-[13px] font-bold tracking-[2px] uppercase mb-4 inline-block shadow-sm">
                                         {tAbout('tag')}
                                     </span>
-                                    <h2 className={`text-3xl md:text-[2.5rem] font-black text-ink mb-3 ${locale === 'th' ? 'leading-[1.5] tracking-normal' : 'tracking-tight leading-[1.2]'}`}>
-                                        {tAbout('title')}
+                                    <h2 className={`text-4xl md:text-5xl font-black text-green-primary mb-2 ${locale === 'th' ? 'leading-[1.5] tracking-normal' : 'tracking-tight leading-[1.2]'}`}>
+                                        {tAbout('professionalism_title')}
                                     </h2>
-                                    <p className="text-[17px] text-ink-muted leading-relaxed font-light mb-4">
-                                        {tAbout('overview_desc')}
+                                    <p className="text-xl md:text-2xl font-bold text-green-primary/80 mb-6 leading-relaxed">
+                                        {tAbout('professionalism_subtitle')}
+                                    </p>
+                                    <p className="text-[17px] text-ink-muted leading-relaxed font-light mb-6">
+                                        {tAbout('professionalism_desc')}
                                     </p>
                                 </div>
 

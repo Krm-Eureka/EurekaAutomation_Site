@@ -10,7 +10,7 @@ export default function RoboticsClient() {
             videoCategory="ROBOTICS"
             themeColor="bg-cyan-500/10"
             secondThemeColor="bg-violet-500/10"
-            backgroundImage="/images/hero-automation.webp"
+            backgroundImage="/images/Our_Legacy.webp"
             icon={Zap}
             homeServiceKey="automation"
         />

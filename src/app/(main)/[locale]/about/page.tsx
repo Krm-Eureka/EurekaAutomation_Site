@@ -53,12 +53,17 @@ export default async function AboutPage({
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div className="space-y-6">
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
-                {t("who_we_are")}
+              <h2 className="text-3xl md:text-5xl font-bold text-slate-900 tracking-tight">
+                {t("professionalism_title")}
               </h2>
-              <p className="text-lg text-slate-600 leading-relaxed">
-                {t("overview_desc")}
-              </p>
+              <div className="space-y-4">
+                <h3 className="text-2xl font-bold text-emerald-600">
+                  {t("professionalism_subtitle")}
+                </h3>
+                <p className="text-lg text-slate-600 leading-relaxed">
+                  {t("professionalism_desc")}
+                </p>
+              </div>
               <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100">
                 <p className="text-slate-600 italic">
                   {t("comprehensive_services")}

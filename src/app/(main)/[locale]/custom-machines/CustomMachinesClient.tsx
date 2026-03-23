@@ -10,7 +10,7 @@ export default function CustomMachinesClient() {
             videoCategory="MACHINES"
             themeColor="bg-indigo-500/10"
             secondThemeColor="bg-blue-500/10"
-            backgroundImage="/images/hero-automation.webp"
+            backgroundImage="/images/Our_Legacy.webp"
             icon={Settings}
             homeServiceKey="custom_machines"
         />

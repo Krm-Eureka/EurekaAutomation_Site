@@ -108,7 +108,10 @@
                 "desc": "Long-term relations"
             }
         },
-        "placeholder": "Manufacturing Excellence"
+        "placeholder": "Manufacturing Excellence",
+        "professionalism_title": "Excellence in Professionalism",
+        "professionalism_subtitle": "We provide comprehensive machinery and industrial automation solutions.",
+        "professionalism_desc": "Eureka Automation is a leader in Thailand's mechatronics engineering sector, serving thousands of clients both locally and globally. Our expert engineering team delivers custom machine designs and automation systems tailored to boost production efficiency and minimize operational costs, ensuring our clients achieve maximum value from our expertise."
     },
     "industrialTrust": {
         "title": "INDUSTRIAL TRUST",
