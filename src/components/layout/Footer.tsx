@@ -61,7 +61,7 @@ export function Footer() {
                 <a href="https://linkedin.com/company/eureka-automation-thailand" target="_blank" rel="noopener noreferrer" className="w-10 h-10 flex items-center justify-center bg-white/5 rounded-full hover:bg-green-primary hover:text-white transition-all text-white/80 shrink-0">
                   <Linkedin size={18} />
                 </a>
-                <a href="https://facebook.com/EurekaAutomationThailand" target="_blank" rel="noopener noreferrer" className="w-10 h-10 flex items-center justify-center bg-white/5 rounded-full hover:bg-green-primary hover:text-white transition-all text-white/80 shrink-0">
+                <a href="https://www.facebook.com/profile.php?id=100057184970709" target="_blank" rel="noopener noreferrer" className="w-10 h-10 flex items-center justify-center bg-white/5 rounded-full hover:bg-green-primary hover:text-white transition-all text-white/80 shrink-0">
                   <Facebook size={18} />
                 </a>
                 <a href="https://www.youtube.com/channel/UCk8yICYGWD3uvI7QPjA08kQ" target="_blank" rel="noopener noreferrer" className="w-10 h-10 flex items-center justify-center bg-white/5 rounded-full hover:bg-green-primary hover:text-white transition-all text-white/80 shrink-0">

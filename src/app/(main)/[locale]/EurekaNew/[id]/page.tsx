@@ -63,6 +63,10 @@ export default async function NewsDetailPage({ params }: PageProps) {
             images: newsImages,
             paragraphs: []
         };
+    }).sort((a, b) => {
+        const dateA = a.postedDate ? new Date(a.postedDate).getTime() : 0;
+        const dateB = b.postedDate ? new Date(b.postedDate).getTime() : 0;
+        return dateB - dateA;
     });
 
     const currentBase = otherNews.find(n => n.id === id);

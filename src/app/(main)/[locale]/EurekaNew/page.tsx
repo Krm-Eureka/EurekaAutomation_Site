@@ -29,6 +29,10 @@ export default async function NewsArchivePage({ params }: PageProps) {
             desc: itemData.desc || "",
             images: newsImages,
         };
+    }).sort((a, b) => {
+        const dateA = a.postedDate ? new Date(a.postedDate).getTime() : 0;
+        const dateB = b.postedDate ? new Date(b.postedDate).getTime() : 0;
+        return dateB - dateA;
     });
 
     return (
