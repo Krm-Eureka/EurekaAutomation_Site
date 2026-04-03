@@ -324,7 +324,7 @@ export default function HomeClient({ locale }: { locale: string }) {
                 </section>
 
                 {/* Stats Section */}
-                <section className="py-10 bg-green-primary text-white border-b border-green-dark relative z-20">
+                <section className="py-6 bg-green-primary text-white border-b border-green-dark relative z-20">
                     <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
                         <div className="flex flex-wrap justify-center gap-8 md:justify-between">
                             {[
