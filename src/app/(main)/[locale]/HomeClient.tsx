@@ -6,6 +6,7 @@ import {
     Target, Award, Users,
     Phone, Mail, MapPin,
     MessageSquare,
+    ChevronLeft, ChevronRight,
 } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -29,11 +30,15 @@ interface Video {
 }
 
 interface NewsItem {
+    id?: string;
     title: string;
     description: string;
-    date?: string;
+    date?: string; // Display date (e.g., "25-27 ก.พ. 2569")
+    postedDate?: string; // Parseable date for "New" badge (e.g., "2026-03-24")
     link?: string;
     image?: string;
+    full_content?: string;
+    images?: string[];
 }
 
 const videoData = (Object.entries(videoDataRaw)
@@ -41,6 +46,13 @@ const videoData = (Object.entries(videoDataRaw)
     .flatMap(([, value]) => value) as Video[]);
 
 export default function HomeClient({ locale }: { locale: string }) {
+    const tHero = useTranslations('hero');
+    const tHome = useTranslations('home');
+    const tServices = useTranslations('home.services');
+    const tAbout = useTranslations('about');
+    const tContact = useTranslations('contact');
+    const tTrust = useTranslations('industrialTrust');
+
     const [selectedContact, setSelectedContact] = useState<{ type: string, value: string, label: string, href?: string } | null>(null);
     const [news, setNews] = useState<NewsItem[]>([]);
     const [isLoadingNews, setIsLoadingNews] = useState(true);
@@ -58,31 +70,120 @@ export default function HomeClient({ locale }: { locale: string }) {
 
     useEffect(() => {
         const fetchNews = async () => {
+            let staticKeys: string[] = [];
+            let staticItems: NewsItem[] = [];
+            try {
+                const items = tHome.raw('news.items') || {};
+                if (items && typeof items === 'object' && !Array.isArray(items)) {
+                    staticKeys = Object.keys(items).filter(key => !key.startsWith('_'));
+
+                    staticItems = staticKeys.map(key => {
+                        const itemData = items[key] || {};
+                        const title = itemData.title || tHome(`news.items.${key}.title`);
+                        const date = itemData.date || tHome(`news.items.${key}.date`);
+                        const description = itemData.desc || tHome(`news.items.${key}.desc`);
+                        const postedDate = itemData.postedDate || tHome(`news.items.${key}.postedDate`);
+
+                        // Content blocks support
+                        let content: string[] = [];
+                        if (Array.isArray(itemData.content)) {
+                            content = itemData.content;
+                        }
+
+                        // Images support
+                        let images: string[] = [];
+                        if (Array.isArray(itemData.images)) {
+                            images = itemData.images.map((img: string) => withBasePath(img));
+                        } else if (content.length > 0) {
+                            const firstImg = content.find(c => typeof c === 'string' && (c.startsWith('GRID:') || c.startsWith('IMAGE:')));
+                            if (firstImg) {
+                                const pathString = firstImg.split(':')[1];
+                                const paths = pathString.split(',').map(p => withBasePath(p.trim()));
+                                images = paths;
+                            }
+                        }
+
+                        const full_content = typeof itemData.full_content === 'string' ? itemData.full_content : undefined;
+
+                        return {
+                            id: key,
+                            title,
+                            date,
+                            postedDate,
+                            description,
+                            full_content,
+                            link: `/EurekaNew/${key}`,
+                            image: images.length > 0 ? images[0] : withBasePath("/images/Our_Legacy.webp"),
+                            images: images.length > 0 ? images : [withBasePath("/images/Our_Legacy.webp")]
+                        };
+                    }).sort((a: NewsItem, b: NewsItem) => {
+                        const dateA = a.postedDate ? new Date(a.postedDate).getTime() : 0;
+                        const dateB = b.postedDate ? new Date(b.postedDate).getTime() : 0;
+                        return dateB - dateA;
+                    });
+                }
+            } catch {
+                console.warn("Failed to load static news items from translations");
+            }
+
             try {
                 const url = new URL(GAS_WEB_APP_URL);
                 url.searchParams.append('sheet', 'Eureka_News');
-                url.searchParams.append('t', Date.now().toString()); // Cache buster
-                
-                // [CRITICAL FIX] Removed { cache: 'no-store' } because it triggers a CORS OPTIONS preflight request that GAS does not support.
-                // The 't' parameter above is enough to prevent browser caching.
+                url.searchParams.append('t', Date.now().toString());
+
                 const res = await fetch(url.toString());
                 if (res.ok) {
                     const contentType = res.headers.get("content-type");
                     if (contentType && contentType.includes("application/json")) {
                         const data = await res.json();
                         if (Array.isArray(data)) {
-                            setNews(data);
+                            // Map incoming GAS data to ensure properties exist
+                            const mappedData = data.map(item => ({
+                                ...item,
+                                postedDate: item.postedDate || item.date // Fallback to date if postedDate missing
+                            }));
+
+                            const allNews = [...staticItems, ...mappedData];
+                            // Sort by postedDate descending
+                            allNews.sort((a, b) => {
+                                const dateA = a.postedDate ? new Date(a.postedDate).getTime() : 0;
+                                const dateB = b.postedDate ? new Date(b.postedDate).getTime() : 0;
+                                return dateB - dateA;
+                            });
+
+                            setNews(allNews);
+                        } else {
+                            setNews(staticItems);
                         }
+                    } else {
+                        setNews(staticItems);
                     }
+                } else {
+                    setNews(staticItems);
                 }
             } catch (err) {
                 console.error("Failed to fetch news:", err);
+                setNews(staticItems);
             } finally {
                 setIsLoadingNews(false);
             }
         };
         fetchNews();
-    }, []);
+    }, [tHome]);
+
+    const isNew = (postedDate?: string) => {
+        if (!postedDate) return false;
+        try {
+            const date = new Date(postedDate);
+            if (isNaN(date.getTime())) return false;
+            const today = new Date("2026-03-24");
+            const diffTime = Math.abs(today.getTime() - date.getTime());
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            return diffDays <= 7;
+        } catch {
+            return false;
+        }
+    };
 
     const handleConfirm = () => {
         if (!selectedContact) return;
@@ -93,12 +194,53 @@ export default function HomeClient({ locale }: { locale: string }) {
         }
         setTimeout(() => setSelectedContact(null), 100);
     };
-    const tHero = useTranslations('hero');
-    const tHome = useTranslations('home');
-    const tServices = useTranslations('home.services');
-    const tAbout = useTranslations('about');
-    const tContact = useTranslations('contact');
-    const tTrust = useTranslations('industrialTrust');
+
+    // News Scroll State
+    const [isNewsDragging, setIsNewsDragging] = useState(false);
+    const [isNewsMouseDown, setIsNewsMouseDown] = useState(false);
+    const [newsStartX, setNewsStartX] = useState(0);
+    const [newsMouseDownX, setNewsMouseDownX] = useState(0);
+    const [newsScrollLeftState, setNewsScrollLeftState] = useState(0);
+    const newsScrollRef = useRef<HTMLDivElement>(null);
+
+    const scrollNews = (direction: 'left' | 'right') => {
+        if (newsScrollRef.current) {
+            const { scrollLeft, clientWidth, scrollWidth } = newsScrollRef.current;
+            const scrollAmount = clientWidth * 0.8;
+            let targetScroll;
+            if (direction === 'left') {
+                targetScroll = scrollLeft <= 50 ? scrollWidth : scrollLeft - scrollAmount;
+            } else {
+                targetScroll = scrollLeft + clientWidth >= scrollWidth - 50 ? 0 : scrollLeft + scrollAmount;
+            }
+            newsScrollRef.current.scrollTo({ left: targetScroll, behavior: 'smooth' });
+        }
+    };
+
+    const handleNewsMouseDown = (e: React.MouseEvent) => {
+        if (!newsScrollRef.current) return;
+        setIsNewsMouseDown(true);
+        setNewsMouseDownX(e.pageX);
+        setNewsStartX(e.pageX - newsScrollRef.current.offsetLeft);
+        setNewsScrollLeftState(newsScrollRef.current.scrollLeft);
+    };
+
+    const handleNewsMouseMove = (e: React.MouseEvent) => {
+        if (!isNewsMouseDown || !newsScrollRef.current) return;
+        const x = e.pageX - newsScrollRef.current.offsetLeft;
+        const distance = Math.abs(e.pageX - newsMouseDownX);
+        if (distance > 25) {
+            if (!isNewsDragging) setIsNewsDragging(true);
+            e.preventDefault();
+            const walk = (x - newsStartX) * 2;
+            newsScrollRef.current.scrollLeft = newsScrollLeftState - walk;
+        }
+    };
+
+    const handleNewsMouseUpOrLeave = () => {
+        setIsNewsMouseDown(false);
+        setTimeout(() => setIsNewsDragging(false), 50);
+    };
 
     const serviceKeys = ['automation', 'custom_machines', 'smart_logistics'] as const;
     const orgSchema = generateOrganizationSchema(locale);
@@ -377,7 +519,7 @@ export default function HomeClient({ locale }: { locale: string }) {
                 </section>
 
                 {/* Milestones Section */}
-                <section className="py-10 sm:py-12 bg-ink text-white overflow-hidden">
+                <section className="py-5 sm:py-6 bg-ink text-white overflow-hidden">
                     <div className="mx-auto max-w-[1000px] px-4 sm:px-6 lg:px-8">
                         <motion.div
                             className="text-center mb-8 max-w-3xl mx-auto"
@@ -662,24 +804,42 @@ export default function HomeClient({ locale }: { locale: string }) {
                 {/* News & Insights Section */}
                 <section className="py-10 lg:py-12 bg-paper-warm">
                     <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
-                        <motion.div
-                            className="text-center mb-8"
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                        >
-                            <span className="text-green-primary font-bold tracking-widest uppercase text-sm border-b-2 border-green-primary/20 pb-1 inline-block mb-4">
-                                {tHome('news.tag')}
-                            </span>
-                            <h2 className="text-3xl md:text-[3rem] font-black text-ink tracking-tight mb-2">
-                                {tHome('news.title')}
-                            </h2>
-                        </motion.div>
+                        <div className="relative mb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
+                            <motion.div
+                                className="text-left"
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                            >
+                                <span className="text-green-primary font-bold tracking-widest uppercase text-sm border-b-2 border-green-primary/20 pb-1 inline-block mb-4">
+                                    {tHome('news.tag')}
+                                </span>
+                                <h2 className="text-3xl md:text-[3rem] font-black text-ink tracking-tight mb-2">
+                                    {tHome('news.title')}
+                                </h2>
+                            </motion.div>
+                            <Link
+                                href="/EurekaNew"
+                                className="px-8 py-3 bg-zinc-900 hover:bg-green-primary text-white rounded-2xl font-bold text-xs uppercase tracking-widest transition-all shadow-xl hover:-translate-y-1 inline-flex items-center gap-2 w-fit"
+                            >
+                                {tHome('news.view_all')} <ArrowRight size={16} />
+                            </Link>
+                        </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {/* News Carousel Container */}
+                        <div
+                            ref={newsScrollRef}
+                            onMouseDown={handleNewsMouseDown}
+                            onMouseMove={handleNewsMouseMove}
+                            onMouseUp={handleNewsMouseUpOrLeave}
+                            onMouseLeave={handleNewsMouseUpOrLeave}
+                            className={`flex overflow-x-auto gap-6 pb-8 px-6 md:px-0 scrollbar-hide scroll-smooth snap-x snap-mandatory select-none ${isNewsDragging ? 'cursor-grabbing' : 'cursor-grab'
+                                }`}
+                            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                        >
                             {isLoadingNews ? (
                                 Array.from({ length: 3 }).map((_, idx) => (
-                                    <div key={idx} className="bg-white rounded-[20px] border border-black/5 flex flex-col overflow-hidden animate-pulse min-h-[400px]">
+                                    <div key={idx} className="flex-none w-[300px] md:w-[380px] snap-start bg-white rounded-[20px] border border-black/5 flex flex-col overflow-hidden animate-pulse min-h-[400px]">
                                         <div className="aspect-[3/2] bg-zinc-200"></div>
                                         <div className="p-6 flex flex-col flex-1 gap-4">
                                             <div className="h-4 bg-zinc-200 rounded w-1/4"></div>
@@ -696,62 +856,108 @@ export default function HomeClient({ locale }: { locale: string }) {
                             ) : news.length > 0 ? (
                                 news.map((item, idx) => (
                                     <motion.div
-                                        key={idx}
-                                        className="group bg-white rounded-[20px] overflow-hidden border border-black/5 hover:border-green-primary/30 hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] transition-all duration-300 flex flex-col"
+                                        key={item.id || idx}
+                                        className={`flex-none w-[85vw] md:w-[380px] snap-center md:snap-start group bg-white rounded-[20px] overflow-hidden border border-black/5 hover:border-green-primary/30 hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] transition-all duration-300 flex flex-col ${isNewsDragging ? 'pointer-events-none' : ''}`}
                                         initial={{ opacity: 0, y: 30 }}
                                         whileInView={{ opacity: 1, y: 0 }}
                                         viewport={{ once: true, margin: "-50px" }}
                                         transition={{ delay: idx * 0.1, duration: 0.6 }}
                                     >
-                                        <div className="relative aspect-[3/2] bg-green-ultra overflow-hidden shrink-0">
-                                            {item.image ? (
-                                                <Image src={item.image} alt={item.title} fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
-                                            ) : (
-                                                <div className="absolute inset-0 bg-gradient-to-br from-green-primary/20 to-transparent z-10 transition-opacity group-hover:opacity-50"></div>
-                                            )}
-                                        </div>
-                                        <div className="p-6 flex flex-col flex-1">
-                                            <div className="text-green-primary font-bold text-[13px] tracking-wider uppercase mb-2 text-left">{item.date || "News"}</div>
-                                            <h3 className="text-xl font-bold text-ink mb-2 group-hover:text-green-primary transition-colors line-clamp-2 text-left">
-                                                {item.title}
-                                            </h3>
-                                            <p className="text-ink-muted text-[15px] leading-relaxed mb-4 line-clamp-3 flex-1 text-left">
-                                                {item.description}
-                                            </p>
-                                            <Link href={item.link || "#"} className="inline-flex items-center gap-2 font-bold text-green-primary group-hover:gap-3 transition-all uppercase text-[13px] tracking-wider mt-auto text-left w-max">
-                                                Read More <ArrowRight size={16} />
-                                            </Link>
-                                        </div>
+                                        <Link href={`/EurekaNew/${item.id || idx}`} className="flex flex-col h-full w-full">
+                                            <div className="relative aspect-[3/2] bg-green-ultra overflow-hidden shrink-0">
+                                                {item.image ? (
+                                                    <Image src={item.image} alt={item.title} fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
+                                                ) : (
+                                                    <div className="absolute inset-0 bg-gradient-to-br from-green-primary/20 to-transparent z-10 transition-opacity group-hover:opacity-50"></div>
+                                                )}
+
+                                                {/* New Badge */}
+                                                {isNew(item.postedDate) && (
+                                                    <div className="absolute top-4 left-4 z-20 px-3 py-1 bg-green-primary text-white text-[11px] font-bold rounded-full shadow-lg animate-pulse uppercase tracking-wider">
+                                                        New
+                                                    </div>
+                                                )}
+                                            </div>
+                                            <div className="p-6 flex flex-col flex-1">
+                                                <div className="text-green-primary font-bold text-[13px] tracking-wider uppercase mb-2 text-left">{item.date || "News"}</div>
+                                                <h3 className="text-xl font-bold text-ink mb-2 group-hover:text-green-primary transition-colors line-clamp-2 text-left">
+                                                    {item.title}
+                                                </h3>
+                                                <p className="text-ink-muted text-[15px] leading-relaxed mb-4 line-clamp-3 flex-1 text-left">
+                                                    {item.description}
+                                                </p>
+                                                <div className="inline-flex items-center gap-2 font-bold text-green-primary group-hover:gap-3 transition-all uppercase text-[13px] tracking-wider mt-auto text-left w-max">
+                                                    Read More <ArrowRight size={16} />
+                                                </div>
+                                            </div>
+                                        </Link>
                                     </motion.div>
                                 ))
                             ) : (
-                                ['tgi', 'iso', 'ai_division'].map((newsKey, idx) => (
+                                ['expo2026', 'foodpack2026'].map((newsKey, idx) => (
                                     <motion.div
                                         key={newsKey}
-                                        className="group bg-white rounded-[20px] overflow-hidden border border-black/5 hover:border-green-primary/30 hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] transition-all duration-300 flex flex-col"
+                                        className={`flex-none w-[85vw] md:w-[380px] snap-center md:snap-start group bg-white rounded-[20px] overflow-hidden border border-black/5 hover:border-green-primary/30 hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] transition-all duration-300 flex flex-col ${isNewsDragging ? 'pointer-events-none' : ''}`}
                                         initial={{ opacity: 0, y: 30 }}
                                         whileInView={{ opacity: 1, y: 0 }}
                                         viewport={{ once: true, margin: "-50px" }}
                                         transition={{ delay: idx * 0.1, duration: 0.6 }}
                                     >
-                                        <div className="relative aspect-[3/2] bg-green-ultra overflow-hidden shrink-0">
-                                            <div className="absolute inset-0 bg-gradient-to-br from-green-primary/20 to-transparent z-10 transition-opacity group-hover:opacity-50"></div>
-                                        </div>
-                                        <div className="p-6 flex flex-col flex-1">
-                                            <div className="text-green-primary font-bold text-[13px] tracking-wider uppercase mb-2 text-left">Mar 15, 2024</div>
-                                            <h3 className="text-xl font-bold text-ink mb-2 group-hover:text-green-primary transition-colors line-clamp-2 text-left">
-                                                {tHome(`news.items.${newsKey}.title`)}
-                                            </h3>
-                                            <p className="text-ink-muted text-[15px] leading-relaxed mb-4 line-clamp-3 flex-1 text-left">
-                                                {tHome(`news.items.${newsKey}.desc`)}
-                                            </p>
-                                            <Link href="#" className="inline-flex items-center gap-2 font-bold text-green-primary group-hover:gap-3 transition-all uppercase text-[13px] tracking-wider mt-auto text-left w-max">
-                                                Read More <ArrowRight size={16} />
-                                            </Link>
-                                        </div>
+                                        <Link href={`/EurekaNew/${newsKey}`} className="flex flex-col h-full w-full">
+                                            <div className="relative aspect-[3/2] bg-green-ultra overflow-hidden shrink-0">
+                                                <div className="absolute inset-0 bg-gradient-to-br from-green-primary/20 to-transparent z-10 transition-opacity group-hover:opacity-50"></div>
+
+                                                {/* New Badge for fallback items (Optional, based on key or date) */}
+                                                {newsKey === 'expo2026' && (
+                                                    <div className="absolute top-4 left-4 z-20 px-3 py-1 bg-green-primary text-white text-[11px] font-bold rounded-full shadow-lg animate-pulse uppercase tracking-wider">
+                                                        New
+                                                    </div>
+                                                )}
+                                            </div>
+                                            <div className="p-6 flex flex-col flex-1">
+                                                <div className="text-green-primary font-bold text-[13px] tracking-wider uppercase mb-2 text-left">
+                                                    {tHome(`news.items.${newsKey}.date`) || "Mar 15, 2024"}
+                                                </div>
+                                                <h3 className="text-xl font-bold text-ink mb-2 group-hover:text-green-primary transition-colors line-clamp-2 text-left">
+                                                    {tHome(`news.items.${newsKey}.title`)}
+                                                </h3>
+                                                <p className="text-ink-muted text-[15px] leading-relaxed mb-4 line-clamp-3 flex-1 text-left">
+                                                    {tHome(`news.items.${newsKey}.desc`)}
+                                                </p>
+                                                <div className="inline-flex items-center gap-2 font-bold text-green-primary group-hover:gap-3 transition-all uppercase text-[13px] tracking-wider mt-auto text-left w-max">
+                                                    Read More <ArrowRight size={16} />
+                                                </div>
+                                            </div>
+                                        </Link>
                                     </motion.div>
                                 ))
                             )}
+                        </div>
+
+                        {/* Slider Navigation Controls - Centered at Bottom */}
+                        <div className="flex justify-center items-center gap-4 mt-8">
+                            <button
+                                onClick={() => scrollNews('left')}
+                                className="p-4 bg-white rounded-full shadow-md border border-black/5 text-ink-soft hover:text-green-primary hover:border-green-primary active:scale-90 transition-all"
+                                aria-label="Previous news"
+                            >
+                                <ChevronLeft size={24} />
+                            </button>
+
+                            {/* Visual Indicator Dots (Optional/Decorative) */}
+                            <div className="flex gap-1.5 px-4">
+                                {[0, 1, 2].map((i) => (
+                                    <div key={i} className={`w-1.5 h-1.5 rounded-full ${i === 0 ? 'bg-green-primary' : 'bg-green-primary/20'}`}></div>
+                                ))}
+                            </div>
+
+                            <button
+                                onClick={() => scrollNews('right')}
+                                className="p-4 bg-white rounded-full shadow-md border border-black/5 text-ink-soft hover:text-green-primary hover:border-green-primary active:scale-90 transition-all"
+                                aria-label="Next news"
+                            >
+                                <ChevronRight size={24} />
+                            </button>
                         </div>
                     </div>
                 </section>
@@ -875,10 +1081,9 @@ export default function HomeClient({ locale }: { locale: string }) {
             </div>
 
             {/* Contact Confirmation Modal */}
-            < ContactModal
+            <ContactModal
                 selectedContact={selectedContact}
-                onClose={() => setSelectedContact(null)
-                }
+                onClose={() => setSelectedContact(null)}
                 onConfirm={handleConfirm}
             />
         </>

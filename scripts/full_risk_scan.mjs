@@ -60,11 +60,6 @@ async function fetchSafe(url, opts = {}) {
   }
 }
 
-function sev(s) {
-  if (s === 'HIGH') return 'risk-high';
-  if (s === 'MEDIUM') return 'risk-med';
-  return 'risk-low';
-}
 
 // -------------------------------------------------
 // SCAN FUNCTIONS
@@ -174,7 +169,6 @@ function generateReport({ routeResults, headerResults, xssResults, redirectResul
   const failedRoutes = routeResults.filter(r => !r.ok).length;
   const missingHeaders = headerResults.filter(h => !h.present).length;
   const xssReflected = xssResults.filter(r => r.isRealXSS).length;
-  const xssFalsePositive = xssResults.filter(r => r.isFalsePositive).length;
 
   const riskScore = Math.max(0, 100 - (missingHeaders * 8) - (xssReflected * 20) - (failedRoutes * 10) - (formResults.hasPDPA ? 0 : 15));
   const riskLabel = riskScore >= 85 ? ['LOW RISK', '#16a34a'] : riskScore >= 60 ? ['MEDIUM RISK', '#d97706'] : ['HIGH RISK', '#dc2626'];

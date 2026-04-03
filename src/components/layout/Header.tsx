@@ -30,20 +30,25 @@ export function Header({ lang }: HeaderProps) {
     { name: Translation('about'), href: '/#about' },
     { name: Translation('products & Services'), href: '/#productsandservices' },
     { name: Translation('showcase'), href: '/#showcase' },
+    { name: Translation('news'), href: '/EurekaNew' },
     { name: Translation('careers'), href: '/careers' },
   ];
 
+  // Special pages that always have a white background and need a dark header
+  const isSpecialPage = pathname.includes('/EurekaNew') || pathname.includes('/careers');
+  const isSticky = scrolled || isSpecialPage;
+
   // Dynamic Styles
-  const headerBg = scrolled
+  const headerBg = isSticky
     ? 'bg-white/80 backdrop-blur-md border-b border-zinc-200 py-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.05)]'
     : 'bg-transparent py-5';
 
-  const textColor = scrolled ? 'text-ink-soft hover:text-green-primary' : 'text-white/80 hover:text-white';
+  const textColor = isSticky ? 'text-ink-soft hover:text-green-primary' : 'text-white/80 hover:text-white';
   // Logo is likely dark/colored by default. Since background is light (paper/green-ultra), we show original logo.
-  const logoFilter = scrolled ? 'transition-all' : 'brightness-0 invert transition-all';
+  const logoFilter = isSticky ? 'transition-all' : 'brightness-0 invert transition-all';
 
 
-  const buttonStyle = scrolled
+  const buttonStyle = isSticky
     ? 'bg-green-primary text-white hover:bg-green-dark shadow-lg'
     : 'bg-green-primary text-white hover:bg-green-dark shadow-[0_4px_16px_rgba(52,168,83,0.25)]';
 
@@ -63,7 +68,7 @@ export function Header({ lang }: HeaderProps) {
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden lg:flex items-center gap-8">
           {navigation.map((item) => {
             const active = isLinkActive(item.href);
             return (
@@ -118,7 +123,7 @@ export function Header({ lang }: HeaderProps) {
         {/* Mobile Menu Btn */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className={`md:hidden relative z-[100] p-2.5 rounded-xl border transition-all duration-300 flex items-center justify-center min-w-[44px] min-h-[44px] ${'text-ink bg-white/50 border-green-primary/20 backdrop-blur-sm'
+          className={`lg:hidden relative z-[100] p-2.5 rounded-xl border transition-all duration-300 flex items-center justify-center min-w-[44px] min-h-[44px] ${'text-ink bg-white/50 border-green-primary/20 backdrop-blur-sm'
             }`}
         >
           {mobileMenuOpen ? <X size={24} className="text-green-primary" /> : <Menu size={24} className="text-ink" />}
