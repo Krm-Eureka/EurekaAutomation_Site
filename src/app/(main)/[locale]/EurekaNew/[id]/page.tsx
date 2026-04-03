@@ -1,4 +1,3 @@
-import { withBasePath } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
 import NewsDetailClient from "./NewsDetailClient";
 import { notFound } from "next/navigation";
