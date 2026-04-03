@@ -50,10 +50,10 @@ export default async function NewsDetailPage({ params }: PageProps) {
     // Prepare all news items for the "Other News" section
     const otherNews = staticKeys.map(key => {
         const itemData = items[key] || {};
-        let newsImages: string[] = [withBasePath("/images/Our_Legacy.webp")];
+        let newsImages: string[] = ["/images/Our_Legacy.webp"];
         
         if (Array.isArray(itemData.images)) {
-            newsImages = itemData.images.map((img: string) => withBasePath(img));
+            newsImages = itemData.images.map((img: string) => img.startsWith('/') ? img : `/${img}`);
         }
         
         return {

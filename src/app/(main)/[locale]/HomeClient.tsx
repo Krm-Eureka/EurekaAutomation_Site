@@ -93,12 +93,12 @@ export default function HomeClient({ locale }: { locale: string }) {
                         // Images support
                         let images: string[] = [];
                         if (Array.isArray(itemData.images)) {
-                            images = itemData.images.map((img: string) => withBasePath(img));
+                            images = itemData.images.map((img: string) => img.startsWith('/') ? img : `/${img}`);
                         } else if (content.length > 0) {
                             const firstImg = content.find(c => typeof c === 'string' && (c.startsWith('GRID:') || c.startsWith('IMAGE:')));
                             if (firstImg) {
                                 const pathString = firstImg.split(':')[1];
-                                const paths = pathString.split(',').map(p => withBasePath(p.trim()));
+                                const paths = pathString.split(',').map(p => p.trim().startsWith('/') ? p.trim() : `/${p.trim()}`);
                                 images = paths;
                             }
                         }
@@ -113,8 +113,8 @@ export default function HomeClient({ locale }: { locale: string }) {
                             description,
                             full_content,
                             link: `/EurekaNew/${key}`,
-                            image: images.length > 0 ? images[0] : withBasePath("/images/Our_Legacy.webp"),
-                            images: images.length > 0 ? images : [withBasePath("/images/Our_Legacy.webp")]
+                            image: images.length > 0 ? images[0] : "/images/Our_Legacy.webp",
+                            images: images.length > 0 ? images : ["/images/Our_Legacy.webp"]
                         };
                     }).sort((a: NewsItem, b: NewsItem) => {
                         const dateA = a.postedDate ? new Date(a.postedDate).getTime() : 0;
@@ -866,7 +866,7 @@ export default function HomeClient({ locale }: { locale: string }) {
                                         <Link href={`/EurekaNew/${item.id || idx}`} className="flex flex-col h-full w-full">
                                             <div className="relative aspect-[3/2] bg-green-ultra overflow-hidden shrink-0">
                                                 {item.image ? (
-                                                    <Image src={item.image} alt={item.title} fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
+                                                    <Image src={withBasePath(item.image)} alt={item.title} fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
                                                 ) : (
                                                     <div className="absolute inset-0 bg-gradient-to-br from-green-primary/20 to-transparent z-10 transition-opacity group-hover:opacity-50"></div>
                                                 )}
