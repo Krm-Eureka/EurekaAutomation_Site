@@ -4,46 +4,47 @@
         "th": [
             "ทำงานจันทร์ - ศุกร์",
             "ค่าตำแหน่ง / ค่าอาหาร",
-            "ค่าทำงาน / ค่าครองชีพ / เบี้ยขยัน",
-            "ค่าคอมมิชชั่น",
+            "ค่างาน / ค่าครองชีพ / เบี้ยขยัน",
+            "โบนัส (ตามผลประกอบการ)",
             "ประกันสังคม / กองทุน",
             "อื่น ๆ"
         ],
         "en": [
-            "Monday to Friday work schedule",
-            "Position and meal allowance",
-            "Work allowance / cost of living / attendance bonus",
-            "Commission",
-            "Social security / fund",
+            "Work Monday - Friday",
+            "Position / Food allowance",
+            "Job / Cost of living / Diligence allowance",
+            "Bonus (based on performance)",
+            "Social Security / Provident Fund",
             "Others"
         ]
     },
     "ENGINEERING": [
         {
+            "id": "elec-des",
             "status": "open",
             "dept": {
                 "th": "วิศวกรรม",
                 "en": "Engineering"
             },
             "title": {
-                "th": "วิศวกรเขียนโปรแกรม PLC",
-                "en": "PLC Programmer"
+                "th": "วิศวกรออกแบบไฟฟ้า (Electrical Design Engineer) (1 ตำแหน่ง)",
+                "en": "Electrical Design Engineer (1 Position)"
             },
             "experience": {
-                "th": "1-3 ปี",
-                "en": "1-3 years"
+                "th": "1 ปีขึ้นไป (ด้านเขียนโปรแกรม PLC)",
+                "en": "1+ years in PLC programming"
             },
             "education": {
-                "th": "วุฒิการศึกษาระดับปริญญาตรี สาขาวิศวกรรมไฟฟ้า หรือสาขาที่เกี่ยวข้อง",
-                "en": "Bachelor's degree in Electrical Engineering or related field"
+                "th": "ปริญญาตรี (วิศวกรรมไฟฟ้า)",
+                "en": "Bachelor's Degree in Electrical Engineering"
             },
             "salary": {
-                "th": "ขึ้นกับประสบการณ์",
-                "en": "Depends on experience"
+                "th": "ตามตกลง / ประสบการณ์",
+                "en": "Competitive / Negotiable"
             },
             "location": {
-                "th": "กรุงเทพฯ / สมุทรปราการ",
-                "en": "Bangkok / Samut Prakan"
+                "th": "สมุทรปราการ (สำนักงานใหญ่)",
+                "en": "Samut Prakan (Eureka HQ)"
             },
             "type": {
                 "th": "งานประจำ",
@@ -51,187 +52,61 @@
             },
             "desc": {
                 "th": [
-                    "ออกแบบและเขียนโปรแกรมโครงสร้างระบบควบคุม PLC สำหรับเครื่องจักรและระบบอัตโนมัติ",
-                    "พัฒนาหน้าจอแสดงผล HMI และระบบ SCADA",
-                    "ทดสอบระบบ (Commissioning) ณ หน้างาน",
-                    "แก้ไขปัญหาและปรับปรุงระบบเดิม",
-                    "ประสานงานกับทีมเครื่องกล",
-                    "จัดทำเอกสารและรายงาน"
+                    "วางแผนและออกแบบระบบควบคุมไฟฟ้าสำหรับเครื่องจักรอุตสาหกรรม"
                 ],
                 "en": [
-                    "Design and program PLC control systems for machinery and automation systems.",
-                    "Develop HMI interfaces and SCADA systems.",
-                    "Perform on-site commissioning.",
-                    "Troubleshoot and improve existing systems.",
-                    "Coordinate with mechanical engineering teams.",
-                    "Prepare system documentation and reports."
+                    "Design and develop electrical control systems for industrial automation."
                 ]
             },
             "qualification": {
                 "th": [
-                    "วุฒิการศึกษา ปริญญาตรี สาขาวิศวกรรมไฟฟ้า, คอมพิวเตอร์ หรือสาขาที่เกี่ยวข้อง",
-                    "มีประสบการณ์เขียนโปรแกรม PLC (Omron, Mitsubishi, Siemens ฯลฯ)",
-                    "มีความรู้เรื่องวงจรไฟฟ้าและการอ่านแบบไฟฟ้า",
-                    "สามารถเดินทางไปหน้างานต่างจังหวัดได้",
-                    "มีความรับผิดชอบและทำงานภายใต้แรงกดดันได้ดี"
+                    "จบปริญญาตรี สาขาไฟฟ้า/หรือสาขาที่เกี่ยวข้อง",
+                    "มีประสบการณ์ด้านการเขียนโปรแกรม PLC ยี่ห้อ Mitsubishi/Omron อย่างน้อย 1 ปีขึ้นไป",
+                    "ออกแบบระบบการควบคุมเครื่องจักร นิวเมติกส์และไฮดรอลิกส์",
+                    "วางแผนและออกแบบวงจรไฟฟ้าของเครื่องจักรตาม Concept ที่ลูกค้าต้องการ",
+                    "ควบคุมค่าใช้จ่าย วัสดุอุปกรณ์ที่ออกแบบให้อยู่ภายใต้บประมาณที่กำหนด",
+                    "จัดทำแผนการทดสอบเครื่องจักรและการ AUDIT เครื่องจักรก่อนส่งมอบให้ลูกค้า",
+                    "ดำเนินการจัดทำ Drawing, Part List และ Manual ของเครื่องจักร",
+                    "บริการลูกค้าเมื่อเครื่องจักรเกิดปัญหาขัดข้อง"
                 ],
                 "en": [
-                    "Bachelor's degree in Electrical Engineering, Computer Engineering, or related field",
-                    "Experience in PLC programming (Omron, Mitsubishi, Siemens, etc.)",
-                    "Knowledge of electrical circuits and drawings",
-                    "Able to travel to customer sites",
-                    "Responsible and able to work under pressure"
-                ]
-            }
-        }
-    ],
-    "SALES": [
-        {
-            "status": "open",
-            "dept": {
-                "th": "ฝ่ายขาย",
-                "en": "Sales"
-            },
-            "title": {
-                "th": "Sale Engineer",
-                "en": "Sales Engineer"
-            },
-            "experience": {
-                "th": "1-3 ปี",
-                "en": "1-3 years"
-            },
-            "education": {
-                "th": "ปริญญาตรี ขึ้นไป",
-                "en": "Bachelor's degree or higher"
-            },
-            "salary": {
-                "th": "ขึ้นกับประสบการณ์",
-                "en": "Depends on experience"
-            },
-            "location": {
-                "th": null,
-                "en": null
-            },
-            "type": {
-                "th": "งานประจำ",
-                "en": "Full-time"
-            },
-            "desc": {
-                "th": [
-                    "นำเสนอและขายสินค้า/บริการของบริษัทให้กับลูกค้า",
-                    "วางแผนและจัดทำตารางการเข้าพบลูกค้า",
-                    "ติดตามลูกค้าและปิดการขาย",
-                    "จัดทำใบเสนอราคาและเอกสารสัญญาซื้อขาย",
-                    "ประสานงานกับฝ่ายวิศวกรรมเพื่อตอบสนองความต้องการของลูกค้า"
-                ],
-                "en": [
-                    "Present and sell company products/services to clients.",
-                    "Plan and schedule customer visits.",
-                    "Follow up on leads and close sales.",
-                    "Prepare quotations and sales contracts.",
-                    "Coordinate with the engineering team to meet customer requirements."
-                ]
-            },
-            "qualification": {
-                "th": [
-                    "ไม่จำกัดเพศ",
-                    "อายุ 22 ปีขึ้นไป",
-                    "วุฒิการศึกษา ปริญญาตรี ขึ้นไป",
-                    "จบการศึกษาในสาขา ไฟฟ้า / เครื่องจักรกล / หรือที่เกี่ยวข้อง",
-                    "มีประสบการณ์ด้านการขายเครื่องจักร Automation หรือ Logistics",
-                    "สามารถสื่อสารภาษาอังกฤษหรือภาษาจีนได้ (จะได้รับการพิจารณาเป็นพิเศษ)"
-                ],
-                "en": [
-                    "No gender restriction",
-                    "Age 22 years or above",
-                    "Graduated in Electrical, Mechanical, or related fields",
-                    "Experience in selling automation or logistics machinery",
-                    "English or Chinese language skills are a plus"
-                ]
-            }
-        }
-    ],
-    "DESIGN": [
-        {
-            "status": "open",
-            "dept": {
-                "th": "ออกแบบ",
-                "en": "Design"
-            },
-            "title": {
-                "th": "Draftsman",
-                "en": "Draftsman"
-            },
-            "experience": {
-                "th": "ยินดีรับนักศึกษาจบใหม่",
-                "en": "New graduates"
-            },
-            "education": {
-                "th": "ปวส. สาขาเครื่องกล / เขียนแบบเครื่องกล หรือสาขาที่เกี่ยวข้อง",
-                "en": "Diploma in Mechanical Drafting or related field"
-            },
-            "salary": {
-                "th": "ขึ้นกับประสบการณ์",
-                "en": "Depends on experience"
-            },
-            "location": {
-                "th": null,
-                "en": null
-            },
-            "type": {
-                "th": "งานประจำ",
-                "en": "Full-time"
-            },
-            "desc": {
-                "th": [
-                    "จัดทำ Drawing 2D/3D ตามแบบที่ได้รับจากวิศวกร",
-                    "แก้ไขและปรับปรุง Drawing",
-                    "จัดทำ BOM เบื้องต้น"
-                ],
-                "en": [
-                    "Prepare 2D/3D drawings based on engineering designs.",
-                    "Revise and improve drawings as assigned.",
-                    "Prepare preliminary Bill of Materials (BOM)."
-                ]
-            },
-            "qualification": {
-                "th": [
-                    "ใช้ AutoCAD และ SolidWorks ได้",
-                    "ทำงานละเอียดรอบคอบ",
-                    "สื่อสารภาษาอังกฤษได้จะพิจารณาเป็นพิเศษ"
-                ],
-                "en": [
-                    "Proficient in AutoCAD and SolidWorks",
-                    "Detail-oriented",
-                    "English communication skills are a plus"
+                    "Bachelor's Degree in Electrical Engineering or related field.",
+                    "At least 1 year of experience in PLC programming (Mitsubishi/Omron).",
+                    "Design control systems for machinery (Pneumatics & Hydraulics).",
+                    "Plan and design electrical circuits according to customer concepts.",
+                    "Control costs and materials within the specified budget.",
+                    "Prepare test plans and audits before delivering machinery to customers.",
+                    "Prepare drawings, part lists, and machine manuals.",
+                    "Provide customer service for machine-related issues."
                 ]
             }
         },
         {
+            "id": "mech-des",
             "status": "open",
             "dept": {
-                "th": "ออกแบบเครื่องจักร",
-                "en": "Machine Design"
+                "th": "R&D / วิศวกรรม",
+                "en": "R&D / Engineering"
             },
             "title": {
-                "th": "Junior Machine Designer",
-                "en": "Junior Machine Designer"
+                "th": "วิศวกรออกแบบเครื่องกล (Mechanical Design Engineer) (3 ตำแหน่ง)",
+                "en": "Mechanical Design Engineer (3 Positions)"
             },
             "experience": {
-                "th": "ยินดีรับนักศึกษาจบใหม่",
-                "en": "New graduates"
+                "th": "3 ปีขึ้นไป",
+                "en": "3+ years"
             },
             "education": {
-                "th": "ปวส. / ปริญญาตรี วิศวกรรมเครื่องกล / Mechatronics",
-                "en": "Diploma or Bachelor's degree in Mechanical Engineering or Mechatronics"
+                "th": "ปริญญาตรี (วิศวกรรมเครื่องกล)",
+                "en": "Bachelor's Degree in Mechanical Engineering"
             },
             "salary": {
-                "th": "ขึ้นกับประสบการณ์",
-                "en": "Depends on experience"
+                "th": "ตามตกลง / ประสบการณ์",
+                "en": "Competitive / Negotiable"
             },
             "location": {
-                "th": null,
-                "en": null
+                "th": "สมุทรปราการ (สำนักงานใหญ่)",
+                "en": "Samut Prakan (Eureka HQ)"
             },
             "type": {
                 "th": "งานประจำ",
@@ -239,32 +114,196 @@
             },
             "desc": {
                 "th": [
-                    "ออกแบบ Drawing 2D/3D",
-                    "จัดทำ BOM และ Spec",
-                    "พัฒนาแนวคิด Automation / Special Purpose Machine",
-                    "ประสานงานกับฝ่ายผลิต"
+                    "ออกแบบโครงสร้าง 3D และจัดเตรียมแบบสั่งผลิตสำหรับเครื่องจักรอุตสาหกรรม"
                 ],
                 "en": [
-                    "Design 2D/3D drawings.",
-                    "Prepare BOM and specifications.",
-                    "Develop automation and special purpose machine concepts.",
-                    "Coordinate with production teams."
+                    "Create detailed 3D designs and engineering drawings for custom-built industrial machines."
                 ]
             },
             "qualification": {
                 "th": [
-                    "วุฒิการศึกษา ปวส. หรือ ปริญญาตรี สาขาวิศวกรรมเครื่องกล หรือสาขาที่เกี่ยวข้อง",
-                    "สามารถใช้โปรแกรม SolidWorks และ AutoCAD ได้ดี",
-                    "มีความรู้พื้นฐานเกี่ยวกับระบบนิวเมติกส์และไฮดรอลิกส์",
-                    "มีความกระตือรือร้นในการเรียนรู้สิ่งใหม่ๆ",
-                    "สามารถทำงานเป็นทีมได้"
+                    "วุฒิปริญญาตรี สาขาวิศวกรรมเครื่องกล",
+                    "มีประสบการณ์การทำงานเป็นวิศวกรเครื่องกลอย่างน้อย 3 ปี",
+                    "มีความรู้ความชำนาญในการใช้ซอฟต์แวร์ออกแบบ เช่น AutoCAD, Solid Work",
+                    "มีทักษะการใช้โปรแกรม MS Office ขั้นสูง",
+                    "สามารถควบคุมต้นทุนและออกแบบวัสดุอุปกรณ์ให้อยู่ในงบประมาณที่กำหนด",
+                    "มีทักษะในการตัดสินใจและมีความเป็นผู้นำ",
+                    "มีการจัดการเวลาและทักษะการจัดระเบียบที่ดี",
+                    "สามารถสื่อสารภาษาอังกฤษได้ดีทั้งการเขียนและพูด"
                 ],
                 "en": [
-                    "Diploma or Bachelor's degree in Mechanical Engineering or related field",
-                    "Proficient in SolidWorks and AutoCAD",
-                    "Basic knowledge of pneumatic and hydraulic systems",
-                    "Eager to learn new technologies",
-                    "Good team player"
+                    "Bachelor degree in Mechanical Engineering.",
+                    "Experience as a Mechanical engineer at least 3 years.",
+                    "Knowledge of design and visualization software such as AutoCAD, Solid Work.",
+                    "Advanced MS Office skills.",
+                    "Control costs and design materials and equipment to stay within the specified budget.",
+                    "Solid decision-making ability and leadership skills.",
+                    "Good time management and organization skills.",
+                    "Good command of both written and spoken English."
+                ]
+            },
+            "benefits": {
+                "th": [
+                    "ทำงานวันจันทร์ – ศุกร์",
+                    "ค่าตำแหน่ง",
+                    "ค่าอาหาร",
+                    "ค่าตอบแทนพิเศษ",
+                    "ประกันสังคม",
+                    "กองทุนสำรองเลี้ยงชีพ"
+                ],
+                "en": [
+                    "Work Monday – Friday",
+                    "Position allowance",
+                    "Food allowance",
+                    "Special allowance",
+                    "Social security",
+                    "Provident fund"
+                ]
+            }
+        }
+    ],
+    "PRODUCTION": [
+        {
+            "id": "asm-tech",
+            "status": "open",
+            "dept": {
+                "th": "การผลิต",
+                "en": "Production"
+            },
+            "title": {
+                "th": "ช่างประกอบ (Assembly Technician) (2 ตำแหน่ง - ด่วนมาก)",
+                "en": "Assembly Technician (2 Positions - Urgent)"
+            },
+            "experience": {
+                "th": "มีประสบการณ์ด้านประกอบเครื่องจักร",
+                "en": "Experienced in machine assembly"
+            },
+            "education": {
+                "th": "ปวส. ขึ้นไป",
+                "en": "Vocational Diploma (HVC) or higher"
+            },
+            "salary": {
+                "th": "ตามโครงสร้างบริษัท + สวัสดิการ",
+                "en": "Competitive + Benefits"
+            },
+            "location": {
+                "th": "สมุทรปราการ (สำนักงานใหญ่)",
+                "en": "Samut Prakan (Eureka HQ)"
+            },
+            "type": {
+                "th": "งานประจำ",
+                "en": "Full-time"
+            },
+            "desc": {
+                "th": [
+                    "ประกอบและติดตั้งชิ้นส่วนเครื่องจักรอุตสาหกรรมตามแบบวิศวกรรม"
+                ],
+                "en": [
+                    "Assemble and install industrial machinery components following engineering drawings."
+                ]
+            },
+            "qualification": {
+                "th": [
+                    "อายุ 22 ปีขึ้นไป",
+                    "ปวส.ขึ้นไป",
+                    "มีความรู้ด้านเครื่องมือช่าง",
+                    "มีประสบการณ์ด้านการประกอบเครื่องจักร",
+                    "สามารถเริ่มงานได้ทันที (จะพิจารณาเป็นพิเศษ)"
+                ],
+                "en": [
+                    "Age 22 years and above.",
+                    "Vocational Diploma (HVC) or higher.",
+                    "Knowledge of technician tools.",
+                    "Experience in machine assembly.",
+                    "Can start work immediately (special consideration)."
+                ]
+            },
+            "benefits": {
+                "th": [
+                    "ทำงานจันทร์ - ศุกร์",
+                    "ค่าตำแหน่ง / ค่าอาหาร",
+                    "ค่างาน / ค่าครองชีพ / เบี้ยขยัน",
+                    "โบนัส (ตามผลประกอบการ)",
+                    "ประกันสังคม / กองทุน"
+                ],
+                "en": [
+                    "Work Monday - Friday.",
+                    "Position / Food allowance.",
+                    "Job / Cost of living / Diligence allowance.",
+                    "Bonus (based on performance).",
+                    "Social Security / Provident Fund."
+                ]
+            }
+        },
+        {
+            "id": "cnc-tech",
+            "status": "open",
+            "dept": {
+                "th": "การผลิต",
+                "en": "Production"
+            },
+            "title": {
+                "th": "ช่าง CNC (CNC Technician) (ด่วนมาก)",
+                "en": "CNC Technician (Urgent)"
+            },
+            "experience": {
+                "th": "มีประสบการณ์ด้านงาน CNC",
+                "en": "Experienced in CNC operation"
+            },
+            "education": {
+                "th": "ไม่จำกัดวุฒิ",
+                "en": "N/A (Based on skill)"
+            },
+            "salary": {
+                "th": "ตามโครงสร้างบริษัท + สวัสดิการ",
+                "en": "Competitive + Benefits"
+            },
+            "location": {
+                "th": "สมุทรปราการ (สำนักงานใหญ่)",
+                "en": "Samut Prakan (Eureka HQ)"
+            },
+            "type": {
+                "th": "งานประจำ",
+                "en": "Full-time"
+            },
+            "desc": {
+                "th": [
+                    "ควบคุมและดูแลเครื่อง CNC เพื่อผลิตชิ้นส่วนอุตสาหกรรมที่มีความแม่นยำสูง"
+                ],
+                "en": [
+                    "Operate and maintain CNC machines to produce high-precision industrial parts."
+                ]
+            },
+            "qualification": {
+                "th": [
+                    "อายุ 22 ปีขึ้นไป",
+                    "ผ่านการเกณฑ์ทหารแล้ว",
+                    "ไม่จำกัดวุฒิการศึกษา",
+                    "มีประสบการณ์ด้านการ CNC",
+                    "สามารถเข้ากะได้"
+                ],
+                "en": [
+                    "Age 22 years and above.",
+                    "Completed military service.",
+                    "No restriction on education background.",
+                    "Experience in CNC operations.",
+                    "Able to work shifts."
+                ]
+            },
+            "benefits": {
+                "th": [
+                    "ทำงานจันทร์ - ศุกร์",
+                    "ค่าอาหาร",
+                    "ค่างาน / ค่าครองชีพ / เบี้ยขยัน",
+                    "โบนัส (ตามผลประกอบการ)",
+                    "ประกันสังคม / กองทุน"
+                ],
+                "en": [
+                    "Work Monday - Friday.",
+                    "Food allowance.",
+                    "Job / Cost of living / Diligence allowance.",
+                    "Bonus (based on performance).",
+                    "Social Security / Provident Fund."
                 ]
             }
         }
