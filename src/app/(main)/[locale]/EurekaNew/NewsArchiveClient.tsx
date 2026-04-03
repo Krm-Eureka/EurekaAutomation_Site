@@ -107,7 +107,7 @@ export default function NewsArchiveClient({
                                                 {/* Left: Image Container */}
                                                 <div className="md:w-2/5 relative overflow-hidden shrink-0 aspect-video md:aspect-auto">
                                                     <Image
-                                                        src={withBasePath(item.images[0] || "/images/Our_Legacy.webp")}
+                                                        src={item.images[0] || "/images/Our_Legacy.webp"}
                                                         alt={item.title}
                                                         fill
                                                         className="object-cover transition-transform duration-1000 group-hover:scale-105"

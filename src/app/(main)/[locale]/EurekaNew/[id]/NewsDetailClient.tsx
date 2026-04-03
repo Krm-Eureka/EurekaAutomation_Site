@@ -84,7 +84,7 @@ export default function NewsDetailClient({ item, otherNews }: { item: NewsItem, 
                                 className="relative aspect-video md:aspect-[21/9] rounded-[2.5rem] overflow-hidden shadow-2xl border-b-8 border-green-primary"
                             >
                                 <Image
-                                    src={withBasePath(item.images[0])}
+                                    src={item.images[0]}
                                     alt={item.title}
                                     fill
                                     className="object-cover"
@@ -117,7 +117,7 @@ export default function NewsDetailClient({ item, otherNews }: { item: NewsItem, 
                                                             viewport={{ once: true }}
                                                             className="relative aspect-square rounded-2xl overflow-hidden shadow-lg hover:scale-[1.02] transition-transform"
                                                         >
-                                                            <Image src={withBasePath(img)} alt={`Gallery ${idx}-${imgIdx}`} fill className="object-cover" />
+                                                            <Image src={img} alt={`Gallery ${idx}-${imgIdx}`} fill className="object-cover" />
                                                         </motion.div>
                                                     ))}
                                                 </div>
@@ -134,7 +134,7 @@ export default function NewsDetailClient({ item, otherNews }: { item: NewsItem, 
                                                     viewport={{ once: true }}
                                                     className="relative aspect-video rounded-3xl overflow-hidden shadow-xl my-4 hover:scale-[1.01] transition-transform"
                                                 >
-                                                    <Image src={withBasePath(imgPath)} alt={`Full Image ${idx}`} fill className="object-cover" />
+                                                    <Image src={imgPath} alt={`Full Image ${idx}`} fill className="object-cover" />
                                                 </motion.div>
                                             );
                                         }
