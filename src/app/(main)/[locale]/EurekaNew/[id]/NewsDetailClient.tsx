@@ -31,11 +31,16 @@ export default function NewsDetailClient({ item, otherNews }: { item: NewsItem, 
     // Calculate if it's new (within 7 days)
     const isNew = (postedDate?: string) => {
         if (!postedDate) return false;
-        const postDate = new Date(postedDate);
-        const today = new Date();
-        const diffTime = Math.abs(today.getTime() - postDate.getTime());
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        return diffDays <= 7;
+        try {
+            const date = new Date(postedDate);
+            if (isNaN(date.getTime())) return false;
+            const today = new Date(); // Use current system time
+            const diffTime = today.getTime() - date.getTime();
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            return diffDays >= 0 && diffDays <= 7;
+        } catch {
+            return false;
+        }
     };
 
     // Sort other news by date (newest first)

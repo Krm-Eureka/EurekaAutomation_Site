@@ -7,7 +7,7 @@ export default function CustomMachinesClient() {
     return (
         <ServiceDetailClient
             namespace="machines"
-            videoCategory="MACHINES"
+            videoCategory="machines"
             themeColor="bg-indigo-500/10"
             secondThemeColor="bg-blue-500/10"
             backgroundImage="/images/Our_Legacy.webp"

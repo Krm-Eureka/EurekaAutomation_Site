@@ -1,5 +1,5 @@
 {
-    "ROBOTICS": [
+    "robotics": [
         {
             "title": {
                 "th": "ABB Cobot แขนคู่ (Double Arm Pick & Place)",
@@ -243,7 +243,7 @@
             ]
         }
     ],
-    "_AI": [
+    "ai": [
         {
             "title": {
                 "th": "AI Solution สำหรับการตรวจสอบคุณภาพ",
@@ -281,7 +281,7 @@
             ]
         }
     ],
-    "MACHINES": [
+    "machines": [
         {
             "title": {
                 "th": "EV Pouch Cell Assembly",
@@ -517,7 +517,7 @@
             ]
         }
     ],
-    "LOGISTICS": [
+    "logistics": [
         {
             "title": {
                 "th": "ระบบจัดเก็บสินค้าอัตโนมัติ (AS/RS)",

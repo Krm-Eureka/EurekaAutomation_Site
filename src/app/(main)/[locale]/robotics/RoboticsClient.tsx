@@ -7,7 +7,7 @@ export default function RoboticsClient() {
     return (
         <ServiceDetailClient
             namespace="robotics"
-            videoCategory="ROBOTICS"
+            videoCategory="robotics"
             themeColor="bg-cyan-500/10"
             secondThemeColor="bg-violet-500/10"
             backgroundImage="/images/Our_Legacy.webp"

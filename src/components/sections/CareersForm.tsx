@@ -231,7 +231,7 @@ export function CareersForm() {
                     <div className="space-y-1.5">
                         <label className="text-xs font-bold text-zinc-500 uppercase tracking-wider flex items-center gap-2 px-1">
                             <User size={12} className="text-emerald-600" />
-                            {t('name')} (First) <span className="text-red-500">*</span>
+                            {t('firstName')} <span className="text-red-500">*</span>
                         </label>
                         <input
                             type="text"
@@ -246,7 +246,7 @@ export function CareersForm() {
                     <div className="space-y-1.5">
                         <label className="text-xs font-bold text-zinc-500 uppercase tracking-wider flex items-center gap-2 px-1">
                             <User size={12} className="text-emerald-600" />
-                            {t('name')} (Last) <span className="text-red-500">*</span>
+                            {t('lastName')} <span className="text-red-500">*</span>
                         </label>
                         <input
                             type="text"

@@ -270,52 +270,7 @@
             "title": "News & Insights",
             "archive_title": "News Archive",
             "view_all": "View All News",
-            "items": {
-                "foodpack2026": {
-                    "title": "Showcases Smart Food Manufacturing Solutions at Food Pack Asia 2026",
-                    "date": "Mar 18-21, 2026",
-                    "postedDate": "2026-03-24",
-                    "desc": "Revolutionizing the Food Industry: Eureka Automation’s Highlights from Food Pack Asia 2026 at BITEC Bangna",
-                    "images": [
-                        "/images/news/foodpack2026/1.webp"
-                    ],
-                    "content": [
-                        "Revolutionizing the Food Industry: Eureka Automation’s Highlights from Food Pack Asia 2026",
-                        "Eureka Automation recently marked another successful milestone by participating in Food Pack Asia 2026 at BITEC Bangna. As the food industry moves towards a more digital and automated era, we were proud to showcase our latest innovations designed to enhance productivity and food safety.",
-                        "This year, our exhibit focused on bridging the gap between traditional food processing and advanced industrial automation, providing solutions that meet international hygiene and efficiency standards.",
-                        "Booth Highlights:",
-                        "GRID:/images/news/foodpack2026/2.webp,/images/news/foodpack2026/3.webp,/images/news/foodpack2026/4.webp",
-                        "• Food-Grade Robotics: Advanced robotic arms built specifically for food environments, ensuring zero contamination and high-speed handling.",
-                        "• Automated Packaging Lines: Smart packaging solutions that maximize output while minimizing material waste.",
-                        "• AI Vision Inspection: High-precision visual systems for quality control, capable of detecting defects and sorting products in real-time.",
-                        "GRID:/images/news/foodpack2026/5.webp,/images/news/foodpack2026/6.webp",
-                        "A heartfelt thank you to everyone who visited our booth to explore our technologies and share their business visions. We look forward to helping you transform your production line into a state-of-the-art facility.",
-                        "\"Empowering Food Production with Intelligence, Safety, and Scale.\"",
-                        "Didn't get a chance to meet us? You can still explore our food-specific automation solutions on our Product Page or reach out to our technical team for a private consultation at contact@eurekaautomation.co.th."
-                    ]
-                },
-                "expo2026": {
-                    "title": "Showcases Cutting-Edge Smart Tech at Automation Expo 2026",
-                    "date": "Feb 25-27, 2026",
-                    "postedDate": "2026-03-23",
-                    "desc": "Driving the Future of Innovation: Eureka Automation shines at the premier tech event in Nong Nooch Pattaya, showcasing Smart Manufacturing and AI-Integrated Robotics solutions designed to power your success.",
-                    "images": [
-                        "/images/news/expo2026/1.webp"
-                    ],
-                    "content": [
-                        "Driving the Future of Innovation: Eureka Automation Shines at the Premier Tech Event",
-                        "Recently, Eureka Automation proudly participated in the Automation Technology Exhibition held at the prestigious Nong Nooch Garden, Pattaya from Feb 25-27, 2026.",
-                        "GRID:/images/news/expo2026/2.webp,/images/news/expo2026/3.webp,/images/news/expo2026/4.webp",
-                        "Key Highlights from Our Booth:",
-                        "• Smart Manufacturing Solutions: Real-world demonstrations of how smart systems optimize production cycles and ROI.",
-                        "• AI-Integrated Robotics: Showcasing high-precision robotic arms powered by advanced AI for seamless industrial operations.",
-                        "• Tailored Automation Consulting: Our experts provided one-on-one sessions to design bespoke automation roadmaps for various business scales.",
-                        "We would like to extend our sincere gratitude to all visitors, partners, and clients who visited our booth. Your insights and interest drive us to continue pushing the boundaries of what’s possible in industrial automation.",
-                        "\"Beyond machinery, we deliver the solutions that power your success.\"",
-                        "Missed us at the event? You can explore our full range of services and innovative technologies at our Product/Service page or contact our expert team today for a consultation."
-                    ]
-                }
-            }
+            "items": {}
         }
     },
     "products": {
@@ -354,7 +309,8 @@
         "visit_us": "Visit Us",
         "support_hours": "Our support team is available Monday to Friday, 9:00 AM – 6:00 PM.",
         "form": {
-            "name": "Name",
+            "firstName": "First Name",
+            "lastName": "Last Name",
             "email": "Email",
             "company": "Company",
             "subject": "Subject",
@@ -382,10 +338,16 @@
         "responsibilities_label": "Key Responsibilities",
         "benefits": "Why Join Us?",
         "benefits_list": [
-            "Competitive Salary & Bonuses",
-            "Health & Dental Insurance",
-            "Continuous Training & Development",
-            "Dynamic & Innovation-driven Environment"
+            "Work Monday - Friday",
+            "Position Allowance",
+            "Food Allowance",
+            "Job / Special Allowance",
+            "Cost of Living Allowance",
+            "Diligence Allowance",
+            "Annual Bonus (Performance-based)",
+            "Social Security",
+            "Provident Fund",
+            "Etc."
         ],
         "open_positions": "Open Positions",
         "apply_now": "Apply Now",
@@ -400,7 +362,8 @@
             "no_results": "No positions found matching criteria"
         },
         "form": {
-            "name": "Full Name",
+            "firstName": "First Name",
+            "lastName": "Last Name",
             "email": "Email",
             "phone": "Phone",
             "position": "Position",

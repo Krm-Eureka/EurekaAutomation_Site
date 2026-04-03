@@ -7,7 +7,7 @@ export default function LogisticsClient() {
     return (
         <ServiceDetailClient
             namespace="logistics"
-            videoCategory="LOGISTICS"
+            videoCategory="logistics"
             themeColor="bg-emerald-500/10"
             secondThemeColor="bg-blue-500/10"
             backgroundImage="/images/eureka-og.webp"

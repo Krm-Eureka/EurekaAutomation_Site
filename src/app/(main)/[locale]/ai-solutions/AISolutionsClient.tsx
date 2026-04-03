@@ -7,7 +7,7 @@ export default function AISolutionsClient() {
     return (
         <ServiceDetailClient
             namespace="ai"
-            videoCategory="AI"
+            videoCategory="ai"
             themeColor="bg-fuchsia-500/10"
             secondThemeColor="bg-cyan-500/10"
             backgroundImage="/images/Our_Legacy.webp"

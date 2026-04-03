@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import NewsDetailClient from "./NewsDetailClient";
 import { notFound } from "next/navigation";
+import newsDataRaw from "@/data/news.json";
 
 interface PageProps {
     params: Promise<{
@@ -13,54 +14,34 @@ export const dynamicParams = false;
 
 export async function generateStaticParams() {
     const locales = ['en', 'th'] as const;
+    const keys = Object.keys(newsDataRaw).filter(key => !key.startsWith('_'));
     
-    // In static export mode, next-intl's getTranslations might not resolve reliably 
-    // in generateStaticParams. Direct JSON imports are more robust here.
-    const params = await Promise.all(locales.map(async (locale) => {
-        try {
-            // Load the message file directly
-            const messages = (await import(`@/messages/${locale}.json`)).default;
-            const items = messages?.home?.news?.items;
-            
-            if (items && typeof items === 'object') {
-                return Object.keys(items)
-                    .filter(key => !key.startsWith('_'))
-                    .map(id => ({ locale, id }));
-            }
-        } catch {
-            console.error(`Failed to generate static params for locale ${locale}`);
-        }
-        return [];
-    }));
+    const params = locales.flatMap(locale => 
+        keys.map(id => ({ locale, id }))
+    );
     
-    return params.flat();
+    return params;
 }
 
 export default async function NewsDetailPage({ params }: PageProps) {
     const { locale, id } = await params;
     const t = await getTranslations({ locale });
-    const items = t.raw('home.news.items') || {};
-    const staticKeys = Object.keys(items).filter(key => !key.startsWith('_'));
     
-    if (!staticKeys.includes(id)) {
+    const itemData = (newsDataRaw as any)[id];
+    
+    if (!itemData) {
         return notFound();
     }
 
-    // Prepare all news items for the "Other News" section
-    const otherNews = staticKeys.map(key => {
-        const itemData = items[key] || {};
-        let newsImages: string[] = ["/images/Our_Legacy.webp"];
-        
-        if (Array.isArray(itemData.images)) {
-            newsImages = itemData.images.map((img: string) => img.startsWith('/') ? img : `/${img}`);
-        }
-        
+    const keys = Object.keys(newsDataRaw).filter(key => !key.startsWith('_'));
+    const otherNews = keys.map(key => {
+        const otherData = (newsDataRaw as any)[key];
         return {
             id: key,
-            title: itemData.title || "",
-            date: itemData.date || "",
-            postedDate: itemData.postedDate || "",
-            images: newsImages,
+            title: otherData.title[locale as 'th' | 'en'] || otherData.title.en,
+            date: otherData.date[locale as 'th' | 'en'] || otherData.date.en,
+            postedDate: otherData.postedDate || "",
+            images: otherData.images || ["/images/Our_Legacy.webp"],
             paragraphs: []
         };
     }).sort((a, b) => {
@@ -69,29 +50,15 @@ export default async function NewsDetailPage({ params }: PageProps) {
         return dateB - dateA;
     });
 
-    const currentBase = otherNews.find(n => n.id === id);
-    const currentItemData = items[id] || {};
-    
-    let paragraphs: string[] = [];
-    let content: string[] = [];
-    
-    if (Array.isArray(currentItemData.content)) {
-        content = currentItemData.content;
-    }
-
-    if (Array.isArray(currentItemData.paragraphs)) {
-        paragraphs = currentItemData.paragraphs;
-    } else if (currentItemData.full_content) {
-        paragraphs = currentItemData.full_content.split('\n').filter((p: string) => p.trim());
-    } else if (currentItemData.desc) {
-        paragraphs = [currentItemData.desc];
-    }
-
     const item = {
-        ...currentBase!,
-        paragraphs,
-        content,
-        images: currentBase!.images
+        id,
+        title: itemData.title[locale as 'th' | 'en'] || itemData.title.en,
+        date: itemData.date[locale as 'th' | 'en'] || itemData.date.en,
+        postedDate: itemData.postedDate,
+        description: itemData.desc[locale as 'th' | 'en'] || itemData.desc.en,
+        images: itemData.images || ["/images/Our_Legacy.webp"],
+        content: itemData.content?.[locale as 'th' | 'en'] || itemData.content?.en || [],
+        paragraphs: itemData.content?.[locale as 'th' | 'en'] || itemData.content?.en || []
     };
 
     return <NewsDetailClient item={item} otherNews={otherNews} />;

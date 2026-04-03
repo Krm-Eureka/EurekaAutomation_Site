@@ -1,34 +1,47 @@
 {
     "_comment": "จัดการตำแหน่งงานที่นี่ | status: 'open' เปิดแสดงผล, 'close' ปิดแสดงผล",
-    "BENEFITS": {
+    "benefits": {
         "th": [
             "ทำงานจันทร์ - ศุกร์",
-            "ค่าตำแหน่ง / ค่าอาหาร",
-            "ค่างาน / ค่าครองชีพ / เบี้ยขยัน",
+            "ค่าตำแหน่ง",
+            "ค่าอาหาร",
+            "ค่างาน / ค่าตอบแทนพิเศษ",
+            "ค่าครองชีพ",
+            "เบี้ยขยัน",
             "โบนัส (ตามผลประกอบการ)",
-            "ประกันสังคม / กองทุน",
-            "อื่น ๆ"
+            "ประกันสังคม",
+            "กองทุนสำรองเลี้ยงชีพ",
+            "ฯลฯ"
         ],
         "en": [
             "Work Monday - Friday",
-            "Position / Food allowance",
-            "Job / Cost of living / Diligence allowance",
-            "Bonus (based on performance)",
-            "Social Security / Provident Fund",
-            "Others"
+            "Position Allowance",
+            "Food Allowance",
+            "Job / Special Allowance",
+            "Cost of Living Allowance",
+            "Diligence Allowance",
+            "Annual Bonus (Performance-based)",
+            "Social Security",
+            "Provident Fund",
+            "Etc."
         ]
     },
-    "ENGINEERING": [
+    "engineering": [
         {
             "id": "elec-des",
-            "status": "open",
+            "active": true,
+            "urgent": false,
             "dept": {
                 "th": "วิศวกรรม",
                 "en": "Engineering"
             },
             "title": {
-                "th": "วิศวกรออกแบบไฟฟ้า (Electrical Design Engineer) (1 ตำแหน่ง)",
-                "en": "Electrical Design Engineer (1 Position)"
+                "th": "วิศวกรออกแบบไฟฟ้า (Electrical Design Engineer)",
+                "en": "Electrical Design Engineer"
+            },
+            "slots": {
+                "th": "1 ตำแหน่ง",
+                "en": "1 Position"
             },
             "experience": {
                 "th": "1 ปีขึ้นไป (ด้านเขียนโปรแกรม PLC)",
@@ -43,8 +56,8 @@
                 "en": "Competitive / Negotiable"
             },
             "location": {
-                "th": "Eureka HQ - ลำลูกกา ปทุมธานี",
-                "en": "Eureka HQ - Lumlukka, Pathum Thani"
+                "th": "ลำลูกกา ปทุมธานี",
+                "en": "Lumlukka, Pathum Thani"
             },
             "type": {
                 "th": "งานประจำ",
@@ -52,10 +65,18 @@
             },
             "desc": {
                 "th": [
-                    "วางแผนและออกแบบระบบควบคุมไฟฟ้าสำหรับเครื่องจักรอุตสาหกรรม"
+                    "วางแผนและออกแบบระบบควบคุมไฟฟ้าสำหรับเครื่องจักรอุตสาหกรรม",
+                    "เขียนโปรแกรม PLC (Mitsubishi, Omron) และระบบ HMI",
+                    "ออกแบบวงจรไฟฟ้าด้วยโปรแกรม AutoCAD Electrical หรือ E-Plan",
+                    "ทดสอบและแก้ไขปัญหาของระบบควบคุมก่อนส่งมอบงาน",
+                    "ประสานงานกับทีมวิศวกรเครื่องกลเพื่อให้ระบบทำงานสอดคล้องกัน"
                 ],
                 "en": [
-                    "Design and develop electrical control systems for industrial automation."
+                    "Plan and design electrical control systems for industrial machinery.",
+                    "Develop PLC programs (Mitsubishi, Omron) and HMI interfaces.",
+                    "Design electrical circuits using AutoCAD Electrical or E-Plan.",
+                    "Test and troubleshoot control systems before delivery.",
+                    "Coordinate with mechanical engineers for system integration."
                 ]
             },
             "qualification": {
@@ -65,7 +86,7 @@
                     "ออกแบบระบบการควบคุมเครื่องจักร นิวเมติกส์และไฮดรอลิกส์",
                     "วางแผนและออกแบบวงจรไฟฟ้าของเครื่องจักรตาม Concept ที่ลูกค้าต้องการ",
                     "ควบคุมค่าใช้จ่าย วัสดุอุปกรณ์ที่ออกแบบให้อยู่ภายใต้บประมาณที่กำหนด",
-                    "จัดทำแผนการทดสอบเครื่องจักรและการ AUDIT เครื่องจักรก่อนส่งมอบให้ลูกค้า",
+                    "จัดทำแผนการทดสอบเครื่องจักรและการ AUDIT เครื่องจกรก่อนส่งมอบให้ลูกค้า",
                     "ดำเนินการจัดทำ Drawing, Part List และ Manual ของเครื่องจักร",
                     "บริการลูกค้าเมื่อเครื่องจักรเกิดปัญหาขัดข้อง"
                 ],
@@ -83,14 +104,19 @@
         },
         {
             "id": "mech-des",
-            "status": "open",
+            "active": true,
+            "urgent": false,
             "dept": {
-                "th": "R&D / วิศวกรรม",
-                "en": "R&D / Engineering"
+                "th": "ออกแบบ",
+                "en": "Design"
             },
             "title": {
-                "th": "วิศวกรออกแบบเครื่องกล (Mechanical Design Engineer) (3 ตำแหน่ง)",
-                "en": "Mechanical Design Engineer (3 Positions)"
+                "th": "วิศวกรออกแบบเครื่องกล (Mechanical Design Engineer)",
+                "en": "Mechanical Design Engineer"
+            },
+            "slots": {
+                "th": "3 ตำแหน่ง",
+                "en": "3 Positions"
             },
             "experience": {
                 "th": "3 ปีขึ้นไป",
@@ -105,8 +131,8 @@
                 "en": "Competitive / Negotiable"
             },
             "location": {
-                "th": "Eureka HQ - ลำลูกกา ปทุมธานี",
-                "en": "Eureka HQ - Lumlukka, Pathum Thani"
+                "th": "ลำลูกกา ปทุมธานี",
+                "en": "Lumlukka, Pathum Thani"
             },
             "type": {
                 "th": "งานประจำ",
@@ -114,10 +140,18 @@
             },
             "desc": {
                 "th": [
-                    "ออกแบบโครงสร้าง 3D และจัดเตรียมแบบสั่งผลิตสำหรับเครื่องจักรอุตสาหกรรม"
+                    "ออกแบบโครงสร้าง 3D และจัดเตรียมแบบสั่งผลิตสำหรับเครื่องจักรอุตสาหกรรม",
+                    "วิเคราะห์ความแข็งแรงของโครงสร้าง (Simulation) ก่อนการผลิต",
+                    "จัดทำรายการวัสดุ (BOM) และใบสั่งซื้ออุปกรณ์มาตรฐาน",
+                    "ติดตามการผลิตชิ้นส่วนและการประกอบเครื่องจักรให้เป็นไปตามแบบ",
+                    "ปรับปรุงและพัฒนาแบบเครื่องจักรเพื่อเพิ่มประสิทธิภาพในการทำงาน"
                 ],
                 "en": [
-                    "Create detailed 3D designs and engineering drawings for custom-built industrial machines."
+                    "Create detailed 3D designs and engineering drawings for custom-built industrial machines.",
+                    "Perform structural analysis (Simulation) before production.",
+                    "Generate Bill of Materials (BOM) and purchase requisitions for standard parts.",
+                    "Supervise part fabrication and machine assembly to ensure design compliance.",
+                    "Improve and develop machine designs for better performance."
                 ]
             },
             "qualification": {
@@ -141,38 +175,25 @@
                     "Good time management and organization skills.",
                     "Good command of both written and spoken English."
                 ]
-            },
-            "benefits": {
-                "th": [
-                    "ทำงานวันจันทร์ – ศุกร์",
-                    "ค่าตำแหน่ง",
-                    "ค่าอาหาร",
-                    "ค่าตอบแทนพิเศษ",
-                    "ประกันสังคม",
-                    "กองทุนสำรองเลี้ยงชีพ"
-                ],
-                "en": [
-                    "Work Monday – Friday",
-                    "Position allowance",
-                    "Food allowance",
-                    "Special allowance",
-                    "Social security",
-                    "Provident fund"
-                ]
             }
         }
     ],
-    "PRODUCTION": [
+    "production": [
         {
             "id": "asm-tech",
-            "status": "open",
+            "active": true,
+            "urgent": true,
             "dept": {
                 "th": "การผลิต",
                 "en": "Production"
             },
             "title": {
-                "th": "ช่างประกอบ (Assembly Technician) (2 ตำแหน่ง - ด่วนมาก)",
-                "en": "Assembly Technician (2 Positions - Urgent)"
+                "th": "ช่างประกอบ (Assembly Technician)",
+                "en": "Assembly Technician"
+            },
+            "slots": {
+                "th": "2 ตำแหน่ง (ด่วนมาก)",
+                "en": "2 Positions (Urgent)"
             },
             "experience": {
                 "th": "มีประสบการณ์ด้านประกอบเครื่องจักร",
@@ -187,8 +208,8 @@
                 "en": "Competitive + Benefits"
             },
             "location": {
-                "th": "Eureka HQ - ลำลูกกา ปทุมธานี",
-                "en": "Eureka HQ - Lumlukka, Pathum Thani"
+                "th": "ลำลูกกา ปทุมธานี",
+                "en": "Lumlukka, Pathum Thani"
             },
             "type": {
                 "th": "งานประจำ",
@@ -196,10 +217,18 @@
             },
             "desc": {
                 "th": [
-                    "ประกอบและติดตั้งชิ้นส่วนเครื่องจักรอุตสาหกรรมตามแบบวิศวกรรม"
+                    "ประกอบและติดตั้งชิ้นส่วนเครื่องจักรอุตสาหกรรมตามแบบวิศวกรรม",
+                    "ติดตั้งระบบนิวเมติกส์และไฮดรอลิกส์พื้นฐาน",
+                    "ตรวจสอบความถูกต้องของชิ้นส่วนก่อนเริ่มการประกอบ",
+                    "แก้ไขและปรับปรุงชิ้นส่วนหน้างานเพื่อให้ประกอบได้ตามความต้องการ",
+                    "รักษาความสะอาดและดูแลเครื่องมืออุปกรณ์ในการทำงาน"
                 ],
                 "en": [
-                    "Assemble and install industrial machinery components following engineering drawings."
+                    "Assemble and install industrial machinery components following engineering drawings.",
+                    "Install basic pneumatic and hydraulic systems.",
+                    "Verify part accuracy and dimensions before starting assembly.",
+                    "Modify and adjust parts on-site to ensure perfect fitment.",
+                    "Maintain tool sets and keep the workspace clean and organized."
                 ]
             },
             "qualification": {
@@ -217,34 +246,23 @@
                     "Experience in machine assembly.",
                     "Can start work immediately (special consideration)."
                 ]
-            },
-            "benefits": {
-                "th": [
-                    "ทำงานจันทร์ - ศุกร์",
-                    "ค่าตำแหน่ง / ค่าอาหาร",
-                    "ค่างาน / ค่าครองชีพ / เบี้ยขยัน",
-                    "โบนัส (ตามผลประกอบการ)",
-                    "ประกันสังคม / กองทุน"
-                ],
-                "en": [
-                    "Work Monday - Friday.",
-                    "Position / Food allowance.",
-                    "Job / Cost of living / Diligence allowance.",
-                    "Bonus (based on performance).",
-                    "Social Security / Provident Fund."
-                ]
             }
         },
         {
             "id": "cnc-tech",
-            "status": "open",
+            "active": true,
+            "urgent": true,
             "dept": {
                 "th": "การผลิต",
                 "en": "Production"
             },
             "title": {
-                "th": "ช่าง CNC (CNC Technician) (ด่วนมาก)",
-                "en": "CNC Technician (Urgent)"
+                "th": "ช่าง CNC (CNC Technician)",
+                "en": "CNC Technician"
+            },
+            "slots": {
+                "th": "ด่วนมาก",
+                "en": "Urgent"
             },
             "experience": {
                 "th": "มีประสบการณ์ด้านงาน CNC",
@@ -259,8 +277,8 @@
                 "en": "Competitive + Benefits"
             },
             "location": {
-                "th": "Eureka HQ - ลำลูกกา ปทุมธานี",
-                "en": "Eureka HQ - Lumlukka, Pathum Thani"
+                "th": "ลำลูกกา ปทุมธานี",
+                "en": "Lumlukka, Pathum Thani"
             },
             "type": {
                 "th": "งานประจำ",
@@ -268,10 +286,18 @@
             },
             "desc": {
                 "th": [
-                    "ควบคุมและดูแลเครื่อง CNC เพื่อผลิตชิ้นส่วนอุตสาหกรรมที่มีความแม่นยำสูง"
+                    "ควบคุมและดูแลเครื่อง CNC เพื่อผลิตชิ้นส่วนอุตสาหกรรมที่มีความแม่นยำสูง",
+                    "เซ็ตอัพเครื่องจักร ปรับตั้ง Tool และ Offset ต่างๆ",
+                    "ตรวจสอบคุณภาพชิ้นงานด้วยเครื่องมือวัดละเอียด (CMM, Vernier, Micrometer)",
+                    "ดูแลรักษาความสะอาดเครื่องจักรเบื้องต้นตามแผนงาน",
+                    "บันทึกผลการผลิตและรายงานปัญหาที่เกิดขึ้นระหว่างการทำงาน"
                 ],
                 "en": [
-                    "Operate and maintain CNC machines to produce high-precision industrial parts."
+                    "Operate and maintain CNC machines to produce high-precision industrial parts.",
+                    "Perform machine setups, tool measurements, and offset adjustments.",
+                    "Monitor part quality using precision measurement tools (CMM, Vernier, Micrometer).",
+                    "Perform basic daily machine maintenance as planned.",
+                    "Record production results and report operational issues."
                 ]
             },
             "qualification": {
@@ -288,22 +314,6 @@
                     "No restriction on education background.",
                     "Experience in CNC operations.",
                     "Able to work shifts."
-                ]
-            },
-            "benefits": {
-                "th": [
-                    "ทำงานจันทร์ - ศุกร์",
-                    "ค่าอาหาร",
-                    "ค่างาน / ค่าครองชีพ / เบี้ยขยัน",
-                    "โบนัส (ตามผลประกอบการ)",
-                    "ประกันสังคม / กองทุน"
-                ],
-                "en": [
-                    "Work Monday - Friday.",
-                    "Food allowance.",
-                    "Job / Cost of living / Diligence allowance.",
-                    "Bonus (based on performance).",
-                    "Social Security / Provident Fund."
                 ]
             }
         }

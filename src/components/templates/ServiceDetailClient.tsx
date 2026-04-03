@@ -19,7 +19,7 @@ interface Video {
 
 interface ServiceDetailClientProps {
     namespace: string; // e.g., 'ai', 'machines', 'robotics', 'logistics'
-    videoCategory: 'AI' | 'MACHINES' | 'ROBOTICS' | 'LOGISTICS';
+    videoCategory: 'ai' | 'machines' | 'robotics' | 'logistics';
     themeColor: string; // Tailwind class for the glowing effect, e.g., 'bg-fuchsia-500/10'
     secondThemeColor?: string; // Optional second color for the other blob
     backgroundVideo?: string;

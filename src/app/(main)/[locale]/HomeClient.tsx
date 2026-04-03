@@ -19,6 +19,7 @@ import VideoGallery from "@/components/sections/VideoGallery";
 import ContactModal from "@/components/modals/ContactModal";
 import { clientLogos } from "@/data/clients";
 import videoDataRaw from "@/data/videos.json";
+import newsDataRaw from "@/data/news.json";
 import { GAS_WEB_APP_URL } from "@/lib/constants";
 
 interface Video {
@@ -69,117 +70,44 @@ export default function HomeClient({ locale }: { locale: string }) {
     }, []);
 
     useEffect(() => {
-        const fetchNews = async () => {
-            let staticKeys: string[] = [];
-            let staticItems: NewsItem[] = [];
+        const loadNews = () => {
             try {
-                const items = tHome.raw('news.items') || {};
-                if (items && typeof items === 'object' && !Array.isArray(items)) {
-                    staticKeys = Object.keys(items).filter(key => !key.startsWith('_'));
-
-                    staticItems = staticKeys.map(key => {
-                        const itemData = items[key] || {};
-                        const title = itemData.title || tHome(`news.items.${key}.title`);
-                        const date = itemData.date || tHome(`news.items.${key}.date`);
-                        const description = itemData.desc || tHome(`news.items.${key}.desc`);
-                        const postedDate = itemData.postedDate || tHome(`news.items.${key}.postedDate`);
-
-                        // Content blocks support
-                        let content: string[] = [];
-                        if (Array.isArray(itemData.content)) {
-                            content = itemData.content;
-                        }
-
-                        // Images support
-                        let images: string[] = [];
-                        if (Array.isArray(itemData.images)) {
-                            images = itemData.images.map((img: string) => img.startsWith('/') ? img : `/${img}`);
-                        } else if (content.length > 0) {
-                            const firstImg = content.find(c => typeof c === 'string' && (c.startsWith('GRID:') || c.startsWith('IMAGE:')));
-                            if (firstImg) {
-                                const pathString = firstImg.split(':')[1];
-                                const paths = pathString.split(',').map(p => p.trim().startsWith('/') ? p.trim() : `/${p.trim()}`);
-                                images = paths;
-                            }
-                        }
-
-                        const full_content = typeof itemData.full_content === 'string' ? itemData.full_content : undefined;
-
-                        return {
-                            id: key,
-                            title,
-                            date,
-                            postedDate,
-                            description,
-                            full_content,
-                            link: `/EurekaNew/${key}`,
-                            image: images.length > 0 ? images[0] : "/images/Our_Legacy.webp",
-                            images: images.length > 0 ? images : ["/images/Our_Legacy.webp"]
-                        };
-                    }).sort((a: NewsItem, b: NewsItem) => {
-                        const dateA = a.postedDate ? new Date(a.postedDate).getTime() : 0;
-                        const dateB = b.postedDate ? new Date(b.postedDate).getTime() : 0;
-                        return dateB - dateA;
-                    });
-                }
-            } catch {
-                console.warn("Failed to load static news items from translations");
-            }
-
-            try {
-                const url = new URL(GAS_WEB_APP_URL);
-                url.searchParams.append('sheet', 'Eureka_News');
-                url.searchParams.append('t', Date.now().toString());
-
-                const res = await fetch(url.toString());
-                if (res.ok) {
-                    const contentType = res.headers.get("content-type");
-                    if (contentType && contentType.includes("application/json")) {
-                        const data = await res.json();
-                        if (Array.isArray(data)) {
-                            // Map incoming GAS data to ensure properties exist
-                            const mappedData = data.map(item => ({
-                                ...item,
-                                postedDate: item.postedDate || item.date // Fallback to date if postedDate missing
-                            }));
-
-                            const allNews = [...staticItems, ...mappedData];
-                            // Sort by postedDate descending
-                            allNews.sort((a, b) => {
-                                const dateA = a.postedDate ? new Date(a.postedDate).getTime() : 0;
-                                const dateB = b.postedDate ? new Date(b.postedDate).getTime() : 0;
-                                return dateB - dateA;
-                            });
-
-                            setNews(allNews);
-                        } else {
-                            setNews(staticItems);
-                        }
-                    } else {
-                        setNews(staticItems);
-                    }
-                } else {
-                    setNews(staticItems);
-                }
-            } catch (err) {
-                console.error("Failed to fetch news:", err);
-                setNews(staticItems);
+                const keys = Object.keys(newsDataRaw).filter(key => !key.startsWith('_'));
+                const localizedItems: NewsItem[] = keys.map(key => {
+                    const itemData = (newsDataRaw as any)[key];
+                    return {
+                        id: key,
+                        title: itemData.title[locale as 'th' | 'en'] || itemData.title.en,
+                        date: itemData.date[locale as 'th' | 'en'] || itemData.date.en,
+                        description: itemData.desc[locale as 'th' | 'en'] || itemData.desc.en,
+                        postedDate: itemData.postedDate,
+                        image: itemData.images?.[0] || '',
+                        images: itemData.images || []
+                    };
+                }).sort((a, b) => {
+                    const dateA = a.postedDate ? new Date(a.postedDate).getTime() : 0;
+                    const dateB = b.postedDate ? new Date(b.postedDate).getTime() : 0;
+                    return dateB - dateA;
+                });
+                setNews(localizedItems);
+            } catch (error) {
+                console.error("Failed to load news:", error);
             } finally {
                 setIsLoadingNews(false);
             }
         };
-        fetchNews();
-    }, [tHome]);
+        loadNews();
+    }, [locale]);
 
     const isNew = (postedDate?: string) => {
         if (!postedDate) return false;
         try {
             const date = new Date(postedDate);
             if (isNaN(date.getTime())) return false;
-            const today = new Date("2026-03-24");
-            const diffTime = Math.abs(today.getTime() - date.getTime());
+            const today = new Date(); // Use current system time
+            const diffTime = today.getTime() - date.getTime();
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            return diffDays <= 7;
+            return diffDays >= 0 && diffDays <= 7;
         } catch {
             return false;
         }
@@ -1026,22 +954,28 @@ export default function HomeClient({ locale }: { locale: string }) {
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.2, duration: 0.8 }}
                             >
-                                <h3 className="text-2xl font-black text-ink mb-8">Send us a message</h3>
+                                <h3 className="text-2xl font-black text-ink mb-8">{tContact('title')}</h3>
                                 <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-                                    <div>
-                                        <label className="block text-[13px] font-bold text-ink uppercase tracking-wider mb-2">Name</label>
-                                        <input type="text" placeholder="John Doe" className="w-full bg-white border border-black/10 rounded-xl px-4 py-3 placeholder-black/20 focus:outline-none focus:border-green-primary focus:ring-1 focus:ring-green-primary transition-all text-[15px]" />
+                                    <div className="grid md:grid-cols-2 gap-6">
+                                        <div>
+                                            <label className="block text-[13px] font-bold text-ink uppercase tracking-wider mb-2">{tContact('form.firstName')}</label>
+                                            <input type="text" placeholder="John" className="w-full bg-white border border-black/10 rounded-xl px-4 py-3 placeholder-black/20 focus:outline-none focus:border-green-primary focus:ring-1 focus:ring-green-primary transition-all text-[15px]" />
+                                        </div>
+                                        <div>
+                                            <label className="block text-[13px] font-bold text-ink uppercase tracking-wider mb-2">{tContact('form.lastName')}</label>
+                                            <input type="text" placeholder="Doe" className="w-full bg-white border border-black/10 rounded-xl px-4 py-3 placeholder-black/20 focus:outline-none focus:border-green-primary focus:ring-1 focus:ring-green-primary transition-all text-[15px]" />
+                                        </div>
                                     </div>
                                     <div>
-                                        <label className="block text-[13px] font-bold text-ink uppercase tracking-wider mb-2">Email</label>
+                                        <label className="block text-[13px] font-bold text-ink uppercase tracking-wider mb-2">{tContact('form.email')}</label>
                                         <input type="email" placeholder="john@example.com" className="w-full bg-white border border-black/10 rounded-xl px-4 py-3 placeholder-black/20 focus:outline-none focus:border-green-primary focus:ring-1 focus:ring-green-primary transition-all text-[15px]" />
                                     </div>
                                     <div>
-                                        <label className="block text-[13px] font-bold text-ink uppercase tracking-wider mb-2">Message</label>
-                                        <textarea rows={4} placeholder="How can we help you?" className="w-full bg-white border border-black/10 rounded-xl px-4 py-3 placeholder-black/20 focus:outline-none focus:border-green-primary focus:ring-1 focus:ring-green-primary transition-all text-[15px] resize-none"></textarea>
+                                        <label className="block text-[13px] font-bold text-ink uppercase tracking-wider mb-2">{tContact('form.message')}</label>
+                                        <textarea rows={4} placeholder="..." className="w-full bg-white border border-black/10 rounded-xl px-4 py-3 placeholder-black/20 focus:outline-none focus:border-green-primary focus:ring-1 focus:ring-green-primary transition-all text-[15px] resize-none"></textarea>
                                     </div>
                                     <button type="submit" className="w-full bg-green-primary hover:bg-green-dark text-white rounded-xl py-4 font-bold transition-colors flex justify-center items-center gap-2">
-                                        Send Message <ArrowRight size={18} />
+                                        {tContact('form.submit')} <ArrowRight size={18} />
                                     </button>
                                 </form>
                             </motion.div>

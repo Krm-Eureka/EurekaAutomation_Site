@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import NewsArchiveClient from "./NewsArchiveClient";
+import newsDataRaw from "@/data/news.json";
 
 interface PageProps {
     params: Promise<{
@@ -10,24 +11,17 @@ interface PageProps {
 export default async function NewsArchivePage({ params }: PageProps) {
     const { locale } = await params;
     const t = await getTranslations({ locale });
-    const items = t.raw('home.news.items') || {};
-    const staticKeys = Object.keys(items).filter(key => !key.startsWith('_'));
     
-    const allNews = staticKeys.map(key => {
-        const itemData = items[key] || {};
-        let newsImages: string[] = ["/images/Our_Legacy.webp"];
-        
-        if (Array.isArray(itemData.images)) {
-            newsImages = itemData.images.map((img: string) => img.startsWith('/') ? img : `/${img}`);
-        }
-        
+    const keys = Object.keys(newsDataRaw).filter(key => !key.startsWith('_'));
+    const allNews = keys.map(key => {
+        const itemData = (newsDataRaw as any)[key];
         return {
             id: key,
-            title: itemData.title || "",
-            date: itemData.date || "",
-            postedDate: itemData.postedDate || "",
-            desc: itemData.desc || "",
-            images: newsImages,
+            title: itemData.title[locale as 'th' | 'en'] || itemData.title.en,
+            date: itemData.date[locale as 'th' | 'en'] || itemData.date.en,
+            postedDate: itemData.postedDate,
+            desc: itemData.desc[locale as 'th' | 'en'] || itemData.desc.en,
+            images: itemData.images || ["/images/Our_Legacy.webp"],
         };
     }).sort((a, b) => {
         const dateA = a.postedDate ? new Date(a.postedDate).getTime() : 0;

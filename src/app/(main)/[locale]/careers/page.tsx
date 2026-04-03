@@ -76,18 +76,20 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
                 id: String(pos.id || `fallback-${index}`),
                 status: pos.status,
                 dept_th: pos.dept?.th, dept_en: pos.dept?.en,
-            title_th: pos.title?.th, title_en: pos.title?.en,
-            location_th: pos.location?.th, location_en: pos.location?.en,
-            type_th: pos.type?.th, type_en: pos.type?.en,
-            desc_th: Array.isArray(pos.desc?.th) ? pos.desc.th.join('\n') : pos.desc?.th,
-            desc_en: Array.isArray(pos.desc?.en) ? pos.desc.en.join('\n') : pos.desc?.en,
-            experience_th: pos.experience?.th, experience_en: pos.experience?.en,
-            education_th: pos.education?.th, education_en: pos.education?.en,
-            salary_th: pos.salary?.th, salary_en: pos.salary?.en,
-            qualification_th: Array.isArray(pos.qualification?.th) ? pos.qualification.th.join('\n') : pos.qualification?.th,
-            qualification_en: Array.isArray(pos.qualification?.en) ? pos.qualification.en.join('\n') : pos.qualification?.en,
-            benefits_th: Array.isArray(pos.benefits?.th) ? pos.benefits.th.join('\n') : pos.benefits?.th,
-            benefits_en: Array.isArray(pos.benefits?.en) ? pos.benefits.en.join('\n') : pos.benefits?.en,
+                title_th: pos.title?.th, title_en: pos.title?.en,
+                location_th: pos.location?.th, location_en: pos.location?.en,
+                type_th: pos.type?.th, type_en: pos.type?.en,
+                desc_th: Array.isArray(pos.desc?.th) ? pos.desc.th.join('\n') : pos.desc?.th,
+                desc_en: Array.isArray(pos.desc?.en) ? pos.desc.en.join('\n') : pos.desc?.en,
+                experience_th: pos.experience?.th, experience_en: pos.experience?.en,
+                education_th: pos.education?.th, education_en: pos.education?.en,
+                salary_th: pos.salary?.th, salary_en: pos.salary?.en,
+                qualification_th: Array.isArray(pos.qualification?.th) ? pos.qualification.th.join('\n') : pos.qualification?.th,
+                qualification_en: Array.isArray(pos.qualification?.en) ? pos.qualification.en.join('\n') : pos.qualification?.en,
+                benefits_th: Array.isArray(pos.benefits?.th) ? pos.benefits.th.join('\n') : pos.benefits?.th,
+                benefits_en: Array.isArray(pos.benefits?.en) ? pos.benefits.en.join('\n') : pos.benefits?.en,
+                urgent: pos.urgent || false,
+                active: pos.active !== undefined ? pos.active : (pos.status === 'open'),
             };
         });
     }
@@ -99,7 +101,7 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
     };
 
     const positions = Array.isArray(allPositions) ? allPositions
-        .filter((pos: Record<string, any>) => pos && pos.status && String(pos.status).toLowerCase() === 'open')
+        .filter((pos: Record<string, any>) => pos && pos.active !== false)
         .map((pos: Record<string, any>) => ({
             id: String(pos.id),
             dept: String(locale === 'th' ? (pos.dept_th || '') : (pos.dept_en || '')) || 'Uncategorized',
@@ -111,11 +113,15 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
             education: String(locale === 'th' ? (pos.education_th || '') : (pos.education_en || '')),
             salary: String(locale === 'th' ? (pos.salary_th || '') : (pos.salary_en || '')),
             qualification: parseArray(locale === 'th' ? pos.qualification_th : pos.qualification_en),
-            benefits: parseArray(locale === 'th' ? pos.benefits_th : pos.benefits_en)
-        })) : [];
+            benefits: parseArray(locale === 'th' ? pos.benefits_th : pos.benefits_en),
+            slots: String(locale === 'th' ? (pos.slots_th || '') : (pos.slots_en || '')),
+            urgent: !!pos.urgent,
+            active: pos.active !== false
+        }))
+        .filter((pos: any) => pos.active)
+        .sort((a: any, b: any) => (b.urgent ? 1 : 0) - (a.urgent ? 1 : 0)) : [];
 
-    // For global benefits, we'll keep reading from the translation or fallback json for now
-    const globalBenefits = (positionsDataFallback as { BENEFITS: Record<string, string[]> }).BENEFITS?.[locale as 'th' | 'en'] || [];
+    const globalBenefits = (positionsDataFallback as { benefits: Record<string, string[]> }).benefits?.[locale as 'th' | 'en'] || [];
     const benefits = globalBenefits.length > 0 ? globalBenefits : (t.raw('benefits_list') as string[]);
 
     const translations = {

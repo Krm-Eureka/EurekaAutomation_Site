@@ -52,6 +52,20 @@ export default function NewsArchiveClient({
         });
     });
 
+    const isNew = (postedDate?: string) => {
+        if (!postedDate) return false;
+        try {
+            const date = new Date(postedDate);
+            if (isNaN(date.getTime())) return false;
+            const today = new Date(); // Use current system time
+            const diffTime = today.getTime() - date.getTime();
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            return diffDays >= 0 && diffDays <= 7;
+        } catch {
+            return false;
+        }
+    };
+
     return (
         <div className="min-h-screen bg-zinc-300 font-sans pt-20">
             {/* Hero Section */}
@@ -113,6 +127,13 @@ export default function NewsArchiveClient({
                                                         className="object-cover transition-transform duration-1000 group-hover:scale-105"
                                                     />
                                                     <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                                                    
+                                                    {/* New Badge */}
+                                                    {isNew(item.postedDate) && (
+                                                        <div className="absolute top-4 left-4 z-20 px-3 py-1 bg-green-primary text-white text-[10px] font-bold rounded-full shadow-lg animate-pulse uppercase tracking-wider">
+                                                            New
+                                                        </div>
+                                                    )}
                                                 </div>
 
                                                 {/* Right: Content Container */}
