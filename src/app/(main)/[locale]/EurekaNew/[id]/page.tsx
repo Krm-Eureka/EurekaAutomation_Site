@@ -1,3 +1,4 @@
+import { withBasePath } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
 import NewsDetailClient from "./NewsDetailClient";
 import { notFound } from "next/navigation";
@@ -52,7 +53,7 @@ export default async function NewsDetailPage({ params }: PageProps) {
         let newsImages: string[] = ["/images/Our_Legacy.webp"];
         
         if (Array.isArray(itemData.images)) {
-            newsImages = itemData.images.map((img: string) => img.startsWith('/') ? img : `/${img}`);
+            newsImages = itemData.images.map((img: string) => withBasePath(img));
         }
         
         return {
