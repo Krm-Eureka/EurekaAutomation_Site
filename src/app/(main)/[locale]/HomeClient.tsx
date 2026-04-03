@@ -20,7 +20,6 @@ import ContactModal from "@/components/modals/ContactModal";
 import { clientLogos } from "@/data/clients";
 import videoDataRaw from "@/data/videos.json";
 import newsDataRaw from "@/data/news.json";
-import { GAS_WEB_APP_URL } from "@/lib/constants";
 
 interface Video {
     title: { th: string; en: string };
@@ -61,7 +60,6 @@ export default function HomeClient({ locale }: { locale: string }) {
 
     useEffect(() => {
         if (videoRef.current) {
-            // Force muted via JS property for better mobile support
             videoRef.current.muted = true;
             videoRef.current.play().catch(err => {
                 console.log("Autoplay was prevented:", err);
@@ -72,9 +70,16 @@ export default function HomeClient({ locale }: { locale: string }) {
     useEffect(() => {
         const loadNews = () => {
             try {
+                const typedNewsData = newsDataRaw as unknown as Record<string, {
+                    title: { th: string; en: string };
+                    date: { th: string; en: string };
+                    desc: { th: string; en: string };
+                    postedDate: string;
+                    images?: string[];
+                }>;
                 const keys = Object.keys(newsDataRaw).filter(key => !key.startsWith('_'));
-                const localizedItems: NewsItem[] = keys.map(key => {
-                    const itemData = (newsDataRaw as any)[key];
+                const localizedItems: NewsItem[] = keys.map((key: string) => {
+                    const itemData = typedNewsData[key];
                     return {
                         id: key,
                         title: itemData.title[locale as 'th' | 'en'] || itemData.title.en,
@@ -84,7 +89,7 @@ export default function HomeClient({ locale }: { locale: string }) {
                         image: itemData.images?.[0] || '',
                         images: itemData.images || []
                     };
-                }).sort((a, b) => {
+                }).sort((a: NewsItem, b: NewsItem) => {
                     const dateA = a.postedDate ? new Date(a.postedDate).getTime() : 0;
                     const dateB = b.postedDate ? new Date(b.postedDate).getTime() : 0;
                     return dateB - dateA;

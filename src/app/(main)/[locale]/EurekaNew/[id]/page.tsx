@@ -1,4 +1,3 @@
-import { getTranslations } from "next-intl/server";
 import NewsDetailClient from "./NewsDetailClient";
 import { notFound } from "next/navigation";
 import newsDataRaw from "@/data/news.json";
@@ -8,6 +7,17 @@ interface PageProps {
         locale: string;
         id: string;
     }>;
+}
+
+interface NewsData {
+    [key: string]: {
+        title: { th: string; en: string };
+        date: { th: string; en: string };
+        postedDate: string;
+        desc: { th: string; en: string };
+        images?: string[];
+        content?: { th: string[]; en: string[] };
+    };
 }
 
 export const dynamicParams = false;
@@ -25,9 +35,9 @@ export async function generateStaticParams() {
 
 export default async function NewsDetailPage({ params }: PageProps) {
     const { locale, id } = await params;
-    const t = await getTranslations({ locale });
     
-    const itemData = (newsDataRaw as any)[id];
+    const typedNewsData = newsDataRaw as unknown as NewsData;
+    const itemData = typedNewsData[id];
     
     if (!itemData) {
         return notFound();
@@ -35,7 +45,7 @@ export default async function NewsDetailPage({ params }: PageProps) {
 
     const keys = Object.keys(newsDataRaw).filter(key => !key.startsWith('_'));
     const otherNews = keys.map(key => {
-        const otherData = (newsDataRaw as any)[key];
+        const otherData = typedNewsData[key];
         return {
             id: key,
             title: otherData.title[locale as 'th' | 'en'] || otherData.title.en,

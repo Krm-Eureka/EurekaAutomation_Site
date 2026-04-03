@@ -8,13 +8,25 @@ interface PageProps {
     }>;
 }
 
+interface NewsData {
+    [key: string]: {
+        title: { th: string; en: string };
+        date: { th: string; en: string };
+        postedDate: string;
+        desc: { th: string; en: string };
+        images?: string[];
+        content?: { th: string[]; en: string[] };
+    };
+}
+
 export default async function NewsArchivePage({ params }: PageProps) {
     const { locale } = await params;
     const t = await getTranslations({ locale });
     
+    const typedNewsData = newsDataRaw as unknown as NewsData;
     const keys = Object.keys(newsDataRaw).filter(key => !key.startsWith('_'));
     const allNews = keys.map(key => {
-        const itemData = (newsDataRaw as any)[key];
+        const itemData = typedNewsData[key];
         return {
             id: key,
             title: itemData.title[locale as 'th' | 'en'] || itemData.title.en,
