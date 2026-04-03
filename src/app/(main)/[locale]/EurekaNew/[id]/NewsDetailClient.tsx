@@ -242,7 +242,7 @@ export default function NewsDetailClient({ item, otherNews }: { item: NewsItem, 
                                 >
                                     <div className="relative aspect-video rounded-3xl overflow-hidden bg-zinc-100 shadow-lg">
                                         <Image
-                                            src={news.images[0] || "/images/Our_Legacy.webp"}
+                                            src={withBasePath(news.images[0] || "/images/Our_Legacy.webp")}
                                             alt={news.title}
                                             fill
                                             className="object-cover transition-transform duration-500 group-hover:scale-110"
