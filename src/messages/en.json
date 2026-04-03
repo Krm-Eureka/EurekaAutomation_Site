@@ -271,27 +271,6 @@
             "archive_title": "News Archive",
             "view_all": "View All News",
             "items": {
-                "expo2026": {
-                    "title": "Showcases Cutting-Edge Smart Tech at Automation Expo 2026",
-                    "date": "Feb 25-27, 2026",
-                    "postedDate": "2026-03-24",
-                    "desc": "Driving the Future of Innovation: Eureka Automation shines at the premier tech event in Nong Nooch Pattaya, showcasing Smart Manufacturing and AI-Integrated Robotics solutions designed to power your success.",
-                    "images": [
-                        "/images/news/expo2026/1.webp"
-                    ],
-                    "content": [
-                        "Driving the Future of Innovation: Eureka Automation Shines at the Premier Tech Event",
-                        "Recently, Eureka Automation proudly participated in the Automation Technology Exhibition held at the prestigious Nong Nooch Garden, Pattaya from Feb 25-27, 2026.",
-                        "GRID:/images/news/expo2026/2.webp,/images/news/expo2026/3.webp,/images/news/expo2026/4.webp",
-                        "Key Highlights from Our Booth:",
-                        "• Smart Manufacturing Solutions: Real-world demonstrations of how smart systems optimize production cycles and ROI.",
-                        "• AI-Integrated Robotics: Showcasing high-precision robotic arms powered by advanced AI for seamless industrial operations.",
-                        "• Tailored Automation Consulting: Our experts provided one-on-one sessions to design bespoke automation roadmaps for various business scales.",
-                        "We would like to extend our sincere gratitude to all visitors, partners, and clients who visited our booth. Your insights and interest drive us to continue pushing the boundaries of what’s possible in industrial automation.",
-                        "\"Beyond machinery, we deliver the solutions that power your success.\"",
-                        "Missed us at the event? You can explore our full range of services and innovative technologies at our Product/Service page or contact our expert team today for a consultation."
-                    ]
-                },
                 "foodpack2026": {
                     "title": "Showcases Smart Food Manufacturing Solutions at Food Pack Asia 2026",
                     "date": "Mar 18-21, 2026",
@@ -313,6 +292,27 @@
                         "A heartfelt thank you to everyone who visited our booth to explore our technologies and share their business visions. We look forward to helping you transform your production line into a state-of-the-art facility.",
                         "\"Empowering Food Production with Intelligence, Safety, and Scale.\"",
                         "Didn't get a chance to meet us? You can still explore our food-specific automation solutions on our Product Page or reach out to our technical team for a private consultation at contact@eurekaautomation.co.th."
+                    ]
+                },
+                "expo2026": {
+                    "title": "Showcases Cutting-Edge Smart Tech at Automation Expo 2026",
+                    "date": "Feb 25-27, 2026",
+                    "postedDate": "2026-03-24",
+                    "desc": "Driving the Future of Innovation: Eureka Automation shines at the premier tech event in Nong Nooch Pattaya, showcasing Smart Manufacturing and AI-Integrated Robotics solutions designed to power your success.",
+                    "images": [
+                        "/images/news/expo2026/1.webp"
+                    ],
+                    "content": [
+                        "Driving the Future of Innovation: Eureka Automation Shines at the Premier Tech Event",
+                        "Recently, Eureka Automation proudly participated in the Automation Technology Exhibition held at the prestigious Nong Nooch Garden, Pattaya from Feb 25-27, 2026.",
+                        "GRID:/images/news/expo2026/2.webp,/images/news/expo2026/3.webp,/images/news/expo2026/4.webp",
+                        "Key Highlights from Our Booth:",
+                        "• Smart Manufacturing Solutions: Real-world demonstrations of how smart systems optimize production cycles and ROI.",
+                        "• AI-Integrated Robotics: Showcasing high-precision robotic arms powered by advanced AI for seamless industrial operations.",
+                        "• Tailored Automation Consulting: Our experts provided one-on-one sessions to design bespoke automation roadmaps for various business scales.",
+                        "We would like to extend our sincere gratitude to all visitors, partners, and clients who visited our booth. Your insights and interest drive us to continue pushing the boundaries of what’s possible in industrial automation.",
+                        "\"Beyond machinery, we deliver the solutions that power your success.\"",
+                        "Missed us at the event? You can explore our full range of services and innovative technologies at our Product/Service page or contact our expert team today for a consultation."
                     ]
                 }
             }
