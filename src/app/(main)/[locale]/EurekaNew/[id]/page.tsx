@@ -4,6 +4,7 @@ import newsDataRaw from "@/data/news.json";
 import { GAS_WEB_APP_URL } from "@/lib/constants";
 import { getGoogleDriveDirectLink, processNewsContent } from "@/lib/googleDriveUtils";
 import { NewsItem } from "./NewsDetailClient";
+import React from "react";
 
 interface PageProps {
     params: Promise<{
@@ -40,24 +41,31 @@ interface NewsData {
 // In static export mode, all paths must be pre-rendered
 export const dynamicParams = false;
 
+// Pre-fetch and cache news data to avoid redundant API calls during build
+const getRemoteNews = React.cache(async () => {
+    if (!GAS_WEB_APP_URL) return null;
+    try {
+        const apiKey = process.env.GAS_API_KEY || process.env.NEXT_PUBLIC_GAS_API_KEY || "";
+        const response = await fetch(`${GAS_WEB_APP_URL}?sheet=EA-NEWS&key=${apiKey}`);
+        if (response.ok) {
+            return await response.json();
+        }
+    } catch (e) {
+        console.error("Remote news fetch error:", e);
+    }
+    return null;
+});
+
 // Pre-render static paths for local JSON data and Google Sheets data
 export async function generateStaticParams() {
     const locales = ['en', 'th'] as const;
     let keys = Object.keys(newsDataRaw).filter(key => !key.startsWith('_'));
 
     // Try to fetch remote IDs to pre-render them
-    try {
-        const apiKey = process.env.GAS_API_KEY || "";
-        const response = await fetch(`${GAS_WEB_APP_URL}?sheet=EA-NEWS&key=${apiKey}`);
-        if (response.ok) {
-            const remoteNews = await response.json();
-            if (Array.isArray(remoteNews)) {
-                const remoteKeys = remoteNews.map((n: { id: string | number }) => String(n.id));
-                keys = Array.from(new Set([...keys, ...remoteKeys]));
-            }
-        }
-    } catch (e) {
-        console.error("Static params fetch error:", e);
+    const remoteNews = await getRemoteNews();
+    if (Array.isArray(remoteNews)) {
+        const remoteKeys = remoteNews.map((n: RawNewsItem) => String(n.id));
+        keys = Array.from(new Set([...keys, ...remoteKeys]));
     }
     
     const params = locales.flatMap(locale => 
@@ -75,48 +83,39 @@ export default async function NewsDetailPage({ params }: PageProps) {
     let isFallback = false;
 
     try {
-        const apiKey = process.env.GAS_API_KEY || "";
-        const response = await fetch(`${GAS_WEB_APP_URL}?sheet=EA-NEWS&key=${apiKey}`, {
-            next: { revalidate: 60 }
-        });
-
-        if (response.ok) {
-            const remoteNews = await response.json();
-            if (Array.isArray(remoteNews)) {
-                // Find current item
-                const remoteItem = remoteNews.find((n: RawNewsItem) => String(n.id) === id);
-                if (remoteItem) {
-                    const rawContent = locale === 'th' ? (remoteItem.content_th || '') : (remoteItem.content_en || '');
-                    // Handle both array and newline string formats
-                    const contentArray = typeof rawContent === 'string' ? rawContent.split('\n') : (rawContent as string[]);
-                    
-                    item = {
-                        id,
-                        title: locale === 'th' ? (String(remoteItem.title_th) || '') : (String(remoteItem.title_en) || ''),
-                        date: locale === 'th' ? (String(remoteItem.date_th) || '') : (String(remoteItem.date_en) || ''),
-                        postedDate: String(remoteItem.posted_date || ""),
-                        images: Array.isArray(remoteItem.images) 
-                            ? remoteItem.images.map((u: string) => getGoogleDriveDirectLink(u))
-                            : [getGoogleDriveDirectLink(String(remoteItem.images || ""))],
-                        content: processNewsContent(contentArray),
-                        paragraphs: processNewsContent(contentArray)
-                    };
-                }
-
-                // Map other news for sidebar/bottom
-                otherNews = remoteNews.map((n: RawNewsItem) => ({
-                    id: String(n.id),
-                    title: locale === 'th' ? (String(n.title_th) || '') : (String(n.title_en) || ''),
-                    date: locale === 'th' ? (String(n.date_th) || '') : (String(n.date_en) || ''),
-                    postedDate: String(n.posted_date || ""),
-                    images: Array.isArray(n.images) 
-                        ? n.images.map((u: string) => getGoogleDriveDirectLink(u))
-                        : [getGoogleDriveDirectLink(String(n.images || ""))],
-                    paragraphs: []
-                }));
-            } else {
-                isFallback = true;
+        const remoteNews = await getRemoteNews();
+        if (Array.isArray(remoteNews)) {
+            // Find current item
+            const remoteItem = remoteNews.find((n: RawNewsItem) => String(n.id) === id);
+            if (remoteItem) {
+                const rawContent = locale === 'th' ? (remoteItem.content_th || '') : (remoteItem.content_en || '');
+                // Handle both array and newline string formats
+                const contentArray = typeof rawContent === 'string' ? rawContent.split('\n') : (rawContent as string[]);
+                
+                item = {
+                    id,
+                    title: locale === 'th' ? (String(remoteItem.title_th) || '') : (String(remoteItem.title_en) || ''),
+                    date: locale === 'th' ? (String(remoteItem.date_th) || '') : (String(remoteItem.date_en) || ''),
+                    postedDate: String(remoteItem.posted_date || ""),
+                    images: Array.isArray(remoteItem.images) 
+                        ? remoteItem.images.map((u: string) => getGoogleDriveDirectLink(u))
+                        : [getGoogleDriveDirectLink(String(remoteItem.images || ""))],
+                    content: processNewsContent(contentArray),
+                    paragraphs: processNewsContent(contentArray)
+                };
             }
+
+            // Map other news for sidebar/bottom
+            otherNews = remoteNews.map((n: RawNewsItem) => ({
+                id: String(n.id),
+                title: locale === 'th' ? (String(n.title_th) || '') : (String(n.title_en) || ''),
+                date: locale === 'th' ? (String(n.date_th) || '') : (String(n.date_en) || ''),
+                postedDate: String(n.posted_date || ""),
+                images: Array.isArray(n.images) 
+                    ? n.images.map((u: string) => getGoogleDriveDirectLink(u))
+                    : [getGoogleDriveDirectLink(String(n.images || ""))],
+                paragraphs: []
+            }));
         } else {
             isFallback = true;
         }

@@ -33,27 +33,32 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
     let allPositions: Record<string, any>[] = [];
     let isFallback = false;
     try {
-        const apiKey = process.env.GAS_API_KEY || "";
-        const response = await fetch(`${GAS_WEB_APP_URL}?key=${apiKey}`, {
-            // Revalidate every 60 seconds. In dev mode this might bypass, 
-            // but in prod it ensures we don't hit GAS limits.
-            next: { revalidate: 60 }
-        });
+        if (!GAS_WEB_APP_URL) {
+            console.warn("GAS_WEB_APP_URL is not defined. Using local fallback.");
+            isFallback = true;
+        } else {
+            const apiKey = process.env.GAS_API_KEY || process.env.NEXT_PUBLIC_GAS_API_KEY || "";
+            const response = await fetch(`${GAS_WEB_APP_URL}?key=${apiKey}`, {
+                // Revalidate every 60 seconds. In dev mode this might bypass, 
+                // but in prod it ensures we don't hit GAS limits.
+                next: { revalidate: 60 }
+            });
 
-        if (response.ok) {
-            const contentType = response.headers.get("content-type");
-            if (contentType && contentType.includes("application/json")) {
-                allPositions = await response.json();
-                if (!Array.isArray(allPositions) && (allPositions as Record<string, any>).error) {
-                    console.error("GAS returned error:", (allPositions as Record<string, any>).error);
+            if (response.ok) {
+                const contentType = response.headers.get("content-type");
+                if (contentType && contentType.includes("application/json")) {
+                    allPositions = await response.json();
+                    if (!Array.isArray(allPositions) && (allPositions as Record<string, any>).error) {
+                        console.error("GAS returned error:", (allPositions as Record<string, any>).error);
+                        isFallback = true;
+                    }
+                } else {
+                    console.error("GAS did not return JSON. Check deployment settings (Must be 'Anyone').");
                     isFallback = true;
                 }
             } else {
-                console.error("GAS did not return JSON. Check deployment settings (Must be 'Anyone').");
                 isFallback = true;
             }
-        } else {
-            isFallback = true;
         }
     } catch (error) {
         console.error("Failed to fetch careers from Google Sheets:", error);

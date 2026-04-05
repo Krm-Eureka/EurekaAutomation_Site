@@ -45,30 +45,35 @@ export default async function NewsArchivePage({ params }: PageProps) {
     let isFallback = false;
 
     try {
-        const apiKey = process.env.GAS_API_KEY || "";
-        const response = await fetch(`${GAS_WEB_APP_URL}?sheet=EA-NEWS&key=${apiKey}`, {
-            next: { revalidate: 60 }
-        });
+        if (!GAS_WEB_APP_URL) {
+            console.warn("GAS_WEB_APP_URL is not defined. Using local fallback.");
+            isFallback = true;
+        } else {
+            const apiKey = process.env.GAS_API_KEY || process.env.NEXT_PUBLIC_GAS_API_KEY || "";
+            const response = await fetch(`${GAS_WEB_APP_URL}?sheet=EA-NEWS&key=${apiKey}`, {
+                next: { revalidate: 60 }
+            });
 
-        if (response.ok) {
-            const remoteNews = await response.json();
-            if (Array.isArray(remoteNews) && remoteNews.length > 0) {
-                allNews = remoteNews.map((item: RawNewsItem) => ({
-                    id: String(item.id),
-                    title: locale === 'th' ? (String(item.title_th) || '') : (String(item.title_en) || ''),
-                    date: locale === 'th' ? (String(item.date_th) || '') : (String(item.date_en) || ''),
-                    postedDate: String(item.posted_date || ""),
-                    desc: locale === 'th' ? (String(item.desc_th) || '') : (String(item.desc_en) || ''),
-                    // Map multiple images and convert Drive links
-                    images: Array.isArray(item.images) 
-                        ? item.images.map((u: string) => getGoogleDriveDirectLink(u))
-                        : (item.images ? [getGoogleDriveDirectLink(String(item.images))] : ["/images/Our_Legacy.webp"]),
-                }));
+            if (response.ok) {
+                const remoteNews = await response.json();
+                if (Array.isArray(remoteNews) && remoteNews.length > 0) {
+                    allNews = remoteNews.map((item: RawNewsItem) => ({
+                        id: String(item.id),
+                        title: locale === 'th' ? (String(item.title_th) || '') : (String(item.title_en) || ''),
+                        date: locale === 'th' ? (String(item.date_th) || '') : (String(item.date_en) || ''),
+                        postedDate: String(item.posted_date || ""),
+                        desc: locale === 'th' ? (String(item.desc_th) || '') : (String(item.desc_en) || ''),
+                        // Map multiple images and convert Drive links
+                        images: Array.isArray(item.images) 
+                            ? item.images.map((u: string) => getGoogleDriveDirectLink(u))
+                            : (item.images ? [getGoogleDriveDirectLink(String(item.images))] : ["/images/Our_Legacy.webp"]),
+                    }));
+                } else {
+                    isFallback = true;
+                }
             } else {
                 isFallback = true;
             }
-        } else {
-            isFallback = true;
         }
     } catch (error) {
         console.error("News fetch error:", error);

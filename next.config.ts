@@ -23,6 +23,7 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
   trailingSlash: true,
+  staticPageGenerationTimeout: 1000,
 };
 
 export default withNextIntl(nextConfig);

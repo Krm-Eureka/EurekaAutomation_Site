@@ -4,7 +4,7 @@ const path = require('path');
 const newsData = JSON.parse(fs.readFileSync('d:/KRM/26/EurekaAutomation_site/src/data/news.json', 'utf8'));
 
 const headers = [
-    'id', 'postedDate', 'active',
+    'id', 'active', 'postedDate',
     'title_th', 'title_en',
     'date_th', 'date_en',
     'desc_th', 'desc_en',
