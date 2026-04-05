@@ -5,6 +5,7 @@ import { Calendar, Clock } from "lucide-react";
 import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import { withBasePath } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 export interface NewsItem {
     id: string;
@@ -13,17 +14,22 @@ export interface NewsItem {
     postedDate?: string;
     images: string[];
     desc: string;
+    locale?: string;
 }
 
 export default function NewsArchiveClient({
     news,
     title,
-    tagline
+    tagline,
+    isFallback
 }: {
     news: NewsItem[],
     title: string,
-    tagline: string
+    tagline: string,
+    isFallback?: boolean
 }) {
+    const t = useTranslations();
+
     // Group news by year based on postedDate
     const groupedNews = news.reduce((acc, item) => {
         let year = "Unknown";
@@ -153,7 +159,12 @@ export default function NewsArchiveClient({
                                                     </p>
                                                     <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-zinc-400 group-hover:text-green-primary transition-colors">
                                                         <Clock size={8} />
-                                                        Read Full Article
+                                                        {t('blog.read_more')}
+                                                        {isFallback && (
+                                                            <span className="ml-2 bg-zinc-100 text-zinc-400 px-1.5 py-0.5 rounded-full text-[8px] border border-zinc-200">
+                                                                {t('home.news.fallbackTag')}
+                                                            </span>
+                                                        )}
                                                     </div>
                                                 </div>
                                             </div>

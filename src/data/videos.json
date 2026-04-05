@@ -243,44 +243,6 @@
             ]
         }
     ],
-    "ai": [
-        {
-            "title": {
-                "th": "AI Solution สำหรับการตรวจสอบคุณภาพ",
-                "en": "AI Solutions for Quality Inspection"
-            },
-            "thumbnail": "",
-            "youtubeUrl": "https://www.youtube.com/watch?v=eJ46cwHkbFg&t=162s",
-            "category": {
-                "th": "ปัญญาประดิษฐ์",
-                "en": "AI"
-            },
-            "description": [
-                {
-                    "th": "การใช้ Computer Vision ในการตรวจสอบตำหนิชิ้นงานอัตโนมัติ",
-                    "en": "Using Computer Vision for automated defect detection."
-                }
-            ]
-        },
-        {
-            "title": {
-                "th": "การบำรุงรักษาเชิงคาดการณ์ด้วย AI Solution",
-                "en": "Predictive Maintenance with AI"
-            },
-            "thumbnail": "",
-            "youtubeUrl": "https://www.youtube.com/watch?v=eJ46cwHkbFg&t=162s",
-            "category": {
-                "th": "ปัญญาประดิษฐ์",
-                "en": "AI"
-            },
-            "description": [
-                {
-                    "th": "การใช้ข้อมูลเซนเซอร์เพื่อทำนายเวลาที่ต้องซ่อมบำรุง",
-                    "en": "Using sensor data to predict maintenance needs."
-                }
-            ]
-        }
-    ],
     "machines": [
         {
             "title": {

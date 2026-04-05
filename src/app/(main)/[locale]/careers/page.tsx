@@ -38,35 +38,36 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
             isFallback = true;
         } else {
             const apiKey = process.env.GAS_API_KEY || process.env.NEXT_PUBLIC_GAS_API_KEY || "";
-            const response = await fetch(`${GAS_WEB_APP_URL}?key=${apiKey}`, {
-                // Revalidate every 60 seconds. In dev mode this might bypass, 
-                // but in prod it ensures we don't hit GAS limits.
+            const response = await fetch(`${GAS_WEB_APP_URL}?sheet=EA-CAREERS&key=${apiKey}`, {
                 next: { revalidate: 60 }
             });
 
             if (response.ok) {
-                const contentType = response.headers.get("content-type");
-                if (contentType && contentType.includes("application/json")) {
-                    allPositions = await response.json();
-                    if (!Array.isArray(allPositions) && (allPositions as Record<string, any>).error) {
-                        console.error("GAS returned error:", (allPositions as Record<string, any>).error);
-                        isFallback = true;
-                    }
+                const result = await response.json();
+                const remoteData = result.data || result; // Handle both wrapped and unwrapped
+                if (Array.isArray(remoteData) && remoteData.length > 0) {
+                    console.log(`[CAREERS] Successfully fetched ${remoteData.length} items from Google Sheets (EA-CAREERS).`);
+                    allPositions = remoteData.map((item: any) => ({
+                        ...item,
+                        // Ensure ID is string and status is checked
+                        id: String(item.id),
+                    }));
                 } else {
-                    console.error("GAS did not return JSON. Check deployment settings (Must be 'Anyone').");
                     isFallback = true;
                 }
             } else {
+                console.error(`[CAREERS] Response not OK. Status: ${response.status}`);
                 isFallback = true;
             }
         }
     } catch (error) {
-        console.error("Failed to fetch careers from Google Sheets:", error);
+        console.error("[CAREERS] Failed to fetch from Google Sheets:", error);
         isFallback = true;
     }
 
     if (isFallback || !Array.isArray(allPositions) || allPositions.length === 0) {
         // Fallback to local JSON data if Google Sheets is down, returns HTML, or has an error
+        console.log("[CAREERS] Source: Local JSON (src/data/careers.json)");
         console.info("Using Fallback JSON Data for Careers...");
         const flatFallback = Object.values(positionsDataFallback as Record<string, unknown[] | unknown>)
             .filter((value): value is unknown[] => Array.isArray(value))
@@ -143,7 +144,9 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
         apply_today: t('apply_today'),
         apply_desc: t('apply_desc'),
         join_tag: t('join_tag'),
-        labels: {
+        sticky_cta: locale === 'th' ? "ติดต่อรับคำปรึกษากับวิศวกรและฝ่ายขายฟรีทันที" : "Free consultation with engineers & sales.",
+        fallbackTag: locale === 'th' ? "(ข้อมูลสำรอง)" : "(Local Data)",
+        seo: {
             experience: t('labels.experience'),
             education: t('labels.education'),
             salary: t('labels.salary'),

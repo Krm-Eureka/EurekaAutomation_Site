@@ -57,6 +57,7 @@ export default async function NewsArchivePage({ params }: PageProps) {
             if (response.ok) {
                 const remoteNews = await response.json();
                 if (Array.isArray(remoteNews) && remoteNews.length > 0) {
+                    console.log(`[NEWS] Successfully fetched ${remoteNews.length} items from Google Sheets.`);
                     allNews = remoteNews.map((item: RawNewsItem) => ({
                         id: String(item.id),
                         title: locale === 'th' ? (String(item.title_th) || '') : (String(item.title_en) || ''),
@@ -82,9 +83,12 @@ export default async function NewsArchivePage({ params }: PageProps) {
 
     // Fallback to local JSON if sheets fails
     if (isFallback) {
+        console.log("[NEWS] Source: Local JSON (src/data/news.json)");
         const typedNewsData = newsDataRaw as unknown as NewsData;
         const keys = Object.keys(newsDataRaw).filter(key => !key.startsWith('_'));
+        console.log(`[NEWS] Processing ${keys.length} local items.`);
         allNews = keys.map(key => {
+            console.log(`[NEWS] Processing item ID: ${key}`);
             const itemData = typedNewsData[key];
             return {
                 id: key,
@@ -104,11 +108,17 @@ export default async function NewsArchivePage({ params }: PageProps) {
         return dateB - dateA;
     });
 
+    // Deduplicate news by ID before passing to client component
+    const uniqueNews = Array.from(
+        new Map(allNews.map(item => [item.id, item])).values()
+    );
+
     return (
         <NewsArchiveClient 
-            news={allNews} 
+            news={uniqueNews} 
             title={t('home.news.archive_title')}
             tagline={t('home.news.tag')}
+            isFallback={isFallback}
         />
     );
 }

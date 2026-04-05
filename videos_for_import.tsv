@@ -1,0 +1,115 @@
+id	active	youtubeUrl	category_th	category_en	title_th	title_en	desc_th	desc_en
+"v001"	"TRUE"	"https://youtu.be/xlDid0rxxUg"	"หุ่นยนต์อุตสาหกรรม"	"Robotics"	"ABB Cobot แขนคู่ (Double Arm Pick & Place)"	"ABB Cobot Double Arm Pick and Place"	"หุ่นยนต์ ABB YuMi (Cobot) แบบ 2 แขน
+งานประกอบชิ้นส่วน (Assembly) ความละเอียดสูง"	"ABB YuMi Dual-arm Collaborative Robot
+High-precision assembly task"
+"v002"	"TRUE"	"https://youtu.be/iL0MSeHf-6o"	"หุ่นยนต์อุตสาหกรรม"	"Robotics"	"Kuka Robot ทำงานร่วมกัน (Multi-Robot Operation)"	"Kuka Robot Multi-Robot Operation"	"การทำงานประสานกันระหว่าง Robot 2 ตัว (Handshake)
+Pick & Place และส่งต่อชิ้นงานต่อเนื่อง"	"Synchronized operation between two robots
+Continuous Pick & Place and part transfer"
+"v003"	"TRUE"	"https://youtu.be/5Osh8qtYma4"	"หุ่นยนต์อุตสาหกรรม"	"Robotics"	"UR Cobot งานหยอดกาว (Dispensing)"	"UR Cobot Dispensing"	"Universal Robot (Cobot) สำหรับงาน Dispensing
+ควบคุม Path การเคลื่อนที่แม่นยำ"	"Universal Robot (Cobot) for dispensing application
+Precise path control for gluing/sealing"
+"v004"	"TRUE"	"https://youtu.be/66pWB9HXYCI"	"หุ่นยนต์อุตสาหกรรม"	"Robotics"	"Nachi Robot ป้อนชิ้นงาน (Machine Tending)"	"Nachi Robot Machine Tending"	"ระบบ Machine Tending อัตโนมัติด้วย Nachi Robot
+Load/Unload ชิ้นงานเข้าสู่เครื่อง CNC"	"Automatic Machine Tending with Nachi Robot
+Load/Unload workpieces into CNC machine"
+"v005"	"TRUE"	"https://youtu.be/WG9rsxPeFTc"	"หุ่นยนต์อุตสาหกรรม"	"Robotics"	"Yamaha SCARA Robot (High Speed Pick & Place)"	"Yamaha SCARA Robot Pick and Place"	"หุ่นยนต์ SCARA แบบคู่สำหรับงานความเร็วสูง
+Pick & Place ชิ้นส่วนขนาดเล็กบน Conveyor"	"Dual SCARA robots for high-speed application
+Pick & Place small parts on conveyor"
+"v006"	"TRUE"	"https://youtu.be/722cvsS749s"	"หุ่นยนต์อุตสาหกรรม"	"Robotics"	"Fanuc Robot หยิบจับชิ้นงาน (Pick & Place)"	"Fanuc Robot Pick and Place"	"Fanuc Robot สำหรับงาน Handling ทั่วไป
+เคลื่อนย้าย Part ระหว่าง Station การผลิต"	"Fanuc Robot for general handling
+Transfer parts between production stations"
+"v007"	"TRUE"	"https://youtu.be/bWV4NWod2cs"	"หุ่นยนต์อุตสาหกรรม"	"Robotics"	"Yaskawa Robot งานเชื่อม (Welding)"	"Yaskawa Robot Welding"	"Yaskawa Motoman สำหรับงาน Arc Welding
+เชื่อมชิ้นงานทรงกลมร่วมกับ Positioner"	"Yaskawa Motoman for Arc Welding
+Circular welding with positioner"
+"v008"	"TRUE"	"https://youtu.be/MXqREGkXqvw"	"หุ่นยนต์อุตสาหกรรม"	"Robotics"	"Kuka Robot งานขัด (Polishing with Force Control)"	"Kuka Robot Polishing with Force Control"	"งานขัดผิว (Finishing) พร้อมระบบ Force Control
+ควบคุมแรงกดสม่ำเสมอเพื่อคุณภาพผิวงาน"	"Surface finishing with Force Control system
+Consistent pressure control for surface quality"
+"v009"	"TRUE"	"https://youtu.be/nQW1LAsDzws"	"หุ่นยนต์อุตสาหกรรม"	"Robotics"	"Kuka Robot งานพับโลหะ (Bending Machine Tending)"	"Kuka Robot Bending Machine Tending"	"ระบบป้อนแผ่นโลหะเข้าเครื่องพับ (Press Brake)
+Handling แผ่นโลหะขนาดใหญ่ได้อย่างแม่นยำ"	"Sheet metal feeding for Press Brake
+Precise handling of large metal sheets"
+"v010"	"TRUE"	"https://youtu.be/gZ2XPtE1kUM"	"หุ่นยนต์อุตสาหกรรม"	"Robotics"	"ABB Delta Robot (High Speed Pick & Place)"	"ABB Delta Robot Pick and Place"	"หุ่นยนต์ Delta (FlexPicker) สำหรับงานความเร็วสูง
+Pick & Place และแพ็คสินค้าบนสายพาน"	"Delta robot (FlexPicker) for high-speed tasks
+Pick & Place and packing on conveyor"
+"v011"	"TRUE"	"https://youtu.be/DGD5zOOtNxs"	"หุ่นยนต์อุตสาหกรรม"	"Robotics"	"Yaskawa Delta Robot (Food Handling)"	"Yaskawa Delta Robot Pick and Place"	"หุ่นยนต์ Delta ความเร็วสูงสำหรับอุตสาหกรรมอาหาร
+Pick & Place ชิ้นงาน (เบอร์เกอร์/อาหารแปรรูป)"	"High-speed Delta robot for food industry
+Pick & Place food products (Burgers/Patty)"
+"v012"	"TRUE"	"https://youtu.be/cOih_PCE5UA"	"เครื่องจักร"	"Machines"	"EV Pouch Cell Assembly"	"EV Pouch Cell Assembly"	"De-Gassing Solution แบบ Fully Automatic
+ระบุ Weighing & Cutting
+Pick & Place ความเร็วสูง"	"Fully automatic De-Gassing solution
+Weighing & Cutting identification
+High-speed pick & place"
+"v013"	"TRUE"	"https://youtu.be/sTahE2omumM"	"เครื่องจักร"	"Machines"	"Roof module assembly"	"Roof module assembly"	"ระบบ Pallet Conveyor
+Test แบบ Automatic ควบคุมด้วย LabView
+Acoustic Test แบบ Automatic"	"Pallet conveyor system
+Automatic test with LabView control
+Automatic Acoustic test"
+"v014"	"TRUE"	"https://www.youtube.com/watch?v=TOIuJE4PRqM"	"เครื่องจักร"	"Machines"	"BMW Active Grill Assembly"	"BMW Active Grill Assembly"	"การเคลื่อนที่ของ Pallet บน Conveyor
+In-line Quality Inspection ด้วยกล้อง
+ระบบ Traceability เต็มรูปแบบ"	"Conveyor pallet movement
+In-line quality inspection by camera
+Full traceability system"
+"v015"	"TRUE"	"https://youtu.be/Ltk-0lGRL6Q"	"เครื่องจักร"	"Machines"	"Subaru Active Grill Assembly"	"Subaru Active Grill Assembly"	"การเคลื่อนที่ของ Pallet บน Conveyor
+In-line Quality Inspection ด้วยกล้อง
+Transfer Part ด้วย Robot Arm"	"Conveyor pallet movement
+In-line quality inspection by camera
+Robot arm part transfer"
+"v016"	"TRUE"	"https://youtu.be/KvfMCktNkCs"	"เครื่องจักร"	"Machines"	"Radiator Core Assembly"	"Radiator Core Assembly"	"Feeding Fin และ Tube แบบ Automatic
+Assembly แบบ Force Control
+การทำงานแบบ Semi-automatic"	"Automatic Fin and Tube feeding
+Force control assembly
+Semi-automatic operation"
+"v017"	"TRUE"	"https://youtu.be/56LXFkKDfLc"	"เครื่องจักร"	"Machines"	"Condenser Assembly"	"Condenser Assembly"	"Supply Fin ด้วย Conveyor
+Assembly แบบ Multi-station
+ระบบ Semi-automatic"	"Conveyor fin supply
+Multi-station assembly
+Semi-automatic"
+"v018"	"TRUE"	"https://youtu.be/AuhCkSSQmPc"	"เครื่องจักร"	"Machines"	"Spot welding"	"Spot welding"	"Rotary Table
+Small Part สำหรับอุตสาหกรรม Electronics
+ระบบ Semi-automatic"	"Rotary table
+Small part for electronics industry
+Semi-automatic"
+"v019"	"TRUE"	"https://youtu.be/VSatf7vPzdU"	"เครื่องจักร"	"Machines"	"Connector spot welding"	"Connector spot welding"	"Part Feeder แบบ Automatic
+In-line Quality Inspection ด้วยกล้อง
+OEE มากกว่า 90% (CT 4 วินาที)"	"Automatic part feeder
+In-line quality inspection by camera
+OEE more than 90% with 4 seconds CT"
+"v020"	"TRUE"	"https://youtu.be/1eWVO8DkY4c"	"เครื่องจักร"	"Machines"	"Car USB assembly machine"	"Car USB assembly machine"	"Rotary Table
+Supply Part เข้า/ออกอัตโนมัติด้วย Tray
+Handling Part ด้วย Robot Arm"	"Rotary table
+Automatic part supply in/out by tray
+Robot arm part handling"
+"v021"	"TRUE"	"https://youtu.be/_r0Wj8KAHFo"	"โลจิสติกส์"	"Logistics"	"ระบบจัดเก็บสินค้าอัตโนมัติ (AS/RS)"	"AS/RS System"	"ระบบ AS/RS แบบ Stacker Crane สำหรับ Pallet
+บริหารจัดการคลังสินค้าแนวสูง (High-bay Warehouse)"	"Stacker Crane AS/RS for pallets
+High-bay warehouse management"
+"v022"	"TRUE"	"https://youtu.be/VyeY8HySGs8"	"โลจิสติกส์"	"Logistics"	"คลังสินค้าอัตโนมัติความหนาแน่นสูง"	"High-Density AS/RS"	"การจัดเก็บแบบ Double-deep เพื่อประหยัดพื้นที่
+ระบบจัดเก็บและเบิกจ่ายสินค้าความเร็วสูง"	"Double-deep storage for space saving
+High-speed storage and retrieval system"
+"v023"	"TRUE"	"https://youtu.be/jdOJx7SENVs"	"โลจิสติกส์"	"Logistics"	"ระบบจัดเก็บแม่พิมพ์ (Die Storage)"	"Die Storage System"	"ออกแบบสำหรับจัดเก็บ Mold และ Die ขนาดใหญ่
+โครงสร้าง Heavy Duty รองรับน้ำหนักมาก"	"Designed for large Mold and Die storage
+Heavy Duty structure for high load capacity"
+"v024"	"TRUE"	"https://youtu.be/_C0JDV_QwLw"	"โลจิสติกส์"	"Logistics"	"หุ่นยนต์คัดแยกสินค้า (Sorting AGV)"	"Sorting AGV Solution"	"ระบบ Sorting อัจฉริยะด้วยหุ่นยนต์ Geek+
+รองรับการคัดแยกพัสดุจำนวนมากได้อย่างรวดเร็ว"	"Smart sorting system with Geek+ robots
+High-speed parcel sorting capability"
+"v025"	"TRUE"	"https://youtu.be/cCbV7dbxvq0"	"โลจิสติกส์"	"Logistics"	"ระบบสายพานลำเลียง (Conveyor Automation)"	"Conveyor Automation"	"ระบบลำเลียงกล่อง/ลัง (Tote/Bin Conveyor)
+เชื่อมต่อโซนต่างๆ ใน Warehouse อัตโนมัติ"	"Tote/Bin conveyor system
+Automatically connecting warehouse zones"
+"v026"	"TRUE"	"https://youtu.be/iETQ4aifWvg"	"โลจิสติกส์"	"Logistics"	"ระบบพันพาเลทอัตโนมัติ (Pallet Wrapping)"	"Pallet Wrapping System"	"เครื่องพันฟิล์มพาเลท (Stretch Wrapper) บนไลน์ Conveyor
+เตรียมพร้อมสินค้าสำหรับขั้นตอน Shipping"	"In-line stretch wrapper on conveyor
+Ready for shipping process"
+"v027"	"TRUE"	"https://youtu.be/YbShIilWdkM"	"โลจิสติกส์"	"Logistics"	"หุ่นยนต์เคลื่อนย้ายสินค้า (Geek+ AMR)"	"Geek+ AMR Solution"	"ระบบ Goods-to-Person ลดเวลาเดินหยิบของ
+เพิ่มประสิทธิภาพการ Picking ในคลังสินค้า"	"Goods-to-Person system reducing walking time
+Optimizing picking efficiency in warehouse"
+"v028"	"TRUE"	"https://youtu.be/K8H00hl05PI"	"โลจิสติกส์"	"Logistics"	"ระบบคลังสินค้าอัจฉริยะ (Smart Warehouse)"	"Smart Warehouse Picking"	"การจัดการ Inventory ด้วยหุ่นยนต์อัตโนมัติ
+ระบบนำทาง QR Code Navigation ความแม่นยำสูง"	"Inventory management with automated robots
+High-precision QR Code navigation"
+"v029"	"TRUE"	"https://youtu.be/J53IYU6uhhc"	"โลจิสติกส์"	"Logistics"	"หุ่นยนต์ยกชั้นวาง (Shelf Carrier AMR)"	"Shelf Carrier AMR"	"หุ่นยนต์ AMR สำหรับยกและเคลื่อนย้ายชั้นวาง
+ปรับเปลี่ยน Layout คลังสินค้าได้ยืดหยุ่น"	"AMR for lifting and moving shelves
+Flexible warehouse layout adjustment"
+"v030"	"TRUE"	"https://youtu.be/1PbsyIvKx_U"	"โลจิสติกส์"	"Logistics"	"เครื่องป้อนพาเลท (Pallet Dispenser)"	"Pallet Dispenser"	"จ่ายพาเลทเปล่าเข้าสู่ระบบแบบ Automatic
+ลดการใช้แรงงานและเพิ่มความปลอดภัย"	"Automatic empty pallet feeding
+Reduce labor and increase safety"
+"v031"	"TRUE"	"https://youtu.be/VzWLzL_TbRY"	"โลจิสติกส์"	"Logistics"	"หุ่นยนต์จัดเรียงสินค้า (Robotic Palletizer)"	"Robotic Palletizer"	"ใช้ Robot Arm ในการจัดเรียงสินค้าลงพาเลท
+รองรับสินค้าประเภทถุง/กระสอบ (Bag Handling)"	"Robot arm for palletizing goods
+Supports bag/sack handling"
+"v032"	"TRUE"	"https://youtu.be/Pl9zTqJ6eWY"	"โลจิสติกส์"	"Logistics"	"เครื่องจัดเรียงแบบ Gantry (Gantry Palletizer)"	"Gantry Palletizer"	"ระบบ Palletizing โครงสร้างแบบ Gantry
+เหมาะสำหรับพื้นที่จำกัดและการทำงานต่อเนื่อง"	"Gantry structure palletizing system
+Suitable for limited space and continuous operation"

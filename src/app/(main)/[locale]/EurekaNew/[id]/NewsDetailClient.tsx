@@ -6,6 +6,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import { withBasePath } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 export interface NewsItem {
     id: string;
@@ -15,10 +16,13 @@ export interface NewsItem {
     paragraphs: string[];
     content?: string[];
     images: string[];
+    locale: string;
+    isFallback?: boolean;
 }
 
-export default function NewsDetailClient({ item, otherNews }: { item: NewsItem, otherNews: NewsItem[] }) {
+export default function NewsDetailClient({ item, otherNews, isFallback }: { item: NewsItem, otherNews: NewsItem[], isFallback?: boolean }) {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
+    const t = useTranslations();
 
     const scroll = (direction: 'left' | 'right') => {
         if (scrollContainerRef.current) {
@@ -70,9 +74,18 @@ export default function NewsDetailClient({ item, otherNews }: { item: NewsItem, 
                             <Calendar size={16} />
                             {item.date}
                         </div>
-                        <h1 className="text-4xl md:text-6xl font-black text-ink leading-tight italic uppercase tracking-tighter">
+                        <motion.h1 
+                            className="text-4xl md:text-6xl font-black text-ink leading-tight italic uppercase tracking-tighter"
+                            initial={{ x: -20, opacity: 0 }}
+                            animate={{ x: 0, opacity: 1 }}
+                        >
                             {item.title}
-                        </h1>
+                            {isFallback && (
+                                <span className="ml-4 text-xs font-bold bg-green-primary/10 text-green-primary px-2 py-1 rounded-full align-middle">
+                                    {t('home.news.fallbackTag')}
+                                </span>
+                            )}
+                        </motion.h1>
                     </motion.div>
 
                     {/* Newspaper Style Content Layout */}

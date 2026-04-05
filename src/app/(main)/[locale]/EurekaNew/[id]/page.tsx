@@ -42,19 +42,22 @@ interface NewsData {
 export const dynamicParams = false;
 
 // Pre-fetch and cache news data to avoid redundant API calls during build
-const getRemoteNews = React.cache(async () => {
+const getRemoteNews = async () => {
     if (!GAS_WEB_APP_URL) return null;
     try {
         const apiKey = process.env.GAS_API_KEY || process.env.NEXT_PUBLIC_GAS_API_KEY || "";
+        console.log(`[NEWS_DETAIL] Fetching from GAS: ${GAS_WEB_APP_URL}`);
         const response = await fetch(`${GAS_WEB_APP_URL}?sheet=EA-NEWS&key=${apiKey}`);
         if (response.ok) {
-            return await response.json();
+            const data = await response.json();
+            console.log(`[NEWS_DETAIL] Data fetched successfully: ${Array.isArray(data) ? data.length + " items" : "Invalid JSON"}`);
+            return data;
         }
     } catch (e) {
         console.error("Remote news fetch error:", e);
     }
     return null;
-});
+};
 
 // Pre-render static paths for local JSON data and Google Sheets data
 export async function generateStaticParams() {
@@ -88,25 +91,28 @@ export default async function NewsDetailPage({ params }: PageProps) {
             // Find current item
             const remoteItem = remoteNews.find((n: RawNewsItem) => String(n.id) === id);
             if (remoteItem) {
+                console.log(`[NEWS_DETAIL] Source: Google Sheets for ID: ${id}`);
                 const rawContent = locale === 'th' ? (remoteItem.content_th || '') : (remoteItem.content_en || '');
                 // Handle both array and newline string formats
                 const contentArray = typeof rawContent === 'string' ? rawContent.split('\n') : (rawContent as string[]);
+                const mappedImages = Array.isArray(remoteItem.images) 
+                    ? remoteItem.images.map((u: string) => getGoogleDriveDirectLink(u))
+                    : [getGoogleDriveDirectLink(String(remoteItem.images || ""))];
                 
                 item = {
                     id,
                     title: locale === 'th' ? (String(remoteItem.title_th) || '') : (String(remoteItem.title_en) || ''),
                     date: locale === 'th' ? (String(remoteItem.date_th) || '') : (String(remoteItem.date_en) || ''),
                     postedDate: String(remoteItem.posted_date || ""),
-                    images: Array.isArray(remoteItem.images) 
-                        ? remoteItem.images.map((u: string) => getGoogleDriveDirectLink(u))
-                        : [getGoogleDriveDirectLink(String(remoteItem.images || ""))],
+                    images: mappedImages,
                     content: processNewsContent(contentArray),
-                    paragraphs: processNewsContent(contentArray)
+                    paragraphs: processNewsContent(contentArray),
+                    locale: locale
                 };
             }
 
-            // Map other news for sidebar/bottom
-            otherNews = remoteNews.map((n: RawNewsItem) => ({
+            // Map other news for sidebar/bottom and deduplicate
+            const mappedOtherNews = remoteNews.map((n: RawNewsItem) => ({
                 id: String(n.id),
                 title: locale === 'th' ? (String(n.title_th) || '') : (String(n.title_en) || ''),
                 date: locale === 'th' ? (String(n.date_th) || '') : (String(n.date_en) || ''),
@@ -114,8 +120,13 @@ export default async function NewsDetailPage({ params }: PageProps) {
                 images: Array.isArray(n.images) 
                     ? n.images.map((u: string) => getGoogleDriveDirectLink(u))
                     : [getGoogleDriveDirectLink(String(n.images || ""))],
-                paragraphs: []
+                paragraphs: [],
+                locale: locale
             }));
+
+            otherNews = Array.from(
+                new Map(mappedOtherNews.map(item => [item.id, item])).values()
+            );
         } else {
             isFallback = true;
         }
@@ -126,6 +137,7 @@ export default async function NewsDetailPage({ params }: PageProps) {
 
     // Fallback logic
     if (!item && isFallback) {
+        console.log(`[NEWS_DETAIL] Source: Local JSON for ID: ${id}`);
         const typedNewsData = newsDataRaw as unknown as NewsData;
         const itemData = typedNewsData[id];
         
@@ -138,7 +150,8 @@ export default async function NewsDetailPage({ params }: PageProps) {
             postedDate: itemData.postedDate,
             images: itemData.images || ["/images/Our_Legacy.webp"],
             content: itemData.content?.[locale as 'th' | 'en'] || itemData.content?.en || [],
-            paragraphs: itemData.content?.[locale as 'th' | 'en'] || itemData.content?.en || []
+            paragraphs: itemData.content?.[locale as 'th' | 'en'] || itemData.content?.en || [],
+            locale: locale
         };
 
         const keys = Object.keys(newsDataRaw).filter(key => !key.startsWith('_'));
@@ -150,7 +163,8 @@ export default async function NewsDetailPage({ params }: PageProps) {
                 date: otherData.date[locale as 'th' | 'en'] || otherData.date.en,
                 postedDate: otherData.postedDate || "",
                 images: otherData.images || ["/images/Our_Legacy.webp"],
-                paragraphs: []
+                paragraphs: [],
+                locale: locale
             };
         });
     }
