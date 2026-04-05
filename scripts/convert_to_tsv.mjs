@@ -1,5 +1,4 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
 
 const careers = JSON.parse(fs.readFileSync('d:/KRM/26/EurekaAutomation_site/src/data/careers.json', 'utf8'));
 
@@ -24,7 +23,7 @@ const allSections = Object.keys(careers).filter(key => Array.isArray(careers[key
 let globalId = 1;
 
 allSections.forEach(section => {
-    careers[section].forEach((pos, idx) => {
+    careers[section].forEach((pos) => {
         // Extract numeric part of slots or use the raw Thai value as base
         let slotsValue = pos.slots?.th || '';
         slotsValue = slotsValue.replace('ตำแหน่ง', '').trim();

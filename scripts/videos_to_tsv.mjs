@@ -1,5 +1,4 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
 
 // อ่านข้อมูลจาก videos.json
 const videosData = JSON.parse(fs.readFileSync('d:/KRM/26/EurekaAutomation_site/src/data/videos.json', 'utf8'));
@@ -20,7 +19,7 @@ let globalIdCount = 1;
 Object.keys(videosData).forEach(categoryKey => {
     const items = videosData[categoryKey];
     
-    items.forEach((item, index) => {
+    items.forEach((item) => {
         // สร้าง ID เช่น v001, v002...
         const id = `v${String(globalIdCount++).padStart(3, '0')}`;
         

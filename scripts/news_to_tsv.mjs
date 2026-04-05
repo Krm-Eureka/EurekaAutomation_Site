@@ -1,5 +1,4 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
 
 const newsData = JSON.parse(fs.readFileSync('d:/KRM/26/EurekaAutomation_site/src/data/news.json', 'utf8'));
 

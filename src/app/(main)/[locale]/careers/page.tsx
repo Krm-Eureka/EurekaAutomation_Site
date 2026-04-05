@@ -146,7 +146,7 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
         join_tag: t('join_tag'),
         sticky_cta: locale === 'th' ? "ติดต่อรับคำปรึกษากับวิศวกรและฝ่ายขายฟรีทันที" : "Free consultation with engineers & sales.",
         fallbackTag: locale === 'th' ? "(ข้อมูลสำรอง)" : "(Local Data)",
-        seo: {
+        labels: {
             experience: t('labels.experience'),
             education: t('labels.education'),
             salary: t('labels.salary'),
