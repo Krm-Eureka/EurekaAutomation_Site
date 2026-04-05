@@ -26,7 +26,6 @@ export async function copyToClipboard(text: string): Promise<boolean> {
       return true;
     } catch (err) {
       console.error('Modern clipboard error:', err);
-      // Fall through to fallback
     }
   }
 
