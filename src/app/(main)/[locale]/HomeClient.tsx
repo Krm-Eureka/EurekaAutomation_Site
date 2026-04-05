@@ -93,7 +93,7 @@ export default function HomeClient({ locale }: { locale: string }) {
         const MAX_RETRIES = 3;
         for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
             try {
-                const response = await fetch(GAS_WEB_APP_URL, {
+                await fetch(GAS_WEB_APP_URL, {
                     method: 'POST',
                     mode: 'no-cors',
                     cache: 'no-cache',
