@@ -77,8 +77,8 @@ export function CareersForm() {
 
         if (lastSubTime && now - parseInt(lastSubTime) > 3600000) {
             localStorage.setItem('sub_count', '0');
-        } else if (subCount >= 3) {
-            setErrorMessage("Rate Limit Exceeded: คุณส่งแบบฟอร์มบ่อยเกินไป กรุณารอ 1 ชั่วโมงแล้วลองใหม่");
+        } else if (subCount >= 10) {
+            setErrorMessage("Rate Limit Exceeded: คุณส่งแบบฟอร์มบ่อยเกินไป (สูงสุด 10 ครั้ง/ชั่วโมง) กรุณารอครู่หนึ่งแล้วลองใหม่ครับ");
             setStatus('error');
             return;
         }
@@ -122,8 +122,7 @@ export function CareersForm() {
                         }),
                     });
 
-                    // Since mode is 'no-cors', we cannot read the response body or status.
-                    // If the request doesn't throw a network error, we assume it reached GAS successfully.
+                    // Success handling
                     setStatus('success');
                     console.info("🎉 Application sent successfully!");
                     setFormData({ firstName: '', lastName: '', email: '', phone: '', position: '', message: '' });
@@ -136,30 +135,22 @@ export function CareersForm() {
                     
                     break; // Exit retry loop
 
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                } catch (err: any) {
-                    if (attempt === MAX_RETRIES || (err && err.message && err.message.includes('401 Unauthorized'))) {
-                        throw err; // Throw to outer catch if it's the last attempt or an unrecoverable error
+                } catch (err: unknown) {
+                    if (attempt === MAX_RETRIES) {
+                        setStatus('error');
+                        const msg = err instanceof Error ? err.message : 'Submission failed';
+                        setErrorMessage(msg);
+                    } else {
+                        setRetryCount(attempt);
+                        await new Promise(resolve => setTimeout(resolve, 4000));
                     }
-                    console.warn(`Attempt ${attempt} failed. Retrying in 4 seconds...`, err);
-                    setRetryCount(attempt);
-                    await new Promise(resolve => setTimeout(resolve, 4000));
                 }
             }
-
-        } catch (error: unknown) {
-            console.error("❌ Submission Failed:", error);
+        } catch (err: unknown) {
+            console.error("Submission Error:", err);
             setStatus('error');
-            let msg = 'Unknown error';
-
-            if (error instanceof Error) {
-                msg = error.message;
-                // ตรวจสอบว่าเป็นเรื่อง CORS หรือเปล่า
-                if (msg.toLowerCase().includes("failed to fetch")) {
-                    msg = t('error_network');
-                }
-            }
-            setErrorMessage('เกิดข้อผิดพลาด: ' + msg);
+            const msg = err instanceof Error ? err.message : 'Something went wrong';
+            setErrorMessage(msg);
         } finally {
             console.groupEnd();
         }

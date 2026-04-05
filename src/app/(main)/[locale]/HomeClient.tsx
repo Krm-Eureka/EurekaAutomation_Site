@@ -79,6 +79,20 @@ export default function HomeClient({ locale }: { locale: string }) {
 
     const handleContactSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        // IP-less Client-Side Rate Limiter (Anti-Spam)
+        const now = Date.now();
+        const lastSubTime = localStorage.getItem('last_sub_time_contact');
+        const subCount = parseInt(localStorage.getItem('sub_count_contact') || '0', 10);
+
+        if (lastSubTime && now - parseInt(lastSubTime) > 3600000) {
+            localStorage.setItem('sub_count_contact', '0');
+        } else if (subCount >= 10) {
+            setContactErrorMessage("Rate Limit Exceeded: คุณส่งแบบฟอร์มบ่อยเกินไป (สูงสุด 10 ครั้ง/ชั่วโมง) กรุณารอครู่หนึ่งแล้วลองใหม่ครับ");
+            setContactStatus('error');
+            return;
+        }
+
         setContactStatus('loading');
         setContactRetryCount(0);
 
@@ -106,10 +120,14 @@ export default function HomeClient({ locale }: { locale: string }) {
                     }),
                 });
 
-                // Since mode is 'no-cors', we can't reliably check response.ok or status
-                // But we assume if it finishes without error, it's sent to the queue
                 setContactStatus('success');
                 setContactFormData({ firstName: '', lastName: '', email: '', phone: '', company: '', message: '' });
+
+                // Update Rate Limiter Storage
+                localStorage.setItem('last_sub_time_contact', Date.now().toString());
+                const currentCount = parseInt(localStorage.getItem('sub_count_contact') || '0', 10);
+                localStorage.setItem('sub_count_contact', (currentCount + 1).toString());
+
                 break;
             } catch (err: unknown) {
                 if (attempt === MAX_RETRIES) {
