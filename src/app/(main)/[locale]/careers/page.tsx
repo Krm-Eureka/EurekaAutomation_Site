@@ -17,11 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
         description: tSeo('careers_description'),
         alternates: {
             canonical: `/${locale}/careers/`,
-            languages: {
-                'en': '/en/careers/',
-                'th': '/th/careers/',
-            },
-        },
+        }
     };
 }
 
@@ -37,7 +33,8 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
     let allPositions: Record<string, any>[] = [];
     let isFallback = false;
     try {
-        const response = await fetch(GAS_WEB_APP_URL, {
+        const apiKey = process.env.GAS_API_KEY || "";
+        const response = await fetch(`${GAS_WEB_APP_URL}?key=${apiKey}`, {
             // Revalidate every 60 seconds. In dev mode this might bypass, 
             // but in prod it ensures we don't hit GAS limits.
             next: { revalidate: 60 }
@@ -86,9 +83,8 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
                 salary_th: pos.salary?.th, salary_en: pos.salary?.en,
                 qualification_th: Array.isArray(pos.qualification?.th) ? pos.qualification.th.join('\n') : pos.qualification?.th,
                 qualification_en: Array.isArray(pos.qualification?.en) ? pos.qualification.en.join('\n') : pos.qualification?.en,
-                benefits_th: Array.isArray(pos.benefits?.th) ? pos.benefits.th.join('\n') : pos.benefits?.th,
-                benefits_en: Array.isArray(pos.benefits?.en) ? pos.benefits.en.join('\n') : pos.benefits?.en,
                 urgent: pos.urgent || false,
+                slots: pos.slots,
                 active: pos.active !== undefined ? pos.active : (pos.status === 'open'),
             };
         });
@@ -101,28 +97,37 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
     };
 
     const positions = Array.isArray(allPositions) ? allPositions
-        .filter((pos: Record<string, any>) => pos && pos.active !== false)
-        .map((pos: Record<string, any>) => ({
-            id: String(pos.id),
-            dept: String(locale === 'th' ? (pos.dept_th || '') : (pos.dept_en || '')) || 'Uncategorized',
-            title: String(locale === 'th' ? (pos.title_th || '') : (pos.title_en || '')) || 'Untitled',
-            location: String(locale === 'th' ? (pos.location_th || '') : (pos.location_en || '')),
-            type: String(locale === 'th' ? (pos.type_th || '') : (pos.type_en || '')),
-            desc: parseArray(locale === 'th' ? pos.desc_th : pos.desc_en),
-            experience: String(locale === 'th' ? (pos.experience_th || '') : (pos.experience_en || '')),
-            education: String(locale === 'th' ? (pos.education_th || '') : (pos.education_en || '')),
-            salary: String(locale === 'th' ? (pos.salary_th || '') : (pos.salary_en || '')),
-            qualification: parseArray(locale === 'th' ? pos.qualification_th : pos.qualification_en),
-            benefits: parseArray(locale === 'th' ? pos.benefits_th : pos.benefits_en),
-            slots: String(locale === 'th' ? (pos.slots_th || '') : (pos.slots_en || '')),
-            urgent: !!pos.urgent,
-            active: pos.active !== false
-        }))
-        .filter((pos: any) => pos.active)
+        // Filter by Boolean status (supports TRUE/FALSE from Sheets)
+        .filter((pos: Record<string, any>) => {
+            if (!pos) return false;
+            const status = pos.status;
+            return status === true || String(status).toUpperCase() === 'TRUE';
+        })
+        .map((pos: Record<string, any>, idx: number) => {
+            const rawSlots = String(pos.slots || '');
+            const slotsSuffix = locale === 'th' ? ' ตำแหน่ง' : ' Position';
+            const formattedSlots = rawSlots ? `${rawSlots}${slotsSuffix}` : '';
+
+            return {
+                // Combine original ID and index for unique React keys
+                id: `${pos.id || 'job'}-${idx}`,
+                dept: String(locale === 'th' ? (pos.dept_th || '') : (pos.dept_en || '')) || 'Uncategorized',
+                title: String(locale === 'th' ? (pos.title_th || '') : (pos.title_en || '')) || 'Untitled',
+                location: String(locale === 'th' ? (pos.location_th || '') : (pos.location_en || '')),
+                type: String(locale === 'th' ? (pos.type_th || '') : (pos.type_en || '')),
+                desc: parseArray(locale === 'th' ? pos.desc_th : pos.desc_en),
+                experience: String(locale === 'th' ? (pos.experience_th || '') : (pos.experience_en || '')),
+                education: String(locale === 'th' ? (pos.education_th || '') : (pos.education_en || '')),
+                salary: String(locale === 'th' ? (pos.salary_th || '') : (pos.salary_en || '')),
+                qualification: parseArray(locale === 'th' ? pos.qualification_th : pos.qualification_en),
+                slots: formattedSlots,
+                urgent: pos.urgent === true || String(pos.urgent).toUpperCase() === 'TRUE',
+                active: true // Filtered above
+            };
+        })
         .sort((a: any, b: any) => (b.urgent ? 1 : 0) - (a.urgent ? 1 : 0)) : [];
 
-    const globalBenefits = (positionsDataFallback as { benefits: Record<string, string[]> }).benefits?.[locale as 'th' | 'en'] || [];
-    const benefits = globalBenefits.length > 0 ? globalBenefits : (t.raw('benefits_list') as string[]);
+    const benefits = (t.raw('benefits_list') as string[]) || [];
 
     const translations = {
         title: t('title'),
@@ -133,8 +138,6 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
         apply_today: t('apply_today'),
         apply_desc: t('apply_desc'),
         join_tag: t('join_tag'),
-        view_all: t('view_all'),
-        view_category: t('view_category'),
         labels: {
             experience: t('labels.experience'),
             education: t('labels.education'),

@@ -39,8 +39,6 @@ interface CareersClientProps {
         apply_today: string;
         apply_desc: string;
         join_tag: string;
-        view_all: string;
-        view_category: string;
         labels: {
             experience: string;
             education: string;
@@ -88,19 +86,25 @@ const JobCard = ({ pos, isExpanded, onToggle, translations }: {
             variants={itemVariants}
             className={`group relative transition-all duration-500 rounded-2xl cursor-pointer ${isExpanded
                 ? 'bg-zinc-900 ring-1 ring-green-primary/50 shadow-2xl shadow-green-dark/20'
-                : 'bg-white border border-zinc-200 hover:border-green-primary/50 hover:shadow-xl hover:shadow-green-primary/5'
+                : 'bg-white border border-zinc-100 hover:border-emerald-200 shadow-sm hover:shadow-xl hover:shadow-emerald-500/5'
                 }`}
             onClick={onToggle}
         >
-            {/* Red Glowing Urgent Badge - Top Center Overlap */}
+            {/* Refined Urgent Badge - Conditional background based on expand state */}
             {pos.urgent && (
                 <motion.div
-                    animate={{ scale: [1, 1.1, 1] }}
-                    transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+                    animate={{ y: [0, -2, 0] }}
+                    transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
                     className="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none"
                 >
-                    <div className="px-4 py-1.5 bg-red-600 text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-full shadow-[0_4px_15px_rgba(220,38,38,0.5)] border-2 border-white flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-white animate-ping"></span>
+                    <div className={`px-3 py-1 backdrop-blur-md text-rose-500 text-[9px] font-black uppercase tracking-[0.25em] rounded-full shadow-lg border transition-colors duration-500 shadow-rose-500/5 ${isExpanded
+                        ? 'bg-zinc-900/90 border-rose-500/30'
+                        : 'bg-white border-rose-200'
+                        } flex items-center gap-2`}>
+                        <span className="relative flex h-1.5 w-1.5">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-rose-500"></span>
+                        </span>
                         URGENT
                     </div>
                 </motion.div>
@@ -126,14 +130,14 @@ const JobCard = ({ pos, isExpanded, onToggle, translations }: {
                             )}
                         </div>
 
-                        {/* Title */}
-                        <h3 className={`text-xl md:text-2xl font-bold leading-tight transition-colors ${isExpanded ? 'text-white' : 'text-zinc-900 group-hover:text-emerald-600'
+                        {/* Title - Optimized for Mobile font size */}
+                        <h3 className={`text-lg md:text-2xl font-bold leading-snug transition-colors ${isExpanded ? 'text-white' : 'text-zinc-900 group-hover:text-emerald-600'
                             }`}>
                             {pos.title}
                         </h3>
 
-                        {/* Meta Grid - High Legibility */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-6 pt-1">
+                        {/* Meta Grid - 2 columns even on mobile to save space */}
+                        <div className="grid grid-cols-2 md:grid-cols-2 gap-y-3 gap-x-4 pt-1">
                             {[
                                 { icon: Briefcase, text: pos.experience, label: translations.labels.experience || 'Experience' },
                                 { icon: GraduationCap, text: pos.education, label: translations.labels.education || 'Education' },
@@ -141,14 +145,14 @@ const JobCard = ({ pos, isExpanded, onToggle, translations }: {
                                 { icon: Coins, text: pos.salary, label: translations.labels.salary || 'Salary' }
                             ].map((stat, i) => (
                                 <div key={i} className="flex items-center gap-2.5">
-                                    <div className={`p-1.5 rounded-lg ${isExpanded ? 'bg-zinc-800 text-emerald-400' : 'bg-zinc-100 text-zinc-500 group-hover:bg-emerald-50 group-hover:text-emerald-600'}`}>
-                                        <stat.icon size={16} />
+                                    <div className={`p-1.5 rounded-lg shrink-0 ${isExpanded ? 'bg-zinc-800 text-emerald-400' : 'bg-zinc-100 text-zinc-500 group-hover:bg-emerald-50 group-hover:text-emerald-600'}`}>
+                                        <stat.icon size={14} className="md:w-4 md:h-4" />
                                     </div>
-                                    <div className="flex flex-col">
-                                        <span className={`text-[9px] uppercase font-bold tracking-wider ${isExpanded ? 'text-zinc-500' : 'text-zinc-400'}`}>
+                                    <div className="flex flex-col min-w-0">
+                                        <span className={`text-[8px] md:text-[9px] uppercase font-bold tracking-wider truncate transform-gpu ${isExpanded ? 'text-zinc-500' : 'text-zinc-400'}`}>
                                             {stat.label}
                                         </span>
-                                        <span className={`text-xs font-semibold ${isExpanded ? 'text-zinc-200' : 'text-zinc-700'}`}>
+                                        <span className={`text-[11px] md:text-xs font-semibold truncate ${isExpanded ? 'text-zinc-200' : 'text-zinc-700'}`}>
                                             {stat.text}
                                         </span>
                                     </div>
@@ -182,33 +186,17 @@ const JobCard = ({ pos, isExpanded, onToggle, translations }: {
                         >
                             <div className={`pt-6 mt-6 border-t ${isExpanded ? 'border-zinc-800' : 'border-zinc-100'}`}>
 
-                                <div className="grid md:grid-cols-2 gap-6 md:gap-8">
-                                    {/* Left Column: Qualifications & Benefits */}
-                                    <div className="space-y-6">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
+                                    {/* Left Column: Qualifications */}
+                                    <div className="space-y-4 md:space-y-6">
                                         {pos.qualification && pos.qualification.length > 0 && (
-                                            <div className="space-y-3">
-                                                <h4 className="flex items-center gap-2 font-bold text-emerald-500 uppercase tracking-widest text-[10px]">
-                                                    <CheckCircle2 size={14} /> Qualifications
+                                            <div className="space-y-2 md:space-y-3">
+                                                <h4 className="flex items-center gap-2 font-bold text-emerald-500 uppercase tracking-widest text-[9px] md:text-[10px]">
+                                                    <CheckCircle2 size={13} className="md:w-3.5 md:h-3.5" /> Qualifications
                                                 </h4>
-                                                <ul className="space-y-2">
+                                                <ul className="grid grid-cols-1 gap-1.5 md:gap-2">
                                                     {pos.qualification.map((line, idx) => (
-                                                        <li key={idx} className="flex gap-2.5 text-sm text-zinc-400 group/item">
-                                                            <span className="mt-1.5 w-1 h-1 rounded-full bg-emerald-500/50 flex-shrink-0"></span>
-                                                            <span className="leading-relaxed">{line}</span>
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            </div>
-                                        )}
-
-                                        {pos.benefits && pos.benefits.length > 0 && (
-                                            <div className="space-y-3">
-                                                <h4 className="flex items-center gap-2 font-bold text-emerald-500 uppercase tracking-widest text-[10px]">
-                                                    <CheckCircle2 size={14} /> Benefits
-                                                </h4>
-                                                <ul className="space-y-2">
-                                                    {pos.benefits.map((line, idx) => (
-                                                        <li key={idx} className="flex gap-2.5 text-sm text-zinc-400">
+                                                        <li key={idx} className="flex gap-2.5 text-[13px] md:text-sm text-zinc-400">
                                                             <span className="mt-1.5 w-1 h-1 rounded-full bg-emerald-500/50 flex-shrink-0"></span>
                                                             <span className="leading-relaxed">{line}</span>
                                                         </li>
@@ -219,36 +207,39 @@ const JobCard = ({ pos, isExpanded, onToggle, translations }: {
                                     </div>
 
                                     {/* Right Column: Responsibilities & Apply */}
-                                    <div className="space-y-6 flex flex-col h-full">
+                                    <div className="space-y-4 md:space-y-6 flex flex-col h-full mt-4 md:mt-0">
+                                        {/* Separator - Mobile only */}
+                                        <div className="block md:hidden h-px bg-zinc-800/50 w-full mb-4"></div>
+
                                         {pos.desc && (Array.isArray(pos.desc) ? pos.desc.length > 0 : !!pos.desc) && (
-                                            <div className="space-y-3 flex-grow">
-                                                <h4 className="flex items-center gap-2 font-bold text-emerald-500 uppercase tracking-widest text-[10px]">
-                                                    <Briefcase size={14} /> Responsibilities
+                                            <div className="space-y-2 md:space-y-3 flex-grow">
+                                                <h4 className="flex items-center gap-2 font-bold text-emerald-500 uppercase tracking-widest text-[9px] md:text-[10px]">
+                                                    <Briefcase size={13} className="md:w-3.5 md:h-3.5" /> Responsibilities
                                                 </h4>
-                                                <div className="space-y-2">
+                                                <div className="grid grid-cols-1 gap-1.5 md:gap-2">
                                                     {Array.isArray(pos.desc) ? (
                                                         pos.desc.map((line, idx) => (
-                                                            <div key={idx} className="flex gap-2.5 text-sm text-zinc-400">
+                                                            <div key={idx} className="flex gap-2.5 text-[13px] md:text-sm text-zinc-400">
                                                                 <span className="mt-1.5 w-1 h-1 rounded-full bg-emerald-500/50 flex-shrink-0"></span>
                                                                 <span className="leading-relaxed">{line}</span>
                                                             </div>
                                                         ))
                                                     ) : (
-                                                        <p className="text-zinc-400 leading-relaxed text-sm">{pos.desc}</p>
+                                                        <p className="text-zinc-400 leading-relaxed text-[13px] md:text-sm">{pos.desc}</p>
                                                     )}
                                                 </div>
                                             </div>
                                         )}
 
-                                        <div className="pt-4 mt-auto space-y-4">
+                                        <div className="pt-2 md:pt-4 mt-auto space-y-3 md:space-y-4">
                                             {pos.slots && (
-                                                <div className="flex items-center gap-3 p-3 rounded-2xl bg-zinc-800/50 border border-white/5">
-                                                    <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
-                                                        <List size={16} />
+                                                <div className="flex items-center gap-3 p-2.5 md:p-3 rounded-[20px] md:rounded-2xl bg-zinc-900/40 border border-white/5">
+                                                    <div className="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+                                                        <List size={14} className="md:w-4 md:h-4" />
                                                     </div>
                                                     <div className="flex flex-col">
-                                                        <span className="text-[9px] uppercase font-bold tracking-wider text-zinc-500">Available Positions</span>
-                                                        <span className="text-sm font-bold text-emerald-400">{pos.slots}</span>
+                                                        <span className="text-[8px] md:text-[9px] uppercase font-bold tracking-wider text-zinc-600">Operational Slots</span>
+                                                        <span className="text-xs md:text-sm font-bold text-emerald-400/90 leading-tight">{pos.slots}</span>
                                                     </div>
                                                 </div>
                                             )}
@@ -259,10 +250,10 @@ const JobCard = ({ pos, isExpanded, onToggle, translations }: {
                                                         window.dispatchEvent(new CustomEvent('apply-position', { detail: pos.title }));
                                                         document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
                                                     }}
-                                                    className="flex-1 py-3 bg-emerald-500 hover:bg-emerald-400 text-zinc-950 rounded-xl font-bold text-[11px] sm:text-xs uppercase tracking-widest transition-all shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/40 flex items-center justify-center gap-2"
+                                                    className="flex-1 py-3.5 bg-emerald-500 hover:bg-emerald-400 text-zinc-950 rounded-xl font-bold text-[10px] md:text-xs uppercase tracking-widest transition-all shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/40 flex items-center justify-center gap-2"
                                                 >
                                                     {translations.apply_now}
-                                                    <ChevronRight size={16} />
+                                                    <ChevronRight size={14} className="md:w-4 md:h-4" />
                                                 </button>
                                                 <button
                                                     onClick={(e) => {
@@ -317,7 +308,6 @@ const JobCard = ({ pos, isExpanded, onToggle, translations }: {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function CareersClient({ locale, benefits, positions, translations, dataSource = 'local' }: CareersClientProps) {
-    const [viewMode, setViewMode] = useState<'all' | 'category'>('all');
     const [expandedPositions, setExpandedPositions] = useState<string[]>([]);
 
     // Real-Time Data Sync logic
@@ -330,6 +320,7 @@ export default function CareersClient({ locale, benefits, positions, translation
             try {
                 const url = new URL(GAS_WEB_APP_URL);
                 url.searchParams.append('t', Date.now().toString()); // Cache buster
+                url.searchParams.append('key', process.env.NEXT_PUBLIC_GAS_API_KEY || '');
 
                 // [CRITICAL FIX] Removed { cache: 'no-store' } because it triggers a CORS OPTIONS preflight request.
                 // The 't' parameter above is enough to prevent browser caching.
@@ -346,20 +337,35 @@ export default function CareersClient({ locale, benefits, positions, translation
                             };
                             /* eslint-disable @typescript-eslint/no-explicit-any */
                             const freshPositions = allPositions
-                                .filter((pos: any) => pos && pos.status && String(pos.status).toLowerCase() === 'open')
-                                .map((pos: any) => ({
-                                    id: String(pos.id),
-                                    dept: String(locale === 'th' ? (pos.dept_th || '') : (pos.dept_en || '')) || 'Uncategorized',
-                                    title: String(locale === 'th' ? (pos.title_th || '') : (pos.title_en || '')) || 'Untitled',
-                                    location: String(locale === 'th' ? (pos.location_th || '') : (pos.location_en || '')),
-                                    type: String(locale === 'th' ? (pos.type_th || '') : (pos.type_en || '')),
-                                    desc: parseArray(locale === 'th' ? pos.desc_th : pos.desc_en),
-                                    experience: String(locale === 'th' ? (pos.experience_th || '') : (pos.experience_en || '')),
-                                    education: String(locale === 'th' ? (pos.education_th || '') : (pos.education_en || '')),
-                                    salary: String(locale === 'th' ? (pos.salary_th || '') : (pos.salary_en || '')),
-                                    qualification: parseArray(locale === 'th' ? pos.qualification_th : pos.qualification_en),
-                                    benefits: parseArray(locale === 'th' ? pos.benefits_th : pos.benefits_en)
-                                }));
+                                .filter((pos: any) => {
+                                    if (!pos) return false;
+                                    // ตรวจสอบสถานะ: รองรับทั้ง Boolean และ String 'true'
+                                    const status = pos.status;
+                                    return status === true || String(status).toUpperCase() === 'TRUE';
+                                })
+                                .map((pos: any, idx: number) => {
+                                    // จัดการข้อมูล Slots (จำนวนตำแหน่ง)
+                                    const rawSlots = String(pos.slots || '');
+                                    const slotsSuffix = locale === 'th' ? ' ตำแหน่ง' : ' Position';
+                                    const formattedSlots = rawSlots ? (rawSlots.includes('ตำแหน่ง') || rawSlots.includes('Position') ? rawSlots : `${rawSlots}${slotsSuffix}`) : '';
+
+                                    return {
+                                        // ใช้ ID จาก Sheet ถ้าไม่มีให้ใช้ index
+                                        id: pos.id ? String(pos.id) : `live-job-${idx}`,
+                                        dept: String(locale === 'th' ? (pos.dept_th || '') : (pos.dept_en || '')) || 'Uncategorized',
+                                        title: String(locale === 'th' ? (pos.title_th || '') : (pos.title_en || '')) || 'Untitled',
+                                        location: String(locale === 'th' ? (pos.location_th || '') : (pos.location_en || '')),
+                                        type: String(locale === 'th' ? (pos.type_th || '') : (pos.type_en || '')),
+                                        desc: parseArray(locale === 'th' ? (pos.desc_th || pos.description_th) : (pos.desc_en || pos.description_en)),
+                                        experience: String(locale === 'th' ? (pos.experience_th || '') : (pos.experience_en || '')),
+                                        education: String(locale === 'th' ? (pos.education_th || '') : (pos.education_en || '')),
+                                        salary: String(locale === 'th' ? (pos.salary_th || '') : (pos.salary_en || '')),
+                                        qualification: parseArray(locale === 'th' ? (pos.qualification_th || pos.qual_th) : (pos.qualification_en || pos.qual_en)),
+                                        slots: formattedSlots,
+                                        urgent: pos.urgent === true || String(pos.urgent).toUpperCase() === 'TRUE'
+                                    };
+                                })
+                                .sort((a: any, b: any) => (b.urgent ? 1 : 0) - (a.urgent ? 1 : 0));
                             /* eslint-enable @typescript-eslint/no-explicit-any */
 
                             // Prevent empty data from wiping out fallback data
@@ -413,9 +419,20 @@ export default function CareersClient({ locale, benefits, positions, translation
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedDept, setSelectedDept] = useState('All');
 
-    // Memoize unique departments to prevent re-calculations and ensure stability
+    // Memoize unique departments with safety check
     const uniqueDepts = useMemo(() => {
-        return Array.from(new Set(livePositions.map(p => p.dept?.trim()).filter(Boolean))).sort();
+        try {
+            const depts = livePositions
+                .map(p => {
+                    const d = typeof p.dept === 'string' ? p.dept.trim() : '';
+                    return d || 'Uncategorized';
+                })
+                .filter(Boolean);
+            return Array.from(new Set(depts)).sort();
+        } catch (err) {
+            console.error("Error calculating unique depts:", err);
+            return [];
+        }
     }, [livePositions]);
 
     const togglePosition = (id: string) => {
@@ -424,30 +441,42 @@ export default function CareersClient({ locale, benefits, positions, translation
         );
     };
 
-    // Filter Logic
-    const filteredPositions = livePositions.filter(pos => {
-        const matchesSearch = pos.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            pos.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            (Array.isArray(pos.desc) ? pos.desc.join(' ') : pos.desc).toLowerCase().includes(searchTerm.toLowerCase());
+    // Filter Logic with extreme safety
+    const filteredPositions = useMemo(() => {
+        return livePositions.filter(pos => {
+            try {
+                const title = String(pos.title || '').toLowerCase();
+                const id = String(pos.id || '').toLowerCase();
+                const desc = Array.isArray(pos.desc) ? pos.desc.join(' ').toLowerCase() : String(pos.desc || '').toLowerCase();
+                const search = searchTerm.toLowerCase();
 
-        const matchesDept = selectedDept === 'All' || pos.dept?.trim() === selectedDept;
+                const matchesSearch = title.includes(search) || id.includes(search) || desc.includes(search);
+                const matchesDept = selectedDept === 'All' || String(pos.dept || '').trim() === selectedDept;
 
-        return matchesSearch && matchesDept;
-    });
+                return matchesSearch && matchesDept;
+            } catch (err) {
+                console.error("Filter error for position:", pos, err);
+                return true; // Show it anyway if filter fails
+            }
+        });
+    }, [livePositions, searchTerm, selectedDept]);
 
     return (
         <div className="bg-zinc-50 min-h-screen overflow-hidden">
             {/* 1. Hero Section - Compact */}
-            <section className="bg-zinc-950 pt-24 sm:pt-28 md:pt-36 pb-12 sm:pb-20 text-white overflow-hidden relative">
+            <section className="bg-zinc-950 pt-24 sm:pt-28 md:pt-36 pb-16 sm:pb-20 text-white overflow-hidden relative">
                 <div className="absolute inset-0">
-                    <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-[100px] pointer-events-none"></div>
-                    <div className="absolute bottom-[-10%] left-[-5%] w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[100px] pointer-events-none"></div>
-                    <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMCAwaDQwdjQwaC00MFoiLz48cGF0aCBkPSJNMCAwaDF2NDBIOFoiIGZpbGw9IndoaXRlIiBmaWxsLW9wYWNpdHk9Ii4wNSIvPjxwYXRoIGQ9Ik0wIDBoNDB2MUgwWiIgZmlsbD0id2hpdGUiIGZpbGwtb3BhY2l0eT0iLjA1Ii8+PC9nPjwvc3ZnPg==')] opacity-10 mix-blend-overlay"></div>
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-zinc-450 to-zinc-950"></div>
+                    {/* Dynamic Glows - Optimized for Mobile View */}
+                    <div className="absolute top-[-10%] right-[-10%] w-[120vw] md:w-[600px] h-[120vw] md:h-[600px] bg-emerald-500/10 rounded-full blur-[80px] md:blur-[100px] pointer-events-none opacity-60 md:opacity-100"></div>
+                    <div className="absolute bottom-[-10%] left-[-20%] w-[100vw] md:w-[400px] h-[100vw] md:h-[400px] bg-blue-500/10 rounded-full blur-[80px] md:blur-[100px] pointer-events-none opacity-40 md:opacity-100"></div>
+
+                    {/* Tech Pattern Grid */}
+                    <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMCAwaDQwdjQwaC00MFoiLz48cGF0aCBkPSJNMCAwaDF2NDBIOFoiIGZpbGw9IndoaXRlIiBmaWxsLW9wYWNpdHk9Ii4wNSIvPjxwYXRoIGQ9Ik0wIDBoNDB2MUgwWiIgZmlsbD0id2hpdGUiIGZpbGwtb3BhY2l0eT0iLjA1Ii8+PC9nPjwvc3ZnPg==')] opacity-20 md:opacity-10 mix-blend-overlay"></div>
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-zinc-950/20 to-zinc-950"></div>
                 </div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    <div className="font-mono text-[8px] sm:text-[9px] text-zinc-700 absolute top-0 left-8 hidden lg:block tracking-[0.5em] [writing-mode:vertical-lr] uppercase h-full opacity-50">
+                    <div className="font-mono text-[7px] md:text-[9px] text-zinc-700 absolute top-0 left-4 md:left-8 hidden sm:block tracking-[0.5em] [writing-mode:vertical-lr] uppercase h-full opacity-30 md:opacity-50">
                         Eureka Automation || Your Automation Partner
                     </div>
 
@@ -461,7 +490,7 @@ export default function CareersClient({ locale, benefits, positions, translation
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: 0.2, duration: 0.5 }}
-                            className="inline-flex items-center gap-3 px-3 py-1.5 bg-zinc-900/80 border border-white/5 rounded-full mb-6 backdrop-blur-2xl"
+                            className="inline-flex items-center gap-2 md:gap-3 px-3 py-1.5 bg-zinc-900/60 border border-white/10 rounded-full mb-6 md:mb-8 backdrop-blur-xl"
                         >
                             <span className="flex items-center gap-2">
                                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
@@ -471,71 +500,49 @@ export default function CareersClient({ locale, benefits, positions, translation
                             <span className="font-mono text-[8px] text-zinc-500 uppercase tracking-widest">System_Live</span>
                         </motion.div>
 
-                        <h1 className="text-5xl md:text-8xl font-black mb-6 tracking-tighter leading-[0.9] uppercase italic">
+                        <h1 className="text-4xl md:text-8xl font-black mb-6 md:mb-8 tracking-tighter leading-[0.95] md:leading-[0.9] uppercase italic group">
                             {translations.title.split(' ').map((word: string, i: number) => (
-                                <span key={i} className={i === 0 ? "text-white" : "text-zinc-800 block md:inline"}>
+                                <span key={i} className={`
+                                    ${i === 0 ? "text-white" : "text-zinc-800 md:text-zinc-900 p-0.5 md:p-0"}
+                                    block md:inline
+                                `}>
                                     {word}{' '}
                                 </span>
                             ))}
                         </h1>
-                        <p className="text-base md:text-xl text-zinc-400 max-w-2xl mx-auto font-light leading-relaxed mb-10 px-4">
+                        <p className="text-[13px] md:text-xl text-zinc-400 max-w-2xl mx-auto font-light leading-relaxed mb-10 px-6 opacity-90">
                             {translations.subtitle}
                         </p>
 
-                        {/* View Toggle Buttons - Interface Style */}
-                        <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
-                            <div className="flex p-1 bg-zinc-900 border border-white/10 rounded-xl backdrop-blur-xl">
-                                <button
-                                    onClick={() => setViewMode('all')}
-                                    className={`px-6 py-2.5 rounded-lg font-bold text-[9px] uppercase tracking-widest flex items-center gap-2 transition-all duration-500 ${viewMode === 'all'
-                                        ? 'bg-emerald-500 text-zinc-950 shadow-[0_10px_20px_rgba(16,185,129,0.2)]'
-                                        : 'text-zinc-500 hover:text-white'
-                                        }`}
-                                >
-                                    <List size={14} />
-                                    {translations.view_all}
-                                </button>
-                                <button
-                                    onClick={() => setViewMode('category')}
-                                    className={`px-6 py-2.5 rounded-lg font-bold text-[9px] uppercase tracking-widest flex items-center gap-2 transition-all duration-500 ${viewMode === 'category'
-                                        ? 'bg-emerald-500 text-zinc-950 shadow-[0_10px_20px_rgba(16,185,129,0.2)]'
-                                        : 'text-zinc-500 hover:text-white'
-                                        }`}
-                                >
-                                    <Grid3x3 size={14} />
-                                    {translations.view_category}
-                                </button>
-                            </div>
-                        </div>
                     </motion.div>
                 </div>
             </section>
 
             {/* 2. Benefits Section - Hero + List Design */}
-            <section className="py-24 bg-zinc-50/50 relative overflow-hidden">
+            <section className="py-8 md:py-12 bg-zinc-50/50 relative overflow-hidden">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="mb-16"
+                        className="mb-10 md:mb-16"
                     >
                         <div className="flex items-center gap-3 mb-4">
                             <div className="h-[1px] w-12 bg-emerald-600"></div>
                             <span className="font-mono text-emerald-600 font-bold tracking-[0.4em] uppercase text-[10px]">CULTURE_&_BENEFITS</span>
                         </div>
-                        <h2 className="text-5xl md:text-8xl font-black text-zinc-900 tracking-tighter leading-[0.85] uppercase italic">
+                        <h2 className="text-4xl md:text-8xl font-black text-zinc-900 tracking-tighter leading-[0.85] uppercase italic">
                             {translations.benefits}
                         </h2>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                        {/* Left: Large Visual Hero */}
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-center">
+                        {/* Left: Large Visual Hero - Now more compact */}
                         <motion.div
                             initial={{ opacity: 0, scale: 0.98 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
-                            className="lg:col-span-7 relative rounded-[3rem] overflow-hidden border border-zinc-200 group bg-zinc-900 aspect-[4/5] lg:aspect-auto lg:h-[600px] shadow-2xl shadow-emerald-500/5"
+                            className="md:col-span-5 lg:col-span-5 relative rounded-[2.5rem] overflow-hidden border border-zinc-200 group bg-zinc-900 aspect-[16/10] md:aspect-square lg:h-[500px] shadow-2xl shadow-emerald-500/5"
                         >
                             <Image
                                 src={withBasePath("/images/careers-hologram.webp")}
@@ -544,28 +551,31 @@ export default function CareersClient({ locale, benefits, positions, translation
                                 className="object-cover opacity-80 group-hover:scale-105 transition-transform duration-1000"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent"></div>
-                            <div className="absolute bottom-12 left-12 right-12">
-                                <div className="font-mono text-emerald-500 font-bold tracking-[0.6em] uppercase text-[10px] mb-4">JOIN_THE_LEGACY</div>
-                                <h3 className="text-white text-5xl md:text-7xl font-black tracking-tighter leading-[0.8] uppercase italic">Building<br />the Future</h3>
+                            <div className="absolute bottom-10 left-10 right-10">
+                                <div className="font-mono text-emerald-500 font-bold tracking-[0.6em] uppercase text-[9px] mb-3">JOIN_THE_LEGACY</div>
+                                <h3 className="text-white text-4xl md:text-5xl font-black tracking-tighter leading-[0.8] uppercase italic">Building<br />the Future</h3>
                             </div>
                         </motion.div>
 
-                        {/* Right: Clean Minimalist List */}
-                        <div className="lg:col-span-5 grid grid-cols-1 gap-2 mt-8">
-                            {benefits.map((benefit, i) => (
-                                <motion.div
-                                    key={i}
-                                    initial={{ opacity: 0, x: 20 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: i * 0.05 }}
-                                    className="group flex flex-col p-2 hover:border-emerald-500/40 hover:shadow-xl hover:shadow-emerald-500/5 transition-all duration-500"
-                                >
-                                    <h3 className="text-lg font-bold text-zinc-900 uppercase tracking-tight italic leading-tight">
-                                        {benefit}
-                                    </h3>
-                                </motion.div>
-                            ))}
+                        {/* Right: Clean Minimalist List - More space for text */}
+                        <div className="md:col-span-7 lg:col-span-7">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-x-1 gap-y-1">
+                                {benefits.map((benefit: string, i: number) => (
+                                    <motion.div
+                                        key={i}
+                                        initial={{ opacity: 0, x: 20 }}
+                                        whileInView={{ opacity: 1, x: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ delay: i * 0.05 }}
+                                        className="group flex items-center gap-3 p-3 rounded-2xl hover:bg-white hover:border-emerald-500/20 transition-all duration-300"
+                                    >
+                                        <div className="w-2 h-2 rounded-full bg-emerald-500/50 group-hover:bg-emerald-500 shrink-0"></div>
+                                        <h3 className="text-sm font-bold text-zinc-900 uppercase tracking-tight italic leading-tight">
+                                            {benefit}
+                                        </h3>
+                                    </motion.div>
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -634,93 +644,40 @@ export default function CareersClient({ locale, benefits, positions, translation
                         </div>
                     </div>
 
-                    <AnimatePresence mode="wait">
-                        {viewMode === 'all' ? (
-                            <motion.div
-                                key={`all-${selectedDept}-${searchTerm}`}
-                                variants={containerVariants}
-                                initial="hidden"
-                                animate="show"
-                                exit={{ opacity: 0 }}
-                                className="space-y-3"
-                            >
-                                {filteredPositions.length > 0 ? (
-                                    filteredPositions.map((pos) => (
+                    <AnimatePresence mode="popLayout">
+                        <motion.div
+                            key={`list-${selectedDept}-${searchTerm}-${livePositions.length}`}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="space-y-3"
+                        >
+                            {filteredPositions.length > 0 ? (
+                                filteredPositions.map((pos, idx) => {
+                                    // Debug Check for positions (Check your Console in DevTools)
+                                    // if (idx === 0) console.log("Rendering Position Sample:", pos);
+
+                                    return (
                                         <JobCard
-                                            key={pos.id}
+                                            key={pos.id || `job-idx-${idx}`}
                                             pos={pos}
                                             isExpanded={expandedPositions.includes(pos.id)}
                                             onToggle={() => togglePosition(pos.id)}
                                             translations={translations}
                                         />
-                                    ))
-                                ) : (
-                                    <div className="text-center py-16 border border-dashed border-white/10 rounded-2xl">
-                                        <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-zinc-900 mb-3 text-zinc-600">
-                                            <Search size={20} />
-                                        </div>
-                                        <p className="text-zinc-500 font-bold text-xs uppercase tracking-widest">
-                                            {translations.client?.no_results || "No positions found matching criteria"}
-                                        </p>
+                                    );
+                                })
+                            ) : (
+                                <div className="text-center py-16 border border-dashed border-white/10 rounded-2xl">
+                                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-zinc-900 mb-3 text-zinc-600">
+                                        <Search size={20} />
                                     </div>
-                                )}
-                            </motion.div>
-                        ) : (
-                            <motion.div
-                                key={`category-${selectedDept}-${searchTerm}`}
-                                variants={containerVariants}
-                                initial="hidden"
-                                animate="show"
-                                exit={{ opacity: 0 }}
-                                className="space-y-12"
-                            >
-                                {(() => {
-                                    // Group filtered positions by department
-                                    const availableDepts = Array.from(new Set(filteredPositions.map(p => p.dept))).filter(Boolean);
-
-                                    if (availableDepts.length === 0) {
-                                        return (
-                                            <div className="text-center py-16 border border-dashed border-white/10 rounded-2xl">
-                                                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-zinc-900 mb-3 text-zinc-600">
-                                                    <Search size={20} />
-                                                </div>
-                                                <p className="text-zinc-500 font-bold text-xs uppercase tracking-widest">
-                                                    {translations.client?.no_results || "No positions found matching criteria"}
-                                                </p>
-                                            </div>
-                                        );
-                                    }
-
-                                    return availableDepts.map((dept) => (
-                                        <div key={dept} className="space-y-6">
-                                            <div className="flex items-center gap-4">
-                                                <h3 className="text-xl md:text-2xl font-black text-white italic italic-none tracking-tighter uppercase">
-                                                    {dept}
-                                                </h3>
-                                                <div className="h-[1px] flex-grow bg-white/5"></div>
-                                                <div className="text-zinc-600 text-[9px] font-black tracking-widest uppercase">
-                                                    {filteredPositions.filter(p => p.dept === dept).length} SLOT(S)
-                                                </div>
-                                            </div>
-
-                                            <div className="grid grid-cols-1 gap-3">
-                                                {filteredPositions
-                                                    .filter(p => p.dept === dept)
-                                                    .map((pos) => (
-                                                        <JobCard
-                                                            key={pos.id}
-                                                            pos={pos}
-                                                            isExpanded={expandedPositions.includes(pos.id)}
-                                                            onToggle={() => togglePosition(pos.id)}
-                                                            translations={translations}
-                                                        />
-                                                    ))}
-                                            </div>
-                                        </div>
-                                    ));
-                                })()}
-                            </motion.div>
-                        )}
+                                    <p className="text-zinc-500 font-bold text-xs uppercase tracking-widest">
+                                        {translations.client?.no_results || "No positions found matching criteria"}
+                                    </p>
+                                </div>
+                            )}
+                        </motion.div>
                     </AnimatePresence>
                 </div>
             </section>

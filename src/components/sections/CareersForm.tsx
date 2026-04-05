@@ -110,11 +110,15 @@ export function CareersForm() {
 
                     const response = await fetch(GAS_WEB_APP_URL, {
                         method: 'POST',
-                        mode: 'cors',
+                        mode: 'no-cors',
+                        cache: 'no-cache',
                         headers: {
-                            'Content-Type': 'text/plain;charset=utf-8',
+                            'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify(payload)
+                        body: JSON.stringify({
+                            ...payload,
+                            key: process.env.NEXT_PUBLIC_GAS_API_KEY
+                        }),
                     });
 
                     console.log(`3. Response status (Attempt ${attempt}):`, response.status, response.statusText);

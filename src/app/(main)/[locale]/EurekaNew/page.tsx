@@ -1,6 +1,8 @@
 import { getTranslations } from "next-intl/server";
 import NewsArchiveClient from "./NewsArchiveClient";
 import newsDataRaw from "@/data/news.json";
+import { GAS_WEB_APP_URL } from "@/lib/constants";
+import { getGoogleDriveDirectLink } from "@/lib/googleDriveUtils";
 
 interface PageProps {
     params: Promise<{
@@ -23,19 +25,60 @@ export default async function NewsArchivePage({ params }: PageProps) {
     const { locale } = await params;
     const t = await getTranslations({ locale });
     
-    const typedNewsData = newsDataRaw as unknown as NewsData;
-    const keys = Object.keys(newsDataRaw).filter(key => !key.startsWith('_'));
-    const allNews = keys.map(key => {
-        const itemData = typedNewsData[key];
-        return {
-            id: key,
-            title: itemData.title[locale as 'th' | 'en'] || itemData.title.en,
-            date: itemData.date[locale as 'th' | 'en'] || itemData.date.en,
-            postedDate: itemData.postedDate,
-            desc: itemData.desc[locale as 'th' | 'en'] || itemData.desc.en,
-            images: itemData.images || ["/images/Our_Legacy.webp"],
-        };
-    }).sort((a, b) => {
+    // Fetch dynamic News from Google Sheets
+    let allNews: any[] = [];
+    let isFallback = false;
+
+    try {
+        const apiKey = process.env.GAS_API_KEY || "";
+        const response = await fetch(`${GAS_WEB_APP_URL}?sheet=EA-NEWS&key=${apiKey}`, {
+            next: { revalidate: 60 }
+        });
+
+        if (response.ok) {
+            const remoteNews = await response.json();
+            if (Array.isArray(remoteNews) && remoteNews.length > 0) {
+                allNews = remoteNews.map((item: any) => ({
+                    id: String(item.id),
+                    title: locale === 'th' ? (item.title_th || '') : (item.title_en || ''),
+                    date: locale === 'th' ? (item.date_th || '') : (item.date_en || ''),
+                    postedDate: item.posted_date,
+                    desc: locale === 'th' ? (item.desc_th || '') : (item.desc_en || ''),
+                    // Map multiple images and convert Drive links
+                    images: Array.isArray(item.images) 
+                        ? item.images.map((u: string) => getGoogleDriveDirectLink(u))
+                        : (item.images ? [getGoogleDriveDirectLink(item.images)] : ["/images/Our_Legacy.webp"]),
+                }));
+            } else {
+                isFallback = true;
+            }
+        } else {
+            isFallback = true;
+        }
+    } catch (error) {
+        console.error("News fetch error:", error);
+        isFallback = true;
+    }
+
+    // Fallback to local JSON if sheets fails
+    if (isFallback) {
+        const typedNewsData = newsDataRaw as unknown as NewsData;
+        const keys = Object.keys(newsDataRaw).filter(key => !key.startsWith('_'));
+        allNews = keys.map(key => {
+            const itemData = typedNewsData[key];
+            return {
+                id: key,
+                title: itemData.title[locale as 'th' | 'en'] || itemData.title.en,
+                date: itemData.date[locale as 'th' | 'en'] || itemData.date.en,
+                postedDate: itemData.postedDate,
+                desc: itemData.desc[locale as 'th' | 'en'] || itemData.desc.en,
+                images: itemData.images || ["/images/Our_Legacy.webp"],
+            };
+        });
+    }
+
+    // Final sort
+    allNews.sort((a, b) => {
         const dateA = a.postedDate ? new Date(a.postedDate).getTime() : 0;
         const dateB = b.postedDate ? new Date(b.postedDate).getTime() : 0;
         return dateB - dateA;
