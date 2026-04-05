@@ -91,6 +91,7 @@ export function CareersForm() {
             console.log("1. Preparing payload...");
 
             const payload = {
+                type: 'careers', // Explicitly specify form type
                 firstName: formData.firstName,
                 lastName: formData.lastName,
                 name: `${formData.firstName} ${formData.lastName}`,
@@ -99,19 +100,14 @@ export function CareersForm() {
                 position: formData.position,
                 message: formData.message,
                 pdpaAccepted: true,
-                _honeypot: honeypot, // Send to server to check too
-                _origin: window.location.origin // ส่งต้นทางไปยืนยันกับ Apps Script
+                _honeypot: honeypot,
+                _origin: window.location.origin
             };
 
             const MAX_RETRIES = 3;
             for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
                 try {
-                    console.log("🚀 Submitting Application to Google");
-                    console.log("DEBUG - GAS Config:", { 
-                        url: !!GAS_WEB_APP_URL, 
-                        hasApiKey: !!process.env.NEXT_PUBLIC_GAS_API_KEY 
-                    });
-                    console.log(`2. Sending request to GAS URL... (Attempt ${attempt}/${MAX_RETRIES})`);
+                    console.info("Submitting application...");
 
                     await fetch(GAS_WEB_APP_URL, {
                         method: 'POST',

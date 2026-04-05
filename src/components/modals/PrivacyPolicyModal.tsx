@@ -93,7 +93,7 @@ const ContentSection = ({ t, lang }: { t: typeof thMessages.privacy, lang: 'th' 
             <h3 className="text-lg font-bold text-zinc-900 mb-2">{t.contact.title}</h3>
             <p className="text-zinc-600 text-sm mb-4">{t.contact.desc}</p>
             <div className="flex flex-wrap gap-4 text-sm">
-                <a href="mailto:HR@eurekaautomation.co.th" className="flex items-center gap-2 text-zinc-600 hover:text-emerald-600 font-medium bg-zinc-50 px-3 py-2 rounded-lg">
+                <a href="mailto:hr@eurekaautomation.co.th" className="flex items-center gap-2 text-zinc-600 hover:text-emerald-600 font-medium bg-zinc-50 px-3 py-2 rounded-lg">
                     <Mail size={16} />
                     HR@eurekaautomation.co.th
                 </a>
