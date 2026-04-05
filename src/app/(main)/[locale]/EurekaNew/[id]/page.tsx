@@ -3,12 +3,27 @@ import { notFound } from "next/navigation";
 import newsDataRaw from "@/data/news.json";
 import { GAS_WEB_APP_URL } from "@/lib/constants";
 import { getGoogleDriveDirectLink, processNewsContent } from "@/lib/googleDriveUtils";
+import { NewsItem } from "./NewsDetailClient";
 
 interface PageProps {
     params: Promise<{
         locale: string;
         id: string;
     }>;
+}
+
+interface RawNewsItem {
+    id: string | number;
+    title_th?: string;
+    title_en?: string;
+    date_th?: string;
+    date_en?: string;
+    posted_date?: string;
+    desc_th?: string;
+    desc_en?: string;
+    images?: string | string[];
+    content_th?: string | string[];
+    content_en?: string | string[];
 }
 
 interface NewsData {
@@ -22,13 +37,28 @@ interface NewsData {
     };
 }
 
-// Allow dynamic params so new news in Google Sheets work immediately
-export const dynamicParams = true;
+// In static export mode, all paths must be pre-rendered
+export const dynamicParams = false;
 
-// Pre-render static paths for local JSON data (remains fast for known news)
+// Pre-render static paths for local JSON data and Google Sheets data
 export async function generateStaticParams() {
     const locales = ['en', 'th'] as const;
-    const keys = Object.keys(newsDataRaw).filter(key => !key.startsWith('_'));
+    let keys = Object.keys(newsDataRaw).filter(key => !key.startsWith('_'));
+
+    // Try to fetch remote IDs to pre-render them
+    try {
+        const apiKey = process.env.GAS_API_KEY || "";
+        const response = await fetch(`${GAS_WEB_APP_URL}?sheet=EA-NEWS&key=${apiKey}`);
+        if (response.ok) {
+            const remoteNews = await response.json();
+            if (Array.isArray(remoteNews)) {
+                const remoteKeys = remoteNews.map((n: { id: string | number }) => String(n.id));
+                keys = Array.from(new Set([...keys, ...remoteKeys]));
+            }
+        }
+    } catch (e) {
+        console.error("Static params fetch error:", e);
+    }
     
     const params = locales.flatMap(locale => 
         keys.map(id => ({ locale, id }))
@@ -40,8 +70,8 @@ export async function generateStaticParams() {
 export default async function NewsDetailPage({ params }: PageProps) {
     const { locale, id } = await params;
     
-    let item: any = null;
-    let otherNews: any[] = [];
+    let item: NewsItem | null = null;
+    let otherNews: NewsItem[] = [];
     let isFallback = false;
 
     try {
@@ -54,35 +84,34 @@ export default async function NewsDetailPage({ params }: PageProps) {
             const remoteNews = await response.json();
             if (Array.isArray(remoteNews)) {
                 // Find current item
-                const remoteItem = remoteNews.find(n => String(n.id) === id);
+                const remoteItem = remoteNews.find((n: RawNewsItem) => String(n.id) === id);
                 if (remoteItem) {
                     const rawContent = locale === 'th' ? (remoteItem.content_th || '') : (remoteItem.content_en || '');
                     // Handle both array and newline string formats
-                    const contentArray = typeof rawContent === 'string' ? rawContent.split('\n') : rawContent;
+                    const contentArray = typeof rawContent === 'string' ? rawContent.split('\n') : (rawContent as string[]);
                     
                     item = {
                         id,
-                        title: locale === 'th' ? (remoteItem.title_th || '') : (remoteItem.title_en || ''),
-                        date: locale === 'th' ? (remoteItem.date_th || '') : (remoteItem.date_en || ''),
-                        postedDate: remoteItem.posted_date,
-                        description: locale === 'th' ? (remoteItem.desc_th || '') : (remoteItem.desc_en || ''),
+                        title: locale === 'th' ? (String(remoteItem.title_th) || '') : (String(remoteItem.title_en) || ''),
+                        date: locale === 'th' ? (String(remoteItem.date_th) || '') : (String(remoteItem.date_en) || ''),
+                        postedDate: String(remoteItem.posted_date || ""),
                         images: Array.isArray(remoteItem.images) 
                             ? remoteItem.images.map((u: string) => getGoogleDriveDirectLink(u))
-                            : [getGoogleDriveDirectLink(remoteItem.images)],
+                            : [getGoogleDriveDirectLink(String(remoteItem.images || ""))],
                         content: processNewsContent(contentArray),
                         paragraphs: processNewsContent(contentArray)
                     };
                 }
 
                 // Map other news for sidebar/bottom
-                otherNews = remoteNews.map((n: any) => ({
+                otherNews = remoteNews.map((n: RawNewsItem) => ({
                     id: String(n.id),
-                    title: locale === 'th' ? (n.title_th || '') : (n.title_en || ''),
-                    date: locale === 'th' ? (n.date_th || '') : (n.date_en || ''),
-                    postedDate: n.posted_date || "",
+                    title: locale === 'th' ? (String(n.title_th) || '') : (String(n.title_en) || ''),
+                    date: locale === 'th' ? (String(n.date_th) || '') : (String(n.date_en) || ''),
+                    postedDate: String(n.posted_date || ""),
                     images: Array.isArray(n.images) 
                         ? n.images.map((u: string) => getGoogleDriveDirectLink(u))
-                        : [getGoogleDriveDirectLink(n.images)],
+                        : [getGoogleDriveDirectLink(String(n.images || ""))],
                     paragraphs: []
                 }));
             } else {
@@ -108,7 +137,6 @@ export default async function NewsDetailPage({ params }: PageProps) {
             title: itemData.title[locale as 'th' | 'en'] || itemData.title.en,
             date: itemData.date[locale as 'th' | 'en'] || itemData.date.en,
             postedDate: itemData.postedDate,
-            description: itemData.desc[locale as 'th' | 'en'] || itemData.desc.en,
             images: itemData.images || ["/images/Our_Legacy.webp"],
             content: itemData.content?.[locale as 'th' | 'en'] || itemData.content?.en || [],
             paragraphs: itemData.content?.[locale as 'th' | 'en'] || itemData.content?.en || []

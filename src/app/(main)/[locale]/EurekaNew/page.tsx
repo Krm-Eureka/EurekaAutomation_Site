@@ -3,11 +3,26 @@ import NewsArchiveClient from "./NewsArchiveClient";
 import newsDataRaw from "@/data/news.json";
 import { GAS_WEB_APP_URL } from "@/lib/constants";
 import { getGoogleDriveDirectLink } from "@/lib/googleDriveUtils";
+import { NewsItem } from "./NewsArchiveClient";
 
 interface PageProps {
     params: Promise<{
         locale: string;
     }>;
+}
+
+interface RawNewsItem {
+    id: string | number;
+    title_th?: string;
+    title_en?: string;
+    date_th?: string;
+    date_en?: string;
+    posted_date?: string;
+    desc_th?: string;
+    desc_en?: string;
+    images?: string | string[];
+    content_th?: string;
+    content_en?: string;
 }
 
 interface NewsData {
@@ -26,7 +41,7 @@ export default async function NewsArchivePage({ params }: PageProps) {
     const t = await getTranslations({ locale });
     
     // Fetch dynamic News from Google Sheets
-    let allNews: any[] = [];
+    let allNews: NewsItem[] = [];
     let isFallback = false;
 
     try {
@@ -38,16 +53,16 @@ export default async function NewsArchivePage({ params }: PageProps) {
         if (response.ok) {
             const remoteNews = await response.json();
             if (Array.isArray(remoteNews) && remoteNews.length > 0) {
-                allNews = remoteNews.map((item: any) => ({
+                allNews = remoteNews.map((item: RawNewsItem) => ({
                     id: String(item.id),
-                    title: locale === 'th' ? (item.title_th || '') : (item.title_en || ''),
-                    date: locale === 'th' ? (item.date_th || '') : (item.date_en || ''),
-                    postedDate: item.posted_date,
-                    desc: locale === 'th' ? (item.desc_th || '') : (item.desc_en || ''),
+                    title: locale === 'th' ? (String(item.title_th) || '') : (String(item.title_en) || ''),
+                    date: locale === 'th' ? (String(item.date_th) || '') : (String(item.date_en) || ''),
+                    postedDate: String(item.posted_date || ""),
+                    desc: locale === 'th' ? (String(item.desc_th) || '') : (String(item.desc_en) || ''),
                     // Map multiple images and convert Drive links
                     images: Array.isArray(item.images) 
                         ? item.images.map((u: string) => getGoogleDriveDirectLink(u))
-                        : (item.images ? [getGoogleDriveDirectLink(item.images)] : ["/images/Our_Legacy.webp"]),
+                        : (item.images ? [getGoogleDriveDirectLink(String(item.images))] : ["/images/Our_Legacy.webp"]),
                 }));
             } else {
                 isFallback = true;

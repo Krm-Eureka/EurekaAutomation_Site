@@ -6,7 +6,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { GAS_WEB_APP_URL } from '@/lib/constants';
 import Image from 'next/image';
 import { CareersForm } from "@/components/sections/CareersForm";
-import { MapPin, Clock, ChevronRight, CheckCircle2, List, Grid3x3, Briefcase, GraduationCap, Coins, Search, ChevronDown, Share2 } from "lucide-react";
+import { MapPin, Clock, ChevronRight, CheckCircle2, List, Briefcase, GraduationCap, Coins, Search, ChevronDown, Share2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface CareerPosition {
@@ -59,16 +59,6 @@ interface CareersClientProps {
 }
 
 // Animation Variants
-const containerVariants = {
-    hidden: { opacity: 0 },
-    show: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.1
-        }
-    }
-};
-
 const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     show: { opacity: 1, y: 0, transition: { duration: 0.5 } }

@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import { withBasePath } from "@/lib/utils";
 
-interface NewsItem {
+export interface NewsItem {
     id: string;
     title: string;
     date: string;
