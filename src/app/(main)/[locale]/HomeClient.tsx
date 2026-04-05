@@ -90,6 +90,12 @@ export default function HomeClient({ locale }: { locale: string }) {
             _origin: typeof window !== 'undefined' ? window.location.origin : ''
         };
 
+        console.log("🚀 Submitting Contact Form to GAS...");
+        console.log("DEBUG - GAS Config:", { 
+            url: !!GAS_WEB_APP_URL, 
+            hasApiKey: !!process.env.NEXT_PUBLIC_GAS_API_KEY 
+        });
+        
         const MAX_RETRIES = 3;
         for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
             try {

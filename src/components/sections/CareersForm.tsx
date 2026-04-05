@@ -106,6 +106,11 @@ export function CareersForm() {
             const MAX_RETRIES = 3;
             for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
                 try {
+                    console.log("🚀 Submitting Application to Google");
+                    console.log("DEBUG - GAS Config:", { 
+                        url: !!GAS_WEB_APP_URL, 
+                        hasApiKey: !!process.env.NEXT_PUBLIC_GAS_API_KEY 
+                    });
                     console.log(`2. Sending request to GAS URL... (Attempt ${attempt}/${MAX_RETRIES})`);
 
                     await fetch(GAS_WEB_APP_URL, {
