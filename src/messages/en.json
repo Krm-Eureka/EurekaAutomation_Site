@@ -270,6 +270,7 @@
             "title": "News & Insights",
             "archive_title": "News Archive",
             "view_all": "View All News",
+            "fallbackTag": "(Local Data)",
             "items": {}
         }
     },
@@ -312,10 +313,19 @@
             "firstName": "First Name",
             "lastName": "Last Name",
             "email": "Email",
-            "company": "Company",
+            "phone": "Phone Number",
+            "company": "Company Name (Optional)",
             "subject": "Subject",
             "message": "Message",
             "submit": "Send Message",
+            "sending": "Sending...",
+            "success_title": "Message Sent Successfully!",
+            "success_desc": "Thank you for your interest in our innovations. Our engineers will get back to you shortly via email or phone.",
+            "send_more": "Send Another Message",
+            "processing": "Processing your request...",
+            "retrying": "System is busy.\\nAutomatically retrying (Attempt {count}/3)...",
+            "error_unauthorized": "Unauthorized access to Server",
+            "error_network": "Failed to connect to Server. Please try again or contact us via Line OA.",
             "options": {
                 "custom": "Machine Design",
                 "cnc": "Robotic Automation",

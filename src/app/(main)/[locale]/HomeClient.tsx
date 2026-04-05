@@ -7,6 +7,7 @@ import {
     Phone, Mail, MapPin,
     MessageSquare,
     ChevronLeft, ChevronRight,
+    Loader2, CheckCircle2, AlertCircle
 } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -17,6 +18,7 @@ import CountUp from 'react-countup';
 import { Link } from '@/i18n/routing';
 import VideoGallery from "@/components/sections/VideoGallery";
 import ContactModal from "@/components/modals/ContactModal";
+import { GAS_WEB_APP_URL } from "@/lib/constants";
 import { clientLogos } from "@/data/clients";
 import videoDataRaw from "@/data/videos.json";
 import newsDataRaw from "@/data/news.json";
@@ -57,6 +59,67 @@ export default function HomeClient({ locale }: { locale: string }) {
     const [news, setNews] = useState<NewsItem[]>([]);
     const [isLoadingNews, setIsLoadingNews] = useState(true);
     const videoRef = useRef<HTMLVideoElement>(null);
+
+    // Contact Form State
+    const [contactStatus, setContactStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+    const [contactRetryCount, setContactRetryCount] = useState(0);
+    const [contactErrorMessage, setContactErrorMessage] = useState('');
+    const [contactFormData, setContactFormData] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        company: '',
+        message: ''
+    });
+
+    const handleContactChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setContactFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    };
+
+    const handleContactSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setContactStatus('loading');
+        setContactRetryCount(0);
+
+        const payload = {
+            ...contactFormData,
+            name: `${contactFormData.firstName} ${contactFormData.lastName}`,
+            type: 'contact',
+            recipient: 'witsarut.sx@gmail.com',
+            _origin: typeof window !== 'undefined' ? window.location.origin : ''
+        };
+
+        const MAX_RETRIES = 3;
+        for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+            try {
+                const response = await fetch(GAS_WEB_APP_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    cache: 'no-cache',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        ...payload,
+                        key: process.env.NEXT_PUBLIC_GAS_API_KEY
+                    }),
+                });
+
+                // Since mode is 'no-cors', we can't reliably check response.ok or status
+                // But we assume if it finishes without error, it's sent to the queue
+                setContactStatus('success');
+                setContactFormData({ firstName: '', lastName: '', email: '', phone: '', company: '', message: '' });
+                break;
+            } catch (err: unknown) {
+                if (attempt === MAX_RETRIES) {
+                    setContactStatus('error');
+                    setContactErrorMessage(err instanceof Error ? err.message : 'Submission failed');
+                } else {
+                    setContactRetryCount(attempt);
+                    await new Promise(resolve => setTimeout(resolve, 3000));
+                }
+            }
+        }
+    };
 
     useEffect(() => {
         if (videoRef.current) {
@@ -953,36 +1016,139 @@ export default function HomeClient({ locale }: { locale: string }) {
 
                             {/* Contact Form OR Careers CTA inside Contact right-side? */}
                             <motion.div
-                                className="bg-paper-warm p-6 md:p-8 rounded-[24px] shadow-[0_20px_40px_rgba(0,0,0,0.04)] border border-black/5"
+                                className="bg-paper-warm p-6 md:p-8 rounded-[24px] shadow-[0_20px_40px_rgba(0,0,0,0.04)] border border-black/5 relative overflow-hidden"
                                 initial={{ opacity: 0, scale: 0.95 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.2, duration: 0.8 }}
                             >
-                                <h3 className="text-2xl font-black text-ink mb-8">{tContact('title')}</h3>
-                                <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-                                    <div className="grid md:grid-cols-2 gap-6">
-                                        <div>
-                                            <label className="block text-[13px] font-bold text-ink uppercase tracking-wider mb-2">{tContact('form.firstName')}</label>
-                                            <input type="text" placeholder="John" className="w-full bg-white border border-black/10 rounded-xl px-4 py-3 placeholder-black/20 focus:outline-none focus:border-green-primary focus:ring-1 focus:ring-green-primary transition-all text-[15px]" />
+                                {contactStatus === 'loading' && (
+                                    <div className="absolute inset-0 bg-white/80 backdrop-blur-[2px] z-50 flex flex-col items-center justify-center space-y-4">
+                                        <Loader2 className="text-green-primary animate-spin" size={48} />
+                                        <p className="font-bold text-ink animate-pulse text-center px-4 whitespace-pre-line">
+                                            {contactRetryCount > 0 ? tContact('form.retrying', { count: contactRetryCount }) : tContact('form.processing')}
+                                        </p>
+                                    </div>
+                                )}
+
+                                {contactStatus === 'success' ? (
+                                    <div className="py-12 text-center space-y-6 animate-in fade-in zoom-in duration-500 h-full flex flex-col items-center justify-center">
+                                        <div className="w-20 h-20 bg-green-primary rounded-full flex items-center justify-center mx-auto mb-2 shadow-lg shadow-green-primary/20">
+                                            <CheckCircle2 className="text-white" size={40} />
                                         </div>
-                                        <div>
-                                            <label className="block text-[13px] font-bold text-ink uppercase tracking-wider mb-2">{tContact('form.lastName')}</label>
-                                            <input type="text" placeholder="Doe" className="w-full bg-white border border-black/10 rounded-xl px-4 py-3 placeholder-black/20 focus:outline-none focus:border-green-primary focus:ring-1 focus:ring-green-primary transition-all text-[15px]" />
+                                        <div className="space-y-2">
+                                            <h3 className="text-2xl font-black text-ink">
+                                                {tContact('form.success_title')}
+                                            </h3>
+                                            <p className="text-ink-muted max-w-sm mx-auto font-medium leading-relaxed">
+                                                {tContact('form.success_desc')}
+                                            </p>
                                         </div>
+                                        <button
+                                            onClick={() => setContactStatus('idle')}
+                                            className="px-8 py-3 bg-zinc-900 hover:bg-green-primary text-white rounded-xl font-bold text-xs uppercase tracking-widest transition-all shadow-xl hover:-translate-y-1"
+                                        >
+                                            {tContact('form.send_more')}
+                                        </button>
                                     </div>
-                                    <div>
-                                        <label className="block text-[13px] font-bold text-ink uppercase tracking-wider mb-2">{tContact('form.email')}</label>
-                                        <input type="email" placeholder="john@example.com" className="w-full bg-white border border-black/10 rounded-xl px-4 py-3 placeholder-black/20 focus:outline-none focus:border-green-primary focus:ring-1 focus:ring-green-primary transition-all text-[15px]" />
-                                    </div>
-                                    <div>
-                                        <label className="block text-[13px] font-bold text-ink uppercase tracking-wider mb-2">{tContact('form.message')}</label>
-                                        <textarea rows={4} placeholder="..." className="w-full bg-white border border-black/10 rounded-xl px-4 py-3 placeholder-black/20 focus:outline-none focus:border-green-primary focus:ring-1 focus:ring-green-primary transition-all text-[15px] resize-none"></textarea>
-                                    </div>
-                                    <button type="submit" className="w-full bg-green-primary hover:bg-green-dark text-white rounded-xl py-4 font-bold transition-colors flex justify-center items-center gap-2">
-                                        {tContact('form.submit')} <ArrowRight size={18} />
-                                    </button>
-                                </form>
+                                ) : (
+                                    <>
+                                        <h3 className="text-2xl font-black text-ink mb-8">{tContact('title')}</h3>
+                                        <form className="space-y-6" onSubmit={handleContactSubmit}>
+                                            <div className="grid md:grid-cols-2 gap-6">
+                                                <div>
+                                                    <label className="block text-[13px] font-bold text-ink uppercase tracking-wider mb-2">{tContact('form.firstName')}</label>
+                                                    <input
+                                                        type="text"
+                                                        name="firstName"
+                                                        required
+                                                        placeholder="John"
+                                                        value={contactFormData.firstName}
+                                                        onChange={handleContactChange}
+                                                        className="w-full bg-white border border-black/10 rounded-xl px-4 py-3 placeholder-black/20 focus:outline-none focus:border-green-primary focus:ring-1 focus:ring-green-primary transition-all text-[15px]"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-[13px] font-bold text-ink uppercase tracking-wider mb-2">{tContact('form.lastName')}</label>
+                                                    <input
+                                                        type="text"
+                                                        name="lastName"
+                                                        required
+                                                        placeholder="Doe"
+                                                        value={contactFormData.lastName}
+                                                        onChange={handleContactChange}
+                                                        className="w-full bg-white border border-black/10 rounded-xl px-4 py-3 placeholder-black/20 focus:outline-none focus:border-green-primary focus:ring-1 focus:ring-green-primary transition-all text-[15px]"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="grid md:grid-cols-2 gap-6">
+                                                <div>
+                                                    <label className="block text-[13px] font-bold text-ink uppercase tracking-wider mb-2">{tContact('form.email')}</label>
+                                                    <input
+                                                        type="email"
+                                                        name="email"
+                                                        required
+                                                        placeholder="john@example.com"
+                                                        value={contactFormData.email}
+                                                        onChange={handleContactChange}
+                                                        className="w-full bg-white border border-black/10 rounded-xl px-4 py-3 placeholder-black/20 focus:outline-none focus:border-green-primary focus:ring-1 focus:ring-green-primary transition-all text-[15px]"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-[13px] font-bold text-ink uppercase tracking-wider mb-2">{tContact('form.phone')}</label>
+                                                    <input
+                                                        type="tel"
+                                                        name="phone"
+                                                        required
+                                                        placeholder="0XX-XXX-XXXX"
+                                                        value={contactFormData.phone}
+                                                        onChange={handleContactChange}
+                                                        className="w-full bg-white border border-black/10 rounded-xl px-4 py-3 placeholder-black/20 focus:outline-none focus:border-green-primary focus:ring-1 focus:ring-green-primary transition-all text-[15px]"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label className="block text-[13px] font-bold text-ink uppercase tracking-wider mb-2">{tContact('form.company')}</label>
+                                                <input
+                                                    type="text"
+                                                    name="company"
+                                                    placeholder="Company Co., Ltd."
+                                                    value={contactFormData.company}
+                                                    onChange={handleContactChange}
+                                                    className="w-full bg-white border border-black/10 rounded-xl px-4 py-3 placeholder-black/20 focus:outline-none focus:border-green-primary focus:ring-1 focus:ring-green-primary transition-all text-[15px]"
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="block text-[13px] font-bold text-ink uppercase tracking-wider mb-2">{tContact('form.message')}</label>
+                                                <textarea
+                                                    name="message"
+                                                    rows={4}
+                                                    required
+                                                    placeholder="..."
+                                                    value={contactFormData.message}
+                                                    onChange={handleContactChange}
+                                                    className="w-full bg-white border border-black/10 rounded-xl px-4 py-3 placeholder-black/20 focus:outline-none focus:border-green-primary focus:ring-1 focus:ring-green-primary transition-all text-[15px] resize-none"
+                                                ></textarea>
+                                            </div>
+
+                                            {contactStatus === 'error' && (
+                                                <div className="p-4 bg-red-50 border border-red-100 text-red-700 rounded-xl flex items-center gap-3 text-xs font-bold animate-shake">
+                                                    <AlertCircle size={18} />
+                                                    <span>{contactErrorMessage}</span>
+                                                </div>
+                                            )}
+
+                                            <button
+                                                type="submit"
+                                                disabled={contactStatus === 'loading'}
+                                                className="w-full bg-green-primary hover:bg-green-dark text-white rounded-xl py-4 font-bold transition-colors flex justify-center items-center gap-2 disabled:opacity-50"
+                                            >
+                                                {contactStatus === 'loading' ? tContact('form.sending') : tContact('form.submit')}
+                                                <ArrowRight size={18} />
+                                            </button>
+                                        </form>
+                                    </>
+                                )}
                             </motion.div>
                         </div>
 
