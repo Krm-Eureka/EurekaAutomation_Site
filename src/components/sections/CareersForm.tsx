@@ -108,7 +108,7 @@ export function CareersForm() {
                 try {
                     console.log(`2. Sending request to GAS URL... (Attempt ${attempt}/${MAX_RETRIES})`);
 
-                    const response = await fetch(GAS_WEB_APP_URL, {
+                    await fetch(GAS_WEB_APP_URL, {
                         method: 'POST',
                         mode: 'no-cors',
                         cache: 'no-cache',
@@ -121,23 +121,8 @@ export function CareersForm() {
                         }),
                     });
 
-                    console.log(`3. Response status (Attempt ${attempt}):`, response.status, response.statusText);
-
-                    if (!response.ok) {
-                        if (response.status === 401) {
-                            throw new Error("401 Unauthorized: " + t('error_unauthorized'));
-                        }
-                        throw new Error(`Server returned ${response.status}: ${response.statusText}`);
-                    }
-
-                    const resultText = await response.text();
-                    console.log("4. Server response text:", resultText);
-
-                    if (resultText.toLowerCase().includes("error")) {
-                        throw new Error(resultText);
-                    }
-
-                    // Success
+                    // Since mode is 'no-cors', we cannot read the response body or status.
+                    // If the request doesn't throw a network error, we assume it reached GAS successfully.
                     setStatus('success');
                     console.info("🎉 Application sent successfully!");
                     setFormData({ firstName: '', lastName: '', email: '', phone: '', position: '', message: '' });
